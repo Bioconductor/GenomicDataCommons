@@ -15,6 +15,10 @@
     c("dbgap_accession_number", "disease_type", "released", "state",
       "primary_site", "project_id", "name")
 
+#' @param primary logical(1) when TRUE (default) return commonly
+#'     populated field names. Otherwise, return all field names
+#'     defined in the API.
+#' @rdname projects
 #' @export
 project_fields <- function(primary=TRUE) {
     if (primary)
@@ -27,6 +31,8 @@ project_fields <- function(primary=TRUE) {
 #'
 #' @param \dots (optional) additional parameters influencing project
 #'     selection. See \code{\link{parameters}}.
+#' @param fields character() vector of requested fields. See
+#'     \code{project_fields()} for defined fields.
 #'
 #' @importFrom stats setNames
 #' @importFrom httr content
@@ -40,7 +46,7 @@ project_fields <- function(primary=TRUE) {
 #' @export
 projects <- function(..., fields=project_fields())
 {
-    stopifnot(all(fields %in% project_fields(primar=FALSE)))
+    stopifnot(all(fields %in% project_fields(primary=FALSE)))
     fields0 <- paste(fields, collapse=",")
 
     response <- .gdc_get(
