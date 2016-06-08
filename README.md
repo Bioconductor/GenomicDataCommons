@@ -1,6 +1,6 @@
 # GenomicDataCommons
 
-Provide _R_ access to the NIH [Genomic Data Commons][] portal.
+Provide _R_ access to the NCI [Genomic Data Commons][] portal.
 
 This package is under development.
 
