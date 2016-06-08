@@ -2,11 +2,16 @@
 % Please edit documentation in R/constants.R
 \name{endpoints}
 \alias{endpoints}
+\alias{parameters}
 \title{Print available endpoints}
 \usage{
 endpoints()
+
+parameters()
 }
 \description{
 Print available endpoints
+
+Print available parameters
 }
 
