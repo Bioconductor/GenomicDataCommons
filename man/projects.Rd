@@ -13,4 +13,10 @@ selection. See \code{\link{parameters}}.}
 \description{
 Query GDC for projects
 }
+\examples{
+projects()                        # first 10 projects, as a data.frame
+df <- projects(from=10, size=20)  # projects 10, 11, ... 29
+dim(df)
+
+}
 

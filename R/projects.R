@@ -6,8 +6,15 @@
 #'
 #' @param \dots (optional) additional parameters influencing project
 #'     selection. See \code{\link{parameters}}.
-#' 
+#'
+#' @importFrom stats setNames
 #' @importFrom httr content
+#' @importFrom xml2 xml_find_all xml_text
+#'
+#' @examples
+#' projects()                        # first 10 projects, as a data.frame
+#' df <- projects(from=10, size=20)  # projects 10, 11, ... 29
+#' dim(df)
 #' 
 #' @export
 projects <- function(...) {

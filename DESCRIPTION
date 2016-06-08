@@ -1,12 +1,13 @@
 Package: GenomicDataCommons
 Type: Package
 Title: NIH / NCI Genomic Data Commons Access
+Description: Programmatically access the NIH / NCI Gneomic Data
+    Commons RESTful service.
 Version: 0.0.1
 Authors@R: c(
     person("Martin", "Morgan", email="martin.morgan@roswellpark.org",
         role=c("aut", "cre")))
 License: Artistic-2.0
-Imports:
-    httr
+Imports: stats, httr, xml2
 biocViews: DataImport, Sequencing
 RoxygenNote: 5.0.1
