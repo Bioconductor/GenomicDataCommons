@@ -6,6 +6,7 @@ Authors@R: c(
     person("Martin", "Morgan", email="martin.morgan@roswellpark.org",
         role=c("aut", "cre")))
 License: Artistic-2.0
-Imports: httr
+Imports:
+    httr
 biocViews: DataImport, Sequencing
-             
+RoxygenNote: 5.0.1
