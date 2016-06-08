@@ -2,6 +2,7 @@
 
 export(endpoints)
 export(parameters)
+export(project_fields)
 export(projects)
 export(status)
 importFrom(httr,GET)

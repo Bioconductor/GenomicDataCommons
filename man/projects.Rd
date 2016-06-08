@@ -4,7 +4,7 @@
 \alias{projects}
 \title{Query GDC for projects}
 \usage{
-projects(...)
+projects(..., fields = project_fields())
 }
 \arguments{
 \item{\dots}{(optional) additional parameters influencing project
