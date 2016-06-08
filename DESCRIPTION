@@ -1,0 +1,11 @@
+Package: GenomicDataCommons
+Type: Package
+Title: NIH / NCI Genomic Data Commons Access
+Version: 0.0.1
+Authors@R: c(
+    person("Martin", "Morgan", email="martin.morgan@roswellpark.org",
+        role=c("aut", "cre")))
+License: Artistic-2.0
+Imports: httr
+biocViews: DataImport, Sequencing
+             
