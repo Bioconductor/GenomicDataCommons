@@ -20,10 +20,18 @@
 projects <- function(...) {
     response <- .gdc_get("projects", parameters=list(format="XML", ...))
     xml <- content(response, type="application/xml")
-    xpaths <- setNames(sprintf("//%s", .project_fields), .project_fields)
+
+    warnings <- as.character(xml_find_all(xml, "/response/warnings/text()"))
+    if (length(warnings) && nzchar(warnings))
+        warning("'projects' query warnings:\n",
+                paste(strwrap(warnings, indent=4, exdent=4), collapse="\n"))
+
+    xpaths <- setNames(sprintf("/response/data/hits/item/%s", .project_fields),
+                       .project_fields)
     fields <- lapply(xpaths, function(xpath) {
         nodes <- xml_find_all(xml, xpath)
         vapply(nodes, xml_text, character(1))
     })
+
     as.data.frame(fields, stringsAsFactors=FALSE)
 }
