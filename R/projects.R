@@ -55,8 +55,7 @@ projects <- function(..., fields=project_fields())
 
     warnings <- as.character(xml_find_all(xml, "/response/warnings/text()"))
     if (length(warnings) && nzchar(warnings))
-        warning("'projects' query warnings:\n",
-                paste(strwrap(warnings, indent=4, exdent=4), collapse="\n"))
+        warning("'projects' query warnings:\n", .wrapstr(warnings))
 
     xpaths <- setNames(sprintf("/response/data/hits/item/%s", fields), fields)
     columns <- lapply(xpaths, function(xpath) {
@@ -67,9 +66,12 @@ projects <- function(..., fields=project_fields())
 
     dropped <- fields[!fields %in% names(columns)]
     if (length(dropped))
-        warning("fields not available:\n",
-                paste(strwrap(paste(dropped, collapse=", "), indent=4, exdent=4),
-                      "\n"))
+        warning("fields not available:\n", .wrapstr(dropped))
+    if (!length(unique(lengths(columns)))) {
+        lens <- paste(sprintf("%s = %d", names(columns), lengths(columns)),
+                      collapse=", ")
+        stop("fields are different lengths:\n", .wrapstr(lens))
+    }
 
     as.data.frame(columns, stringsAsFactors=FALSE)
 }

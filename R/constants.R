@@ -7,25 +7,19 @@
     list(format="JSON", pretty=FALSE, fields=NULL, size=10L, from=1L,
          sort=NULL, filters=NULL, facets=NULL)
 
-.constants_format <- function(names) {
-    txt <- strwrap(paste(names, collapse=", "), indent=4, exdent=4)
-    paste(txt, collapse="\n")
-}
-
 #' Print available endpoints
 #'
 #' @rdname constants
 #' @export
 endpoints <- function()
-    cat("available endpoints:", .constants_format(.gdc_endpoint), sep="\n")
+    .cat0("available endpoints:\n", .wrapstr(.gdc_endpoint), "\n")
 
 #' Print available parameters
 #'
 #' @rdname constants
 #' @export
 parameters <- function()
-    cat("available parameters:", .constants_format(names(.gdc_parameters)),
-        sep="\n")
+    .cat0("available parameters:\n", .wrapstr(names(.gdc_parameters)), "\n")
 
 .parameter_string <- function(parameters) {
     if (is.null(parameters))
