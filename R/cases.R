@@ -19,7 +19,6 @@ case_fields <- function(primary=TRUE) {
         .case_fields
 }
 
-
 #' Query GDC for cases
 #'
 #' @param \dots (optional) additional parameters influence case
@@ -28,7 +27,7 @@ case_fields <- function(primary=TRUE) {
 #' @param fields character() vector of requested fields. See
 #'     \code{project_fields()} for defined fields.
 #'
-#'@examples
+#' @examples
 #' cases <- cases()
 #' cases
 #' cases[1]
