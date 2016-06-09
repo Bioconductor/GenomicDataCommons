@@ -1,16 +1,3 @@
-.project_all_fields <-
-    c("dbgap_accession_number", "disease_type", "name",
-      "primary_site", "program.dbgap_accession_number",
-      "program.name", "program.program_id", "project_id", "released",
-      "state", "summary.case_count",
-      "summary.data_categories.case_count",
-      "summary.data_categories.data_category",
-      "summary.data_categories.file_count",
-      "summary.experimental_strategies.case_count",
-      "summary.experimental_strategies.experimental_strategy",
-      "summary.experimental_strategies.file_count",
-      "summary.file_count", "summary.file_size")    
-
 .project_primary_fields <- 
     c("dbgap_accession_number", "disease_type", "released", "state",
       "primary_site", "project_id", "name")
@@ -18,13 +5,14 @@
 #' @param primary logical(1) when TRUE (default) return commonly
 #'     populated field names. Otherwise, return all field names
 #'     defined in the API.
+#' 
 #' @rdname projects
 #' @export
 project_fields <- function(primary=TRUE) {
     if (primary)
         .project_primary_fields
     else
-        .project_all_fields
+        .project_fields
 }
 
 #' Query GDC for projects
@@ -34,15 +22,12 @@ project_fields <- function(primary=TRUE) {
 #' @param fields character() vector of requested fields. See
 #'     \code{project_fields()} for defined fields.
 #'
-#' @importFrom stats setNames
-#' @importFrom httr content
-#' @importFrom xml2 xml_find_all xml_text
-#'
 #' @examples
 #' projects()                        # first 10 projects, as a data.frame
 #' df <- projects(from=10, size=20)  # projects 10, 11, ... 29
 #' dim(df)
 #' 
+#' @importFrom httr content
 #' @export
 projects <- function(..., fields=project_fields())
 {
@@ -53,25 +38,7 @@ projects <- function(..., fields=project_fields())
         "projects", parameters=list(format="XML", fields=fields0, ...))
     xml <- content(response, type="application/xml")
 
-    warnings <- as.character(xml_find_all(xml, "/response/warnings/text()"))
-    if (length(warnings) && nzchar(warnings))
-        warning("'projects' query warnings:\n", .wrapstr(warnings))
-
-    xpaths <- setNames(sprintf("/response/data/hits/item/%s", fields), fields)
-    columns <- lapply(xpaths, function(xpath) {
-        nodes <- xml_find_all(xml, xpath)
-        vapply(nodes, xml_text, character(1))
-    })
-    columns <- Filter(length, columns)
-
-    dropped <- fields[!fields %in% names(columns)]
-    if (length(dropped))
-        warning("fields not available:\n", .wrapstr(dropped))
-    if (!length(unique(lengths(columns)))) {
-        lens <- paste(sprintf("%s = %d", names(columns), lengths(columns)),
-                      collapse=", ")
-        stop("fields are different lengths:\n", .wrapstr(lens))
-    }
-
-    as.data.frame(columns, stringsAsFactors=FALSE)
+    warnings <- xml_find_all(xml, "/response/warnings/text()")
+    .response_warnings(warnings, "projects")
+    .response_xml_as_data_frame(xml, fields)
 }
