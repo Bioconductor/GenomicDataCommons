@@ -32,8 +32,8 @@
 #'
 #' @param uuids character() of GDC file UUIDs.
 #'
-#' @param destination_dir character(1) file path to an existing
-#'     directory for downloading files to.
+#' @param destination_dir character(1) file path to a directory for
+#'     downloading files.
 #'
 #' @param overwrite logical(1) default FALSE indicating whether
 #'     existing files with identical name should be over-written.
@@ -51,12 +51,11 @@
 #' setNames(file.size(files), names(files))
 #' @export
 gdcdata <-
-    function(uuids, destination_dir=tempdir(), overwrite=FALSE,
+    function(uuids, destination_dir=tempfile(), overwrite=FALSE,
              progress=interactive())
 {
     stopifnot(is.character(uuids))
-    stopifnot(is.character(destination_dir), length(destination_dir) == 1L,
-              nzchar(destination_dir), file.exists(destination_dir))
+    .dir_validate_or_create(destination_dir)
     endpoint <- "data"
     
     uuids <- trimws(uuids)
