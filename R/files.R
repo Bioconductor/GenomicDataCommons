@@ -8,7 +8,7 @@
 #'     populated field names. Otherwise, return all field names
 #'     defined in the API.
 #'
-#' @rdname cases
+#' @rdname files
 #' @export
 file_fields <- function(primary=TRUE) {
     if (primary)
