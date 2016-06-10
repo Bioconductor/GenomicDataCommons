@@ -7,6 +7,20 @@
     NULL
 }
 
+.response_json_as_list <- function(json, endpoint)
+{
+    type <- substr(endpoint, 1, nchar(endpoint) - 1L)
+    type_id <- sprintf("%s_id", type)
+    type_list <- sprintf("%ss_list", type)
+
+    hits <- json[["data"]][["hits"]]
+    names(hits) <- vapply(hits, "[[", character(1), type_id)
+    hits <- lapply(hits, "[[<-", type_id, NULL)
+    hits <- lapply(hits, lapply, unlist) # collapse field elt 'list'
+    class(hits) <- c(type_list, "gdc_list", "list")
+    hits
+}   
+
 #' @importFrom stats setNames
 #' @importFrom xml2 xml_find_all xml_text
 .response_xml_as_data_frame <- function(xml, fields)

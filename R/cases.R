@@ -25,7 +25,7 @@ case_fields <- function(primary=TRUE) {
 #'     selection. See \code{\link{parameters}}.
 #'
 #' @param fields character() vector of requested fields. See
-#'     \code{project_fields()} for defined fields.
+#'     \code{case_fields()} for defined fields.
 #'
 #' @examples
 #' cases <- cases()
@@ -46,11 +46,5 @@ cases <- function(..., fields=case_fields()) {
     json <- content(response, type="application/json")
 
     .response_warnings(json[["warnings"]], "cases")
-
-    cases <- json[["data"]][["hits"]]
-    names(cases) <- vapply(cases, "[[", character(1), "case_id")
-    cases <- lapply(cases, "[[<-", "case_id", NULL)
-    cases <- lapply(cases, lapply, unlist) # collapse field elt 'list'
-    class(cases) <- c("cases_list", "gdc_list", "list")
-    cases
+    .response_json_as_list(json, "cases")
 }
