@@ -14,6 +14,8 @@
 .gdc_put <- function() {
 }
 
+#' Extract header field element from httr response
+#' 
 #' @importFrom httr headers
 .gdc_header_elt <- function(response, field, element) {
     value <- headers(response)[[field]]
@@ -30,6 +32,8 @@
     value[[which(idx)]][[2]]
 }
     
+#' Download one file from GDC, renaming to remote filename
+#' 
 #' @importFrom httr GET write_disk stop_for_status
 .gdc_download_one <-
     function(uri, destination, overwrite, progress, base=.gdc_base)
@@ -44,9 +48,23 @@
     to <- file.path(dirname(destination), filename)
     if (overwrite && file.exists(to))
         unlink(to)
-    if (!file.rename(destination, to))
+
+    reason <- NULL
+    status <- withCallingHandlers({
+        file.rename(destination, to)
+    }, warning=function(w) {
+        reason <<- conditionMessage(w)
+        invokeRestart("muffleWarning")
+    })
+    unlink(destination)
+    if (!status)
         stop("failed to rename downloaded file:\n",
              "\n  from: '", destination, "'",
-             "\n  to: '", to, "'")
+             "\n  to: '", to, "'",
+             "\n  reason:",
+             "\n", .wrapstr(reason))
+    else if (!is.null(reason))
+        warning(reason)        # forward non-fatal file rename warning
+
     to
 }
