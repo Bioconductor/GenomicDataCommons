@@ -22,6 +22,10 @@ annotation_fields <- function(primary=TRUE) {
 #' @param \dots (optional) additional parameters influence annotation
 #'     selection. See \code{\link{parameters}}.
 #'
+#' @param token (optional) character(1) security token allowing access
+#'     to restricted data. See
+#'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
+#'
 #' @param fields character() vector of requested fields. See
 #'     \code{annotation_fields()} for defined fields.
 #'
@@ -33,14 +37,15 @@ annotation_fields <- function(primary=TRUE) {
 #' 
 #' @importFrom httr content
 #' @export
-annotations <- function(..., fields=annotation_fields()) {
+annotations <- function(..., token=NULL, fields=annotation_fields()) {
     stopifnot(all(fields %in% annotation_fields(primary=FALSE)))
     if (!"annotation_id" %in% fields)
         fields <- c("annotation_id", fields)
     fields0 <- paste(fields, collapse=",")
 
     response <- .gdc_get(
-        "annotations", parameters=list(format="JSON", fields=fields0, ...))
+        "annotations", parameters=list(format="JSON", fields=fields0, ...),
+        token=token)
     json <- content(response, type="application/json")
 
     .response_warnings(json[["warnings"]], "cases")

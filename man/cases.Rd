@@ -7,12 +7,16 @@
 \usage{
 case_fields(primary = TRUE)
 
-cases(..., fields = case_fields())
+cases(..., token = NULL, fields = case_fields())
 }
 \arguments{
 \item{primary}{logical(1) when TRUE (default) return commonly
 populated field names. Otherwise, return all field names
 defined in the API.}
+
+\item{token}{(optional) character(1) security token allowing access
+to restricted data. See
+\url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.}
 
 \item{fields}{character() vector of requested fields. See
 \code{case_fields()} for defined fields.}

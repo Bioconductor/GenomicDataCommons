@@ -5,7 +5,7 @@
 \title{Download GDC files}
 \usage{
 gdcdata(uuids, destination_dir = tempfile(), overwrite = FALSE,
-  progress = interactive())
+  progress = interactive(), token = NULL)
 }
 \arguments{
 \item{uuids}{character() of GDC file UUIDs.}
@@ -18,7 +18,11 @@ existing files with identical name should be over-written.}
 
 \item{progress}{logical(1) default TRUE in interactive sessions,
 FALSE otherwise indicating whether a progress par should be
-produced for each file download}
+produced for each file download.}
+
+\item{token}{(optional) character(1) security token allowing access
+to restricted data. See
+\url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.}
 }
 \description{
 Download one or more files from GDC. Files are downloaded using the

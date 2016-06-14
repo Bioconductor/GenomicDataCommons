@@ -22,6 +22,10 @@ project_fields <- function(primary=TRUE) {
 #' @param fields character() vector of requested fields. See
 #'     \code{project_fields()} for defined fields.
 #'
+#' @param token (optional) character(1) security token allowing access
+#'     to restricted data. See
+#'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
+#'
 #' @examples
 #' projects()                        # first 10 projects, as a data.frame
 #' df <- projects(from=10, size=20)  # projects 10, 11, ... 29
@@ -29,13 +33,14 @@ project_fields <- function(primary=TRUE) {
 #' 
 #' @importFrom httr content
 #' @export
-projects <- function(..., fields=project_fields())
+projects <- function(..., token=NULL, fields=project_fields())
 {
     stopifnot(all(fields %in% project_fields(primary=FALSE)))
     fields0 <- paste(fields, collapse=",")
 
     response <- .gdc_get(
-        "projects", parameters=list(format="XML", fields=fields0, ...))
+        "projects", parameters=list(format="XML", fields=fields0, ...),
+        token=token)
     xml <- content(response, type="application/xml")
 
     warnings <- xml_find_all(xml, "/response/warnings/text()")

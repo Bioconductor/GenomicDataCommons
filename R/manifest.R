@@ -10,12 +10,16 @@
 #'     the form \sQuote{gdc_manifest_20160610_12345.txt}, must not
 #'     exist.
 #'
+#' @param token (optional) character(1) security token allowing access
+#'     to restricted data. See
+#'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
+#'
 #' @examples
 #' uuids <- c("e3228020-1c54-4521-9182-1ea14c5dc0f7",
 #'            "18e1e38e-0f0a-4a0e-918f-08e6201ea140")
 #' (manifest <- manifest(uuids))
 #' @export
-manifest <- function(uuids, destination_dir=tempfile()) {
+manifest <- function(uuids, destination_dir=tempfile(), token=NULL) {
     stopifnot(is.character(uuids))
     .dir_validate_or_create(destination_dir)
     endpoint <- "manifest"
@@ -24,7 +28,8 @@ manifest <- function(uuids, destination_dir=tempfile()) {
     uri <- sprintf("%s/%s", endpoint, paste(uuids, collapse=","))
     destination <- tempfile(tmpdir=destination_dir)
 
-    .gdc_download_one(uri, destination, overwrite=FALSE, progress=FALSE)
+    .gdc_download_one(uri, destination, overwrite=FALSE,
+                      progress=FALSE, token=token)
 }
 
 #' \code{transfer()} retrieves files from the manifest using the GDC
@@ -35,10 +40,14 @@ manifest <- function(uuids, destination_dir=tempfile()) {
 #'
 #' @param args character() vector specifying command-line arguments to
 #'     be passed to \code{gdc-client}. See \code{transfer_help} for
-#'     possible values. The arguments \code{--manifest} and
-#'     \code{--dir} are determined by \code{manifest} and
-#'     \code{destination_dir}, respectively, and should NOT be
-#'     provided.
+#'     possible values. The arguments \code{--manifest}, \code{--dir},
+#'     and \code{--token-file} are determined by \code{manifest},
+#'     \code{destination_dir}, and \code{token}, respectively, and
+#'     should NOT be provided as elements of \code{args}.
+#'
+#' @param token_file character(1) path to a file containing security
+#'     token allowing access to restricted data. See
+#'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
 #'
 #' @param gdc_client character(1) name or path to \code{gdc-client}
 #'     executable. On Windows, use \code{/} or \code{\\\\} as the file
@@ -56,7 +65,7 @@ manifest <- function(uuids, destination_dir=tempfile()) {
 #' @export
 transfer <-
     function(manifest, destination_dir=tempfile(), args=character(),
-             gdc_client="gdc-client")
+             token_file=NULL, gdc_client="gdc-client")
 {
     stopifnot(is.character(manifest), length(manifest) == 1L,
               file.exists(manifest))
@@ -64,6 +73,10 @@ transfer <-
 
     dir <- sprintf("--dir %s", destination_dir)
     manifest <- sprintf("--manifest %s", manifest)
+    if (!is.null(token)) {
+        stopifnot(file.exists(token))
+        token <- sprintf("--token-file %s", token)
+    }
     args <- paste(c("download", dir, manifest, args), collapse=" ")
     system2("gdc-client", args)
 

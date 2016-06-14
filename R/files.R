@@ -22,6 +22,10 @@ file_fields <- function(primary=TRUE) {
 #' @param \dots (optional) additional parameters influence file
 #'     selection. See \code{\link{parameters}}.
 #'
+#' @param token (optional) character(1) security token allowing access
+#'     to restricted data. See
+#'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
+#' 
 #' @param fields character() vector of requested fields. See
 #'     \code{file_fields()} for defined fields.
 #'
@@ -33,14 +37,15 @@ file_fields <- function(primary=TRUE) {
 #' 
 #' @importFrom httr content
 #' @export
-files <- function(..., fields=file_fields()) {
+files <- function(..., token=NULL, fields=file_fields()) {
     stopifnot(all(fields %in% file_fields(primary=FALSE)))
     if (!"file_id" %in% fields)
         fields <- c("file_id", fields)
     fields0 <- paste(fields, collapse=",")
 
     response <- .gdc_get(
-        "files", parameters=list(format="JSON", fields=fields0, ...))
+        "files", parameters=list(format="JSON", fields=fields0, ...),
+        token=token)
     json <- content(response, type="application/json")
 
     .response_warnings(json[["warnings"]], "cases")

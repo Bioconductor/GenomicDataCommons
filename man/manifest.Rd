@@ -6,10 +6,10 @@
 \alias{transfer_help}
 \title{GDC manifest file creation and file download}
 \usage{
-manifest(uuids, destination_dir = tempfile())
+manifest(uuids, destination_dir = tempfile(), token = NULL)
 
 transfer(manifest, destination_dir = tempfile(), args = character(),
-  gdc_client = "gdc-client")
+  token_file = NULL, gdc_client = "gdc-client")
 
 transfer_help(gdc_client = "gdc-client")
 }
@@ -21,15 +21,23 @@ downloading the manifest or files. The manifest file name, of
 the form \sQuote{gdc_manifest_20160610_12345.txt}, must not
 exist.}
 
+\item{token}{(optional) character(1) security token allowing access
+to restricted data. See
+\url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.}
+
 \item{manifest}{character(1) file path to manifest created by
 \code{manifest()}}
 
 \item{args}{character() vector specifying command-line arguments to
 be passed to \code{gdc-client}. See \code{transfer_help} for
-possible values. The arguments \code{--manifest} and
-\code{--dir} are determined by \code{manifest} and
-\code{destination_dir}, respectively, and should NOT be
-provided.}
+possible values. The arguments \code{--manifest}, \code{--dir},
+and \code{--token-file} are determined by \code{manifest},
+\code{destination_dir}, and \code{token}, respectively, and
+should NOT be provided as elements of \code{args}.}
+
+\item{token_file}{character(1) path to a file containing security
+token allowing access to restricted data. See
+\url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.}
 
 \item{gdc_client}{character(1) name or path to \code{gdc-client}
 executable. On Windows, use \code{/} or \code{\\\\} as the file

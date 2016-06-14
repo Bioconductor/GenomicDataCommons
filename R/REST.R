@@ -1,12 +1,12 @@
 #' (internal) GET endpoint / uri
 #'
-#' @importFrom httr GET stop_for_status
+#' @importFrom httr GET add_headers stop_for_status
 .gdc_get <-
-    function(endpoint, parameters=list(), ..., base=.gdc_base)
+    function(endpoint, parameters=list(), token=NULL, ..., base=.gdc_base)
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
     uri <- sprintf("%s/%s%s", base, endpoint, .parameter_string(parameters))
-    response <- GET(uri, ...)
+    response <- GET(uri, add_headers(`X-Auth-Token`=token), ...)
     stop_for_status(response)
     response
 }
@@ -34,13 +34,14 @@
     
 #' Download one file from GDC, renaming to remote filename
 #' 
-#' @importFrom httr GET write_disk stop_for_status
+#' @importFrom httr GET write_disk add_headers stop_for_status
 .gdc_download_one <-
-    function(uri, destination, overwrite, progress, base=.gdc_base)
+    function(uri, destination, overwrite, progress, token=NULL, base=.gdc_base)
 {
     uri <- sprintf("%s/%s", base, uri)
     response <- GET(uri, write_disk(destination, overwrite),
-                    if (progress) progress() else NULL)
+                    if (progress) progress() else NULL,
+                    add_headers(`X-Auth-Token`=token))
     stop_for_status(response)
     if (progress) cat("\n")
 

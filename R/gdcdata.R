@@ -40,7 +40,11 @@
 #'
 #' @param progress logical(1) default TRUE in interactive sessions,
 #'     FALSE otherwise indicating whether a progress par should be
-#'     produced for each file download
+#'     produced for each file download.
+#'
+#' @param token (optional) character(1) security token allowing access
+#'     to restricted data. See
+#'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
 #'
 #' @seealso \code{\link{manifest}} for downloading large data.
 #' 
@@ -52,7 +56,7 @@
 #' @export
 gdcdata <-
     function(uuids, destination_dir=tempfile(), overwrite=FALSE,
-             progress=interactive())
+             progress=interactive(), token=NULL)
 {
     stopifnot(is.character(uuids))
     .dir_validate_or_create(destination_dir)
@@ -65,7 +69,8 @@ gdcdata <-
 
     uris <- sprintf("%s/%s", endpoint, uuids)
     value <- mapply(.gdc_download_one, uris, destinations,
-                    MoreArgs=list(overwrite=overwrite, progress=progress),
+                    MoreArgs=list(overwrite=overwrite, progress=progress,
+                                  token=token),
                     SIMPLIFY=TRUE, USE.NAMES=FALSE)
     names(value) <- uuids
     value

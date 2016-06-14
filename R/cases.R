@@ -24,6 +24,10 @@ case_fields <- function(primary=TRUE) {
 #' @param \dots (optional) additional parameters influence case
 #'     selection. See \code{\link{parameters}}.
 #'
+#' @param token (optional) character(1) security token allowing access
+#'     to restricted data. See
+#'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
+#'
 #' @param fields character() vector of requested fields. See
 #'     \code{case_fields()} for defined fields.
 #'
@@ -35,14 +39,15 @@ case_fields <- function(primary=TRUE) {
 #' 
 #' @importFrom httr content
 #' @export
-cases <- function(..., fields=case_fields()) {
+cases <- function(..., token=NULL, fields=case_fields()) {
     stopifnot(all(fields %in% case_fields(primary=FALSE)))
     if (!"case_id" %in% fields)
         fields <- c("case_id", fields)
     fields0 <- paste(fields, collapse=",")
 
     response <- .gdc_get(
-        "cases", parameters=list(format="JSON", fields=fields0, ...))
+        "cases", parameters=list(format="JSON", fields=fields0, ...),
+        token=token)
     json <- content(response, type="application/json")
 
     .response_warnings(json[["warnings"]], "cases")

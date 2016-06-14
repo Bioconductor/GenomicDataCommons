@@ -7,12 +7,16 @@
 \usage{
 project_fields(primary = TRUE)
 
-projects(..., fields = project_fields())
+projects(..., token = NULL, fields = project_fields())
 }
 \arguments{
 \item{primary}{logical(1) when TRUE (default) return commonly
 populated field names. Otherwise, return all field names
 defined in the API.}
+
+\item{token}{(optional) character(1) security token allowing access
+to restricted data. See
+\url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.}
 
 \item{fields}{character() vector of requested fields. See
 \code{project_fields()} for defined fields.}
