@@ -3,7 +3,7 @@
 print.gdc_list <- function(x, ...) {
     nms <- names(x)
     .cat0("class: ", class(x)[1], "\n")
-    .cat0("cases: ", length(nms), "\n")
+    .cat0(sub("_list", "", class(x)[1]), ": ", length(nms), "\n")
     .cat0("names:\n",
           .wrapstr(
               if (length(nms) > 5) {
