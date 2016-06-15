@@ -28,9 +28,12 @@
 #'     required. See
 #'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
 #'
+#' @return character(1) destination to the downloaded BAM file
+#' 
 #' @examples
 #' \donttest{
-#' slicing("df80679e-c4d3-487b-934c-fcc782e5d46e", symbols=c("BRCA1", "BRCA2"),
+#' slicing("df80679e-c4d3-487b-934c-fcc782e5d46e",
+#'         symbols=c("BRCA1", "BRCA2"),
 #'         token=token)
 #' }
 #' @export

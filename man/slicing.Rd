@@ -32,6 +32,9 @@ restricted data. All BAM data is restricted, so a token is
 required. See
 \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.}
 }
+\value{
+character(1) destination to the downloaded BAM file
+}
 \description{
 This function returns a BAM file representing reads overlapping
 regions specified either as chromosomal regions or as gencode gene
@@ -39,7 +42,8 @@ symbols.
 }
 \examples{
 \donttest{
-slicing("df80679e-c4d3-487b-934c-fcc782e5d46e", symbols=c("BRCA1", "BRCA2"),
+slicing("df80679e-c4d3-487b-934c-fcc782e5d46e",
+        symbols=c("BRCA1", "BRCA2"),
         token=token)
 }
 }
