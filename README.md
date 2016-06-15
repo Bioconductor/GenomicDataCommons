@@ -6,17 +6,21 @@ This package is under development.
 
 ## TODO
 
-- [x] manifest endpoint
-- [ ] slicing endpoint
+- [x] `manifest()` endpoint
 - [x] `transfer()`: download manifest files via GDC Data Transfer Tool
-- [ ] Authentication
-- [ ] gdcdata() (data endpoint) download md5sums validation
+- [x] Authentication
+- [x] `slicing()` endpoint
+- [ ] filters
+- [ ] `gdcdata()` (data endpoint) download md5sums validation
+- [ ] validate slicing 'regions' argument
 - [ ] Rename as 'gdc' -- accessing gdc portal, without _Bioconductor_
   dependencies
 - [ ] Develop `GenomicDataCommons` -- _Bioconductor_ API supporting
   [GenomicRanges][], [GenomicAlignments][], [VariantAnnotation][].
 
-Will not implement submission.
+## WON'T DO
+
+- [ ] implement submission
 
 [Genomic Data Commons]: https://gdc-portal.nci.nih.gov/
 [GenomicRanges]: https://bioconductor.org/packages/GenomicRanges

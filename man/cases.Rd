@@ -33,5 +33,9 @@ cases
 cases[1]
 cases[[1]]$sample_ids
 
+lst <- cases(fields="submitter_id", sort="submitter_id:asc")
+lst
+sapply(lst, "[[", "submitter_id")
+
 }
 
