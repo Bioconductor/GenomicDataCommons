@@ -85,5 +85,5 @@
 
     filename <- .gdc_header_elt(response, "content-disposition", "filename")
     to <- file.path(dirname(destination), filename)
-    .gdc_file_rename(from, to, overwrite)
+    .gdc_file_rename(destination, to, overwrite)
 }
