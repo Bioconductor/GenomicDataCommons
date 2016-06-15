@@ -6,9 +6,17 @@ This package is under development.
 
 ```{r}
 library(GenomicDataCommons)
-endpoints()    # what can you do? See help page for each endpoint
-status()       # is the service up?
-experiments()  # available experiments
+endpoints()            # what can you do? See help page for each endpoint
+status()               # is the service up?
+experiments(size=100)  # available experiments
+lst = cases()          # first 10 cases
+lst
+lst[1]
+lst[[1]]
+lst <-                 # submitter_id, sorted descending order
+    cases(fields="submitter_id", sort="submitter_id:desc")
+lst
+sapply(lst, "[[", "submitter_id")
 ```
 
 Accessing restricted data requires an [authentication token][]. This
