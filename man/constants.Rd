@@ -12,6 +12,14 @@ parameters()
 \description{
 Print available endpoints
 
-Print available parameters
+Parameters include format (internal use only), pretty (internal use
+only), fields, size (number of results returned), from (index of
+rist result), sort, filters, and facets. See
+\url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Search_and_Retrieval/#query-parameters}
+}
+\examples{
+parameters()
+cases(size=5, from=1)
+cases(size=5, from=3)
 }
 

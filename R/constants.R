@@ -14,9 +14,18 @@
 endpoints <- function()
     .cat0("available endpoints:\n", .wrapstr(.gdc_endpoint), "\n")
 
-#' Print available parameters
+#' Parameters influencing result format
+#'
+#' Parameters include format (internal use only), pretty (internal use
+#' only), fields, size (number of results returned), from (index of
+#' rist result), sort, filters, and facets. See
+#' \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Search_and_Retrieval/#query-parameters}
 #'
 #' @rdname constants
+#' @examples
+#' parameters()
+#' cases(size=5, from=1)
+#' cases(size=5, from=3)
 #' @export
 parameters <- function()
     .cat0("available parameters:\n", .wrapstr(names(.gdc_parameters)), "\n")
