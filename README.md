@@ -1,6 +1,7 @@
 # GenomicDataCommons
 
-Provide _R_ access to the NCI [Genomic Data Commons][] portal.
+Provide _R_ access to the NCI [Genomic Data Commons][] portal. Some
+additional detail from the [API Users Guide][] documentation may help.
 
 This package is under development.
 
@@ -47,6 +48,7 @@ slicing("df80679e-c4d3-487b-934c-fcc782e5d46e", symbols=c("BRCA1", "BRCA2"),
 - [ ] implement submission
 
 [Genomic Data Commons]: https://gdc-portal.nci.nih.gov/
+[API Users Guide]: https://gdc-docs.nci.nih.gov/API/Users_Guide/Getting_Started/
 [GenomicRanges]: https://bioconductor.org/packages/GenomicRanges
 [GenomicAlignments]: https://bioconductor.org/packages/GenomicAlignments
 [VariantAnnotation]: https://bioconductor.org/packages/VariantAnnotation
