@@ -1,18 +1,29 @@
 .gdc_base <- "https://gdc-api.nci.nih.gov"
 .gdc_endpoint <-
-    c("status", "projects", "cases", "files", "annotations", "data",
-      "manifest", "slicing", "submission")
+    structure(
+        c("status", "projects", "cases", "files", "annotations", "data",
+          "manifest", "slicing"), ##, submission
+        class="gdc_endpoints")
 
 .gdc_parameters <-
-    list(format="JSON", pretty=FALSE, fields=NULL, size=10L, from=1L,
-         sort=NULL, filters=NULL, facets=NULL)
+    structure(
+        list(format="JSON", pretty=FALSE, fields=NULL, size=10L, from=1L,
+             sort=NULL, filters=NULL, facets=NULL),
+        class="gdc_parameters")
 
-#' Print available endpoints
+#' Available endpoints
+#'
+#' @return \code{endpoints()} returns a character vector of possible
+#'     endpoints
 #'
 #' @rdname constants
 #' @export
 endpoints <- function()
-    .cat0("available endpoints:\n", .wrapstr(.gdc_endpoint), "\n")
+    .gdc_endpoint
+
+#' @export
+print.gdc_endpoints <- function(x, ...)
+    .cat0("available endpoints:\n", .wrapstr(x), "\n")
 
 #' Parameters influencing result format
 #'
@@ -21,6 +32,9 @@ endpoints <- function()
 #' rist result), sort, filters, and facets. See
 #' \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Search_and_Retrieval/#query-parameters}
 #'
+#' @return \code{parameters()} returns a list of possible parameters
+#'     and their default values.
+#' 
 #' @rdname constants
 #' @examples
 #' parameters()
@@ -28,7 +42,15 @@ endpoints <- function()
 #' cases(size=5, from=3)
 #' @export
 parameters <- function()
-    .cat0("available parameters:\n", .wrapstr(names(.gdc_parameters)), "\n")
+    .gdc_parameters
+
+#' @export
+print.gdc_parameters <- function(x, ...) {
+    cat("available parameters:\n")
+    for (nm in names(x))
+        .cat0("    ", nm, ": ",
+              if (is.null(x[[nm]])) "NULL" else x[[nm]], "\n")
+}
 
 .parameter_string <- function(parameters) {
     if (is.null(parameters))

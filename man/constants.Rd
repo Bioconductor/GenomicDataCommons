@@ -3,14 +3,21 @@
 \name{endpoints}
 \alias{endpoints}
 \alias{parameters}
-\title{Print available endpoints}
+\title{Available endpoints}
 \usage{
 endpoints()
 
 parameters()
 }
+\value{
+\code{endpoints()} returns a character vector of possible
+    endpoints
+
+\code{parameters()} Returns a list of possible parameters
+    and their default values.
+}
 \description{
-Print available endpoints
+Available endpoints
 
 Parameters include format (internal use only), pretty (internal use
 only), fields, size (number of results returned), from (index of
