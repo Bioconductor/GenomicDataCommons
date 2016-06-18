@@ -20,6 +20,17 @@ print.gdc_list <- function(x, ...) {
 }
 
 #' @export
+print.mapping_list <- function(x, ...) {
+    nms <- names(x)
+    .cat0("class: ", class(x)[1], "\n")
+    if (length(x) == 1L) {
+        .cat0("name: ", names(x), "\n")
+        .cat0("values:\n", .wrapstr(x[[1]]), "\n")
+    } else
+        .cat0("names:\n", .wrapstr(nms), "\n")
+}
+
+#' @export
 `[.gdc_list` <- function(x, i, j, ..., drop=TRUE) {
     cls <- class(x)
     x <- unclass(x)[i]
