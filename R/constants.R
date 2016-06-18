@@ -11,12 +11,16 @@
              sort=NULL, filters=NULL, facets=NULL),
         class="gdc_parameters")
 
-#' Available endpoints
+#' Endpoints and Parameters
+#'
+#' \code{endpoints()} returns available endpoints.
 #'
 #' @return \code{endpoints()} returns a character vector of possible
-#'     endpoints
+#'     endpoints.
 #'
 #' @rdname constants
+#' @examples
+#' endpoints()
 #' @export
 endpoints <- function()
     .gdc_endpoint
@@ -25,11 +29,9 @@ endpoints <- function()
 print.gdc_endpoints <- function(x, ...)
     .cat0("available endpoints:\n", .wrapstr(x), "\n")
 
-#' Parameters influencing result format
-#'
-#' Parameters include format (internal use only), pretty (internal use
-#' only), fields, size (number of results returned), from (index of
-#' rist result), sort, filters, and facets. See
+#' \code{parameters()} include format (internal use only), pretty
+#' (internal use only), fields, size (number of results returned),
+#' from (index of rist result), sort, filters, and facets. See
 #' \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Search_and_Retrieval/#query-parameters}
 #'
 #' @return \code{parameters()} returns a list of possible parameters

@@ -3,7 +3,7 @@
 \name{endpoints}
 \alias{endpoints}
 \alias{parameters}
-\title{Available endpoints}
+\title{Endpoints and Parameters}
 \usage{
 endpoints()
 
@@ -13,15 +13,15 @@ parameters()
 \code{endpoints()} returns a character vector of possible
     endpoints
 
-\code{parameters()} Returns a list of possible parameters
+\code{parameters()} returns a list of possible parameters
     and their default values.
 }
 \description{
-Available endpoints
+\code{endpoints()} returns available endpoints
 
-Parameters include format (internal use only), pretty (internal use
-only), fields, size (number of results returned), from (index of
-rist result), sort, filters, and facets. See
+\code{parameters()} include format (internal use only), pretty
+(internal use only), fields, size (number of results returned),
+from (index of rist result), sort, filters, and facets. See
 \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Search_and_Retrieval/#query-parameters}
 }
 \examples{
