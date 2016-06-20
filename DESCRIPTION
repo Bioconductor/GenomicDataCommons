@@ -9,5 +9,7 @@ Authors@R: c(
         role=c("aut", "cre")))
 License: Artistic-2.0
 Imports: stats, httr, xml2
+Suggests: BiocStyle, knitr, rmarkdown, DT
 biocViews: DataImport, Sequencing
+VignetteBuilder: knitr
 RoxygenNote: 5.0.1
