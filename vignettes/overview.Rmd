@@ -1,0 +1,86 @@
+---
+title: "Introduction to Accessing the NCI Genomic Data Commons in Bioconductor"
+author: "Sean Davis"
+date: "`r Sys.Date()`"
+output: 
+  BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{ISB BigQuery Part 1}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r init, results='hide', echo=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+library(DT)
+```
+
+# Background
+
+From the [Genomic Data Commons (GDC) website](https://gdc.nci.nih.gov/about-gdc):
+
+> The National Cancer Institute's (NCI's) Genomic Data Commons (GDC) is a data sharing platform that promotes precision medicine in oncology. It is not just a database or a tool; it is an expandable knowledge network supporting the import and standardization of genomic and clinical data from cancer research programs.
+>
+> The GDC contains NCI-generated data from some of the largest and most comprehensive cancer genomic datasets, including The Cancer Genome Atlas (TCGA) and Therapeutically Applicable Research to Generate Effective Therapies (TARGET). For the first time, these datasets have been harmonized using a common set of bioinformatics pipelines, so that the data can be directly compared.
+>
+> As a growing knowledge system for cancer, the GDC also enables researchers to submit data, and harmonizes these data for import into the GDC. As more researchers add clinical and genomic data to the GDC, it will become an even more powerful tool for making discoveries about the molecular basis of cancer that may lead to better care for patients.
+
+## Data Model
+
+The data model for the GDC is complex, but it worth a quick overview of the types of data and the data model look like. 
+
+![GDC Data Model](https://gdc.nci.nih.gov/files/public/image/Model_allnodes_APIv1.1.4.png)
+
+# Accessing Data
+
+There are several available endpoints:
+
+- Projects
+- Files
+- Cases
+- Annotations
+- _mappings
+
+The following sections address each in turn.
+
+## Projects
+
+```{r project10}
+a = projects()
+datatable(a)
+```
+
+## Files
+
+```{r files10}
+a = files()
+datatable(do.call(rbind,a))
+```
+
+## Cases
+
+```{r cases10}
+a = cases()
+datatable(do.call(rbind,a))
+```
+
+## Annotations
+
+```{r annotations10}
+a = annotations()
+datatable(do.call(rbind,a))
+```
+
+## Mapping
+
+```{r mapping10}
+a = mapping('projects')
+datatable(do.call(rbind,a))
+```
+
+
+# SessionInfo
+
+```{r sessionInfo}
+sessionInfo()
+```
