@@ -11,13 +11,13 @@ parameters()
 }
 \value{
 \code{endpoints()} returns a character vector of possible
-    endpoints
+    endpoints.
 
 \code{parameters()} returns a list of possible parameters
     and their default values.
 }
 \description{
-\code{endpoints()} returns available endpoints
+\code{endpoints()} returns available endpoints.
 
 \code{parameters()} include format (internal use only), pretty
 (internal use only), fields, size (number of results returned),
@@ -25,6 +25,7 @@ from (index of rist result), sort, filters, and facets. See
 \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Search_and_Retrieval/#query-parameters}
 }
 \examples{
+endpoints()
 parameters()
 cases(size=5, from=1)
 cases(size=5, from=3)
