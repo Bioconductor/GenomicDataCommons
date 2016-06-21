@@ -5,6 +5,8 @@ additional detail from the [API Users Guide][] documentation may help.
 
 This package is under development.
 
+## QuickStart
+
 ```{r}
 library(GenomicDataCommons)
 endpoints()            # what can you do? See help page for each endpoint
@@ -28,6 +30,9 @@ character string (or, for `manifest()`, a file path).
 slicing("df80679e-c4d3-487b-934c-fcc782e5d46e", symbols=c("BRCA1", "BRCA2"),
         token=token)
 ```
+
+See [vignette](https://github.com/Bioconductor/GenomicDataCommons/blob/master/vignettes/overview.Rmd) for more details.
+
 
 ## TODO
 
