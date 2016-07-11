@@ -48,8 +48,6 @@ From the [Genomic Data Commons (GDC) website](https://gdc.nci.nih.gov/about-gdc)
 The data model for the GDC is complex, but it worth a quick overview
 of the types of data and the data model look like.
 
-![GDC Data Model](https://gdc.nci.nih.gov/files/public/image/Model_allnodes_APIv1.1.4.png)
-
 # Accessing Data
 
 There are several available endpoints:
@@ -58,6 +56,7 @@ There are several available endpoints:
 - Files
 - Cases
 - Annotations
+- Slicing
 - _mappings
 
 The following sections address each in turn.
