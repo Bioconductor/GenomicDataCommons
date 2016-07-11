@@ -24,6 +24,7 @@ recurse_call <- function(x) {
     return(as.character(x))
   } else if (is.call(x)) {
       if(x[[1]]=='(') x = x[[2]]
+      if(x[[1]]=='==') x[[1]]='='
       if(x[[1]]=='is.null') return(.missingCall(x))
       if(x[[1]]=='&') return(.andCall(x))
       if(x[[1]]=='|') return(.orCall(x))
