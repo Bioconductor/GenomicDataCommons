@@ -3,10 +3,12 @@ Type: Package
 Title: NIH / NCI Genomic Data Commons Access
 Description: Programmatically access the NIH / NCI Gneomic Data
     Commons RESTful service.
-Version: 0.0.8
+Version: 0.0.9
 Authors@R: c(
     person("Martin", "Morgan", email="martin.morgan@roswellpark.org",
-        role=c("aut", "cre")))
+        role=c("aut", "cre")),
+    person("Davis", "Sean", email="seandavi@gmail.com",
+        role=c("aut")))
 License: Artistic-2.0
 Imports: stats, httr, xml2
 Suggests: BiocStyle, knitr, rmarkdown, DT

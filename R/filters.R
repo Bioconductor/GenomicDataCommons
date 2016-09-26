@@ -1,48 +1,45 @@
-opList = c('in','==','<=','>=','!=','<','>','is','not','in','exclude')
+.filterOps = c('&'  = 'and',
+               '==' = '=',
+               '!=' = '!=',
+               '>=' = '>=',
+               '<=' = '<=',
+               '>'  = '>',
+               '<'  = '<',
+               '%is%' = 'is',
+               '!'  = 'not',
+               '|'  = 'or',
+               '%in%' = 'in',
+               '%exclude%' = 'exclude')
 
-.andCall = function(x) {
-    return(list(op='and',content=list(recurse_call(x[[2]]),recurse_call(x[[3]]))))
-}
-.orCall = function(x) {
-    return(list(op='or',content=list(recurse_call(x[[2]]),recurse_call(x[[3]]))))
-}
-.inCall = function(x) {
-    return(list(op='in',content=list(field=as.character(x[[2]]),value=recurse_call(x[[3]]))))
-}
-.missingCall = function(x) {
-    return(list(op='is',content=list(field=as.character(x[[2]]),value=I('missing'))))
-}
-
-.checkOps = function(op) {
-    return(op %in% oplist)
+.dropDot = function(s) {
+  return(strsplit(s,'\\.')[1])
 }
 
-recurse_call <- function(x) {
-  if (is.atomic(x)) {
-    return(x)
-  } else if (is.name(x)) {
-    return(as.character(x))
-  } else if (is.call(x)) {
-      if(x[[1]]=='(') x = x[[2]]
-      if(x[[1]]=='==') x[[1]]='='
-      if(x[[1]]=='is.null') return(.missingCall(x))
-      if(x[[1]]=='&') return(.andCall(x))
-      if(x[[1]]=='|') return(.orCall(x))
-      if(x[[1]]=='%in%') return(.inCall(x))
-      if(x[[1]]=='c') return(as.list(x)[-1])
-      l = lapply(x,recurse_call)
-      l = list(op=l[[1]],
-               content=list(field=l[[2]],value=I(l[[3]])))
-      return(l)
-  } else if (is.pairlist(x)) {
-      print('pairlist')
-    print(x)
-  } else {
-    # User supplied incorrect input
-    stop("Don't know how to handle type ", typeof(x), 
-      call. = FALSE)
+.makeOp = function(op) {
+  force(makeOp)
+  if(op %in% c('==','!=','>=','<=','>','<','%in%','%exclude%','%is%')) {
+    return(function(x,y) {
+      return(list(op=jsonlite::unbox(.filterOps[op]),
+              content=list(field=jsonlite::unbox(x),value=y)))
+    })
   }
+  if(op=='(') {
+    return(function(x) {
+      return(list(x))
+    })
+  }
+  if(op %in% c('&','|')) {
+    return(function(x,y) {
+      return(list(op=jsonlite::unbox(.filterOps[op]),
+                  content=list(x,y)))
+    })
+  }
+  return(function(op) {
+    return(as.character(op))
+  })
 }
+
+.endpoints = c('projects','files','cases','annotations')
 
 #' Create GDC filters
 #'
@@ -51,14 +48,31 @@ recurse_call <- function(x) {
 #' This function makes arbitrarily complex filter functions for
 #' and creates translated JSON for use in queries of the GDC.
 #'
-#' @param filter_expression a \code{quote}d expression
-#' @param pretty create "pretty" json or not, passed to jsonlite::toJSON
-#' @return json suitable for including in a GDC query
+#' @param filter_expression an R expression
+#' @param asJSON if TRUE, return the JSON.  If FALSE, return an R list
+#' @param ... passed to \code{jsonlite::toJSON}
+#' @return either a JSON string or the R list prior to conversion to JSON
+#'
+#' @importFrom jsonlite toJSON
 #'
 #' @examples
-#' filters(quote(cases.clinical.age_at_diagnosis >= 14600 & cases.clinical.age_at_diagnosis <= 25500))
-#' filters(quote(primary_site %in% c('blood','brain')))
-filters = function(filter_expression,pretty=FALSE) {
-    return(jsonlite::toJSON(recurse_call(filter_expression),auto_unbox=TRUE,pretty=pretty))
+#' filters(cases.clinical.age_at_diagnosis >= 14600 & cases.clinical.age_at_diagnosis <= 25500,endpoint='cases')
+#' filters(primary_site %in% c('blood','brain'),endpoint='cases')
+filters = function(filter_expression, endpoint, asJSON=TRUE, ...) {
+  if(!(endpoint %in% .endpoints)) {
+    stop(sprintf('endpoint must be one of %s',paste(.endpoints,sep=",")))
+  }
+  ca = match.call()
+  ops = sapply(names(.filterOps),makeOp)
+  fields = mapping(endpoint)$fields
+  names(fields) = fields
+  ops = c(ops,fields)
+  ## The eval and match.call combo keep R from
+  ##   evaluating until we are in the right context 
+  ##   (i.e., with ops in place)
+  retlist = with(ops,eval(ca$filter_expression))
+  if(asJSON) {
+    return(jsonlite::toJSON(retlist,...))
+  }
+  return(retlist)
 }
-
