@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Accessing the NCI Genomic Data Commons in Bioconductor"
-author: "Sean Davis"
+author: "Sean Davis & Martin Morgan"
 date: "`r Sys.Date()`"
 output: 
   BiocStyle::html_document
