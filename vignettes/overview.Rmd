@@ -43,12 +43,14 @@ From the [Genomic Data Commons (GDC) website](https://gdc.nci.nih.gov/about-gdc)
 > discoveries about the molecular basis of cancer that may lead to
 > better care for patients.
 
-## Data Model
+# Data Model
 
-The data model for the GDC is complex, but it worth a quick overview
-of the types of data and the data model look like.
-
-# Accessing Data
+The [data model for the GDC is complex](https://gdc.cancer.gov/developers/gdc-data-model/gdc-data-model-components), but it worth a quick overview. The data model is
+encoded as a so-called property graph. Nodes represent entities such 
+as Projects, Cases, Diagnoses, Files (various kinds), and Annotations.
+The relationships between these entities are maintained as edges.  Both
+nodes and edges may have Properties that supply instance details.  The GDC
+API exposes these nodes and edges in a somewhat simplified set of [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) endpoints.
 
 There are several available endpoints:
 
@@ -56,10 +58,12 @@ There are several available endpoints:
 - Files
 - Cases
 - Annotations
-- Slicing
-- _mappings
+- Slicing - Specific to dealing with BAM files
+- _mappings - For obtaining metadata about fields associated with the various endpoints
 
-The following sections address each in turn.
+The following sections address each in turn, including examples of usage.
+
+# Using the API
 
 ## Projects
 
