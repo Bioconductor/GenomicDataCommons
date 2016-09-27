@@ -44,7 +44,7 @@ case_fields <- function(primary=TRUE) {
 #' @importFrom httr content
 #' @export
 cases <- function(..., token=NULL, fields=case_fields()) {
-    stopifnot(all(fields %in% case_fields(primary=FALSE)))
+    #stopifnot(all(fields %in% case_fields(primary=FALSE)))
     if (!"case_id" %in% fields)
         fields <- c("case_id", fields)
     fields0 <- paste(fields, collapse=",")

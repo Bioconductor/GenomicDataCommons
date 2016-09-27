@@ -38,7 +38,7 @@ file_fields <- function(primary=TRUE) {
 #' @importFrom httr content
 #' @export
 files <- function(..., token=NULL, fields=file_fields()) {
-    stopifnot(all(fields %in% file_fields(primary=FALSE)))
+    #stopifnot(all(fields %in% file_fields(primary=FALSE)))
     if (!"file_id" %in% fields)
         fields <- c("file_id", fields)
     fields0 <- paste(fields, collapse=",")
@@ -48,6 +48,6 @@ files <- function(..., token=NULL, fields=file_fields()) {
         token=token)
     json <- content(response, type="application/json")
 
-    .response_warnings(json[["warnings"]], "cases")
+    .response_warnings(json[["warnings"]], "files")
     .response_json_as_list(json, "files")
 }
