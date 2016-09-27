@@ -49,7 +49,7 @@
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
     uri <- sprintf("%s/%s%s", base, endpoint, .parameter_string(parameters))
-    if(getOption('gdc.verbose')) {
+    if(getOption('gdc.verbose',FALSE)) {
       message("GET request uri:\n",uri)
     }
     response <- GET(uri, add_headers(`X-Auth-Token`=token), ...)
@@ -65,7 +65,7 @@
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
     uri <- sprintf("%s/%s", base, endpoint)
-    if(getOption('gdc.verbose')) {
+    if(getOption('gdc.verbose',FALSE)) {
       message("POST request uri:\n",uri)
     }
     response <- POST(
