@@ -36,6 +36,10 @@
     dropped <- fields[!fields %in% names(columns)]
     if (length(dropped))
         warning("fields not available:\n", .wrapstr(dropped))
+    if (length(columns)==0) {
+      warning("No records found. Check on filter criteria to ensure they do what you expect. ")
+      return(NULL)
+    }
     if (!length(unique(lengths(columns)))) {
         lens <- paste(sprintf("%s = %d", names(columns), lengths(columns)),
                       collapse=", ")
