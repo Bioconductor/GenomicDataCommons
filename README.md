@@ -42,7 +42,7 @@ See [vignette](https://github.com/Bioconductor/GenomicDataCommons/blob/master/vi
 - [x] `transfer()`: download manifest files via GDC Data Transfer Tool
 - [x] Authentication
 - [x] `slicing()` endpoint
-- [ ] filters
+- [x] filters implemented using R expression syntax
 - [ ] `gdcdata()` (data endpoint) download md5sums validation
 - [ ] validate slicing 'regions' argument
 - [ ] Rename as 'gdc' -- accessing gdc portal, without _Bioconductor_
