@@ -1,5 +1,4 @@
 language: r
 cache: packages
 sudo: false
-pandoc_version: 1.16
 r: bioc-devel
