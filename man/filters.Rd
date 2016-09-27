@@ -9,6 +9,9 @@ filters(filter_expression, endpoint, asJSON = TRUE, ...)
 \arguments{
 \item{filter_expression}{an R expression}
 
+\item{endpoint}{one of the recognized endpoints; used to pull accepted fields for
+use in query construction}
+
 \item{asJSON}{if TRUE, return the JSON.  If FALSE, return an R list}
 
 \item{...}{passed to \code{jsonlite::toJSON}}
@@ -24,7 +27,7 @@ This function makes arbitrarily complex filter functions for
 and creates translated JSON for use in queries of the GDC.
 }
 \examples{
-filters(cases.clinical.age_at_diagnosis >= 14600 & cases.clinical.age_at_diagnosis <= 25500,endpoint='cases')
-filters(primary_site \%in\% c('blood','brain'),endpoint='cases')
+filters(diagnoses.age_at_diagnosis <= 10*365,endpoint='cases')
+filters(project.primary_site \%in\% c('blood','brain'),endpoint='cases')
 }
 

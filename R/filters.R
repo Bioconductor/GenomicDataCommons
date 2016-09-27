@@ -16,7 +16,7 @@
 }
 
 .makeOp = function(op) {
-  force(makeOp)
+  force(.makeOp)
   if(op %in% c('==','!=','>=','<=','>','<','%in%','%exclude%','%is%')) {
     return(function(x,y) {
       return(list(op=jsonlite::unbox(.filterOps[op]),
@@ -50,20 +50,23 @@
 #'
 #' @param filter_expression an R expression
 #' @param asJSON if TRUE, return the JSON.  If FALSE, return an R list
+#' @param endpoint one of the recognized endpoints; used to pull accepted fields for
+#'   use in query construction
 #' @param ... passed to \code{jsonlite::toJSON}
 #' @return either a JSON string or the R list prior to conversion to JSON
 #'
 #' @importFrom jsonlite toJSON
 #'
 #' @examples
-#' filters(cases.clinical.age_at_diagnosis >= 14600 & cases.clinical.age_at_diagnosis <= 25500,endpoint='cases')
-#' filters(primary_site %in% c('blood','brain'),endpoint='cases')
+#' filters(diagnoses.age_at_diagnosis <= 10*365,endpoint='cases')
+#' filters(project.primary_site %in% c('blood','brain'),endpoint='cases')
+#' @export
 filters = function(filter_expression, endpoint, asJSON=TRUE, ...) {
   if(!(endpoint %in% .endpoints)) {
     stop(sprintf('endpoint must be one of %s',paste(.endpoints,sep=",")))
   }
   ca = match.call()
-  ops = sapply(names(.filterOps),makeOp)
+  ops = sapply(names(.filterOps),.makeOp)
   fields = mapping(endpoint)$fields
   names(fields) = fields
   ops = c(ops,fields)
