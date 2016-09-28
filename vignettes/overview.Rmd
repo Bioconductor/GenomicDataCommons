@@ -63,9 +63,7 @@ There are several available endpoints:
 
 The following sections address each in turn, including examples of usage.
 
-# Using the GDC API
-
-## The basic API endpoints
+# The basic API endpoints
 
 The Projects, Files, Cases, and Annotations endpoints are are all accessed
 using functions of the same name (all lowercase). The default behavior of
@@ -73,7 +71,7 @@ each is to query the GDC and return the first 10 records with a default
 set of fields. In this section, the results are simply converted to a tabular
 form, but the data are not always tabular and may have one-to-many relationships, so this represents a simplification. Accessing the data more directly will be covered in later sections. 
 
-### Projects
+## Projects
 
 To get a sense of what is available in the default Project entities, we simply call the `projects()` function without any arguments. By default, the first 10 projects are returned. The returned value for projects is a `data.frame` since the Project entity is tabular. 
 
@@ -82,7 +80,7 @@ a = projects()
 datatable(a)
 ```
 
-### Files
+## Files
 
 ```{r files10}
 fields <- c("data_type", "updated_datetime", "created_datetime",
@@ -92,7 +90,7 @@ a = files(fields=fields)
 datatable(do.call(rbind, a))
 ```
 
-### Cases
+## Cases
 
 ```{r cases10}
 a = cases()
@@ -102,15 +100,23 @@ a[1]          # summary
 head(a[[1]])  # values
 ```
 
-### Annotations
+## Annotations
 
 ```{r annotations10}
 a = annotations()
 datatable(do.call(rbind, a))
 ```
 
-## Advanced Usage
+# Advanced API Usage
 
+## Searching and filtering
+
+
+## Faceting (counting)
+
+```{r facetProjectByProgram}
+res = projects(facets='program.name')
+```
 
 
 
