@@ -23,57 +23,99 @@ library(DT)
 
 From the [Genomic Data Commons (GDC) website](https://gdc.nci.nih.gov/about-gdc):
 
-> The National Cancer Institute's (NCI's) Genomic Data Commons (GDC)
-> is a data sharing platform that promotes precision medicine in
-> oncology. It is not just a database or a tool; it is an expandable
-> knowledge network supporting the import and standardization of
-> genomic and clinical data from cancer research programs.
->
-> The GDC contains NCI-generated data from some of the largest and
-> most comprehensive cancer genomic datasets, including The Cancer
-> Genome Atlas (TCGA) and Therapeutically Applicable Research to
-> Generate Effective Therapies (TARGET). For the first time, these
-> datasets have been harmonized using a common set of bioinformatics
-> pipelines, so that the data can be directly compared.
->
-> As a growing knowledge system for cancer, the GDC also enables
-> researchers to submit data, and harmonizes these data for import
-> into the GDC. As more researchers add clinical and genomic data to
-> the GDC, it will become an even more powerful tool for making
-> discoveries about the molecular basis of cancer that may lead to
-> better care for patients.
+The National Cancer Institute's (NCI's) Genomic Data Commons (GDC) is
+a data sharing platform that promotes precision medicine in
+oncology. It is not just a database or a tool; it is an expandable
+knowledge network supporting the import and standardization of genomic
+and clinical data from cancer research programs.
 
-# Data Model
+The GDC contains NCI-generated data from some of the largest and most
+comprehensive cancer genomic datasets, including The Cancer Genome
+Atlas (TCGA) and Therapeutically Applicable Research to Generate
+Effective Therapies (TARGET). For the first time, these datasets have
+been harmonized using a common set of bioinformatics pipelines, so
+that the data can be directly compared.
 
-The [data model for the GDC is complex](https://gdc.cancer.gov/developers/gdc-data-model/gdc-data-model-components), but it worth a quick overview. The data model is
-encoded as a so-called property graph. Nodes represent entities such 
-as Projects, Cases, Diagnoses, Files (various kinds), and Annotations.
-The relationships between these entities are maintained as edges.  Both
-nodes and edges may have Properties that supply instance details.  The GDC
-API exposes these nodes and edges in a somewhat simplified set of [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) endpoints.
+As a growing knowledge system for cancer, the GDC also enables
+researchers to submit data, and harmonizes these data for import into
+the GDC. As more researchers add clinical and genomic data to the GDC,
+it will become an even more powerful tool for making discoveries about
+the molecular basis of cancer that may lead to better care for
+patients.
 
-There are several available endpoints:
+## Data Model
 
-- Projects
-- Files
-- Cases
-- Annotations
-- Slicing - Specific to dealing with BAM files
-- _mappings - For obtaining metadata about fields associated with the various endpoints
+The
+[data model for the GDC is complex](https://gdc.cancer.gov/developers/gdc-data-model/gdc-data-model-components),
+but it worth a quick overview. The data model is encoded as a
+so-called property graph. Nodes represent entities such as Projects,
+Cases, Diagnoses, Files (various kinds), and Annotations. The
+relationships between these entities are maintained as edges.  Both
+nodes and edges may have Properties that supply instance details.  The
+GDC API exposes these nodes and edges in a somewhat simplified set
+of
+[RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) endpoints.
 
-The following sections address each in turn, including examples of usage.
+## Full Feature Set of the GDC API
+
+HTTP interface that uses JSON as the primary data exchange format
+
+* Programmatic access to functionality provided by GDC Data and
+  Submission portals, via projects, cases, files, annotations, data,
+  slicing, status, and submission endpoints
+* Programmatic access to GDC Legacy Archive via legacy endpoint
+* Token-based authentication for secure access to controlled data and
+  to submission functionality
+* RESTful search that supports simple and complex queries via filters,
+  fields, and facets parameters, and project, files, cases, and
+  annotations endpoints.
+* Search results can be sorted using sort parameter, paginated using
+  size and from parameters, and output in JSON, TSV, and XML using
+  format and pretty parameters.
+* _mapping endpoint enables user discovery of fields available for
+  data search and retrieval operations
+* Support for downloading of individual files and of archives
+  containing multiple files
+* [NOT Implemented Here] Generation of download and upload manifests
+  for use with the GDC Data Transfer Tool
+* BAM slicing functionality for downloading part(s) of a BAM file
+  specified using chromosomal coordinates or HGNC gene names
+* [NOT Implemented Here] Transactional submission system that links
+  individual data elements according to a graph-based GDC Data Model
+* Two data entity identifiers: UUIDs, which are consistent across GDC,
+  and Submitter IDs, for compatibility with submitters’ tracking
+  systems
+
+Here, we will be describing how to access the main API endpoints:
+
+- [Projects](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Projects/)
+- [Files](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Cases_and_Files/)
+- [Cases](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Cases_and_Files/)
+- [Annotations](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Annotations/)
+- [BAM Slicing](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Cases_and_Files/#bam-slicing) - Specific to dealing with BAM files
+- _mappings - For obtaining metadata about fields associated with the
+  various endpoints
+
+The following sections address each in turn, including examples of
+usage.
 
 # The basic API endpoints
 
-The Projects, Files, Cases, and Annotations endpoints are are all accessed
-using functions of the same name (all lowercase). The default behavior of
-each is to query the GDC and return the first 10 records with a default
-set of fields. In this section, the results are simply converted to a tabular
-form, but the data are not always tabular and may have one-to-many relationships, so this represents a simplification. Accessing the data more directly will be covered in later sections. 
+The Projects, Files, Cases, and Annotations endpoints are are all
+accessed using functions of the same name (all lowercase). The default
+behavior of each is to query the GDC and return the first 10 records
+with a default set of fields. In this section, the results are simply
+converted to a tabular form, but the data are not always tabular and
+may have one-to-many relationships, so this represents a
+simplification. Accessing the data more directly will be covered in
+later sections.
 
 ## Projects
 
-To get a sense of what is available in the default Project entities, we simply call the `projects()` function without any arguments. By default, the first 10 projects are returned. The returned value for projects is a `data.frame` since the Project entity is tabular. 
+To get a sense of what is available in the default Project entities,
+we simply call the `projects()` function without any arguments. By
+default, the first 10 projects are returned. The returned value for
+projects is a `data.frame` since the Project entity is tabular. 
 
 ```{r project10}
 a = projects()
@@ -98,9 +140,16 @@ a             # 10 cases by default
 lengths(a)    # cases have different elements
 a[1]          # summary
 head(a[[1]])  # values
+str(a[[1]])
 ```
 
 ## Annotations
+
+Annotations are notes added to individual cases, samples or
+files. They can be searched and filtered in the same way as other
+entities. See
+[here](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Annotations/) for
+details from Data Portal about annotations.
 
 ```{r annotations10}
 a = annotations()
@@ -115,7 +164,7 @@ datatable(do.call(rbind, a))
 ## Faceting (counting)
 
 ```{r facetProjectByProgram}
-res = projects(facets='program.name')
+res = cases(facets='diagnoses.tumor_stage')
 ```
 
 
@@ -130,12 +179,15 @@ a["fields"]     # all fields
 
 # Advanced querying with filters
 
-The GDC supports filtering based on fields and values. The GenomicDataCommons 
-package allows writing queries using standard R syntax, simplifying the
-creation of complicated filtering patterns. Examples follow:
+The GDC
+supports
+[advanced queries](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Advanced_Search/) based
+on filters and facets. The GenomicDataCommons package allows writing
+queries using standard R syntax, simplifying the creation of
+complicated filtering patterns. Examples follow:
 
-```{r filtercases} 
-youngcases = cases(filters=filters(diagnoses.age_at_diagnosis <= 10*365,endpoint='cases'))
+```{r filtercases}
+# youngcases = cases(filters=filters(diagnoses.age_at_diagnosis <= 10*365,endpoint='cases'))
 ```
 
 # SessionInfo
