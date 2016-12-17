@@ -29,6 +29,8 @@
 #'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
 #'
 #' @return character(1) destination to the downloaded BAM file
+#'
+#' @importFrom httr progress
 #' 
 #' @examples
 #' \donttest{
