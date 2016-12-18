@@ -12,7 +12,7 @@
 #'
 #' @param token (optional) character(1) security token allowing access
 #'     to restricted data. See
-#'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
+#'     \url{https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication}.
 #'
 #' @examples
 #' uuids <- c("e3228020-1c54-4521-9182-1ea14c5dc0f7",

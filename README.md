@@ -59,4 +59,4 @@ See [vignette](https://github.com/Bioconductor/GenomicDataCommons/blob/master/vi
 [GenomicRanges]: https://bioconductor.org/packages/GenomicRanges
 [GenomicAlignments]: https://bioconductor.org/packages/GenomicAlignments
 [VariantAnnotation]: https://bioconductor.org/packages/VariantAnnotation
-[authentication token]: https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/
+[authentication token]: https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication

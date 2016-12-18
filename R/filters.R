@@ -34,6 +34,9 @@
                   content=list(x,y)))
     })
   }
+  if(class(op)=='lazy') {
+    return(lazy_eval(op))
+  }
   return(function(op) {
     return(as.character(op))
   })
@@ -73,7 +76,7 @@ filters = function(filter_expression, endpoint, asJSON=TRUE, ...) {
   ## The eval and match.call combo keep R from
   ##   evaluating until we are in the right context 
   ##   (i.e., with ops in place)
-  retlist = with(ops,eval(ca$filter_expression))
+  return(lazy(with(ops,eval(ca$filter_expression))))
   if(asJSON) {
     return(jsonlite::toJSON(retlist,...))
   }
