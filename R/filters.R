@@ -15,7 +15,7 @@
   }
 }
 
-combine_op = function(sep) {
+.combine_op <- function(sep) {
   force(sep)
   function(e1, e2) {
       force(e1)
@@ -25,7 +25,6 @@ combine_op = function(sep) {
 }
 
 .f_env = new.env(parent=emptyenv())
-# .f_env=list()
 .f_env$`==` = .binary_op('=')
 .f_env$`!=` = .binary_op('!=')
 .f_env$`<` = .binary_op('<')
@@ -38,31 +37,37 @@ combine_op = function(sep) {
 .f_env$'%exclude%' = .binary_op('exclude')
 
 
-#' Create GDC filters
+#' Create NCI GDC filters for limiting GDC query results
 #'
 #' Create filters using standard R formatting
 #'
-#' This function makes arbitrarily complex filter functions for
-#' and creates a list that is ready for easy conversion with
-#' toJSON for use in queries of the GDC.
+#' Searching the NCI GDC allows for complex filtering based
+#' on logical operations and simple comparisons.  This function
+#' facilitates writing such filter expressions in R-like syntax
+#' with R code evaluation. 
 #'
-#' @param filter_expression an R-like expression
+#' @param expr an R expression
 #' @param endpoint one of the recognized endpoints; used to pull accepted fields for
 #'   use in query construction
-#' @param ... passed to \code{jsonlite::toJSON}
-#' @return either a JSON string or the R list prior to conversion to JSON
+#'
+#' @return a (potentially nested) R list prior that, after converting to JSON
+#' can be used as the filter parameter in an NCI GDC search or other query.
 #'
 #' @importFrom jsonlite toJSON
 #'
 #' @examples
-#' #filter_expr(diagnoses.age_at_diagnosis <= 10*365,endpoint='cases')
-#' #filter_expr(project.primary_site %in% c('blood','brain'),endpoint='cases')
+#' filter_expr("diagnoses.age_at_diagnosis" <= 10*365)
+#' filter_expr("project.primary_site" %in% c('blood','brain'))
+#' fe = filter_expr("project.primary_site" %in% c('blood','brain')
+#'                  & "diagnosis.age_at_diagnosis" <= 10*365)
+#' jsonlite::toJSON(fe,auto_unbox=TRUE,pretty=TRUE)
+#'
 #' @export
-filter_expr = function(expr,available_fields,endpoint) {
+filter_expr = function(expr,available_fields=NULL) {
     x = substitute(expr)
     available_fields=list(available_fields)
     names(available_fields)=available_fields
     filt_env = list2env(as.list(.f_env),parent=list2env(available_fields))
     eval(x,filt_env,enclos = parent.frame())
 }
-    
+
