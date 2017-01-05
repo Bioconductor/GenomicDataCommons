@@ -1,11 +1,11 @@
 ---
-title: "Introduction to Accessing the NCI Genomic Data Commons in Bioconductor"
+title: "Introduction to Accessing the NCI Genomic Data Commons"
 author: "Sean Davis & Martin Morgan"
 date: "`r Sys.Date()`"
 output: 
   BiocStyle::html_document
 vignette: >
-  %\VignetteIndexEntry{Introduction to Accessing the NCI Genomic Data Commons in Bioconductor}
+  %\VignetteIndexEntry{Introduction to Accessing the NCI Genomic Data Commons}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -99,7 +99,9 @@ Here, we will be describing how to access the main API endpoints:
 The following sections address each in turn, including examples of
 usage.
 
-# The basic API endpoints
+# The API
+
+## Basic API endpoints
 
 The Projects, Files, Cases, and Annotations endpoints are are all
 accessed using functions of the same name (all lowercase). The default
@@ -110,7 +112,9 @@ may have one-to-many relationships, so this represents a
 simplification. Accessing the data more directly will be covered in
 later sections.
 
-## Projects
+
+
+### Projects
 
 To get a sense of what is available in the default Project entities,
 we simply call the `projects()` function without any arguments. By
@@ -122,17 +126,19 @@ a = projects()
 datatable(a)
 ```
 
-## Files
+### Files
 
 ```{r files10}
-fields <- c("data_type", "updated_datetime", "created_datetime",
-    "file_name", "md5sum", "data_format", "acl", "access", "state",
-    "data_category", "file_size", "submitter_id", "type")
+fields <- c("data_type", "updated_datetime", "file_name", "data_format", "access",
+            "data_category", "file_size", "type")
 a = files(fields=fields)
-datatable(do.call(rbind, a))
+a = files(fields=fields,filters=toJSON(filter_expr('data_format'=='VCF'),auto_unbox = TRUE))
+# Convert to dataframe
+files_df = do.call(rbind, a)
+datatable(files_df[,c('file_name','data_format','access','type','data_category')],rownames=FALSE)
 ```
 
-## Cases
+### Cases
 
 ```{r cases10}
 a = cases()
@@ -143,7 +149,7 @@ head(a[[1]])  # values
 str(a[[1]])
 ```
 
-## Annotations
+### Annotations
 
 Annotations are notes added to individual cases, samples or
 files. They can be searched and filtered in the same way as other
@@ -153,19 +159,32 @@ details from Data Portal about annotations.
 
 ```{r annotations10}
 a = annotations()
-datatable(do.call(rbind, a))
+annots_df = do.call(rbind, a)
+datatable(annots_df[,c('category','classification','notes','entity_type')],rownames=FALSE)
 ```
 
-# Advanced API Usage
+## Advanced API Usage
 
-## Searching and filtering
+### Searching and filtering
 
-
-## Faceting (counting)
+### Faceting (counting)
 
 ```{r facetProjectByProgram}
 res = cases(facets='diagnoses.tumor_stage')
 ```
+
+
+### The _mapping endpoint
+
+mapping key | Description of value
+----------- | --------------------------------------------------
+ \_mapping | All available fields and their descriptions. The endpoint-agnostic field names provided here are compatible with the filters parameter but are not always compatible with the fields parameter 
+defaults | The default set of fields included in the API response when the fields parameter is not used in the request 
+expand | Field group names for use with the expand parameter 
+fields	| All available fields in an endpoint-specific format that is compatible with both the filters and fields parameters 
+multi | GDC internal use 
+nested  | Nested fields  
+
 
 
 
