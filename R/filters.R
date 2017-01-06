@@ -6,6 +6,7 @@
   }
 }
 
+#' @importFrom jsonlite unbox
 .binary_op <- function(sep) {
   force(sep)
   function(e1, e2) {
@@ -15,6 +16,7 @@
   }
 }
 
+#' @importFrom jsonlite unbox
 .combine_op <- function(sep) {
   force(sep)
   function(e1, e2) {
@@ -47,8 +49,8 @@
 #' with R code evaluation. 
 #'
 #' @param expr an R expression
-#' @param endpoint one of the recognized endpoints; used to pull accepted fields for
-#'   use in query construction
+#' @param available_fields A character vector of field names that, if specified,
+#' can be used unquoted in creating filter expressions
 #'
 #' @return a (potentially nested) R list prior that, after converting to JSON
 #' can be used as the filter parameter in an NCI GDC search or other query.

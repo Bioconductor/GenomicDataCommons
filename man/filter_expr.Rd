@@ -2,31 +2,35 @@
 % Please edit documentation in R/filters.R
 \name{filter_expr}
 \alias{filter_expr}
-\title{Create GDC filters}
+\title{Create NCI GDC filters for limiting GDC query results}
 \usage{
-filter_expr(expr, available_fields, endpoint)
+filter_expr(expr, available_fields = NULL)
 }
 \arguments{
-\item{endpoint}{one of the recognized endpoints; used to pull accepted fields for
-use in query construction}
+\item{expr}{an R expression}
 
-\item{filter_expression}{an R-like expression}
-
-\item{...}{passed to \code{jsonlite::toJSON}}
+\item{available_fields}{A character vector of field names that, if specified,
+can be used unquoted in creating filter expressions}
 }
 \value{
-either a JSON string or the R list prior to conversion to JSON
+a (potentially nested) R list prior that, after converting to JSON
+can be used as the filter parameter in an NCI GDC search or other query.
 }
 \description{
 Create filters using standard R formatting
 }
 \details{
-This function makes arbitrarily complex filter functions for
-and creates a list that is ready for easy conversion with
-toJSON for use in queries of the GDC.
+Searching the NCI GDC allows for complex filtering based
+on logical operations and simple comparisons.  This function
+facilitates writing such filter expressions in R-like syntax
+with R code evaluation.
 }
 \examples{
-#filter_expr(diagnoses.age_at_diagnosis <= 10*365,endpoint='cases')
-#filter_expr(project.primary_site \%in\% c('blood','brain'),endpoint='cases')
+filter_expr("diagnoses.age_at_diagnosis" <= 10*365)
+filter_expr("project.primary_site" \%in\% c('blood','brain'))
+fe = filter_expr("project.primary_site" \%in\% c('blood','brain')
+                 & "diagnosis.age_at_diagnosis" <= 10*365)
+jsonlite::toJSON(fe,auto_unbox=TRUE,pretty=TRUE)
+
 }
 

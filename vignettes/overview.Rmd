@@ -2,8 +2,15 @@
 title: "Introduction to Accessing the NCI Genomic Data Commons"
 author: "Sean Davis & Martin Morgan"
 date: "`r Sys.Date()`"
-output: 
-  BiocStyle::html_document
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
+    code_folding: hide
+    df_print: paged
+      
 vignette: >
   %\VignetteIndexEntry{Introduction to Accessing the NCI Genomic Data Commons}
   %\VignetteEngine{knitr::rmarkdown}
@@ -101,7 +108,7 @@ usage.
 
 # The API
 
-## Basic API endpoints
+## Basic API endpoints { .tabset .tabset-fade }
 
 The Projects, Files, Cases, and Annotations endpoints are are all
 accessed using functions of the same name (all lowercase). The default
@@ -129,6 +136,7 @@ datatable(a)
 ### Files
 
 ```{r files10}
+library(jsonlite)
 fields <- c("data_type", "updated_datetime", "file_name", "data_format", "access",
             "data_category", "file_size", "type")
 a = files(fields=fields)
@@ -163,9 +171,36 @@ annots_df = do.call(rbind, a)
 datatable(annots_df[,c('category','classification','notes','entity_type')],rownames=FALSE)
 ```
 
-## Advanced API Usage
+## Querying
+
+Parameter | Default | Description
+--------- | :-----: | ---------------------------------------------------
+filters	| null | Specifies search parameters
+format | JSON  | Specifies the API response format: JSON, XML, or TSV
+pretty | false | Returns response with indentations and line breaks in a human-readable format
+fields | null | Specifies which fields to include in the response
+size | 10 | Specifies the number of results to return
+from | 1 | Specifies the first record to return from a set of search results
+sort | null | Specifies sorting for the search results
+facets | null | Provides all existing values for a given field and the number of records having this value.
 
 ### Searching and filtering
+
+
+Operator | Description | Number of Operands | Logic example
+:---------:|----------------|:-------------:|-------------------------------
+=  | equals (string or number) | one  | gender = "female"
+!= | does not equal (string or number)  | one | project_id != "TARGET-AML"
+<  | less than (number)  | one	| age at diagnosis < 90y
+<=	| less than or equal (number)  | one | age at diagnosis <= 17
+> | greater than (number)  | one | age at diagnosis > 50
+>=	| greater than or equal (number) | one | age at diagnosis >= 18
+is | is (missing) | one	| gender is missing
+not	| not (missing)	| one | race not missing
+in | matches a string or number in (a list)	| multiple | primary_site in [Brain, Lung]
+exclude	| does not match any strings or values in (a list) | multiple | experimental_strategy exclude [WXS, WGS, "Genotyping array"]
+and	| (operation1) and (operation2)	| multiple | {primary_site in [Brain, Lung]} and {gender = "female"}
+or | (operation1) or (operation2) | multiple | {project_id != "TARGET-AML"} or {age at diagnosis < 90y}
 
 ### Faceting (counting)
 
