@@ -24,15 +24,6 @@ lst
 sapply(lst, "[[", "submitter_id")
 ```
 
-Accessing restricted data requires an [authentication token][]. This
-in turn requires eRA and dbGAP access. Provide the token as a
-character string (or, for `manifest()`, a file path).
-
-```{r}
-slicing("df80679e-c4d3-487b-934c-fcc782e5d46e", symbols=c("BRCA1", "BRCA2"),
-        token=token)
-```
-
 See [vignette](https://github.com/Bioconductor/GenomicDataCommons/blob/master/vignettes/overview.Rmd) for more details.
 
 
@@ -59,4 +50,4 @@ See [vignette](https://github.com/Bioconductor/GenomicDataCommons/blob/master/vi
 [GenomicRanges]: https://bioconductor.org/packages/GenomicRanges
 [GenomicAlignments]: https://bioconductor.org/packages/GenomicAlignments
 [VariantAnnotation]: https://bioconductor.org/packages/VariantAnnotation
-[authentication token]: https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication
+[authentication token]: https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Authentication/
