@@ -1,10 +1,10 @@
-.unary_op <- function(left) {
-  force(left)
-  function(e1) {
-    force(e1)
-    list(op=e1,content=c(field=left,value=c(right)))
-  }
-}
+#.unary_op <- function(left) {
+#  force(left)
+#  function(e1) {
+#    force(e1)
+#    list(op=e1,content=c(field=left,value=c(right)))
+#  }
+#}
 
 #' @importFrom jsonlite unbox
 .binary_op <- function(sep) {
