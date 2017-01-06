@@ -79,7 +79,11 @@
 #' make_filter("project.primary_site" %in% c('blood','brain'))
 #' fe = make_filter("project.primary_site" %in% c('blood','brain')
 #'                  & "diagnosis.age_at_diagnosis" <= 10*365)
-#' jsonlite::toJSON(fe,auto_unbox=TRUE,pretty=TRUE)
+#' fe
+#'
+#' fe = make_filter("project.primary_site" %in% c('blood','brain')
+#'                  & "diagnosis.age_at_diagnosis" <= 10*365,toJSON=FALSE)
+#' fe
 #'
 #' @export
 make_filter = function(expr,available_fields=NULL,toJSON=TRUE) {
