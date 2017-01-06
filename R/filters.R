@@ -46,30 +46,49 @@
 #' Searching the NCI GDC allows for complex filtering based
 #' on logical operations and simple comparisons.  This function
 #' facilitates writing such filter expressions in R-like syntax
-#' with R code evaluation. 
+#' with R code evaluation.
+#'
+#' @details
+#' This function can be used in several different ways.
+#'
+#' \itemize{
+#' \item{If used with available_fields, "bare" fields that are
+#' named in the available_fields character vector can be used
+#' in the filter expression without quotes.}
+#' \item{If toJSON==TRUE, then the appropriate JSON for using
+#' in a query filter (filter = make_filter(....,)) is returned.}
+#' \item{If toJSON==FALSE, then a list is returned that could
+#' be manipulated further before converrsion to JSON for use in
+#' a query. Note that the appropriate toJSON() will likely need
+#' to include \dQuote{auto_unbox=TRUE}.}
+#' }
+#' 
 #'
 #' @param expr an R expression
+#' 
 #' @param available_fields A character vector of field names that, if specified,
 #' can be used unquoted in creating filter expressions
 #'
-#' @return a (potentially nested) R list prior that, after converting to JSON
+#' @return a JSON data object (if toJSON==TRUE, the default)
 #' can be used as the filter parameter in an NCI GDC search or other query.
 #'
 #' @importFrom jsonlite toJSON
 #'
 #' @examples
-#' filter_expr("diagnoses.age_at_diagnosis" <= 10*365)
-#' filter_expr("project.primary_site" %in% c('blood','brain'))
-#' fe = filter_expr("project.primary_site" %in% c('blood','brain')
+#' make_filter("diagnoses.age_at_diagnosis" <= 10*365)
+#' make_filter("project.primary_site" %in% c('blood','brain'))
+#' fe = make_filter("project.primary_site" %in% c('blood','brain')
 #'                  & "diagnosis.age_at_diagnosis" <= 10*365)
 #' jsonlite::toJSON(fe,auto_unbox=TRUE,pretty=TRUE)
 #'
 #' @export
-filter_expr = function(expr,available_fields=NULL) {
+make_filter = function(expr,available_fields=NULL,toJSON=TRUE) {
     x = substitute(expr)
-    available_fields=list(available_fields)
+    available_fields=as.list(available_fields)
     names(available_fields)=available_fields
     filt_env = list2env(as.list(.f_env),parent=list2env(available_fields))
-    eval(x,filt_env,enclos = parent.frame())
+    ret=eval(x,filt_env,enclos = parent.frame())
+    if(toJSON) return(toJSON(ret,auto_unbox=TRUE))
+    else return(ret)
 }
 

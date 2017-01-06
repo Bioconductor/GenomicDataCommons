@@ -140,7 +140,7 @@ library(jsonlite)
 fields <- c("data_type", "updated_datetime", "file_name", "data_format", "access",
             "data_category", "file_size", "type")
 a = files(fields=fields)
-a = files(fields=fields,filters=toJSON(filter_expr('data_format'=='VCF'),auto_unbox = TRUE))
+a = files(fields=fields,filters=make_filter('data_format'=='VCF'))
 # Convert to dataframe
 files_df = do.call(rbind, a)
 datatable(files_df[,c('file_name','data_format','access','type','data_category')],rownames=FALSE)
