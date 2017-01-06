@@ -225,10 +225,12 @@ nested  | Nested fields
 
 ```{r mapping10}
 a = mapping('projects')
-a               # available information
-a["defaults"]   # default fields
-a[["defaults"]] # default fields as character()
-a["fields"]     # all fields
+colnames(a)
+head(a)
+# get the "default" fields
+subset(a,defaults)
+# get the "default" fields as character
+subset(a,defaults)$field
 ```
 
 # Advanced querying with filters

@@ -4,23 +4,30 @@
 \alias{mapping}
 \title{Query GDC for available endpoint fields}
 \usage{
-mapping(endpoint, token = NULL)
+mapping(endpoint)
 }
 \arguments{
 \item{endpoint}{character(1) corresponding to endpoints for which
 users may specify additional or alternative fields. Endpoints
 include \dQuote{projects}, \dQuote{cases}, \dQuote{files}, and
 \dQuote{annotations}.}
-
-\item{token}{(optional) character(1) security token allowing access
-to restricted data. See
-\url{https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication}.}
+}
+\value{
+A data frame describing the field (field name), full (full
+    data model name), type (data type), and four additional columns
+    describing the "set" to which the fields belong--\dQuote{default},
+    \dQuote{expand}, \dQuote{multi}, and \dQuote{nested}.
 }
 \description{
 Query GDC for available endpoint fields
 }
 \examples{
 map <- mapping("projects")
-map["default"]
+head(map)
+# get only the "default" fields
+subset(map,defaults)
+# And get just the text names of the "default" fields
+subset(map,defaults)$field
+
 }
 
