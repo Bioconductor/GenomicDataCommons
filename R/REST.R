@@ -52,7 +52,9 @@
     if(getOption('gdc.verbose',FALSE)) {
       message("GET request uri:\n",uri)
     }
-    response <- GET(uri, add_headers(`X-Auth-Token`=token), ...)
+    response <- GET(uri, add_headers(`X-Auth-Token`=token),
+                    #config = httr::config(ssl_verifypeer = FALSE),
+                    ...)
     stop_for_status(response)
     response
 }
@@ -71,6 +73,7 @@
     response <- POST(
         uri, add_headers(`X-Auth-Token`=token),
         ...,
+        #config = httr::config(ssl_verifypeer = FALSE),
         body=body, encode="json")
     stop_for_status(response)
     response
