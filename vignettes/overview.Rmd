@@ -26,7 +26,7 @@ library(GenomicDataCommons)
 library(DT)
 ```
 
-# Background
+# What is the Genomic Data Commons (GDC)?
 
 From the [Genomic Data Commons (GDC) website](https://gdc.nci.nih.gov/about-gdc):
 
@@ -50,7 +50,7 @@ it will become an even more powerful tool for making discoveries about
 the molecular basis of cancer that may lead to better care for
 patients.
 
-## Data Model
+## GDC Data Model
 
 The
 [data model for the GDC is complex](https://gdc.cancer.gov/developers/gdc-data-model/gdc-data-model-components),
@@ -246,8 +246,33 @@ complicated filtering patterns. Examples follow:
 # youngcases = cases(filters=filters(diagnoses.age_at_diagnosis <= 10*365,endpoint='cases'))
 ```
 
+# Obtaining data
+
+## Single or multiple small file downloads
+
+```{r}
+a = files(filters=make_filter('data_format'=='MAF' & 'access'=='open'))
+fpaths = gdcdata(uuids=names(a))
+basename(fpaths)
+```
+
+## Large or many files with GDC download tool
+
+For many files or large files, the [GDC Download Tool][] can be more efficient and 
+allows for download restarts if necessary.
+
+```{r}
+manifest_path = manifest(uuids = names(a))
+manifest_path
+```
+
+Use the [GDC Download Tool][] for your
+platform and to read and then download files in the `manifest_path` from above.  
+
 # SessionInfo
 
 ```{r sessionInfo}
 sessionInfo()
 ```
+
+[GDC Download Tool](https://github.com/NCI-GDC/gdc-client/releases/latest)
