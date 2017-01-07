@@ -11,8 +11,19 @@ Authors@R: c(
     person("Davis", "Sean", email="seandavi@gmail.com",
         role=c("aut")))
 License: Artistic-2.0
-Imports: stats, httr, xml2, jsonlite, utils
-Suggests: BiocStyle, knitr, rmarkdown, DT
-biocViews: DataImport, Sequencing
+Imports:
+    stats,
+    httr,
+    xml2,
+    jsonlite,
+    utils
+Suggests:
+    BiocStyle,
+    knitr,
+    rmarkdown,
+    DT
+biocViews:
+    DataImport,
+    Sequencing
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
