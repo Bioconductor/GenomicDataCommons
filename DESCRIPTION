@@ -21,7 +21,8 @@ Suggests:
     BiocStyle,
     knitr,
     rmarkdown,
-    DT
+    DT,
+    testthat
 biocViews:
     DataImport,
     Sequencing
