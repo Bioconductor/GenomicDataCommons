@@ -32,7 +32,12 @@ mapping <- function(endpoint) {
     response <- .gdc_get(
         sprintf("%s/%s", endpoint, "_mapping"))
     json <- content(response, type="application/json")
-    df = do.call(rbind,json[['_mapping']])
+    mapdat = json[['_mapping']]
+    maplist = list()
+    for(cname in names(mapdat[[1]])) {
+        maplist[[cname]] = as.character(lapply(mapdat,'[[',cname))
+    }
+    df = do.call(cbind,maplist)
     tmpdf = as.data.frame(matrix(FALSE, ncol = 4, nrow = nrow(df)))
     fieldtypes = c('defaults', 'expand', 'multi', 'nested')
     colnames(tmpdf) = fieldtypes
