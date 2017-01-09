@@ -6,9 +6,8 @@ output:
   html_document:
     toc: true
     toc_float: true
-    theme: united
+    theme: spacelab
     highlight: tango
-    code_folding: hide
     df_print: paged
       
 vignette: >
@@ -26,7 +25,7 @@ library(GenomicDataCommons)
 library(DT)
 ```
 
-# What is the Genomic Data Commons (GDC)?
+# What is the GDC?
 
 From the [Genomic Data Commons (GDC) website](https://gdc.nci.nih.gov/about-gdc):
 
@@ -106,173 +105,3 @@ Here, we will be describing how to access the main API endpoints:
 The following sections address each in turn, including examples of
 usage.
 
-# The API
-
-## Basic API endpoints { .tabset .tabset-fade }
-
-The Projects, Files, Cases, and Annotations endpoints are are all
-accessed using functions of the same name (all lowercase). The default
-behavior of each is to query the GDC and return the first 10 records
-with a default set of fields. In this section, the results are simply
-converted to a tabular form, but the data are not always tabular and
-may have one-to-many relationships, so this represents a
-simplification. Accessing the data more directly will be covered in
-later sections.
-
-
-
-### Projects
-
-To get a sense of what is available in the default Project entities,
-we simply call the `projects()` function without any arguments. By
-default, the first 10 projects are returned. The returned value for
-projects is a `data.frame` since the Project entity is tabular. 
-
-```{r project10}
-a = projects()
-datatable(a)
-```
-
-### Files
-
-```{r files10}
-library(jsonlite)
-fields <- c("data_type", "updated_datetime", "file_name", "data_format", "access",
-            "data_category", "file_size", "type")
-a = files(fields=fields)
-a = files(fields=fields,filters=make_filter('data_format'=='VCF'))
-# Convert to dataframe
-files_df = do.call(rbind, a)
-datatable(files_df[,c('file_name','data_format','access','type','data_category')],rownames=FALSE)
-```
-
-### Cases
-
-```{r cases10}
-a = cases()
-a             # 10 cases by default
-lengths(a)    # cases have different elements
-a[1]          # summary
-head(a[[1]])  # values
-str(a[[1]])
-```
-
-### Annotations
-
-Annotations are notes added to individual cases, samples or
-files. They can be searched and filtered in the same way as other
-entities. See
-[here](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Annotations/) for
-details from Data Portal about annotations.
-
-```{r annotations10}
-a = annotations()
-annots_df = do.call(rbind, a)
-datatable(annots_df[,c('category','classification','notes','entity_type')],rownames=FALSE)
-```
-
-## Querying
-
-Parameter | Default | Description
---------- | :-----: | ---------------------------------------------------
-filters	| null | Specifies search parameters
-format | JSON  | Specifies the API response format: JSON, XML, or TSV
-pretty | false | Returns response with indentations and line breaks in a human-readable format
-fields | null | Specifies which fields to include in the response
-size | 10 | Specifies the number of results to return
-from | 1 | Specifies the first record to return from a set of search results
-sort | null | Specifies sorting for the search results
-facets | null | Provides all existing values for a given field and the number of records having this value.
-
-### Searching and filtering
-
-
-Operator | Description | Number of Operands | Logic example
-:---------:|----------------|:-------------:|-------------------------------
-=  | equals (string or number) | one  | gender = "female"
-!= | does not equal (string or number)  | one | project_id != "TARGET-AML"
-<  | less than (number)  | one	| age at diagnosis < 90y
-<=	| less than or equal (number)  | one | age at diagnosis <= 17
-> | greater than (number)  | one | age at diagnosis > 50
->=	| greater than or equal (number) | one | age at diagnosis >= 18
-is | is (missing) | one	| gender is missing
-not	| not (missing)	| one | race not missing
-in | matches a string or number in (a list)	| multiple | primary_site in [Brain, Lung]
-exclude	| does not match any strings or values in (a list) | multiple | experimental_strategy exclude [WXS, WGS, "Genotyping array"]
-and	| (operation1) and (operation2)	| multiple | {primary_site in [Brain, Lung]} and {gender = "female"}
-or | (operation1) or (operation2) | multiple | {project_id != "TARGET-AML"} or {age at diagnosis < 90y}
-
-### Faceting (counting)
-
-```{r facetProjectByProgram}
-res = cases(facets='diagnoses.tumor_stage')
-```
-
-
-### The _mapping endpoint
-
-mapping key | Description of value
------------ | --------------------------------------------------
- \_mapping | All available fields and their descriptions. The endpoint-agnostic field names provided here are compatible with the filters parameter but are not always compatible with the fields parameter 
-defaults | The default set of fields included in the API response when the fields parameter is not used in the request 
-expand | Field group names for use with the expand parameter 
-fields	| All available fields in an endpoint-specific format that is compatible with both the filters and fields parameters 
-multi | GDC internal use 
-nested  | Nested fields  
-
-
-
-
-```{r mapping10}
-a = mapping('projects')
-colnames(a)
-head(a)
-# get the "default" fields
-subset(a,defaults)
-# get the "default" fields as character
-subset(a,defaults)$field
-```
-
-# Advanced querying with filters
-
-The GDC
-supports
-[advanced queries](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Advanced_Search/) based
-on filters and facets. The GenomicDataCommons package allows writing
-queries using standard R syntax, simplifying the creation of
-complicated filtering patterns. Examples follow:
-
-```{r filtercases}
-# youngcases = cases(filters=filters(diagnoses.age_at_diagnosis <= 10*365,endpoint='cases'))
-```
-
-# Obtaining data
-
-## Single or multiple small file downloads
-
-```{r}
-a = files(filters=make_filter('data_format'=='MAF' & 'access'=='open'))
-fpaths = gdcdata(uuids=names(a))
-basename(fpaths)
-```
-
-## Large or many files with GDC download tool
-
-For many files or large files, the [GDC Download Tool][] can be more efficient and 
-allows for download restarts if necessary.
-
-```{r}
-manifest_path = manifest(uuids = names(a))
-manifest_path
-```
-
-Use the [GDC Download Tool][] for your
-platform and to read and then download files in the `manifest_path` from above.  
-
-# SessionInfo
-
-```{r sessionInfo}
-sessionInfo()
-```
-
-[GDC Download Tool](https://github.com/NCI-GDC/gdc-client/releases/latest)
