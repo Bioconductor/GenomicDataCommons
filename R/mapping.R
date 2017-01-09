@@ -35,13 +35,13 @@ mapping <- function(endpoint) {
     mapdat = json[['_mapping']]
     maplist = list()
     for(cname in names(mapdat[[1]])) {
-        maplist[[cname]] = as.character(lapply(mapdat,'[[',cname))
+        maplist[[cname]] = as.character(sapply(mapdat,'[[',cname))
     }
     df = do.call(cbind,maplist)
-    tmpdf = as.data.frame(matrix(FALSE, ncol = 4, nrow = nrow(df)))
+    tmpdf = as.data.frame(matrix(FALSE, ncol = 4, nrow = nrow(df)),stringsAsFactors = FALSE)
     fieldtypes = c('defaults', 'expand', 'multi', 'nested')
     colnames(tmpdf) = fieldtypes
-    df = cbind(df,tmpdf)
+    df = cbind(data.frame(df,stringsAsFactors=FALSE),tmpdf)
     for(i in fieldtypes) {
         df[df$field  %in% json[[i]],i] = TRUE
     }
