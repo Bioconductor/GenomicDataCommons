@@ -76,7 +76,7 @@
     <p>Query GDC for available endpoint fields</p>
     
 
-    <pre><span class='fu'>mapping</span>(<span class='no'>endpoint</span>, <span class='kw'>token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre><span class='fu'>mapping</span>(<span class='no'>endpoint</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -85,25 +85,67 @@
 users may specify additional or alternative fields. Endpoints
 include &#8220;projects&#8221;, &#8220;cases&#8221;, &#8220;files&#8221;, and
 &#8220;annotations&#8221;.</dd>
-      <dt>token</dt>
-      <dd>(optional) character(1) security token allowing access
-to restricted data. See
-<a href = 'https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication'>https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication</a>.</dd>
     </dl>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A data frame describing the field (field name), full (full
+    data model name), type (data type), and four additional columns
+    describing the &quot;set&quot; to which the fields belong--&#8220;default&#8221;,
+    &#8220;expand&#8221;, &#8220;multi&#8221;, and &#8220;nested&#8221;.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>map</span> <span class='kw'>&lt;-</span> <span class='fu'>mapping</span>(<span class='st'>"projects"</span>)</div><div class='output co'>#&gt; <span class='message'>GET request uri:</span>
-#&gt; <span class='message'>https://gdc-api.nci.nih.gov/projects/_mapping?format=JSON&amp;pretty=FALSE&amp;size=10&amp;from=1</span></div><div class='input'><span class='no'>map</span>[<span class='st'>"default"</span>]</div><div class='output co'>#&gt; class: mapping_list
-#&gt; name: NA
-#&gt; values:
-#&gt; </div></pre>
+    <pre class="examples"><div class='input'><span class='no'>map</span> <span class='kw'>&lt;-</span> <span class='fu'>mapping</span>(<span class='st'>"projects"</span>)
+<span class='fu'>head</span>(<span class='no'>map</span>)</div><div class='output co'>#&gt;                                            description doc_type
+#&gt; 1                                                      projects
+#&gt; 2                                                      projects
+#&gt; 3                                                      projects
+#&gt; 4                                                      projects
+#&gt; 5 The dbgap accession number provided for the program. projects
+#&gt; 6                      Full name/title of the program. projects
+#&gt;                            field                                    full   type
+#&gt; 1         dbgap_accession_number         projects.dbgap_accession_number string
+#&gt; 2                   disease_type                   projects.disease_type     id
+#&gt; 3                           name                           projects.name     id
+#&gt; 4                   primary_site                   projects.primary_site     id
+#&gt; 5 program.dbgap_accession_number projects.program.dbgap_accession_number string
+#&gt; 6                   program.name                   projects.program.name string
+#&gt;   defaults expand multi nested
+#&gt; 1     TRUE  FALSE FALSE  FALSE
+#&gt; 2     TRUE  FALSE  TRUE  FALSE
+#&gt; 3     TRUE  FALSE  TRUE  FALSE
+#&gt; 4     TRUE  FALSE  TRUE  FALSE
+#&gt; 5    FALSE  FALSE FALSE  FALSE
+#&gt; 6    FALSE  FALSE FALSE  FALSE</div><div class='input'><span class='co'># get only the "default" fields</span>
+<span class='fu'>subset</span>(<span class='no'>map</span>,<span class='no'>defaults</span>)</div><div class='output co'>#&gt;    description doc_type                  field                            full
+#&gt; 1              projects dbgap_accession_number projects.dbgap_accession_number
+#&gt; 2              projects           disease_type           projects.disease_type
+#&gt; 3              projects                   name                   projects.name
+#&gt; 4              projects           primary_site           projects.primary_site
+#&gt; 8              projects             project_id             projects.project_id
+#&gt; 9              projects               released               projects.released
+#&gt; 10             projects                  state                  projects.state
+#&gt;      type defaults expand multi nested
+#&gt; 1  string     TRUE  FALSE FALSE  FALSE
+#&gt; 2      id     TRUE  FALSE  TRUE  FALSE
+#&gt; 3      id     TRUE  FALSE  TRUE  FALSE
+#&gt; 4      id     TRUE  FALSE  TRUE  FALSE
+#&gt; 8      id     TRUE  FALSE  TRUE  FALSE
+#&gt; 9  string     TRUE  FALSE FALSE  FALSE
+#&gt; 10 string     TRUE  FALSE FALSE  FALSE</div><div class='input'><span class='co'># And get just the text names of the "default" fields</span>
+<span class='fu'>subset</span>(<span class='no'>map</span>,<span class='no'>defaults</span>)$<span class='no'>field</span></div><div class='output co'>#&gt; [1] &quot;dbgap_accession_number&quot; &quot;disease_type&quot;           &quot;name&quot;                  
+#&gt; [4] &quot;primary_site&quot;           &quot;project_id&quot;             &quot;released&quot;              
+#&gt; [7] &quot;state&quot;                 </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

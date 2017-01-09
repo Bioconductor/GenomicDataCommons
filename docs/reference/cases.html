@@ -100,8 +100,8 @@ selection. See <code><a href='endpoints.html'>parameters</a></code>.</dd>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>cases</span> <span class='kw'>&lt;-</span> <span class='fu'>cases</span>()</div><div class='output co'>#&gt; <span class='message'>GET request uri:</span>
-#&gt; <span class='message'>https://gdc-api.nci.nih.gov/cases?format=JSON&amp;pretty=FALSE&amp;fields=sample_ids,portion_ids,submitter_portion_ids,created_datetime,submitter_aliquot_ids,updated_datetime,submitter_analyte_ids,analyte_ids,submitter_id,case_id,state,aliquot_ids,slide_ids,submitter_sample_ids&amp;size=10&amp;from=1</span></div><div class='input'><span class='no'>cases</span></div><div class='output co'>#&gt; class: cases_list
+    <pre class="examples"><div class='input'><span class='no'>cases</span> <span class='kw'>&lt;-</span> <span class='fu'>cases</span>()
+<span class='no'>cases</span></div><div class='output co'>#&gt; class: cases_list
 #&gt; cases: 10
 #&gt; names:
 #&gt;     5f468c25-73c3-49d5-ba12-50653dfe2c41,
@@ -127,8 +127,8 @@ selection. See <code><a href='endpoints.html'>parameters</a></code>.</dd>
 #&gt;     slide_ids(1)
 #&gt;     submitter_sample_ids(2)</div><div class='input'><span class='no'>cases</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>sample_ids</span></div><div class='output co'>#&gt; [1] &quot;5d809b44-5c5e-4942-ac8e-a5650e1e1ccc&quot;
 #&gt; [2] &quot;f80e9141-3634-49cd-8c85-610c7f644d83&quot;</div><div class='input'>
-<span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'>cases</span>(<span class='kw'>fields</span><span class='kw'>=</span><span class='st'>"submitter_id"</span>, <span class='kw'>sort</span><span class='kw'>=</span><span class='st'>"submitter_id:asc"</span>)</div><div class='output co'>#&gt; <span class='message'>GET request uri:</span>
-#&gt; <span class='message'>https://gdc-api.nci.nih.gov/cases?format=JSON&amp;pretty=FALSE&amp;fields=case_id,submitter_id&amp;size=10&amp;from=1&amp;sort=submitter_id:asc</span></div><div class='input'><span class='no'>lst</span></div><div class='output co'>#&gt; class: cases_list
+<span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'>cases</span>(<span class='kw'>fields</span><span class='kw'>=</span><span class='st'>"submitter_id"</span>, <span class='kw'>sort</span><span class='kw'>=</span><span class='st'>"submitter_id:asc"</span>)
+<span class='no'>lst</span></div><div class='output co'>#&gt; class: cases_list
 #&gt; cases: 10
 #&gt; names:
 #&gt;     f7af65fc-97e3-52ce-aa2c-b707650e747b,
