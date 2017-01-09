@@ -100,8 +100,7 @@ selection. See <code><a href='endpoints.html'>parameters</a></code>.</dd>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>projects</span>()                        <span class='co'># first 10 projects, as a data.frame</span></div><div class='output co'>#&gt; <span class='message'>GET request uri:</span>
-#&gt; <span class='message'>https://gdc-api.nci.nih.gov/projects?format=XML&amp;pretty=FALSE&amp;fields=dbgap_accession_number,disease_type,released,state,primary_site,project_id,name&amp;size=10&amp;from=1</span></div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt;    dbgap_accession_number
+    <pre class="examples"><div class='input'><span class='fu'>projects</span>()                        <span class='co'># first 10 projects, as a data.frame</span></div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt;    dbgap_accession_number
 #&gt; 1                        
 #&gt; 2                        
 #&gt; 3               phs000467
@@ -144,8 +143,7 @@ selection. See <code><a href='endpoints.html'>parameters</a></code>.</dd>
 #&gt; 7                             Kidney Renal Papillary Cell Carcinoma
 #&gt; 8                                          Adrenocortical Carcinoma
 #&gt; 9  Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma
-#&gt; 10                                                     Osteosarcoma</div><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>projects</span>(<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>size</span><span class='kw'>=</span><span class='fl'>20</span>)  <span class='co'># projects 10, 11, ... 29</span></div><div class='output co'>#&gt; <span class='message'>GET request uri:</span>
-#&gt; <span class='message'>https://gdc-api.nci.nih.gov/projects?format=XML&amp;pretty=FALSE&amp;fields=dbgap_accession_number,disease_type,released,state,primary_site,project_id,name&amp;size=20&amp;from=10</span></div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='input'><span class='fu'>dim</span>(<span class='no'>df</span>)</div><div class='output co'>#&gt; [1] 20  7</div><div class='input'>
+#&gt; 10                                                     Osteosarcoma</div><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>projects</span>(<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>size</span><span class='kw'>=</span><span class='fl'>20</span>)  <span class='co'># projects 10, 11, ... 29</span></div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='input'><span class='fu'>dim</span>(<span class='no'>df</span>)</div><div class='output co'>#&gt; [1] 20  7</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
