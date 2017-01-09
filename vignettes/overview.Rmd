@@ -6,9 +6,8 @@ output:
   html_document:
     toc: true
     toc_float: true
-    theme: united
+    theme: spacelab
     highlight: tango
-    code_folding: hide
     df_print: paged
       
 vignette: >
@@ -26,7 +25,7 @@ library(GenomicDataCommons)
 library(DT)
 ```
 
-# What is the Genomic Data Commons (GDC)?
+# What is the GDC?
 
 From the [Genomic Data Commons (GDC) website](https://gdc.nci.nih.gov/about-gdc):
 
@@ -224,7 +223,7 @@ nested  | Nested fields
 
 
 ```{r mapping10}
-a = mapping('projects')
+a = mapping('files')
 colnames(a)
 head(a)
 # get the "default" fields
@@ -252,7 +251,7 @@ complicated filtering patterns. Examples follow:
 
 ```{r}
 a = files(filters=make_filter('data_format'=='MAF' & 'access'=='open'))
-fpaths = gdcdata(uuids=names(a))
+fpaths = gdcdata(uuids=names(a),progress=FALSE)
 basename(fpaths)
 ```
 
