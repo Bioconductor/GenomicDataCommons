@@ -21,7 +21,7 @@ opts_chunk$set(cache=TRUE)
 
 # The API { .tabset .tabset-fade }
 
-## Metadata Endpoints { .tabset .tabset-fade }
+## Querying Metadata { .tabset .tabset-fade }
 
 ### General Concepts
 
@@ -48,7 +48,6 @@ sort | null | Specifies sorting for the search results
 facets | null | Provides all existing values for a given field and the number of records having this value.
 
 #### Searching and filtering
-
 
 Operator | Description | Number of Operands | Logic example
 :---------:|----------------|:-------------:|-------------------------------
@@ -164,33 +163,64 @@ complicated filtering patterns. Examples follow:
 # youngcases = cases(filters=filters(diagnoses.age_at_diagnosis <= 10*365,endpoint='cases'))
 ```
 
-## Data Access { .tabset .tabset-fade }
+## Downloading Data { .tabset .tabset-fade }
+
+Downloading files from the GDC starts starts with identifying files of interest and collecting
+the file IDs which the GDC uses as keys for the files.  Then, the transfer can be done using 
+can be done using directly with R-based tooling for small transfers of smaller
+single files or multiple small files. For larger files such as any genomics data files,
+using a specialized data transfer (`gdc-transfer`) tool is likely to be more efficient 
+and offers the potential for restarting transfers. The two sections below deal with 
+these two approaches. 
 
 ### Single or multiple small file downloads
 
+The first step is to connect the UUIDs associated with files of intrest. In this case,
+we will use relatively small files representing open access
+[MAF](https://wiki.nci.nih.gov/display/TCGA/Mutation+Annotation+Format+(MAF)+Specification) files. 
+
 ```{r}
 a = files(filters=make_filter('data_format'=='MAF' & 'access'=='open'))
+```
+And the `gdcdata()` function then downloads the files based on the names of the results
+of the `files()` query. The file paths for the downloaded files are returned from the 
+`gdcdata()` call. 
+
+```{r}
 fpaths = gdcdata(uuids=names(a),progress=FALSE)
+# just print out the filenames to show things worked.
 basename(fpaths)
 ```
 
 ### Large or many files with GDC download tool
 
 For many files or large files, the [GDC Download Tool][] can be more efficient and 
-allows for download restarts if necessary.
+allows for download restarts if necessary. After finding the UUIDs of a set of interesting
+files:
 
 ```{r}
-manifest_path = manifest(uuids = names(a))
-manifest_path
+a = files(filters=make_filter('data_format'=='MAF' & 'access'=='open'))
 ```
 
-Use the [GDC Download Tool][] for your
-platform and to read and then download files in the `manifest_path` from above.  
+we create a "manifest file".
+
+```{r}
+manifest_file = manifest(uuids = names(a))
+manifest_file
+```
+
+This manifest file is then used as input to the [GDC Download Tool](https://github.com/NCI-GDC/gdc-client/releases/latest). A prerequisite to proceeding with the next steps is to install the 
+appropriate version of the GDC Download Tool for your platform. After doing so, the following 
+code will perform the download.
+
+```{r eval=FALSE}
+transfer(manifest = manifest_path)
+```
+
+For more details about transfers, see `help(transfer_help)`.
 
 ## SessionInfo
 
 ```{r sessionInfo}
 sessionInfo()
 ```
-
-[GDC Download Tool](https://github.com/NCI-GDC/gdc-client/releases/latest)

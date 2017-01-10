@@ -102,6 +102,4 @@ Here, we will be describing how to access the main API endpoints:
 - _mappings - For obtaining metadata about fields associated with the
   various endpoints
 
-The following sections address each in turn, including examples of
-usage.
 

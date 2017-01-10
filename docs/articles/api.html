@@ -61,9 +61,9 @@
 <div id="the-api" class="section level1 tabset tabset-fade">
 <h1 class="hasAnchor">
 <html><body><a href="#the-api" class="anchor"> </a></body></html>The API</h1>
-<div id="metadata-endpoints" class="section level2 tabset tabset-fade">
+<div id="querying-metadata" class="section level2 tabset tabset-fade">
 <h2 class="hasAnchor">
-<html><body><a href="#metadata-endpoints" class="anchor"> </a></body></html>Metadata Endpoints</h2>
+<html><body><a href="#querying-metadata" class="anchor"> </a></body></html>Querying Metadata</h2>
 <div id="general-concepts" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#general-concepts" class="anchor"> </a></body></html>General Concepts</h3>
@@ -415,14 +415,18 @@ annots_df =<span class="st"> </span><span class="kw">do.call</span>(rbind, a)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># youngcases = cases(filters=filters(diagnoses.age_at_diagnosis &lt;= 10*365,endpoint='cases'))</span></code></pre></div>
 </div>
 </div>
-<div id="data-access" class="section level2 tabset tabset-fade">
+<div id="downloading-data" class="section level2 tabset tabset-fade">
 <h2 class="hasAnchor">
-<html><body><a href="#data-access" class="anchor"> </a></body></html>Data Access</h2>
+<html><body><a href="#downloading-data" class="anchor"> </a></body></html>Downloading Data</h2>
+<p>Downloading files from the GDC starts starts with identifying files of interest and collecting the file IDs which the GDC uses as keys for the files. Then, the transfer can be done using can be done using directly with R-based tooling for small transfers of smaller single files or multiple small files. For larger files such as any genomics data files, using a specialized data transfer (<code>gdc-transfer</code>) tool is likely to be more efficient and offers the potential for restarting transfers. The two sections below deal with these two approaches.</p>
 <div id="single-or-multiple-small-file-downloads" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#single-or-multiple-small-file-downloads" class="anchor"> </a></body></html>Single or multiple small file downloads</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw"><a href="../reference/file_fields.html">files</a></span>(<span class="dt">filters=</span><span class="kw"><a href="../reference/make_filter.html">make_filter</a></span>(<span class="st">'data_format'</span>==<span class="st">'MAF'</span> &amp;<span class="st"> 'access'</span>==<span class="st">'open'</span>))
-fpaths =<span class="st"> </span><span class="kw"><a href="../reference/gdcdata.html">gdcdata</a></span>(<span class="dt">uuids=</span><span class="kw">names</span>(a),<span class="dt">progress=</span><span class="ot">FALSE</span>)
+<p>The first step is to connect the UUIDs associated with files of intrest. In this case, we will use relatively small files representing open access <a href="https://wiki.nci.nih.gov/display/TCGA/Mutation+Annotation+Format+(MAF)+Specification">MAF</a> files.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw"><a href="../reference/file_fields.html">files</a></span>(<span class="dt">filters=</span><span class="kw"><a href="../reference/make_filter.html">make_filter</a></span>(<span class="st">'data_format'</span>==<span class="st">'MAF'</span> &amp;<span class="st"> 'access'</span>==<span class="st">'open'</span>))</code></pre></div>
+<p>And the <code><a href="../reference/gdcdata.html">gdcdata()</a></code> function then downloads the files based on the names of the results of the <code><a href="../reference/file_fields.html">files()</a></code> query. The file paths for the downloaded files are returned from the <code><a href="../reference/gdcdata.html">gdcdata()</a></code> call.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fpaths =<span class="st"> </span><span class="kw"><a href="../reference/gdcdata.html">gdcdata</a></span>(<span class="dt">uuids=</span><span class="kw">names</span>(a),<span class="dt">progress=</span><span class="ot">FALSE</span>)
+<span class="co"># just print out the filenames to show things worked.</span>
 <span class="kw">basename</span>(fpaths)</code></pre></div>
 <pre><code>##  [1] "TCGA.DLBC.varscan.c2a80453-d1e5-44a5-8dd1-c1d473227686.somatic.maf.gz"      
 ##  [2] "TCGA.READ.varscan.4683cb8b-94d6-4b98-8886-c9e85542d060.somatic.maf.gz"      
@@ -438,11 +442,15 @@ fpaths =<span class="st"> </span><span class="kw"><a href="../reference/gdcdata.
 <div id="large-or-many-files-with-gdc-download-tool" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#large-or-many-files-with-gdc-download-tool" class="anchor"> </a></body></html>Large or many files with GDC download tool</h3>
-<p>For many files or large files, the [GDC Download Tool][] can be more efficient and allows for download restarts if necessary.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">manifest_path =<span class="st"> </span><span class="kw"><a href="../reference/manifest.html">manifest</a></span>(<span class="dt">uuids =</span> <span class="kw">names</span>(a))
-manifest_path</code></pre></div>
-<pre><code>## [1] "/var/folders/21/b_rp6qyj1_b1j5cp8qby0tnr0000gn/T//RtmpBkkKWm/file65dc1bd1f8/gdc_manifest_20170109_234130.txt"</code></pre>
-<p>Use the [GDC Download Tool][] for your platform and to read and then download files in the <code>manifest_path</code> from above.</p>
+<p>For many files or large files, the [GDC Download Tool][] can be more efficient and allows for download restarts if necessary. After finding the UUIDs of a set of interesting files:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw"><a href="../reference/file_fields.html">files</a></span>(<span class="dt">filters=</span><span class="kw"><a href="../reference/make_filter.html">make_filter</a></span>(<span class="st">'data_format'</span>==<span class="st">'MAF'</span> &amp;<span class="st"> 'access'</span>==<span class="st">'open'</span>))</code></pre></div>
+<p>we create a “manifest file”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">manifest_file =<span class="st"> </span><span class="kw"><a href="../reference/manifest.html">manifest</a></span>(<span class="dt">uuids =</span> <span class="kw">names</span>(a))
+manifest_file</code></pre></div>
+<pre><code>## [1] "/var/folders/21/b_rp6qyj1_b1j5cp8qby0tnr0000gn/T//RtmpBkkKWm/file65d1c73bd0f/gdc_manifest_20170110_015342.txt"</code></pre>
+<p>This manifest file is then used as input to the <a href="https://github.com/NCI-GDC/gdc-client/releases/latest">GDC Download Tool</a>. A prerequisite to proceeding with the next steps is to install the appropriate version of the GDC Download Tool for your platform. After doing so, the following code will perform the download.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/manifest.html">transfer</a></span>(<span class="dt">manifest =</span> manifest_path)</code></pre></div>
+<p>For more details about transfers, see <code>help(transfer_help)</code>.</p>
 </div>
 </div>
 <div id="sessioninfo" class="section level2">
@@ -474,7 +482,6 @@ manifest_path</code></pre></div>
 ## [22] memoise_1.0.0        evaluate_0.10        rmarkdown_1.3       
 ## [25] stringi_1.1.2        compiler_3.4.0       BiocInstaller_1.25.2
 ## [28] backports_1.0.4</code></pre>
-<p><a href="https://github.com/NCI-GDC/gdc-client/releases/latest">GDC Download Tool</a></p>
 </div>
 </div>
 </div>
@@ -486,8 +493,8 @@ manifest_path</code></pre></div>
       <ul class="nav nav-pills nav-stacked">
 <li>
 <a href="#the-api">The API</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#metadata-endpoints">Metadata Endpoints</a></li>
-      <li><a href="#data-access">Data Access</a></li>
+<li><a href="#querying-metadata">Querying Metadata</a></li>
+      <li><a href="#downloading-data">Downloading Data</a></li>
       <li><a href="#sessioninfo">SessionInfo</a></li>
       </ul>
 </li>
