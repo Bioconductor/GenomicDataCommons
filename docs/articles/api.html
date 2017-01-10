@@ -419,6 +419,7 @@ annots_df =<span class="st"> </span><span class="kw">do.call</span>(rbind, a)
 <h2 class="hasAnchor">
 <html><body><a href="#downloading-data" class="anchor"> </a></body></html>Downloading Data</h2>
 <p>Downloading files from the GDC starts starts with identifying files of interest and collecting the file IDs which the GDC uses as keys for the files. Then, the transfer can be done using can be done using directly with R-based tooling for small transfers of smaller single files or multiple small files. For larger files such as any genomics data files, using a specialized data transfer (<code>gdc-transfer</code>) tool is likely to be more efficient and offers the potential for restarting transfers. The two sections below deal with these two approaches.</p>
+<p>BAM file slicing is an operation specific to querying pieces of BAM files from the GDC.</p>
 <div id="single-or-multiple-small-file-downloads" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#single-or-multiple-small-file-downloads" class="anchor"> </a></body></html>Single or multiple small file downloads</h3>
@@ -447,10 +448,15 @@ annots_df =<span class="st"> </span><span class="kw">do.call</span>(rbind, a)
 <p>we create a “manifest file”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">manifest_file =<span class="st"> </span><span class="kw"><a href="../reference/manifest.html">manifest</a></span>(<span class="dt">uuids =</span> <span class="kw">names</span>(a))
 manifest_file</code></pre></div>
-<pre><code>## [1] "/var/folders/21/b_rp6qyj1_b1j5cp8qby0tnr0000gn/T//RtmpBkkKWm/file65d1c73bd0f/gdc_manifest_20170110_015342.txt"</code></pre>
+<pre><code>## [1] "/var/folders/21/b_rp6qyj1_b1j5cp8qby0tnr0000gn/T//RtmpBkkKWm/file65d63adf94f/gdc_manifest_20170110_015449.txt"</code></pre>
 <p>This manifest file is then used as input to the <a href="https://github.com/NCI-GDC/gdc-client/releases/latest">GDC Download Tool</a>. A prerequisite to proceeding with the next steps is to install the appropriate version of the GDC Download Tool for your platform. After doing so, the following code will perform the download.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/manifest.html">transfer</a></span>(<span class="dt">manifest =</span> manifest_path)</code></pre></div>
 <p>For more details about transfers, see <code>help(transfer_help)</code>.</p>
+</div>
+<div id="bam-slicing" class="section level3">
+<h3 class="hasAnchor">
+<html><body><a href="#bam-slicing" class="anchor"> </a></body></html>BAM slicing</h3>
+<p>TODO. See <code>help(slicing)</code> for now.</p>
 </div>
 </div>
 <div id="sessioninfo" class="section level2">
