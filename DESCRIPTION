@@ -16,7 +16,8 @@ Imports:
     httr,
     xml2,
     jsonlite,
-    utils
+    utils,
+    assertthat
 Suggests:
     BiocStyle,
     knitr,
