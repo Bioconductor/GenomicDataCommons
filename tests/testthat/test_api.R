@@ -6,6 +6,25 @@ test_that("status returns correctly", {
     expect_equal(length(res), 4)
 })
 
+test_that('gdcQuery', {
+    gCases = gdcQuery('cases')
+    expect_equal(class(gCases)[1],'gdc_cases')
+    expect_equal(class(gCases)[2],'GDCQuery')
+    expect_equal(class(gCases)[3],'list')
+    gFiles = gdcQuery('files')
+    expect_equal(class(gFiles)[1],'gdc_files')
+    expect_equal(class(gFiles)[2],'GDCQuery')
+    expect_equal(class(gFiles)[3],'list')
+    gProjects = gdcQuery('projects')
+    expect_equal(class(gProjects)[1],'gdc_projects')
+    expect_equal(class(gProjects)[2],'GDCQuery')
+    expect_equal(class(gProjects)[3],'list')
+    gAnnotations = gdcQuery('annotations')
+    expect_equal(class(gAnnotations)[1],'gdc_annotations')
+    expect_equal(class(gAnnotations)[2],'GDCQuery')
+    expect_equal(class(gAnnotations)[3],'list')
+})
+
 test_that("cases", {
     res = cases()
     expect_equal(length(res), 10)
