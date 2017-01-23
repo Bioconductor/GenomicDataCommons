@@ -11,6 +11,17 @@
              sort=NULL, filters=NULL, facets=NULL),
         class="gdc_parameters")
 
+.gdc_flat_parameters <-
+    structure(
+        c('fields','facets'),
+        class = "gdc_flat_params")
+
+.gdc_entities =
+    structure(
+        c('projects','cases',"files","annotations"),
+        class = "gdc_entities")
+
+
 #' Endpoints and Parameters
 #'
 #' \code{endpoints()} returns available endpoints.
@@ -66,3 +77,4 @@ print.gdc_parameters <- function(x, ...) {
     string <- paste(names(default), unname(default), sep="=", collapse="&")
     sprintf("?%s", string)
 }
+

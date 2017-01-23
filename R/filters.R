@@ -26,7 +26,8 @@
   }
 }
 
-.f_env = new.env(parent=emptyenv())
+#.f_env = new.env(parent=emptyenv())
+.f_env = list()
 .f_env$`==` = .binary_op('=')
 .f_env$`!=` = .binary_op('!=')
 .f_env$`<` = .binary_op('<')
@@ -95,4 +96,77 @@ make_filter = function(expr,available_fields=NULL,toJSON=TRUE) {
     if(toJSON) return(toJSON(ret,auto_unbox=TRUE))
     else return(ret)
 }
+
+#' makefilter2
+#'
+#' 
+#' @export
+make_filter2 = function(f,available_fields) {
+    available_fields=as.list(available_fields)
+    names(available_fields)=available_fields
+    filt_env = c(as.list(.f_env),available_fields)
+    f_eval(f,data=filt_env)
+}
+
+
+
+#' Manipulating GDCQuery filters
+#'
+#' @name filtering
+#' @examples
+#' # make a GDCQuery object to start
+#' pQuery = gdcProjects()
+#' # check for the default fields
+#' # so that we can use one of them to build a filter
+#' gdcDefaultFields(pQuery)
+#' pQuery = gdcSetFilter(pQuery,~ project_id == 'TCGA-LUAC')
+#' gdcGetFilter(pQuery)
+#'
+#' # files
+#' fQuery = gdcFiles()
+#' gdcDefaultFields(fQuery)
+#' fQuery = gdcSetFilter(fQuery,~ data_format == 'VCF')
+#' gdcGetFilter(fQuery)
+#' fQuery = gdcSetFilter(fQuery,~ data_format == 'VCF' & experimental_strategy == 'WXS' & type == 'simple_somatic_mutation')
+#' gdcGetFilter(fQuery)
+NULL
+
+#' The \code{gdcSetFilter} is simply a safe accessor for
+#' the filter element in \code{\link{GDCQuery}} objects.
+#'
+#' @rdname filtering
+#' 
+#' @export
+gdcSetFilter = function(x,...) {
+    UseMethod('gdcSetFilter',x)
+}
+
+#' @rdname filtering
+#' 
+#' @export
+gdcSetFilter.GDCQuery = function(x,expr) {
+    filt = make_filter2(expr,gdcAvailableFields(x))
+    x$filters = filt
+    return(x)
+}
+
+#' The \code{gdcGetFilter} is simply a safe accessor for
+#' the filter element in \code{\link{GDCQuery}} objects.
+#'
+#' @rdname filtering
+#'
+#' 
+#' @export
+gdcGetFilter = function(x,...) {
+    UseMethod('gdcGetFilter',x)
+}
+
+#' @rdname filtering
+#' 
+#' @export
+gdcGetFilter.GDCQuery = function(gdcQuery,expr) {
+    return(gdcQuery$filters)
+}
+
+
 
