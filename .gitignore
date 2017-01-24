@@ -8,3 +8,4 @@
 docs/articles/*cache
 vignettes/*cache
 scratch
+inst/doc/*
