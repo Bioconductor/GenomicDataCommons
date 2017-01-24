@@ -6,6 +6,8 @@
 #' parameters that define the returned results. A token
 #' is required for accessing certain datasets.
 #'
+#' @param entity character vector of 'cases','files','annotations',
+#' or 'projects'
 #' @param filters a filter list
 #' @param facets a facets list
 #' @param token a character string reprenting the token
@@ -34,12 +36,14 @@ gdcQuery = function(entity,
 
 
 #' @describeIn gdcQuery convenience contructor for a GDCQuery for cases
+#' @param ... passed through to \code{\link{gdcQuery}}
+#' 
 #' @export
 gdcCases = function(...) {return(gdcQuery('cases',...))}
 
 #' @describeIn gdcQuery convenience contructor for a GDCQuery for cases
 #' @export
-gdcFiles = function(...) {return(gdcQuuery('files'),...)}
+gdcFiles = function(...) {return(gdcQuery('files',...))}
 
 #' @describeIn gdcQuery convenience contructor for a GDCQuery for cases
 #' @export
@@ -47,12 +51,16 @@ gdcProjects = function(...) {return(gdcQuery('projects',...))}
 
 #' @describeIn gdcQuery convenience contructor for a GDCQuery for annotations
 #' @export
-gdcAannotations = function(...) {return(gdcQuery('annotations',...))}
+gdcAnnotations = function(...) {return(gdcQuery('annotations',...))}
 
 
-#' @describeIn gdcQuery get the entity name from a GDCQuery object
-gdcEntityName = function(gdcQuery) {
-    cls = class(gdcQuery)[1]
+#' Get the entity name from a GDCQuery object
+#'
+#' @param x a \code{\link{GDCQuery}} object
+#'
+#' @export
+gdcEntityName = function(x) {
+    cls = class(x)[1]
     return(substr(cls,5,nchar(cls)))
 }
 

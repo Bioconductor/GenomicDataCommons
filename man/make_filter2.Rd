@@ -4,7 +4,14 @@
 \alias{make_filter2}
 \title{makefilter2}
 \usage{
-make_filter2(f, available_fields)
+make_filter2(expr, available_fields)
+}
+\arguments{
+\item{expr}{a filter expression}
+
+\item{available_fields}{a character vector of the
+additional names that will be injected into the
+filter evaluation environment}
 }
 \description{
 makefilter2

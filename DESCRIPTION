@@ -17,7 +17,9 @@ Imports:
     xml2,
     jsonlite,
     utils,
-    assertthat
+    assertthat,
+    lazyeval,
+    purrr
 Suggests:
     BiocStyle,
     knitr,

@@ -14,7 +14,7 @@ gdcDefaultFields(x)
 }
 \arguments{
 \item{x}{A character string ('cases','files','projects',
-'annotations') or an subclass of \code{\link{gdcQuery-class}}.}
+'annotations') or an subclass of \code{\link{GDCQuery}}.}
 }
 \value{
 a character vector of the default fields

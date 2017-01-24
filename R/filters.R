@@ -66,6 +66,7 @@
 #' 
 #'
 #' @param expr an R expression
+#' @param toJSON boolean, return JSON (if true) or just a list
 #' 
 #' @param available_fields A character vector of field names that, if specified,
 #' can be used unquoted in creating filter expressions
@@ -74,6 +75,7 @@
 #' can be used as the filter parameter in an NCI GDC search or other query.
 #'
 #' @importFrom jsonlite toJSON
+#' @importFrom lazyeval f_eval
 #'
 #' @examples
 #' make_filter("diagnoses.age_at_diagnosis" <= 10*365)
@@ -99,13 +101,19 @@ make_filter = function(expr,available_fields=NULL,toJSON=TRUE) {
 
 #' makefilter2
 #'
+#' @param expr a filter expression
+#' @param available_fields a character vector of the
+#' additional names that will be injected into the
+#' filter evaluation environment
+#' 
+#' @importFrom lazyeval f_eval
 #' 
 #' @export
-make_filter2 = function(f,available_fields) {
+make_filter2 = function(expr,available_fields) {
     available_fields=as.list(available_fields)
     names(available_fields)=available_fields
     filt_env = c(as.list(.f_env),available_fields)
-    f_eval(f,data=filt_env)
+    f_eval(expr,data=filt_env)
 }
 
 
@@ -134,15 +142,21 @@ NULL
 #' The \code{gdcSetFilter} is simply a safe accessor for
 #' the filter element in \code{\link{GDCQuery}} objects.
 #'
+#' @param x the object on which to set the filter list
+#' member
+#' @param expr a filter expression, where bare names
+#' (without quotes) are allowed if they are available
+#' fields associated with the \code{x}
+#' 
 #' @rdname filtering
 #' 
 #' @export
-gdcSetFilter = function(x,...) {
+gdcSetFilter = function(x,expr) {
     UseMethod('gdcSetFilter',x)
 }
 
 #' @rdname filtering
-#' 
+#'
 #' @export
 gdcSetFilter.GDCQuery = function(x,expr) {
     filt = make_filter2(expr,gdcAvailableFields(x))
@@ -157,15 +171,15 @@ gdcSetFilter.GDCQuery = function(x,expr) {
 #'
 #' 
 #' @export
-gdcGetFilter = function(x,...) {
+gdcGetFilter = function(x) {
     UseMethod('gdcGetFilter',x)
 }
 
 #' @rdname filtering
 #' 
 #' @export
-gdcGetFilter.GDCQuery = function(gdcQuery,expr) {
-    return(gdcQuery$filters)
+gdcGetFilter.GDCQuery = function(x) {
+    return(x$filters)
 }
 
 

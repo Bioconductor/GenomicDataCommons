@@ -8,13 +8,21 @@
 \alias{gdcSetFilter.GDCQuery}
 \title{Manipulating GDCQuery filters}
 \usage{
-gdcSetFilter(x, ...)
+gdcSetFilter(x, expr)
 
 \method{gdcSetFilter}{GDCQuery}(x, expr)
 
-gdcGetFilter(x, ...)
+gdcGetFilter(x)
 
-\method{gdcGetFilter}{GDCQuery}(gdcQuery, expr)
+\method{gdcGetFilter}{GDCQuery}(x)
+}
+\arguments{
+\item{x}{the object on which to set the filter list
+member}
+
+\item{expr}{a filter expression, where bare names
+(without quotes) are allowed if they are available
+fields associated with the \code{x}}
 }
 \description{
 Manipulating GDCQuery filters

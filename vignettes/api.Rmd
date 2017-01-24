@@ -16,6 +16,8 @@ vignette: >
 
 ```{r echo=FALSE,results='hide'}
 library(knitr)
+library(GenomicDataCommons)
+library(DT)
 opts_chunk$set(cache=TRUE)
 ```
 

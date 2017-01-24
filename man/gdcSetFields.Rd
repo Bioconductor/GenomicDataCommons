@@ -9,6 +9,11 @@ gdcSetFields(x, fields)
 
 \method{gdcSetFields}{GDCQuery}(x, fields)
 }
+\arguments{
+\item{x}{the objects on which to set fields}
+
+\item{fields}{a character vector specifying the fields}
+}
 \description{
 S3 generic to set GDCQuery fields
 }
