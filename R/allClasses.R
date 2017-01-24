@@ -6,6 +6,8 @@
 #' parameters that define the returned results. A token
 #' is required for accessing certain datasets.
 #'
+#' @aliases GDCQuery
+#' 
 #' @param entity character vector of 'cases','files','annotations',
 #' or 'projects'
 #' @param filters a filter list
