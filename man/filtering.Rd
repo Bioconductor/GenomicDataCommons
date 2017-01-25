@@ -38,7 +38,7 @@ the filter element in \code{\link{GDCQuery}} objects.
 #
 # Projects
 #
-pQuery = gdcProjects()
+pQuery = projects()
 
 # check for the default fields
 # so that we can use one of them to build a filter
@@ -49,7 +49,7 @@ get_filter(pQuery)
 #
 # Files
 #
-fQuery = gdcFiles()
+fQuery = files()
 default_fields(fQuery)
 
 fQuery = filter(fQuery,~ data_format == 'VCF')

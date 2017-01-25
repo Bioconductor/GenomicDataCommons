@@ -27,7 +27,5 @@ from (index of rist result), sort, filters, and facets. See
 \examples{
 endpoints()
 parameters()
-cases(size=5, from=1)
-cases(size=5, from=3)
 }
 

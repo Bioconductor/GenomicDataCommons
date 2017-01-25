@@ -10,6 +10,22 @@ entity_name(x)
 \item{x}{a \code{\link{GDCQuery}} object}
 }
 \description{
-Get the entity name from a GDCQuery object
+An "entity" is simply one of the four medata endpoints.
+\itemize{
+\item{cases}
+\item{projects}
+\item{files}
+\item{annotations}
+}
+All \code{\link{GDCQuery}} objects will have an entity name. This S3 method
+is simply a utility accessor for those names.
+}
+\examples{
+cases = cases()
+projects = projects()
+
+entity_name(cases)
+entity_name(projects)
+
 }
 

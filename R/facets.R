@@ -7,33 +7,49 @@
 #' See \code{\link{default_fields}} for details
 #'
 #' @rdname faceting
+#'
+#' @examples
+#' # create a new GDCQuery against the projects endpoint
+#' gProj = projects()
+#'
+#' # default facets are NULL
+#' get_facets(gProj)
+#'
+#' # set facets and save result
+#' gProjFacet = facet(gProj)
+#'
+#' # check facets
+#' get_facets(gProjFacet)
+#' 
+#' # and get a response, noting that
+#' # the aggregations list member contains
+#' # tibbles for each facet
+#' str(response(gProjFacet,size=2),max.level=2)
 #' 
 #' @export
-gdcSetFacet = function(x,facets) {
+facet = function(x,facets) {
     UseMethod('facet',x)
 }
 
 
 #' @export
-gdcSetFacet.GDCQuery = function(x,facets=default_fields(x)) {
+facet.GDCQuery = function(x,facets=default_fields(x)) {
     x$facets = facets
     return(x)
 }
-
-
 
 #' Get facets for a \code{\link{GDCQuery}}
 #'
 #' @rdname faceting
 #' 
 #' @export
-gdcGetFacet = function(x) {
-    UseMethod('gdcGetFacet',x)
+get_facets = function(x) {
+    UseMethod('get_facets',x)
 }
 
 #' @rdname faceting
 #'
 #' @export
-gdcGetFacet.GDCQuery = function(x) {
+get_facets.GDCQuery = function(x) {
     return(x$facets)
 }

@@ -126,7 +126,7 @@ make_filter2 = function(expr,available_fields) {
 #' #
 #' # Projects
 #' #
-#' pQuery = gdcProjects()
+#' pQuery = projects()
 #'
 #' # check for the default fields
 #' # so that we can use one of them to build a filter
@@ -137,7 +137,7 @@ make_filter2 = function(expr,available_fields) {
 #' #
 #' # Files
 #' #
-#' fQuery = gdcFiles()
+#' fQuery = files()
 #' default_fields(fQuery)
 #'
 #' fQuery = filter(fQuery,~ data_format == 'VCF')

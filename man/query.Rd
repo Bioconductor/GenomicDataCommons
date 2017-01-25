@@ -2,23 +2,23 @@
 % Please edit documentation in R/allClasses.R
 \name{query}
 \alias{GDCQuery}
-\alias{gdcAnnotations}
-\alias{gdcCases}
-\alias{gdcFiles}
-\alias{gdcProjects}
+\alias{annotations}
+\alias{cases}
+\alias{files}
+\alias{projects}
 \alias{query}
 \title{Start a query of GDC metadata}
 \usage{
 query(entity, token = NULL, filters = NULL, facets = NULL,
   fields = default_fields(entity))
 
-gdcCases(...)
+cases(...)
 
-gdcFiles(...)
+files(...)
 
-gdcProjects(...)
+projects(...)
 
-gdcAnnotations(...)
+annotations(...)
 }
 \arguments{
 \item{entity}{character vector of 'cases','files','annotations',
@@ -53,12 +53,12 @@ is required for accessing certain datasets.
 }
 \section{Functions}{
 \itemize{
-\item \code{gdcCases}: convenience contructor for a GDCQuery for cases
+\item \code{cases}: convenience contructor for a GDCQuery for cases
 
-\item \code{gdcFiles}: convenience contructor for a GDCQuery for cases
+\item \code{files}: convenience contructor for a GDCQuery for cases
 
-\item \code{gdcProjects}: convenience contructor for a GDCQuery for cases
+\item \code{projects}: convenience contructor for a GDCQuery for cases
 
-\item \code{gdcAnnotations}: convenience contructor for a GDCQuery for annotations
+\item \code{annotations}: convenience contructor for a GDCQuery for annotations
 }}
 

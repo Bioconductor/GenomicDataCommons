@@ -51,8 +51,6 @@ print.gdc_endpoints <- function(x, ...)
 #' @rdname constants
 #' @examples
 #' parameters()
-#' cases(size=5, from=1)
-#' cases(size=5, from=3)
 #' @export
 parameters <- function()
     .gdc_parameters

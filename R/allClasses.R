@@ -47,25 +47,42 @@ query = function(entity,
 #' @param ... passed through to \code{\link{query}}
 #' 
 #' @export
-gdcCases = function(...) {return(query('cases',...))}
+cases = function(...) {return(query('cases',...))}
 
 #' @describeIn query convenience contructor for a GDCQuery for cases
 #' @export
-gdcFiles = function(...) {return(query('files',...))}
+files = function(...) {return(query('files',...))}
 
 #' @describeIn query convenience contructor for a GDCQuery for cases
 #' @export
-gdcProjects = function(...) {return(query('projects',...))}
+projects = function(...) {return(query('projects',...))}
 
 #' @describeIn query convenience contructor for a GDCQuery for annotations
 #' @export
-gdcAnnotations = function(...) {return(query('annotations',...))}
+annotations = function(...) {return(query('annotations',...))}
 
 
 #' Get the entity name from a GDCQuery object
 #'
+#' An "entity" is simply one of the four medata endpoints.
+#' \itemize{
+#' \item{cases}
+#' \item{projects}
+#' \item{files}
+#' \item{annotations}
+#' }
+#' All \code{\link{GDCQuery}} objects will have an entity name. This S3 method
+#' is simply a utility accessor for those names.
+#' 
 #' @param x a \code{\link{GDCQuery}} object
 #'
+#' @examples
+#' cases = cases()
+#' projects = projects()
+#' 
+#' entity_name(cases)
+#' entity_name(projects)
+#' 
 #' @export
 entity_name = function(x) {
     cls = class(x)[1]

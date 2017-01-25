@@ -64,9 +64,21 @@ default_fields.GDCQuery = function(x) {
 #' 
 #' @importFrom assertthat assert_that
 #'
+#' @examples
+#' gProj = projects()
+#' gProj$fields
+#' head(available_fields(gProj))
+#' default_fields(gProj)
+#'
+#' library(magrittr)
+#' gProj %>%
+#'   select(default_fields(gProj)[1:2]) %>%
+#'   response() %>%
+#'   str(max_level=2)
+#' 
 #' @export
-gdcSetFields <- function(x,fields) {
-    UseMethod('gdcSetFields',x)
+select <- function(x,fields) {
+    UseMethod('select',x)
 }
 
 #' rectify specified fields with available fields
@@ -81,9 +93,8 @@ gdcSetFields <- function(x,fields) {
     return(fields)
 }
 
-#' @describeIn gdcSetFields set fields on a GDCQuery object
-gdcSetFields.GDCQuery <- function(x,fields) {
+#' @describeIn select set fields on a GDCQuery object
+select.GDCQuery <- function(x,fields) {
     x$fields = .gdcRectifyFieldsForEntity(entity_name(x),fields)
     return(x)
 }
-

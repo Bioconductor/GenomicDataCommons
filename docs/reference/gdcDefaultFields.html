@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Endpoints and Parameters — endpoints • GenomicDataCommons</title>
+<title>S3 Generic to return default GDC fields — gdcDefaultFields • GenomicDataCommons</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -69,48 +69,59 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Endpoints and Parameters</h1>
+    <h1>S3 Generic to return default GDC fields</h1>
     </div>
 
     
-    <p><code>endpoints()</code> returns available endpoints.</p>
-
-    <p><code>parameters()</code> include format (internal use only), pretty
-(internal use only), fields, size (number of results returned),
-from (index of rist result), sort, filters, and facets. See
-<a href = 'https://gdc-docs.nci.nih.gov/API/Users_Guide/Search_and_Retrieval/#query-parameters'>https://gdc-docs.nci.nih.gov/API/Users_Guide/Search_and_Retrieval/#query-parameters</a></p>
+    <p>S3 Generic to return default GDC fields</p>
     
 
-    <pre><span class='fu'>endpoints</span>()
+    <pre><span class='fu'>gdcDefaultFields</span>(<span class='no'>x</span>)
 
-<span class='fu'>parameters</span>()</pre>
-        
+<span class='co'># S3 method for character</span>
+<span class='fu'>gdcDefaultFields</span>(<span class='no'>x</span>)
+
+<span class='co'># S3 method for GDCQuery</span>
+<span class='fu'>gdcDefaultFields</span>(<span class='no'>x</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <dl class="dl-horizontal">
+      <dt>x</dt>
+      <dd>A character string (&#39;cases&#39;,&#39;files&#39;,&#39;projects&#39;,
+&#39;annotations&#39;) or an subclass of <code><a href='gdcQuery.html'>GDCQuery</a></code>.</dd>
+    </dl>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>endpoints()</code> returns a character vector of possible
-    endpoints.</p>
-    <p><code>parameters()</code> returns a list of possible parameters
-    and their default values.</p>
+    <p>a character vector of the default fields</p>
+    
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+
+    <p><ul>
+<li> <code>character</code>: character method</p>
+    <p></li>
+<li> <code>GDCQuery</code>: GDCQuery method
+</li>
+</ul></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>endpoints</span>()</div><div class='output co'>#&gt; available endpoints:
-#&gt;     status, projects, cases, files, annotations, data, manifest,
-#&gt;     slicing</div><div class='input'><span class='fu'>parameters</span>()</div><div class='output co'>#&gt; available parameters:
-#&gt;     format: JSON
-#&gt;     pretty: FALSE
-#&gt;     fields: NULL
-#&gt;     size: 10
-#&gt;     from: 1
-#&gt;     sort: NULL
-#&gt;     filters: NULL
-#&gt;     facets: NULL</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>gdcDefaultFields</span>(<span class='st'>'projects'</span>)</div><div class='output co'>#&gt; [1] &quot;dbgap_accession_number&quot; &quot;disease_type&quot;           &quot;name&quot;                  
+#&gt; [4] &quot;primary_site&quot;           &quot;project_id&quot;             &quot;released&quot;              
+#&gt; [7] &quot;state&quot;                 </div><div class='input'><span class='no'>projQuery</span> <span class='kw'>=</span> <span class='fu'><a href='gdcQuery.html'>gdcQuery</a></span>(<span class='st'>'projects'</span>)
+<span class='fu'>gdcDefaultFields</span>(<span class='no'>projQuery</span>)</div><div class='output co'>#&gt; [1] &quot;dbgap_accession_number&quot; &quot;disease_type&quot;           &quot;name&quot;                  
+#&gt; [4] &quot;primary_site&quot;           &quot;project_id&quot;             &quot;released&quot;              
+#&gt; [7] &quot;state&quot;                 </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#methods-by-class-">Methods (by class)</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
