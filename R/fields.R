@@ -5,24 +5,24 @@
 #' @return a character vector of the default fields
 #'
 #' @examples
-#' gdcAvailableFields('projects')
-#' projQuery = gdcQuery('projects')
-#' gdcAvailableFields(projQuery)
+#' available_fields('projects')
+#' projQuery = query('projects')
+#' available_fields(projQuery)
 #' 
 #' @export
-gdcAvailableFields = function(x) {
-    UseMethod('gdcAvailableFields',x)
+available_fields = function(x) {
+    UseMethod('available_fields',x)
 }
 
-#' @describeIn gdcAvailableFields GDCQuery method
+#' @describeIn available_fields GDCQuery method
 #' @export
-gdcAvailableFields.GDCQuery = function(x) {
-    return(mapping(gdcEntityName(x))$field)
+available_fields.GDCQuery = function(x) {
+    return(mapping(entity_name(x))$field)
 }
 
-#' @describeIn gdcAvailableFields character method
+#' @describeIn available_fields character method
 #' @export
-gdcAvailableFields.character = function(x) {
+available_fields.character = function(x) {
     stopifnot(length(x)==1)
     return(mapping(x)$field)
 }
@@ -35,26 +35,26 @@ gdcAvailableFields.character = function(x) {
 #' @return a character vector of the default fields
 #'
 #' @examples
-#' gdcDefaultFields('projects')
-#' projQuery = gdcQuery('projects')
-#' gdcDefaultFields(projQuery)
+#' default_fields('projects')
+#' projQuery = query('projects')
+#' default_fields(projQuery)
 #' 
 #' @export
-gdcDefaultFields = function(x) {
-    UseMethod('gdcDefaultFields',x)
+default_fields = function(x) {
+    UseMethod('default_fields',x)
 }
 
-#' @describeIn gdcDefaultFields character method
+#' @describeIn default_fields character method
 #' @export
-gdcDefaultFields.character = function(x) {
+default_fields.character = function(x) {
     stopifnot(length(x)==1)
     return(subset(mapping(x),defaults)$field)
 }
 
-#' @describeIn gdcDefaultFields GDCQuery method
+#' @describeIn default_fields GDCQuery method
 #' @export
-gdcDefaultFields.GDCQuery = function(x) {
-    return(gdcDefaultFields(gdcEntityName(x)))
+default_fields.GDCQuery = function(x) {
+    return(default_fields(entity_name(x)))
 }
 
 #' S3 generic to set GDCQuery fields
@@ -73,7 +73,7 @@ gdcSetFields <- function(x,fields) {
 #'
 .gdcRectifyFieldsForEntity <- function(entity,fields) {
     stopifnot(entity %in% .gdc_entities)
-    af = gdcAvailableFields(entity)
+    af = available_fields(entity)
     mismatches = fields[!(fields %in% af)]
     if(length(mismatches)>0)
         stop(sprintf('fields specified included fields not available in %s including (%s)',entity,mismatches))
@@ -83,7 +83,7 @@ gdcSetFields <- function(x,fields) {
 
 #' @describeIn gdcSetFields set fields on a GDCQuery object
 gdcSetFields.GDCQuery <- function(x,fields) {
-    x$fields = .gdcRectifyFieldsForEntity(gdcEntityName(x),fields)
+    x$fields = .gdcRectifyFieldsForEntity(entity_name(x),fields)
     return(x)
 }
 

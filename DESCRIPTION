@@ -19,7 +19,8 @@ Imports:
     utils,
     assertthat,
     lazyeval,
-    purrr
+    purrr,
+    magrittr
 Suggests:
     BiocStyle,
     knitr,

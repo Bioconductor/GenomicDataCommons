@@ -18,7 +18,7 @@ gdcGetFacet(x)
 \item{facets}{a character vector of fields that
 will be used for forming aggregations (facets).
 Default is to set facets for all default fields.
-See \code{\link{gdcDefaultFields}} for details}
+See \code{\link{default_fields}} for details}
 }
 \description{
 Set facets for a \code{\link{GDCQuery}}

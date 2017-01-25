@@ -1,4 +1,4 @@
-#' Construct a GDCQuery
+#' Start a query of GDC metadata
 #'
 #' The basis for all functionality in this package
 #' starts with constructing a query in R. The GDCQuery
@@ -17,13 +17,19 @@
 #' 
 #' @return An S3 object, the GDCQuery object. This is a list
 #' with filters, facets, and fields as members.
+#' \itemize{
+#' \item{filters}
+#' \item{facets}
+#' \item{fields}
+#' \item{token}
+#' }
 #'
 #' @export
-gdcQuery = function(entity,
+query = function(entity,
                     token=NULL,
                     filters=NULL,
                     facets=NULL,
-                    fields=subset(mapping(entity),defaults)$field) {
+                    fields=default_fields(entity)) {
     stopifnot(entity %in% c('cases','files','annotations','projects'))
     ret = structure(
         list(
@@ -37,23 +43,23 @@ gdcQuery = function(entity,
 }
 
 
-#' @describeIn gdcQuery convenience contructor for a GDCQuery for cases
-#' @param ... passed through to \code{\link{gdcQuery}}
+#' @describeIn query convenience contructor for a GDCQuery for cases
+#' @param ... passed through to \code{\link{query}}
 #' 
 #' @export
-gdcCases = function(...) {return(gdcQuery('cases',...))}
+gdcCases = function(...) {return(query('cases',...))}
 
-#' @describeIn gdcQuery convenience contructor for a GDCQuery for cases
+#' @describeIn query convenience contructor for a GDCQuery for cases
 #' @export
-gdcFiles = function(...) {return(gdcQuery('files',...))}
+gdcFiles = function(...) {return(query('files',...))}
 
-#' @describeIn gdcQuery convenience contructor for a GDCQuery for cases
+#' @describeIn query convenience contructor for a GDCQuery for cases
 #' @export
-gdcProjects = function(...) {return(gdcQuery('projects',...))}
+gdcProjects = function(...) {return(query('projects',...))}
 
-#' @describeIn gdcQuery convenience contructor for a GDCQuery for annotations
+#' @describeIn query convenience contructor for a GDCQuery for annotations
 #' @export
-gdcAnnotations = function(...) {return(gdcQuery('annotations',...))}
+gdcAnnotations = function(...) {return(query('annotations',...))}
 
 
 #' Get the entity name from a GDCQuery object
@@ -61,68 +67,85 @@ gdcAnnotations = function(...) {return(gdcQuery('annotations',...))}
 #' @param x a \code{\link{GDCQuery}} object
 #'
 #' @export
-gdcEntityName = function(x) {
+entity_name = function(x) {
     cls = class(x)[1]
     return(substr(cls,5,nchar(cls)))
 }
 
-facet = function(x,...) {
-    UseMethod('facet',x)
-}
 
-facet.gdc_entity = function(gdc,facets=default_fields(gdc)) {
-    gdc$facets = facets
-    invisible(gdc)
-}
-
-fetch = function(x,...) {
-    UseMethod('fetch',x)
+#' get the response from server
+#'
+#' @param x a \code{\link{GDCQuery}} object
+#' @param from integer index from which to start returning data
+#' @param size number of records to return
+#' @param ... passed to httr (good for passing config info, etc.)
+#' 
+#' @rdname response
+#' 
+#' @export
+response = function(x,...) {
+    UseMethod('response',x)
 }
 
 count = function(x,...) {
     UseMethod('count',x)
 }
 
-count.gdc_entity = function(x) {
+count.GDCQuery = function(x) {
     body = Filter(function(z) !is.null(z),x)
     body[['facets']]=paste0(body[['facets']],collapse=",")
+    body[['fields']]=paste0(body[['fields']],collapse=",")
     #body = lapply(l,toJSON)
     #names(body) = names(l)
     body[['from']]=1
     body[['size']]=1
     body[['format']]='JSON'
     body[['pretty']]='FALSE'
-    httr::content(.gdc_post(.gdc_entity_name(x),body=body,token=NULL))$data$pagination$total
+    httr::content(.gdc_post(entity_name(x),body=body,token=NULL))$data$pagination$total
 }    
 
-fetch = function(x,from=1,size=10,pretty=FALSE) {
+#' @rdname response
+#' 
+#' @importFrom magrittr %>%
+#' @importFrom magrittr extract
+#' @importFrom purrr map map_df
+#' 
+#' @export
+response.GDCQuery = function(x,from=1,size=10,...) {
     body = Filter(function(z) !is.null(z),x)
     body[['facets']]=paste0(body[['facets']],collapse=",")
+    body[['fields']]=paste0(body[['fields']],collapse=",")
     #body = lapply(l,toJSON)
     #names(body) = names(l)
     body[['from']]=from
     body[['size']]=size
     body[['format']]='JSON'
     body[['pretty']]='FALSE'
-    tmp = httr::content(.gdc_post(.gdc_entity_name(x),body=body,token=NULL,httr::verbose()))
-    ret=list(results = tmp$data$hits,
-             query   = x,
-             pages   = tmp$data$pagination,
-             ### TODO: fix me
-             aggregations = tmp %>%
-                 purrr::map('aggregations') %>% 
-                 lapply(function(x) {purrr::map_df(as.list(x[['buckets']]),extract,c('key','doc_count'))})
-             )
-    
+    tmp = httr::content(.gdc_post(entity_name(x),body=body,token=NULL,...))
+    list(results = tmp$data$hits,
+         query   = x,
+         pages   = tmp$data$pagination,
+         ### TODO: fix me
+         aggregations = lapply(tmp$data$aggregations,function(x) {x$buckets %>% purrr::map_df(extract,c('key','doc_count'))})
+         )
 }
 
-fetch_all = function(x,...) {
+#' @rdname response
+#' 
+#' @export
+response_all = function(x,...) {
     count = count(x)
-    return(fetch(x,size=count,from=1,...))
+    return(response(x,size=count,from=1,...))
 }
 
+
+#' aggregations
+#'
+#' @param x a \code{\link{GDCQuery}} object
+#'
+#' @export
 aggregations = function(x) {
-    if(is.null(x$facets)) x$facets = subset(mapping(.gdc_entity_name(x)),defaults)$field
-    res = httr::content(fetch(x)) %>% purrr::map('aggregations')
-    return(lapply(res$data,function(x) {map_df(as.list(x[['buckets']]),extract,c('key','doc_count'))}))
+    if(is.null(x$facets))
+        x$facets = subset(mapping(entity_name(x)),defaults)$field
+    return(response(x)$aggregations)
 }

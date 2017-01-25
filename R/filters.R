@@ -123,23 +123,33 @@ make_filter2 = function(expr,available_fields) {
 #' @name filtering
 #' @examples
 #' # make a GDCQuery object to start
+#' #
+#' # Projects
+#' #
 #' pQuery = gdcProjects()
+#'
 #' # check for the default fields
 #' # so that we can use one of them to build a filter
-#' gdcDefaultFields(pQuery)
-#' pQuery = gdcSetFilter(pQuery,~ project_id == 'TCGA-LUAC')
-#' gdcGetFilter(pQuery)
+#' default_fields(pQuery)
+#' pQuery = filter(pQuery,~ project_id == 'TCGA-LUAC')
+#' get_filter(pQuery)
 #'
-#' # files
+#' #
+#' # Files
+#' #
 #' fQuery = gdcFiles()
-#' gdcDefaultFields(fQuery)
-#' fQuery = gdcSetFilter(fQuery,~ data_format == 'VCF')
-#' gdcGetFilter(fQuery)
-#' fQuery = gdcSetFilter(fQuery,~ data_format == 'VCF' & experimental_strategy == 'WXS' & type == 'simple_somatic_mutation')
-#' gdcGetFilter(fQuery)
+#' default_fields(fQuery)
+#'
+#' fQuery = filter(fQuery,~ data_format == 'VCF')
+#' get_filter(fQuery)
+#'
+#' fQuery = filter(fQuery,~ data_format == 'VCF' & experimental_strategy == 'WXS' & type == 'simple_somatic_mutation')
+#' 
+#' # Use str() to get a cleaner picture
+#' str(get_filter(fQuery))
 NULL
 
-#' The \code{gdcSetFilter} is simply a safe accessor for
+#' The \code{filter} is simply a safe accessor for
 #' the filter element in \code{\link{GDCQuery}} objects.
 #'
 #' @param x the object on which to set the filter list
@@ -151,34 +161,34 @@ NULL
 #' @rdname filtering
 #' 
 #' @export
-gdcSetFilter = function(x,expr) {
-    UseMethod('gdcSetFilter',x)
+filter = function(x,expr) {
+    UseMethod('filter',x)
 }
 
 #' @rdname filtering
 #'
 #' @export
-gdcSetFilter.GDCQuery = function(x,expr) {
-    filt = make_filter2(expr,gdcAvailableFields(x))
+filter.GDCQuery = function(x,expr) {
+    filt = make_filter2(expr,available_fields(x))
     x$filters = filt
     return(x)
 }
 
-#' The \code{gdcGetFilter} is simply a safe accessor for
+#' The \code{get_filter} is simply a safe accessor for
 #' the filter element in \code{\link{GDCQuery}} objects.
 #'
 #' @rdname filtering
 #'
 #' 
 #' @export
-gdcGetFilter = function(x) {
-    UseMethod('gdcGetFilter',x)
+get_filter = function(x) {
+    UseMethod('get_filter',x)
 }
 
 #' @rdname filtering
 #' 
 #' @export
-gdcGetFilter.GDCQuery = function(x) {
+get_filter.GDCQuery = function(x) {
     return(x$filters)
 }
 
