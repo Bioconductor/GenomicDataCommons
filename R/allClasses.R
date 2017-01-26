@@ -104,11 +104,20 @@ response = function(x,...) {
     UseMethod('response',x)
 }
 
+#' provide count of records in a GDCQuery
+#'
+#' @param x a \code{\link{GDCQuery}} object
+#' @param ... passed to httr (good for passing config info, etc.)
+#'
+#' @export
 count = function(x,...) {
     UseMethod('count',x)
 }
 
-count.GDCQuery = function(x) {
+#' @describeIn count
+#'
+#' @export
+count.GDCQuery = function(x,...) {
     body = Filter(function(z) !is.null(z),x)
     body[['facets']]=paste0(body[['facets']],collapse=",")
     body[['fields']]=paste0(body[['fields']],collapse=",")

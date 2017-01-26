@@ -94,6 +94,7 @@ select <- function(x,fields) {
 }
 
 #' @describeIn select set fields on a GDCQuery object
+#' @export
 select.GDCQuery <- function(x,fields) {
     x$fields = .gdcRectifyFieldsForEntity(entity_name(x),fields)
     return(x)

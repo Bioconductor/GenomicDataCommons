@@ -17,6 +17,7 @@ vignette: >
 ```{r echo=FALSE,results='hide'}
 library(knitr)
 library(GenomicDataCommons)
+library(magrittr)
 library(DT)
 opts_chunk$set(cache=TRUE)
 ```
@@ -112,31 +113,25 @@ projects is a `data.frame` since the Project entity is tabular.
 
 ```{r project10}
 a = projects()
-datatable(a)
+a %>% response() %>% str()
 ```
 
 ### Files
 
 ```{r files10}
-library(jsonlite)
-fields <- c("data_type", "updated_datetime", "file_name", "data_format", "access",
-            "data_category", "file_size", "type")
-a = files(fields=fields)
-a = files(fields=fields,filters=make_filter('data_format'=='VCF'))
-# Convert to dataframe
-files_df = do.call(rbind, a)
-datatable(files_df[,c('file_name','data_format','access','type','data_category')],rownames=FALSE)
+a = files()
+a %>% filter(~data_format=='VCF') %>% response() %>% str()
+resp = a %>% facet('data_format') %>% response()
+head(resp$aggregations$data_format)
 ```
 
 ### Cases
 
 ```{r cases10}
 a = cases()
-a             # 10 cases by default
-lengths(a)    # cases have different elements
-a[1]          # summary
-head(a[[1]])  # values
-str(a[[1]])
+resp = a %>% facet(c('project.name','project.program.name')) %>% response
+head(resp$aggregations[[1]])
+head(resp$aggregations$project.program.name)
 ```
 
 ### Annotations
@@ -149,8 +144,9 @@ details from Data Portal about annotations.
 
 ```{r annotations10}
 a = annotations()
-annots_df = do.call(rbind, a)
-datatable(annots_df[,c('category','classification','notes','entity_type')],rownames=FALSE)
+resp = a %>% select(available_fields(a)) %>% response()
+resp = a %>% response()
+str(resp$results[[1]])
 ```
 
 ### Advanced querying with filters
@@ -163,7 +159,12 @@ queries using standard R syntax, simplifying the creation of
 complicated filtering patterns. Examples follow:
 
 ```{r filtercases}
-# youngcases = cases(filters=filters(diagnoses.age_at_diagnosis <= 10*365,endpoint='cases'))
+youngcases = cases() %>% filter(~ diagnoses.age_at_diagnosis <= 10*365 )
+youngcases %>% count()
+teenagers  = cases() %>%
+    filter(~ diagnoses.age_at_diagnosis >= 12*365 &
+               diagnoses.age_at_diagnosis <= 20*365 )
+teenagers %>% count()
 ```
 
 ## Data Access { .tabset .tabset-fade }
@@ -171,8 +172,13 @@ complicated filtering patterns. Examples follow:
 ### Single or multiple small file downloads
 
 ```{r}
-a = files(filters=make_filter('data_format'=='MAF' & 'access'=='open'))
-fpaths = gdcdata(uuids=names(a),progress=FALSE)
+resp = files() %>%
+    filter(~data_format=='MAF' & access=='open') %>%
+    response()
+# get the file_ids from the response
+file_ids = resp$results %>% purrr::map_chr('file_id')
+# download the files specified by file_id
+fpaths = gdcdata(file_ids,progress=FALSE)
 basename(fpaths)
 ```
 
@@ -182,7 +188,7 @@ For many files or large files, the [GDC Download Tool][] can be more efficient a
 allows for download restarts if necessary.
 
 ```{r}
-manifest_path = manifest(uuids = names(a))
+manifest_path = manifest(uuids = file_ids)
 manifest_path
 ```
 
