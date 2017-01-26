@@ -1,5 +1,12 @@
 # GenomicDataCommons
 
+| branch | status | 
+| ------ | ------ |
+| develop | [![Build Status](https://travis-ci.org/seandavi/GenomicDataCommons.svg?branch=develop)](https://travis-ci.org/seandavi/GenomicDataCommons)|
+| master  | [![Build Status](https://travis-ci.org/seandavi/GenomicDataCommons.svg?branch=master)](https://travis-ci.org/seandavi/GenomicDataCommons) |
+
+
+
 Provide _R_ access to the NCI [Genomic Data Commons][] portal. Some
 additional detail from the [API Users Guide][] documentation may help.
 
