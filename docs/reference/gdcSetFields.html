@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • GenomicDataCommons</title>
+<title>S3 generic to set GDCQuery fields — gdcSetFields • GenomicDataCommons</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -34,7 +34,7 @@
   </head>
 
   <body>
-    <div class="container template-vignette-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -66,22 +66,46 @@
       
       </header>
 
-      <div class="page-header">
-  <h1>Vignette reference <small>version&nbsp;0.3.0</small></h1>
-</div>
-
-<div class="row">
-  <div class="col-md-9">
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="api.html">Using the GDC API</a></li>
-        <li><a href="examples.html">Examples of using the GenomicDataCommons package</a></li>
-        <li><a href="overview.html">Introduction to Accessing the NCI Genomic Data Commons</a></li>
-      </ul>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>S3 generic to set GDCQuery fields</h1>
     </div>
+
+    
+    <p>S3 generic to set GDCQuery fields</p>
+    
+
+    <pre><span class='fu'>gdcSetFields</span>(<span class='no'>x</span>, <span class='no'>fields</span>)
+
+<span class='co'># S3 method for GDCQuery</span>
+<span class='fu'>gdcSetFields</span>(<span class='no'>x</span>, <span class='no'>fields</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <dl class="dl-horizontal">
+      <dt>x</dt>
+      <dd>the objects on which to set fields</dd>
+      <dt>fields</dt>
+      <dd>a character vector specifying the fields</dd>
+    </dl>
+    
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+
+    <p><ul>
+<li> <code>GDCQuery</code>: set fields on a GDCQuery object
+</li>
+</ul></p>
+    
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#methods-by-class-">Methods (by class)</a></li>
+          </ul>
+
   </div>
 </div>
 

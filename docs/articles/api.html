@@ -52,7 +52,7 @@
       <h1>Using the GDC API</h1>
                         <h4 class="author">Sean Davis &amp; Martin Morgan</h4>
             
-            <h4 class="date">2017-01-09</h4>
+            <h4 class="date">2017-01-25</h4>
           </div>
 
     
@@ -287,14 +287,14 @@
 <div id="faceting-counting" class="section level4">
 <h4 class="hasAnchor">
 <html><body><a href="#faceting-counting" class="anchor"> </a></body></html>Faceting (counting)</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res =<span class="st"> </span><span class="kw"><a href="../reference/case_fields.html">cases</a></span>(<span class="dt">facets=</span><span class="st">'diagnoses.tumor_stage'</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>(<span class="dt">facets=</span><span class="st">'diagnoses.tumor_stage'</span>)</code></pre></div>
 </div>
 </div>
 <div id="projects" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#projects" class="anchor"> </a></body></html>Projects</h3>
-<p>To get a sense of what is available in the default Project entities, we simply call the <code><a href="../reference/project_fields.html">projects()</a></code> function without any arguments. By default, the first 10 projects are returned. The returned value for projects is a <code>data.frame</code> since the Project entity is tabular.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw"><a href="../reference/project_fields.html">projects</a></span>()</code></pre></div>
+<p>To get a sense of what is available in the default Project entities, we simply call the <code><a href="../reference/query.html">projects()</a></code> function without any arguments. By default, the first 10 projects are returned. The returned value for projects is a <code>data.frame</code> since the Project entity is tabular.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw"><a href="../reference/query.html">projects</a></span>()</code></pre></div>
 <pre><code>## No encoding supplied: defaulting to UTF-8.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">datatable</span>(a)</code></pre></div>
 <div id="htmlwidget-6d217269fc06ad440264" style="width:100%;height:auto;" class="datatables html-widget"></div>
@@ -306,8 +306,8 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(jsonlite)
 fields &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"data_type"</span>, <span class="st">"updated_datetime"</span>, <span class="st">"file_name"</span>, <span class="st">"data_format"</span>, <span class="st">"access"</span>,
             <span class="st">"data_category"</span>, <span class="st">"file_size"</span>, <span class="st">"type"</span>)
-a =<span class="st"> </span><span class="kw"><a href="../reference/file_fields.html">files</a></span>(<span class="dt">fields=</span>fields)
-a =<span class="st"> </span><span class="kw"><a href="../reference/file_fields.html">files</a></span>(<span class="dt">fields=</span>fields,<span class="dt">filters=</span><span class="kw"><a href="../reference/make_filter.html">make_filter</a></span>(<span class="st">'data_format'</span>==<span class="st">'VCF'</span>))
+a =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>(<span class="dt">fields=</span>fields)
+a =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>(<span class="dt">fields=</span>fields,<span class="dt">filters=</span><span class="kw"><a href="../reference/make_filter.html">make_filter</a></span>(<span class="st">'data_format'</span>==<span class="st">'VCF'</span>))
 <span class="co"># Convert to dataframe</span>
 files_df =<span class="st"> </span><span class="kw">do.call</span>(rbind, a)
 <span class="kw">datatable</span>(files_df[,<span class="kw">c</span>(<span class="st">'file_name'</span>,<span class="st">'data_format'</span>,<span class="st">'access'</span>,<span class="st">'type'</span>,<span class="st">'data_category'</span>)],<span class="dt">rownames=</span><span class="ot">FALSE</span>)</code></pre></div>
@@ -317,7 +317,7 @@ files_df =<span class="st"> </span><span class="kw">do.call</span>(rbind, a)
 <div id="cases" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#cases" class="anchor"> </a></body></html>Cases</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw"><a href="../reference/case_fields.html">cases</a></span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>()
 a             <span class="co"># 10 cases by default</span></code></pre></div>
 <pre><code>## class: cases_list
 ## cases: 10
@@ -402,7 +402,7 @@ a             <span class="co"># 10 cases by default</span></code></pre></div>
 <h3 class="hasAnchor">
 <html><body><a href="#annotations" class="anchor"> </a></body></html>Annotations</h3>
 <p>Annotations are notes added to individual cases, samples or files. They can be searched and filtered in the same way as other entities. See <a href="https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Annotations/">here</a> for details from Data Portal about annotations.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw"><a href="../reference/annotation_fields.html">annotations</a></span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw"><a href="../reference/query.html">annotations</a></span>()
 annots_df =<span class="st"> </span><span class="kw">do.call</span>(rbind, a)
 <span class="kw">datatable</span>(annots_df[,<span class="kw">c</span>(<span class="st">'category'</span>,<span class="st">'classification'</span>,<span class="st">'notes'</span>,<span class="st">'entity_type'</span>)],<span class="dt">rownames=</span><span class="ot">FALSE</span>)</code></pre></div>
 <div id="htmlwidget-0b33459ce0afcfb66074" style="width:100%;height:auto;" class="datatables html-widget"></div>
@@ -423,40 +423,28 @@ annots_df =<span class="st"> </span><span class="kw">do.call</span>(rbind, a)
 <div id="single-or-multiple-small-file-downloads" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#single-or-multiple-small-file-downloads" class="anchor"> </a></body></html>Single or multiple small file downloads</h3>
-<p>The first step is to connect the UUIDs associated with files of intrest. In this case, we will use relatively small files representing open access <a href="https://wiki.nci.nih.gov/display/TCGA/Mutation+Annotation+Format+(MAF)+Specification">MAF</a> files.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw"><a href="../reference/file_fields.html">files</a></span>(<span class="dt">filters=</span><span class="kw"><a href="../reference/make_filter.html">make_filter</a></span>(<span class="st">'data_format'</span>==<span class="st">'MAF'</span> &amp;<span class="st"> 'access'</span>==<span class="st">'open'</span>))</code></pre></div>
-<p>And the <code><a href="../reference/gdcdata.html">gdcdata()</a></code> function then downloads the files based on the names of the results of the <code><a href="../reference/file_fields.html">files()</a></code> query. The file paths for the downloaded files are returned from the <code><a href="../reference/gdcdata.html">gdcdata()</a></code> call.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fpaths =<span class="st"> </span><span class="kw"><a href="../reference/gdcdata.html">gdcdata</a></span>(<span class="dt">uuids=</span><span class="kw">names</span>(a),<span class="dt">progress=</span><span class="ot">FALSE</span>)
-<span class="co"># just print out the filenames to show things worked.</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>(<span class="dt">filters=</span><span class="kw"><a href="../reference/make_filter.html">make_filter</a></span>(<span class="st">'data_format'</span>==<span class="st">'MAF'</span> &amp;<span class="st"> 'access'</span>==<span class="st">'open'</span>))
+fpaths =<span class="st"> </span><span class="kw"><a href="../reference/gdcdata.html">gdcdata</a></span>(<span class="dt">uuids=</span><span class="kw">names</span>(a),<span class="dt">progress=</span><span class="ot">FALSE</span>)
 <span class="kw">basename</span>(fpaths)</code></pre></div>
 <pre><code>##  [1] "TCGA.DLBC.varscan.c2a80453-d1e5-44a5-8dd1-c1d473227686.somatic.maf.gz"      
 ##  [2] "TCGA.READ.varscan.4683cb8b-94d6-4b98-8886-c9e85542d060.somatic.maf.gz"      
 ##  [3] "TCGA.KIRP.somaticsniper.d01afe22-9edf-4b90-b812-ecb7bb021240.somatic.maf.gz"
-##  [4] "TCGA.ACC.varscan.f258cc30-bfee-4e3b-bc55-a1105235ffea.somatic.maf.gz"       
-##  [5] "TCGA.READ.mutect.11da8452-8316-4b29-90fa-12cdaa18c1b7.somatic.maf.gz"       
-##  [6] "TCGA.KIRC.somaticsniper.c2ff40fb-8452-4791-a19d-6861bf89a619.somatic.maf.gz"
-##  [7] "TCGA.THYM.mutect.7c714e03-b52c-4a82-aac5-b09ee5b41131.somatic.maf.gz"       
-##  [8] "TCGA.COAD.mutect.706d5716-be1e-4482-a867-61dec69557c8.somatic.maf.gz"       
-##  [9] "TCGA.GBM.muse.730ddd72-d57c-4bce-9d3c-c0dd57b03754.somatic.maf.gz"          
-## [10] "TCGA.TGCT.mutect.0054476f-0a44-4eba-9f08-e06492d41747.somatic.maf.gz"</code></pre>
+##  [4] "TCGA.KIRC.somaticsniper.c2ff40fb-8452-4791-a19d-6861bf89a619.somatic.maf.gz"
+##  [5] "TCGA.THYM.mutect.7c714e03-b52c-4a82-aac5-b09ee5b41131.somatic.maf.gz"       
+##  [6] "TCGA.TGCT.mutect.0054476f-0a44-4eba-9f08-e06492d41747.somatic.maf.gz"       
+##  [7] "TCGA.UCEC.varscan.0517d207-45d4-46fa-877d-e7aa7d60e63d.somatic.maf.gz"      
+##  [8] "TCGA.KIRP.muse.18188602-bc86-46ff-aff7-baff03114282.somatic.maf.gz"         
+##  [9] "TCGA.ACC.varscan.f258cc30-bfee-4e3b-bc55-a1105235ffea.somatic.maf.gz"       
+## [10] "TCGA.READ.mutect.11da8452-8316-4b29-90fa-12cdaa18c1b7.somatic.maf.gz"</code></pre>
 </div>
 <div id="large-or-many-files-with-gdc-download-tool" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#large-or-many-files-with-gdc-download-tool" class="anchor"> </a></body></html>Large or many files with GDC download tool</h3>
-<p>For many files or large files, the [GDC Download Tool][] can be more efficient and allows for download restarts if necessary. After finding the UUIDs of a set of interesting files:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a =<span class="st"> </span><span class="kw"><a href="../reference/file_fields.html">files</a></span>(<span class="dt">filters=</span><span class="kw"><a href="../reference/make_filter.html">make_filter</a></span>(<span class="st">'data_format'</span>==<span class="st">'MAF'</span> &amp;<span class="st"> 'access'</span>==<span class="st">'open'</span>))</code></pre></div>
-<p>we create a “manifest file”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">manifest_file =<span class="st"> </span><span class="kw"><a href="../reference/manifest.html">manifest</a></span>(<span class="dt">uuids =</span> <span class="kw">names</span>(a))
-manifest_file</code></pre></div>
-<pre><code>## [1] "/var/folders/21/b_rp6qyj1_b1j5cp8qby0tnr0000gn/T//RtmpBkkKWm/file65d63adf94f/gdc_manifest_20170110_015449.txt"</code></pre>
-<p>This manifest file is then used as input to the <a href="https://github.com/NCI-GDC/gdc-client/releases/latest">GDC Download Tool</a>. A prerequisite to proceeding with the next steps is to install the appropriate version of the GDC Download Tool for your platform. After doing so, the following code will perform the download.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/manifest.html">transfer</a></span>(<span class="dt">manifest =</span> manifest_path)</code></pre></div>
-<p>For more details about transfers, see <code>help(transfer_help)</code>.</p>
-</div>
-<div id="bam-slicing" class="section level3">
-<h3 class="hasAnchor">
-<html><body><a href="#bam-slicing" class="anchor"> </a></body></html>BAM slicing</h3>
-<p>TODO. See <code>help(slicing)</code> for now.</p>
+<p>For many files or large files, the [GDC Download Tool][] can be more efficient and allows for download restarts if necessary.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">manifest_path =<span class="st"> </span><span class="kw"><a href="../reference/manifest.html">manifest</a></span>(<span class="dt">uuids =</span> <span class="kw">names</span>(a))
+manifest_path</code></pre></div>
+<pre><code>## [1] "/var/folders/21/b_rp6qyj1_b1j5cp8qby0tnr0000gn/T//RtmpEYWgmv/file97ee64c68202/gdc_manifest_20170123_235325.txt"</code></pre>
+<p>Use the [GDC Download Tool][] for your platform and to read and then download files in the <code>manifest_path</code> from above.</p>
 </div>
 </div>
 <div id="sessioninfo" class="section level2">

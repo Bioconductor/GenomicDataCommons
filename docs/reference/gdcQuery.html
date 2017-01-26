@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Endpoints and Parameters — endpoints • GenomicDataCommons</title>
+<title>Start a query of GDC metadata — gdcQuery • GenomicDataCommons</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -69,51 +69,84 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Endpoints and Parameters</h1>
+    <h1>Start a query of GDC metadata</h1>
     </div>
 
     
-    <p><code>endpoints()</code> returns available endpoints.</p>
-
-    <p><code>parameters()</code> include format (internal use only), pretty
-(internal use only), fields, size (number of results returned),
-from (index of rist result), sort, filters, and facets. See
-<a href = 'https://gdc-docs.nci.nih.gov/API/Users_Guide/Search_and_Retrieval/#query-parameters'>https://gdc-docs.nci.nih.gov/API/Users_Guide/Search_and_Retrieval/#query-parameters</a></p>
+    <p>The basis for all functionality in this package
+starts with constructing a query in R. The GDCQuery
+object contains the filters, facets, and other
+parameters that define the returned results. A token
+is required for accessing certain datasets.</p>
     
 
-    <pre><span class='fu'>endpoints</span>()
+    <pre><span class='fu'>gdcQuery</span>(<span class='no'>entity</span>, <span class='kw'>token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>filters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fields</span> <span class='kw'>=</span> <span class='fu'><a href='gdcDefaultFields.html'>gdcDefaultFields</a></span>(<span class='no'>entity</span>))
 
-<span class='fu'>parameters</span>()</pre>
-        
+<span class='fu'>gdcCases</span>(<span class='no'>...</span>)
+
+<span class='fu'>gdcFiles</span>(<span class='no'>...</span>)
+
+<span class='fu'>gdcProjects</span>(<span class='no'>...</span>)
+
+<span class='fu'>gdcAnnotations</span>(<span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <dl class="dl-horizontal">
+      <dt>entity</dt>
+      <dd>character vector of &#39;cases&#39;,&#39;files&#39;,&#39;annotations&#39;,
+or &#39;projects&#39;</dd>
+      <dt>token</dt>
+      <dd>a character string reprenting the token</dd>
+      <dt>filters</dt>
+      <dd>a filter list</dd>
+      <dt>facets</dt>
+      <dd>a facets list</dd>
+      <dt>fields</dt>
+      <dd>a list of fields to return</dd>
+      <dt>...</dt>
+      <dd>passed through to <code>gdcQuery</code></dd>
+    </dl>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>endpoints()</code> returns a character vector of possible
-    endpoints.</p>
-    <p><code>parameters()</code> returns a list of possible parameters
-    and their default values.</p>
+    <p>An S3 object, the GDCQuery object. This is a list
+with filters, facets, and fields as members.
+<ul>
+<li>filters
+</li>
+<li>facets
+</li>
+<li>fields
+</li>
+<li>token
+</li>
+</ul></p>
+    
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    <p><ul>
+<li> <code>gdcCases</code>: convenience contructor for a GDCQuery for cases</p>
+    <p></li>
+<li> <code>gdcFiles</code>: convenience contructor for a GDCQuery for cases</p>
+    <p></li>
+<li> <code>gdcProjects</code>: convenience contructor for a GDCQuery for cases</p>
+    <p></li>
+<li> <code>gdcAnnotations</code>: convenience contructor for a GDCQuery for annotations
+</li>
+</ul></p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>endpoints</span>()</div><div class='output co'>#&gt; available endpoints:
-#&gt;     status, projects, cases, files, annotations, data, manifest,
-#&gt;     slicing</div><div class='input'><span class='fu'>parameters</span>()</div><div class='output co'>#&gt; available parameters:
-#&gt;     format: JSON
-#&gt;     pretty: FALSE
-#&gt;     fields: NULL
-#&gt;     size: 10
-#&gt;     from: 1
-#&gt;     sort: NULL
-#&gt;     filters: NULL
-#&gt;     facets: NULL</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+
+      <li><a href="#functions">Functions</a></li>
+          </ul>
 
   </div>
 </div>

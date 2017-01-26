@@ -11,6 +11,8 @@ make_filter(expr, available_fields = NULL, toJSON = TRUE)
 
 \item{available_fields}{A character vector of field names that, if specified,
 can be used unquoted in creating filter expressions}
+
+\item{toJSON}{boolean, return JSON (if true) or just a list}
 }
 \value{
 a JSON data object (if toJSON==TRUE, the default)

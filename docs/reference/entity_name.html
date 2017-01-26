@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • GenomicDataCommons</title>
+<title>Get the entity name from a GDCQuery object — entity_name • GenomicDataCommons</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -34,7 +34,7 @@
   </head>
 
   <body>
-    <div class="container template-vignette-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -66,22 +66,53 @@
       
       </header>
 
-      <div class="page-header">
-  <h1>Vignette reference <small>version&nbsp;0.3.0</small></h1>
-</div>
-
-<div class="row">
-  <div class="col-md-9">
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="api.html">Using the GDC API</a></li>
-        <li><a href="examples.html">Examples of using the GenomicDataCommons package</a></li>
-        <li><a href="overview.html">Introduction to Accessing the NCI Genomic Data Commons</a></li>
-      </ul>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Get the entity name from a GDCQuery object</h1>
     </div>
+
+    
+    <p>An &quot;entity&quot; is simply one of the four medata endpoints.
+<ul>
+<li>cases
+</li>
+<li>projects
+</li>
+<li>files
+</li>
+<li>annotations
+</li>
+</ul></p>
+
+    <p>All <code><a href='query.html'>GDCQuery</a></code> objects will have an entity name. This S3 method
+is simply a utility accessor for those names.</p>
+    
+
+    <pre><span class='fu'>entity_name</span>(<span class='no'>x</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <dl class="dl-horizontal">
+      <dt>x</dt>
+      <dd>a <code><a href='query.html'>GDCQuery</a></code> object</dd>
+    </dl>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>cases</span> <span class='kw'>=</span> <span class='fu'><a href='query.html'>cases</a></span>()
+<span class='no'>projects</span> <span class='kw'>=</span> <span class='fu'><a href='query.html'>projects</a></span>()
+
+<span class='fu'>entity_name</span>(<span class='no'>cases</span>)</div><div class='output co'>#&gt; [1] &quot;cases&quot;</div><div class='input'><span class='fu'>entity_name</span>(<span class='no'>projects</span>)</div><div class='output co'>#&gt; [1] &quot;projects&quot;</div><div class='input'>
+</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 

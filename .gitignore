@@ -5,6 +5,9 @@
 /vignettes/overview.html
 *#
 .*
-/docs/articles/*_cache
-vignettes/*_cache
-inst/doc
+
+docs/articles/*cache
+vignettes/*cache
+scratch
+inst/doc/*
+docs/articles/*cache

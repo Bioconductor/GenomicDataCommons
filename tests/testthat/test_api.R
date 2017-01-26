@@ -6,31 +6,35 @@ test_that("status returns correctly", {
     expect_equal(length(res), 4)
 })
 
+test_that('query', {
+    gCases = query('cases')
+    expect_equal(class(gCases)[1],'gdc_cases')
+    expect_equal(class(gCases)[2],'GDCQuery')
+    expect_equal(class(gCases)[3],'list')
+    gFiles = query('files')
+    expect_equal(class(gFiles)[1],'gdc_files')
+    expect_equal(class(gFiles)[2],'GDCQuery')
+    expect_equal(class(gFiles)[3],'list')
+    gProjects = query('projects')
+    expect_equal(class(gProjects)[1],'gdc_projects')
+    expect_equal(class(gProjects)[2],'GDCQuery')
+    expect_equal(class(gProjects)[3],'list')
+    gAnnotations = query('annotations')
+    expect_equal(class(gAnnotations)[1],'gdc_annotations')
+    expect_equal(class(gAnnotations)[2],'GDCQuery')
+    expect_equal(class(gAnnotations)[3],'list')
+})
+
 test_that("cases", {
     res = cases()
-    expect_equal(length(res), 10)
-    expect_equal(class(res),c('cases_list','gdc_list','list'))
-    expect_equal(class(res[1]),c('cases_list','gdc_list','list'))
-    expect_equal(length(res[1]),1)
-    expect_equal(class(res[[1]]),'list')
 })
 
 test_that("files", {
     res = files()
-    expect_equal(length(res), 10)
-    expect_equal(class(res),c('files_list','gdc_list','list'))
-    expect_equal(class(res[1]),c('files_list','gdc_list','list'))
-    expect_equal(length(res[1]),1)
-    expect_equal(class(res[[1]]),'list')
 })
 
 test_that("annotations", {
     res = annotations()
-    expect_equal(length(res), 10)
-    expect_equal(class(res),c('annotations_list','gdc_list','list'))
-    expect_equal(class(res[1]),c('annotations_list','gdc_list','list'))
-    expect_equal(length(res[1]),1)
-    expect_equal(class(res[[1]]),'list')
 })
 
 test_that("mapping", {
@@ -42,19 +46,7 @@ test_that("mapping", {
 
 test_that("projects", {
     res = projects()
-    expect_equal(class(res),'data.frame')
-    expect_equal(ncol(res), 7)
-    expect_equal(colnames(res),c('dbgap_accession_number','disease_type','released','state','primary_site','project_id','name'))
 })
 
-
-test_that('make_filter', {
-    res = make_filter('a'=='b',toJSON = FALSE)
-    expect_equal(class(res),'list')
-    expect_equal(names(res),c('op','content'))
-    expect_equal(res$op,jsonlite::unbox('='))
-    expect_equal(res$content$field,'a')
-    expect_equal(res$content$value,'b')
-})
 
 

@@ -26,7 +26,8 @@
   }
 }
 
-.f_env = new.env(parent=emptyenv())
+#.f_env = new.env(parent=emptyenv())
+.f_env = list()
 .f_env$`==` = .binary_op('=')
 .f_env$`!=` = .binary_op('!=')
 .f_env$`<` = .binary_op('<')
@@ -65,6 +66,7 @@
 #' 
 #'
 #' @param expr an R expression
+#' @param toJSON boolean, return JSON (if true) or just a list
 #' 
 #' @param available_fields A character vector of field names that, if specified,
 #' can be used unquoted in creating filter expressions
@@ -73,6 +75,7 @@
 #' can be used as the filter parameter in an NCI GDC search or other query.
 #'
 #' @importFrom jsonlite toJSON
+#' @importFrom lazyeval f_eval
 #'
 #' @examples
 #' make_filter("diagnoses.age_at_diagnosis" <= 10*365)
@@ -95,4 +98,99 @@ make_filter = function(expr,available_fields=NULL,toJSON=TRUE) {
     if(toJSON) return(toJSON(ret,auto_unbox=TRUE))
     else return(ret)
 }
+
+#' makefilter2
+#'
+#' @param expr a filter expression
+#' @param available_fields a character vector of the
+#' additional names that will be injected into the
+#' filter evaluation environment
+#' 
+#' @importFrom lazyeval f_eval
+#' 
+#' @export
+make_filter2 = function(expr,available_fields) {
+    available_fields=as.list(available_fields)
+    names(available_fields)=available_fields
+    filt_env = c(as.list(.f_env),available_fields)
+    f_eval(expr,data=filt_env)
+}
+
+
+
+#' Manipulating GDCQuery filters
+#'
+#' @name filtering
+#' @examples
+#' # make a GDCQuery object to start
+#' #
+#' # Projects
+#' #
+#' pQuery = projects()
+#'
+#' # check for the default fields
+#' # so that we can use one of them to build a filter
+#' default_fields(pQuery)
+#' pQuery = filter(pQuery,~ project_id == 'TCGA-LUAC')
+#' get_filter(pQuery)
+#'
+#' #
+#' # Files
+#' #
+#' fQuery = files()
+#' default_fields(fQuery)
+#'
+#' fQuery = filter(fQuery,~ data_format == 'VCF')
+#' get_filter(fQuery)
+#'
+#' fQuery = filter(fQuery,~ data_format == 'VCF' & experimental_strategy == 'WXS' & type == 'simple_somatic_mutation')
+#' 
+#' # Use str() to get a cleaner picture
+#' str(get_filter(fQuery))
+NULL
+
+#' The \code{filter} is simply a safe accessor for
+#' the filter element in \code{\link{GDCQuery}} objects.
+#'
+#' @param x the object on which to set the filter list
+#' member
+#' @param expr a filter expression, where bare names
+#' (without quotes) are allowed if they are available
+#' fields associated with the \code{x}
+#' 
+#' @rdname filtering
+#' 
+#' @export
+filter = function(x,expr) {
+    UseMethod('filter',x)
+}
+
+#' @rdname filtering
+#'
+#' @export
+filter.GDCQuery = function(x,expr) {
+    filt = make_filter2(expr,available_fields(x))
+    x$filters = filt
+    return(x)
+}
+
+#' The \code{get_filter} is simply a safe accessor for
+#' the filter element in \code{\link{GDCQuery}} objects.
+#'
+#' @rdname filtering
+#'
+#' 
+#' @export
+get_filter = function(x) {
+    UseMethod('get_filter',x)
+}
+
+#' @rdname filtering
+#' 
+#' @export
+get_filter.GDCQuery = function(x) {
+    return(x$filters)
+}
+
+
 

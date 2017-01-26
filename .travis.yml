@@ -1,4 +1,7 @@
 language: r
 cache: packages
-sudo: false
+sudo: true
 r: bioc-devel
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install ca-certificates
