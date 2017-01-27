@@ -99,10 +99,8 @@ is simply a utility accessor for those names.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>cases</span> <span class='kw'>=</span> <span class='fu'><a href='query.html'>cases</a></span>()
-<span class='no'>projects</span> <span class='kw'>=</span> <span class='fu'><a href='query.html'>projects</a></span>()
-
-<span class='fu'>entity_name</span>(<span class='no'>cases</span>)</div><div class='output co'>#&gt; [1] &quot;cases&quot;</div><div class='input'><span class='fu'>entity_name</span>(<span class='no'>projects</span>)</div><div class='output co'>#&gt; [1] &quot;projects&quot;</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>cases</span> <span class='kw'>=</span> <span class='fu'><a href='query.html'>cases</a></span>()</div><div class='output co'>#&gt; <span class='error'>Error in curl::curl_fetch_memory(url, handle = handle): SSL connect error</span></div><div class='input'><span class='no'>projects</span> <span class='kw'>=</span> <span class='fu'><a href='query.html'>projects</a></span>()</div><div class='output co'>#&gt; <span class='error'>Error in curl::curl_fetch_memory(url, handle = handle): SSL connect error</span></div><div class='input'>
+<span class='fu'>entity_name</span>(<span class='no'>cases</span>)</div><div class='output co'>#&gt; [1] &quot;tion&quot;</div><div class='input'><span class='fu'>entity_name</span>(<span class='no'>projects</span>)</div><div class='output co'>#&gt; [1] &quot;tion&quot;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

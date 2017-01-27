@@ -1,10 +1,10 @@
 Package: GenomicDataCommons
 Type: Package
 Title: NIH / NCI Genomic Data Commons Access
-Description: Programmatically access the NIH / NCI Gneomic Data
+Description: Programmatically access the NIH / NCI Genomic Data
     Commons RESTful service.
-Version: 0.4.0
-Date: 2017-01-25
+Version: 0.4.1
+Date: 2017-01-26
 Authors@R: c(
     person("Martin", "Morgan", email="martin.morgan@roswellpark.org",
         role=c("aut", "cre")),

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Query GDC for available endpoint fields — mapping • GenomicDataCommons</title>
+<title>provide count of records in a GDCQuery — count • GenomicDataCommons</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -69,47 +69,42 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Query GDC for available endpoint fields</h1>
+    <h1>provide count of records in a GDCQuery</h1>
     </div>
 
     
-    <p>Query GDC for available endpoint fields</p>
+    <p>provide count of records in a GDCQuery</p>
     
 
-    <pre><span class='fu'>mapping</span>(<span class='no'>endpoint</span>)</pre>
+    <pre><span class='fu'>count</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for GDCQuery</span>
+<span class='fu'>count</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>endpoint</dt>
-      <dd>character(1) corresponding to endpoints for which
-users may specify additional or alternative fields. Endpoints
-include &#8220;projects&#8221;, &#8220;cases&#8221;, &#8220;files&#8221;, and
-&#8220;annotations&#8221;.</dd>
+      <dt>x</dt>
+      <dd>a <code><a href='query.html'>GDCQuery</a></code> object</dd>
+      <dt>...</dt>
+      <dd>passed to httr (good for passing config info, etc.)</dd>
     </dl>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
 
-    <p>A data frame describing the field (field name), full (full
-    data model name), type (data type), and four additional columns
-    describing the &quot;set&quot; to which the fields belong--&#8220;default&#8221;,
-    &#8220;expand&#8221;, &#8220;multi&#8221;, and &#8220;nested&#8221;.</p>
+    <p><ul>
+<li> <code>GDCQuery</code>: 
+</li>
+</ul></p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>map</span> <span class='kw'>&lt;-</span> <span class='fu'>mapping</span>(<span class='st'>"projects"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in curl::curl_fetch_memory(url, handle = handle): SSL connect error</span></div><div class='input'><span class='fu'>head</span>(<span class='no'>map</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(map): object &#39;map&#39; not found</span></div><div class='input'><span class='co'># get only the "default" fields</span>
-<span class='fu'>subset</span>(<span class='no'>map</span>,<span class='no'>defaults</span>)</div><div class='output co'>#&gt; <span class='error'>Error in subset(map, defaults): object &#39;map&#39; not found</span></div><div class='input'><span class='co'># And get just the text names of the "default" fields</span>
-<span class='fu'>subset</span>(<span class='no'>map</span>,<span class='no'>defaults</span>)$<span class='no'>field</span></div><div class='output co'>#&gt; <span class='error'>Error in subset(map, defaults): object &#39;map&#39; not found</span></div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#methods-by-class-">Methods (by class)</a></li>
+          </ul>
 
   </div>
 </div>
