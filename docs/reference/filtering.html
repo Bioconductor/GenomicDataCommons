@@ -109,72 +109,18 @@ fields associated with the <code>x</code></dd>
 <span class='co'>#</span>
 <span class='co'># Projects</span>
 <span class='co'>#</span>
-<span class='no'>pQuery</span> <span class='kw'>=</span> <span class='fu'><a href='query.html'>projects</a></span>()
-
+<span class='no'>pQuery</span> <span class='kw'>=</span> <span class='fu'><a href='query.html'>projects</a></span>()</div><div class='output co'>#&gt; <span class='error'>Error in curl::curl_fetch_memory(url, handle = handle): SSL connect error</span></div><div class='input'>
 <span class='co'># check for the default fields</span>
 <span class='co'># so that we can use one of them to build a filter</span>
-<span class='fu'><a href='default_fields.html'>default_fields</a></span>(<span class='no'>pQuery</span>)</div><div class='output co'>#&gt; [1] &quot;dbgap_accession_number&quot; &quot;disease_type&quot;           &quot;name&quot;                  
-#&gt; [4] &quot;primary_site&quot;           &quot;project_id&quot;             &quot;released&quot;              
-#&gt; [7] &quot;state&quot;                 </div><div class='input'><span class='no'>pQuery</span> <span class='kw'>=</span> <span class='fu'>filter</span>(<span class='no'>pQuery</span>,~ <span class='no'>project_id</span> <span class='kw'>==</span> <span class='st'>'TCGA-LUAC'</span>)
-<span class='fu'>get_filter</span>(<span class='no'>pQuery</span>)</div><div class='output co'>#&gt; $op
-#&gt; [x] &quot;=&quot;
-#&gt; 
-#&gt; $content
-#&gt; $content$field
-#&gt; [1] &quot;project_id&quot;
-#&gt; 
-#&gt; $content$value
-#&gt; [1] &quot;TCGA-LUAC&quot;
-#&gt; 
-#&gt; </div><div class='input'>
+<span class='fu'><a href='default_fields.html'>default_fields</a></span>(<span class='no'>pQuery</span>)</div><div class='output co'>#&gt; <span class='error'>Error in default_fields(pQuery): object &#39;pQuery&#39; not found</span></div><div class='input'><span class='no'>pQuery</span> <span class='kw'>=</span> <span class='fu'>filter</span>(<span class='no'>pQuery</span>,~ <span class='no'>project_id</span> <span class='kw'>==</span> <span class='st'>'TCGA-LUAC'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in filter(pQuery, ~project_id == &quot;TCGA-LUAC&quot;): object &#39;pQuery&#39; not found</span></div><div class='input'><span class='fu'>get_filter</span>(<span class='no'>pQuery</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_filter(pQuery): object &#39;pQuery&#39; not found</span></div><div class='input'>
 <span class='co'>#</span>
 <span class='co'># Files</span>
 <span class='co'>#</span>
-<span class='no'>fQuery</span> <span class='kw'>=</span> <span class='fu'><a href='query.html'>files</a></span>()
-<span class='fu'><a href='default_fields.html'>default_fields</a></span>(<span class='no'>fQuery</span>)</div><div class='output co'>#&gt;  [1] &quot;access&quot;                &quot;acl&quot;                   &quot;created_datetime&quot;     
-#&gt;  [4] &quot;data_category&quot;         &quot;data_format&quot;           &quot;data_type&quot;            
-#&gt;  [7] &quot;error_type&quot;            &quot;experimental_strategy&quot; &quot;file_id&quot;              
-#&gt; [10] &quot;file_name&quot;             &quot;file_size&quot;             &quot;file_state&quot;           
-#&gt; [13] &quot;md5sum&quot;                &quot;origin&quot;                &quot;platform&quot;             
-#&gt; [16] &quot;revision&quot;              &quot;state&quot;                 &quot;state_comment&quot;        
-#&gt; [19] &quot;submitter_id&quot;          &quot;tags&quot;                  &quot;type&quot;                 
-#&gt; [22] &quot;updated_datetime&quot;     </div><div class='input'>
-<span class='no'>fQuery</span> <span class='kw'>=</span> <span class='fu'>filter</span>(<span class='no'>fQuery</span>,~ <span class='no'>data_format</span> <span class='kw'>==</span> <span class='st'>'VCF'</span>)
-<span class='fu'>get_filter</span>(<span class='no'>fQuery</span>)</div><div class='output co'>#&gt; $op
-#&gt; [x] &quot;=&quot;
-#&gt; 
-#&gt; $content
-#&gt; $content$field
-#&gt; [1] &quot;data_format&quot;
-#&gt; 
-#&gt; $content$value
-#&gt; [1] &quot;VCF&quot;
-#&gt; 
-#&gt; </div><div class='input'>
-<span class='no'>fQuery</span> <span class='kw'>=</span> <span class='fu'>filter</span>(<span class='no'>fQuery</span>,~ <span class='no'>data_format</span> <span class='kw'>==</span> <span class='st'>'VCF'</span> <span class='kw'>&amp;</span> <span class='no'>experimental_strategy</span> <span class='kw'>==</span> <span class='st'>'WXS'</span> <span class='kw'>&amp;</span> <span class='no'>type</span> <span class='kw'>==</span> <span class='st'>'simple_somatic_mutation'</span>)
-
+<span class='no'>fQuery</span> <span class='kw'>=</span> <span class='fu'><a href='query.html'>files</a></span>()</div><div class='output co'>#&gt; <span class='error'>Error in curl::curl_fetch_memory(url, handle = handle): SSL connect error</span></div><div class='input'><span class='fu'><a href='default_fields.html'>default_fields</a></span>(<span class='no'>fQuery</span>)</div><div class='output co'>#&gt; <span class='error'>Error in default_fields(fQuery): object &#39;fQuery&#39; not found</span></div><div class='input'>
+<span class='no'>fQuery</span> <span class='kw'>=</span> <span class='fu'>filter</span>(<span class='no'>fQuery</span>,~ <span class='no'>data_format</span> <span class='kw'>==</span> <span class='st'>'VCF'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in filter(fQuery, ~data_format == &quot;VCF&quot;): object &#39;fQuery&#39; not found</span></div><div class='input'><span class='fu'>get_filter</span>(<span class='no'>fQuery</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_filter(fQuery): object &#39;fQuery&#39; not found</span></div><div class='input'>
+<span class='no'>fQuery</span> <span class='kw'>=</span> <span class='fu'>filter</span>(<span class='no'>fQuery</span>,~ <span class='no'>data_format</span> <span class='kw'>==</span> <span class='st'>'VCF'</span> <span class='kw'>&amp;</span> <span class='no'>experimental_strategy</span> <span class='kw'>==</span> <span class='st'>'WXS'</span> <span class='kw'>&amp;</span> <span class='no'>type</span> <span class='kw'>==</span> <span class='st'>'simple_somatic_mutation'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in filter(fQuery, ~data_format == &quot;VCF&quot; &amp; experimental_strategy ==     &quot;WXS&quot; &amp; type == &quot;simple_somatic_mutation&quot;): object &#39;fQuery&#39; not found</span></div><div class='input'>
 <span class='co'># Use str() to get a cleaner picture</span>
-<span class='fu'>str</span>(<span class='fu'>get_filter</span>(<span class='no'>fQuery</span>))</div><div class='output co'>#&gt; List of 2
-#&gt;  $ op     :Classes &#39;scalar&#39;, &#39;character&#39;  chr &quot;and&quot;
-#&gt;  $ content:List of 2
-#&gt;   ..$ :List of 2
-#&gt;   .. ..$ op     :Classes &#39;scalar&#39;, &#39;character&#39;  chr &quot;and&quot;
-#&gt;   .. ..$ content:List of 2
-#&gt;   .. .. ..$ :List of 2
-#&gt;   .. .. .. ..$ op     :Classes &#39;scalar&#39;, &#39;character&#39;  chr &quot;=&quot;
-#&gt;   .. .. .. ..$ content:List of 2
-#&gt;   .. .. .. .. ..$ field: chr &quot;data_format&quot;
-#&gt;   .. .. .. .. ..$ value: chr &quot;VCF&quot;
-#&gt;   .. .. ..$ :List of 2
-#&gt;   .. .. .. ..$ op     :Classes &#39;scalar&#39;, &#39;character&#39;  chr &quot;=&quot;
-#&gt;   .. .. .. ..$ content:List of 2
-#&gt;   .. .. .. .. ..$ field: chr &quot;experimental_strategy&quot;
-#&gt;   .. .. .. .. ..$ value: chr &quot;WXS&quot;
-#&gt;   ..$ :List of 2
-#&gt;   .. ..$ op     :Classes &#39;scalar&#39;, &#39;character&#39;  chr &quot;=&quot;
-#&gt;   .. ..$ content:List of 2
-#&gt;   .. .. ..$ field: chr &quot;type&quot;
-#&gt;   .. .. ..$ value: chr &quot;simple_somatic_mutation&quot;</div></pre>
+<span class='fu'>str</span>(<span class='fu'>get_filter</span>(<span class='no'>fQuery</span>))</div><div class='output co'>#&gt; <span class='error'>Error in get_filter(fQuery): object &#39;fQuery&#39; not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
