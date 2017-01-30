@@ -5,17 +5,13 @@
 #' 
 #' @param x An \code{\link{GDCQuery}} object of type 'gdc_files'.
 #'
-#' @param token (optional, generally not needed for \code{manifest}) character(1) security token allowing access
-#'     to restricted data. See
-#'     \url{https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication}.
-#'
 #' @param size The total number of records to return.  Default will return the usually desirable full set of records.
 #'
 #' @param from Record number from which to start when returning the manifest.
 #'
-#' @param ... passed to \code{\link{httr::PUT}}.
+#' @param ... passed to \code{\link[httr]{PUT}}.
 #'
-#' @return A \code{\link{tibble}} with five columns:
+#' @return A \code{\link[tibble]{tibble}} with five columns:
 #' \itemize{
 #' \item{id}
 #' \item{filename}
@@ -86,6 +82,8 @@ manifest.GDCResponse <- function(x,from=1,size=count(x),...) {
 #' @param gdc_client character(1) name or path to \code{gdc-client}
 #'     executable. On Windows, use \code{/} or \code{\\\\} as the file
 #'     separator.
+#'
+#' @param destination_dir The path into which to place the transfered files.
 #'
 #' @return character(1) directory path to which the files were
 #'     downloaded.

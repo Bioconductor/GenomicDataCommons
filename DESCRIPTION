@@ -11,6 +11,8 @@ Authors@R: c(
     person("Davis", "Sean", email="seandavi@gmail.com",
         role=c("aut")))
 License: Artistic-2.0
+Depends:
+    magrittr
 Imports:
     stats,
     httr,
@@ -20,13 +22,14 @@ Imports:
     assertthat,
     lazyeval,
     purrr,
-    magrittr
+    readr
 Suggests:
     BiocStyle,
     knitr,
     rmarkdown,
     DT,
-    testthat
+    testthat,
+    listviewer
 biocViews:
     DataImport,
     Sequencing
