@@ -1,5 +1,4 @@
 .file_primary_fields <- tryCatch({
-    message('fetching')
     subset(mapping('files'),defaults)$fields},
     error = function(e)
     c("data_type", "updated_datetime", "created_datetime",
