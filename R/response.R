@@ -38,7 +38,7 @@ count = function(x,...) {
 #' @export
 count.GDCQuery = function(x,...) {
     resp = x %>% response(size=1)
-    return(resp$pagination$total)
+    return(resp$pages$total)
 }    
 
 #' @describeIn count
