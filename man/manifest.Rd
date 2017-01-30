@@ -2,11 +2,17 @@
 % Please edit documentation in R/manifest.R
 \name{manifest}
 \alias{manifest}
+\alias{manifest.GDCResponse}
+\alias{manifest.gdc_files}
 \alias{transfer}
 \alias{transfer_help}
 \title{GDC manifest file creation and file download}
 \usage{
-manifest(uuids, destination_dir = tempfile(), token = NULL)
+manifest(x, from = 1, size = count(x), ...)
+
+\method{manifest}{gdc_files}(x, from = 1, size = count(x), ...)
+
+\method{manifest}{GDCResponse}(x, from = 1, size = count(x), ...)
 
 transfer(manifest, destination_dir = tempfile(), args = character(),
   token_file = NULL, gdc_client = "gdc-client")
@@ -14,16 +20,13 @@ transfer(manifest, destination_dir = tempfile(), args = character(),
 transfer_help(gdc_client = "gdc-client")
 }
 \arguments{
-\item{uuids}{character() of GDC file UUIDs.}
+\item{x}{An \code{\link{GDCQuery}} object of type 'gdc_files'.}
 
-\item{destination_dir}{character(1) file path to a directory for
-downloading the manifest or files. The manifest file name, of
-the form \sQuote{gdc_manifest_20160610_12345.txt}, must not
-exist.}
+\item{from}{Record number from which to start when returning the manifest.}
 
-\item{token}{(optional) character(1) security token allowing access
-to restricted data. See
-\url{https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication}.}
+\item{size}{The total number of records to return.  Default will return the usually desirable full set of records.}
+
+\item{...}{passed to \code{\link{httr::PUT}}.}
 
 \item{manifest}{character(1) file path to manifest created by
 \code{manifest()}}
@@ -42,8 +45,21 @@ token allowing access to restricted data. See
 \item{gdc_client}{character(1) name or path to \code{gdc-client}
 executable. On Windows, use \code{/} or \code{\\\\} as the file
 separator.}
+
+\item{token}{(optional, generally not needed for \code{manifest}) character(1) security token allowing access
+to restricted data. See
+\url{https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication}.}
 }
 \value{
+A \code{\link{tibble}} with five columns:
+\itemize{
+\item{id}
+\item{filename}
+\item{md5}
+\item{size}
+\item{state}
+}
+
 character(1) directory path to which the files were
     downloaded.
 }
@@ -58,10 +74,17 @@ Data Transfer Tool.
 Transfer Tool, \code{gdc-client}, for available options to be used
 in the \code{transfer()} command.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{gdc_files}: 
+
+\item \code{GDCResponse}: 
+}}
 \examples{
-uuids <- c("e3228020-1c54-4521-9182-1ea14c5dc0f7",
-           "18e1e38e-0f0a-4a0e-918f-08e6201ea140")
-(manifest <- manifest(uuids))
+gFiles = files()
+shortManifest = gFiles \%>\% manifest(size=10)
+head(shortManifest,n=3)
+
 \donttest{
 destination <- transfer(manifest)
 dir(destination)
