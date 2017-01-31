@@ -1,6 +1,10 @@
 # GenomicDataCommons
 
 [![Build Status](https://travis-ci.org/seandavi/GenomicDataCommons.svg?branch=master)](https://travis-ci.org/seandavi/GenomicDataCommons)
+[![Build status](https://ci.appveyor.com/api/projects/status/2jy3whdaw6dd18fk?svg=true)](https://ci.appveyor.com/project/seandavi/genomicdatacommons)
+[![Build status](https://ci.appveyor.com/api/projects/status/2jy3whdaw6dd18fk/branch/develop?svg=true)](https://ci.appveyor.com/project/seandavi/genomicdatacommons/branch/develop)
+
+
 
 Provide _R_ access to the NCI [Genomic Data Commons][] portal. Some
 additional detail from the [API Users Guide][] documentation may help.
