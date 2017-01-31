@@ -24,5 +24,94 @@ library(knitr)
 library(GenomicDataCommons)
 ```
 
-# Get all idat files
+# Use Cases
+
+## Cases
+
+### How many cases are there per project_id?
+
+```{r casesPerProject}
+res = cases() %>% facet("project.project_id") %>% aggregations()
+head(res)
+library(ggplot2)
+ggplot(res$project.project_id,aes(x = key, y = doc_count)) +
+    geom_bar(stat='identity') +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+```
+
+### How many cases are included in all TARGET projects?
+
+```{r casesInTCGA}
+cases() %>% filter(~ project.program.name=='TARGET') %>% count()
+```
+
+### How many cases are included in all TCGA projects?
+
+```{r casesInTARGET}
+cases() %>% filter(~ project.program.name=='TCGA') %>% count()
+```
+
+### What is the breakdown of sample types in TCGA-BRCA?
+
+```{r casesTCGABRCASampleTypes}
+# The need to do the "&" here is a requirement of the
+# current version of the GDC API. I have filed a feature
+# request to remove this requirement.
+resp = cases() %>% filter(~ project.project_id=='TCGA-BRCA' &
+                              project.project_id=='TCGA-BRCA' ) %>%
+    facet('samples.sample_type') %>% aggregations()
+```
+
+### Fetch all samples in TCGA-BRCA that use "Solid Tissue" as a normal.
+
+```{r casesTCGABRCASolidNormal}
+# The need to do the "&" here is a requirement of the
+# current version of the GDC API. I have filed a feature
+# request to remove this requirement.
+resp = cases() %>% filter(~ project.project_id=='TCGA-BRCA' &
+                              samples.sample_type=='Solid Tissue Normal') %>%
+    select(c(default_fields(cases()),'samples.sample_type')) %>%
+    response_all()
+count(resp)
+res = resp %>% results()
+str(res[1],list.len=6)
+```
+
+The `listviewer` package is a great way to look into moderately-sized result sets
+in an interactive web page (or, as here, embedded in an rmarkdown document).
+
+```{r casesListViewer}
+library(listviewer)
+jsonedit(res)
+```
+
+## Files
+
+### How many of each type of file are available?
+
+```{r filesTypeCount}
+res = files() %>% facet('type') %>% aggregations()
+res$type
+ggplot(res$type,aes(x = key,y = doc_count)) + geom_bar(stat='identity') +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))     
+```
+
+### How many of each type of file are available?
+
+```{r filesVCFCount}
+res = files() %>% facet('type') %>% aggregations()
+res$type
+ggplot(res$type,aes(x = key,y = doc_count)) + geom_bar(stat='identity') +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))     
+```
+
+# sessionInfo()
+
+```{r sessionInfo}
+sessionInfo()
+```
+
+
+
+
 

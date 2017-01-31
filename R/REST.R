@@ -70,6 +70,7 @@
     if(getOption('gdc.verbose',FALSE)) {
       message("POST request uri:\n",uri)
     }
+    body[['fields']] = paste0(body[['fields']],collapse=',')
     response <- POST(
         uri, add_headers(`X-Auth-Token`=token),
         ...,

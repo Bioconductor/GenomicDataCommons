@@ -3,33 +3,63 @@
 #' \code{manifest()} creates a manifest of files to be downloaded
 #' using the GDC Data Transfer Tool.
 #' 
-#' @param uuids character() of GDC file UUIDs.
+#' @param x An \code{\link{GDCQuery}} object of type 'gdc_files'.
 #'
-#' @param destination_dir character(1) file path to a directory for
-#'     downloading the manifest or files. The manifest file name, of
-#'     the form \sQuote{gdc_manifest_20160610_12345.txt}, must not
-#'     exist.
+#' @param size The total number of records to return.  Default will return the usually desirable full set of records.
 #'
-#' @param token (optional) character(1) security token allowing access
-#'     to restricted data. See
-#'     \url{https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication}.
+#' @param from Record number from which to start when returning the manifest.
 #'
+#' @param ... passed to \code{\link[httr]{PUT}}.
+#'
+#' @return A \code{\link[tibble]{tibble}} with five columns:
+#' \itemize{
+#' \item{id}
+#' \item{filename}
+#' \item{md5}
+#' \item{size}
+#' \item{state}
+#'}
+#' 
 #' @examples
-#' uuids <- c("e3228020-1c54-4521-9182-1ea14c5dc0f7",
-#'            "18e1e38e-0f0a-4a0e-918f-08e6201ea140")
-#' (manifest <- manifest(uuids))
+#' gFiles = files()
+#' shortManifest = gFiles %>% manifest(size=10)
+#' head(shortManifest,n=3)
+#'
 #' @export
-manifest <- function(uuids, destination_dir=tempfile(), token=NULL) {
-    stopifnot(is.character(uuids))
-    .dir_validate_or_create(destination_dir)
-    endpoint <- "manifest"
+manifest <- function(x,from=1,size=count(x),...) {
+    UseMethod('manifest',x)
+}
 
-    uuids <- trimws(uuids)
-    uri <- sprintf("%s/%s", endpoint, paste(uuids, collapse=","))
-    destination <- tempfile(tmpdir=destination_dir)
+#' @describeIn manifest
+#'
+#' @export
+manifest.gdc_files <- function(x,from=1,size=count(x),...) {
+    .manifestCall(x=x,from=from,size=size,...)
+}
 
-    .gdc_download_one(uri, destination, overwrite=FALSE,
-                      progress=FALSE, token=token)
+#' @describeIn manifest
+#'
+#' @export
+manifest.GDCResponse <- function(x,from=1,size=count(x),...) {
+    .manifestCall(x=x$query,from=from,size=size,...)
+}
+
+
+
+#' @importFrom readr read_tsv 
+.manifestCall <- function(x,from=1,size=count(x),...) {
+    body = Filter(function(z) !is.null(z),x)
+    body[['facets']]=paste0(body[['facets']],collapse=",")
+    body[['fields']]=paste0(body[['fields']],collapse=",")
+    body[['from']]=from
+    body[['size']]=size
+    body[['return_type']]='manifest'
+    tmp = httr::content(.gdc_post(entity_name(x),body=body,token=NULL,...))
+    tmp = readr::read_tsv(tmp)
+    structure(
+        tmp,
+        class = c('gdc_manifest',class(tmp))
+    )
 }
 
 #' \code{transfer()} retrieves files from the manifest using the GDC
@@ -52,6 +82,8 @@ manifest <- function(uuids, destination_dir=tempfile(), token=NULL) {
 #' @param gdc_client character(1) name or path to \code{gdc-client}
 #'     executable. On Windows, use \code{/} or \code{\\\\} as the file
 #'     separator.
+#'
+#' @param destination_dir The path into which to place the transfered files.
 #'
 #' @return character(1) directory path to which the files were
 #'     downloaded.
