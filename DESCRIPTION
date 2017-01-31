@@ -29,7 +29,8 @@ Suggests:
     rmarkdown,
     DT,
     testthat,
-    listviewer
+    listviewer,
+    ggplot2
 biocViews:
     DataImport,
     Sequencing
