@@ -61,9 +61,9 @@
 <div id="the-api" class="section level1 tabset tabset-fade">
 <h1 class="hasAnchor">
 <html><body><a href="#the-api" class="anchor"> </a></body></html>The API</h1>
-<div id="metadata-endpoints" class="section level2 tabset tabset-fade">
+<div id="querying-metadata" class="section level2 tabset tabset-fade">
 <h2 class="hasAnchor">
-<html><body><a href="#metadata-endpoints" class="anchor"> </a></body></html>Metadata Endpoints</h2>
+<html><body><a href="#querying-metadata" class="anchor"> </a></body></html>Querying Metadata</h2>
 <div id="general-concepts" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#general-concepts" class="anchor"> </a></body></html>General Concepts</h3>
@@ -415,9 +415,11 @@ annots_df =<span class="st"> </span><span class="kw">do.call</span>(rbind, a)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># youngcases = cases(filters=filters(diagnoses.age_at_diagnosis &lt;= 10*365,endpoint='cases'))</span></code></pre></div>
 </div>
 </div>
-<div id="data-access" class="section level2 tabset tabset-fade">
+<div id="downloading-data" class="section level2 tabset tabset-fade">
 <h2 class="hasAnchor">
-<html><body><a href="#data-access" class="anchor"> </a></body></html>Data Access</h2>
+<html><body><a href="#downloading-data" class="anchor"> </a></body></html>Downloading Data</h2>
+<p>Downloading files from the GDC starts starts with identifying files of interest and collecting the file IDs which the GDC uses as keys for the files. Then, the transfer can be done using can be done using directly with R-based tooling for small transfers of smaller single files or multiple small files. For larger files such as any genomics data files, using a specialized data transfer (<code>gdc-transfer</code>) tool is likely to be more efficient and offers the potential for restarting transfers. The two sections below deal with these two approaches.</p>
+<p>BAM file slicing is an operation specific to querying pieces of BAM files from the GDC.</p>
 <div id="single-or-multiple-small-file-downloads" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#single-or-multiple-small-file-downloads" class="anchor"> </a></body></html>Single or multiple small file downloads</h3>
@@ -474,7 +476,6 @@ manifest_path</code></pre></div>
 ## [22] memoise_1.0.0        evaluate_0.10        rmarkdown_1.3       
 ## [25] stringi_1.1.2        compiler_3.4.0       BiocInstaller_1.25.2
 ## [28] backports_1.0.4</code></pre>
-<p><a href="https://github.com/NCI-GDC/gdc-client/releases/latest">GDC Download Tool</a></p>
 </div>
 </div>
 </div>
@@ -486,8 +487,8 @@ manifest_path</code></pre></div>
       <ul class="nav nav-pills nav-stacked">
 <li>
 <a href="#the-api">The API</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#metadata-endpoints">Metadata Endpoints</a></li>
-      <li><a href="#data-access">Data Access</a></li>
+<li><a href="#querying-metadata">Querying Metadata</a></li>
+      <li><a href="#downloading-data">Downloading Data</a></li>
       <li><a href="#sessioninfo">SessionInfo</a></li>
       </ul>
 </li>

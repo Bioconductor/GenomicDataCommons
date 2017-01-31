@@ -5,6 +5,7 @@
 /vignettes/overview.html
 *#
 .*
+
 docs/articles/*cache
 vignettes/*cache
 scratch

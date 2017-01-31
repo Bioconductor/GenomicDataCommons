@@ -1,8 +1,10 @@
 # GenomicDataCommons
 
-[![Build Status](https://travis-ci.org/seandavi/GenomicDataCommons.svg?branch=master)](https://travis-ci.org/seandavi/GenomicDataCommons)
-[![Build status](https://ci.appveyor.com/api/projects/status/2jy3whdaw6dd18fk?svg=true)](https://ci.appveyor.com/project/seandavi/genomicdatacommons)
-[![Build status](https://ci.appveyor.com/api/projects/status/2jy3whdaw6dd18fk/branch/develop?svg=true)](https://ci.appveyor.com/project/seandavi/genomicdatacommons/branch/develop)
+| branch | status | 
+| ------ | ------ |
+| Travis develop | [![Build Status](https://travis-ci.org/seandavi/GenomicDataCommons.svg?branch=develop)](https://travis-ci.org/seandavi/GenomicDataCommons)|
+| Travis master  | [![Build Status](https://travis-ci.org/seandavi/GenomicDataCommons.svg?branch=master)](https://travis-ci.org/seandavi/GenomicDataCommons) |
+| Appveyor develop | [![Build status](https://ci.appveyor.com/api/projects/status/2jy3whdaw6dd18fk/branch/develop?svg=true)](https://ci.appveyor.com/project/seandavi/genomicdatacommons/branch/develop) |
 
 
 
@@ -11,13 +13,23 @@ additional detail from the [API Users Guide][] documentation may help.
 
 This package is under development.
 
+## Install
+
+The package is not yet available on Bioconductor, so install directly from GitHub.
+
+```{r}
+devtools::install_github('Bioconductor/GenomicDataCommons')
+```
+
 ## QuickStart
+
+See [vignette](https://github.com/Bioconductor/GenomicDataCommons/blob/master/vignettes/overview.Rmd) for more details.
 
 ```{r}
 library(GenomicDataCommons)
 endpoints()            # what can you do? See help page for each endpoint
 status()               # is the service up?
-experiments(size=100)  # available experiments
+files(size=8)          # available experiments
 lst = cases()          # first 10 cases
 lst
 lst[1]
@@ -28,26 +40,26 @@ lst
 sapply(lst, "[[", "submitter_id")
 ```
 
-See [vignette](https://github.com/Bioconductor/GenomicDataCommons/blob/master/vignettes/overview.Rmd) for more details.
-
-
 ## TODO
 
+### Done
 - [x] `manifest()` endpoint
 - [x] `transfer()`: download manifest files via GDC Data Transfer Tool
 - [x] Authentication
-- [x] `slicing()` endpoint
+- [x] `slicing()` endpoint -- needs cleanup
 - [x] filters implemented using R expression syntax
-- [ ] `gdcdata()` (data endpoint) download md5sums validation
-- [ ] validate slicing 'regions' argument
-- [ ] Rename as 'gdc' -- accessing gdc portal, without _Bioconductor_
-  dependencies
+- [x] `gdcdata()` (data endpoint) -- needs download md5sums validation
+
+### Still to go
+
 - [ ] Develop `GenomicDataCommons` -- _Bioconductor_ API supporting
   [GenomicRanges][], [GenomicAlignments][], [VariantAnnotation][].
 
-## WON'T DO
+### WON'T DO
 
 - [ ] implement submission
+
+## Reference materials
 
 [Genomic Data Commons]: https://gdc-portal.nci.nih.gov/
 [API Users Guide]: https://gdc-docs.nci.nih.gov/API/Users_Guide/Getting_Started/

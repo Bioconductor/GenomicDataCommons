@@ -25,7 +25,7 @@ opts_chunk$set(cache=TRUE)
 
 # The API { .tabset .tabset-fade }
 
-## Metadata Endpoints { .tabset .tabset-fade }
+## Querying Metadata { .tabset .tabset-fade }
 
 ### General Concepts
 
@@ -52,7 +52,6 @@ sort | null | Specifies sorting for the search results
 facets | null | Provides all existing values for a given field and the number of records having this value.
 
 #### Searching and filtering
-
 
 Operator | Description | Number of Operands | Logic example
 :---------:|----------------|:-------------:|-------------------------------
@@ -233,7 +232,14 @@ basename(fpaths)
 ### Large or many files with GDC download tool
 
 For many files or large files, the [GDC Download Tool][] can be more efficient and 
-allows for download restarts if necessary.
+allows for download restarts if necessary. After finding the UUIDs of a set of interesting
+files:
+
+```{r}
+a = files(filters=make_filter('data_format'=='MAF' & 'access'=='open'))
+```
+
+we create a "manifest file".
 
 ```{r getManifest}
 # since resp is a GDCResponse that contains a files() query,
@@ -250,5 +256,3 @@ platform and to read and then download files in the `manifestDF` from above.
 ```{r sessionInfo}
 sessionInfo()
 ```
-
-[GDC Download Tool](https://github.com/NCI-GDC/gdc-client/releases/latest)
