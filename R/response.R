@@ -1,11 +1,23 @@
 #' Fetch \code{\link{GDCQuery}} metadata from GDC
 #'
+#' @aliases GDCResponse
+#' 
 #' @param x a \code{\link{GDCQuery}} object
 #' @param from integer index from which to start returning data
 #' @param size number of records to return
 #' @param ... passed to httr (good for passing config info, etc.)
 #' 
 #' @rdname response
+#'
+#' @return A \code{GDCResponse} object which is a list with the following
+#' members:
+#' \itemize{
+#' \item{results}
+#' \item{query}
+#' \item{aggregations}
+#' \item{pages}
+#' }
+#' 
 #'
 #' @examples
 #'
@@ -80,7 +92,7 @@ response.GDCQuery = function(x,from=1,size=10,...) {
 #' @export
 response_all = function(x,...) {
     count = count(x)
-    return(response(x,size=count,from=1,...))
+    return(response(x=x,size=count,from=1,...))
 }
 
 
@@ -130,8 +142,6 @@ results = function(x) {
 #'
 #' @export
 results.GDCQuery = function(x) {
-    if(is.null(x$facets))
-        x = x %>% facet()
     structure(
         response(x)$results,
         class=c('GDCResults','list')

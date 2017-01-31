@@ -89,7 +89,7 @@ select <- function(x,fields) {
     mismatches = fields[!(fields %in% af)]
     if(length(mismatches)>0)
         stop(sprintf('fields specified included fields not available in %s including (%s)',entity,mismatches))
-    fields = union(paste0(entity,"_id"),fields)
+    fields = union(paste0(sub('s$','',entity),"_id"),fields)
     return(fields)
 }
 

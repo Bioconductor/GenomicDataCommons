@@ -49,8 +49,8 @@ manifest.GDCResponse <- function(x,from=1,size=count(x),...) {
 #' @importFrom readr read_tsv 
 .manifestCall <- function(x,from=1,size=count(x),...) {
     body = Filter(function(z) !is.null(z),x)
-    body[['facets']]=paste0(body[['facets']],collapse=",")
-    body[['fields']]=paste0(body[['fields']],collapse=",")
+    body[['facets']]=NULL
+    body[['fields']]=paste0(default_fields(x),collapse=",")
     body[['from']]=from
     body[['size']]=size
     body[['return_type']]='manifest'
