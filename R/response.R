@@ -142,8 +142,6 @@ results = function(x) {
 #'
 #' @export
 results.GDCQuery = function(x) {
-    if(is.null(x$facets))
-        x = x %>% facet()
     structure(
         response(x)$results,
         class=c('GDCResults','list')
