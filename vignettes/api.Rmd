@@ -108,31 +108,70 @@ res = cases(facets='diagnoses.tumor_stage')
 
 To get a sense of what is available in the default Project entities,
 we simply call the `projects()` function without any arguments. By
-default, the first 10 projects are returned. The returned value for
-projects is a `data.frame` since the Project entity is tabular. 
+default, the first 10 projects are returned. Converting 
+projects to a `data.frame` (using the default fields) is straightforward
+because fields are not nested. 
 
 ```{r project10}
 a = projects()
-a %>% response() %>% str()
+a %>% response() %>% str(list.len = 7)
+a %>%
+    response() %>% # only this step queries the API
+    results() %>% # extract results
+    do.call(rbind,.) %>% # convert from list
+    data.frame() # and finally turn matrix into data.frame
 ```
+
+And just to show a few full records:
+
+```{r projectFull}
+a = projects()
+res = a %>% select(available_fields(a)) %>% response() %>% results()
+jsonedit(res)
+```
+
 
 ### Files
 
+To get a sense of what is available in the default File entities,
+we simply call the `files()` without any arguments. By
+default, the first 10 files in the GDC are returned. Manipulating
+the files result can be tricky, but this will give an idea of how
+to begin to use the API from R.
+
 ```{r files10}
 a = files()
-a %>% filter(~data_format=='VCF') %>% response() %>% str()
+a %>% filter(~data_format=='VCF') %>% response() %>% results() %>% str(list.len=5)
 resp = a %>% facet('data_format') %>% response()
-head(resp$aggregations$data_format)
+aggregations(resp)$data_format
+```
+
+And just to show a few full records:
+
+```{r filesFull}
+a = files()
+res = a %>% select(available_fields(a)) %>% response() %>% results()
+jsonedit(res)
 ```
 
 ### Cases
 
 ```{r cases10}
 a = cases()
-resp = a %>% facet(c('project.name','project.program.name')) %>% response
-head(resp$aggregations[[1]])
-head(resp$aggregations$project.program.name)
+resp = a %>% facet(c('project.name','project.program.name')) %>% response()
+names(aggregations(resp))
+aggregations(resp)$project.program.name
 ```
+
+
+And just to show a few full records:
+
+```{r casesFull}
+a = cases()
+res = a %>% select(available_fields(a)) %>% response() %>% results()
+jsonedit(res)
+```
+
 
 ### Annotations
 
@@ -144,10 +183,19 @@ details from Data Portal about annotations.
 
 ```{r annotations10}
 a = annotations()
-resp = a %>% select(available_fields(a)) %>% response()
-resp = a %>% response()
-str(resp$results[[1]])
+resp = a %>% select(default_fields(a)) %>% response()
+count(resp)
+res = a %>% response() %>% results()
 ```
+
+And just to show a few full records:
+
+```{r annotFull}
+a = annotations()
+res = a %>% select(available_fields(a)) %>% response() %>% results()
+jsonedit(res)
+```
+
 
 ### Advanced querying with filters
 
@@ -166,17 +214,16 @@ teenagers  = cases() %>%
                diagnoses.age_at_diagnosis <= 20*365 )
 teenagers %>% count()
 ```
-
 ## Data Access { .tabset .tabset-fade }
 
 ### Single or multiple small file downloads
 
-```{r}
+```{r directDownload}
 resp = files() %>%
     filter(~data_format=='MAF' & access=='open') %>%
-    response()
+    response() 
 # get the file_ids from the response
-file_ids = resp$results %>% purrr::map_chr('file_id')
+file_ids = resp %>% results() %>% purrr::map_chr('file_id')
 # download the files specified by file_id
 fpaths = gdcdata(file_ids,progress=FALSE)
 basename(fpaths)
@@ -187,13 +234,15 @@ basename(fpaths)
 For many files or large files, the [GDC Download Tool][] can be more efficient and 
 allows for download restarts if necessary.
 
-```{r}
-manifest_path = manifest(uuids = file_ids)
-manifest_path
+```{r getManifest}
+# since resp is a GDCResponse that contains a files() query,
+# the manifest() method can be called directly
+manifestDF = resp %>% manifest()
+manifestDF
 ```
 
 Use the [GDC Download Tool][] for your
-platform and to read and then download files in the `manifest_path` from above.  
+platform and to read and then download files in the `manifestDF` from above. 
 
 ## SessionInfo
 
