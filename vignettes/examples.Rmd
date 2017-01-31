@@ -105,10 +105,11 @@ ggplot(res$type,aes(x = key,y = doc_count)) + geom_bar(stat='identity') +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))     
 ```
 
+# sessionInfo()
 
-
-
-
+```{r sessionInfo}
+sessionInfo()
+```
 
 
 
