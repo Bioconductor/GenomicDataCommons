@@ -26,10 +26,12 @@ transfer_help(gdc_client = "gdc-client")
 
 \item{size}{The total number of records to return.  Default will return the usually desirable full set of records.}
 
-\item{...}{passed to \code{\link{httr::PUT}}.}
+\item{...}{passed to \code{\link[httr]{PUT}}.}
 
 \item{manifest}{character(1) file path to manifest created by
 \code{manifest()}}
+
+\item{destination_dir}{The path into which to place the transfered files.}
 
 \item{args}{character() vector specifying command-line arguments to
 be passed to \code{gdc-client}. See \code{transfer_help} for
@@ -45,13 +47,9 @@ token allowing access to restricted data. See
 \item{gdc_client}{character(1) name or path to \code{gdc-client}
 executable. On Windows, use \code{/} or \code{\\\\} as the file
 separator.}
-
-\item{token}{(optional, generally not needed for \code{manifest}) character(1) security token allowing access
-to restricted data. See
-\url{https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication}.}
 }
 \value{
-A \code{\link{tibble}} with five columns:
+A \code{\link[tibble]{tibble}} with five columns:
 \itemize{
 \item{id}
 \item{filename}
