@@ -18,6 +18,7 @@ vignette: >
 library(knitr)
 library(GenomicDataCommons)
 library(magrittr)
+library(listviewer)
 library(DT)
 opts_chunk$set(cache=TRUE)
 ```
