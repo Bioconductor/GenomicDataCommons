@@ -120,6 +120,14 @@ ids.GDCQuery = function(x) {
     return(sapply(results(x),'[[',fieldname))
 }
 
+
+## #' @rdname ids
+## #' @export
+## ids.GDCResults = function(x) {
+##     fieldname = paste0(sub('s$','',entity_name(x)),'_id')
+##     return(sapply(x,'[[',fieldname))
+## }
+
 #' @rdname ids
 #' @export
 ids.GDCResponse = function(x) {
