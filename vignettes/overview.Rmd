@@ -62,44 +62,17 @@ GDC API exposes these nodes and edges in a somewhat simplified set
 of
 [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) endpoints.
 
-## Full Feature Set of the GDC API
+# Basic design
 
-HTTP interface that uses JSON as the primary data exchange format
+This package design is meant to have some similarities to the "hadleyverse" approach of dplyr. Roughly, the functionality for finding and accessing files and metadata can be divided into:
 
-* Programmatic access to functionality provided by GDC Data and
-  Submission portals, via projects, cases, files, annotations, data,
-  slicing, status, and submission endpoints
-* Programmatic access to GDC Legacy Archive via legacy endpoint
-* Token-based authentication for secure access to controlled data and
-  to submission functionality
-* RESTful search that supports simple and complex queries via filters,
-  fields, and facets parameters, and project, files, cases, and
-  annotations endpoints.
-* Search results can be sorted using sort parameter, paginated using
-  size and from parameters, and output in JSON, TSV, and XML using
-  format and pretty parameters.
-* _mapping endpoint enables user discovery of fields available for
-  data search and retrieval operations
-* Support for downloading of individual files and of archives
-  containing multiple files
-* [NOT Implemented Here] Generation of download and upload manifests
-  for use with the GDC Data Transfer Tool
-* BAM slicing functionality for downloading part(s) of a BAM file
-  specified using chromosomal coordinates or HGNC gene names
-* [NOT Implemented Here] Transactional submission system that links
-  individual data elements according to a graph-based GDC Data Model
-* Two data entity identifiers: UUIDs, which are consistent across GDC,
-  and Submitter IDs, for compatibility with submitters’ tracking
-  systems
+1. Simple query constructors based on GDC API endpoints.
+2. A set of verbs that when applied, adjust filtering, field selection, and faceting (fields for aggregation) and result in a new query object (an endomorphism)
+3. A set of verbs that take a query and return results from the GDC
 
-Here, we will be describing how to access the main API endpoints:
+In addition, there are exhiliary functions for asking the GDC API for information about available and default fields, slicing BAM files, and downloading actual data files.
 
-- [Projects](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Projects/)
-- [Files](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Cases_and_Files/)
-- [Cases](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Cases_and_Files/)
-- [Annotations](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Annotations/)
-- [BAM Slicing](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Cases_and_Files/#bam-slicing) - Specific to dealing with BAM files
-- _mappings - For obtaining metadata about fields associated with the
-  various endpoints
+# Where to go from here
 
-
+- [Jump to worked examples](examples.html)
+- [A detailed description and examples of the API](api.html)
