@@ -63,21 +63,23 @@
 #' 
 #' @importFrom httr POST add_headers write_disk stop_for_status
 .gdc_post <-
-    function(endpoint, body, token=NULL, ..., base=.gdc_base)
+    function(endpoint, body, token=NULL, ..., base=.gdc_base, legacy=FALSE)
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
     uri <- sprintf("%s/%s", base, endpoint)
+    if(legacy) 
+        uri <- sprintf("%s/legacy/%s", base, endpoint)
     if(getOption('gdc.verbose',FALSE)) {
       message("POST request uri:\n",uri)
     }
-    body[['fields']] = paste0(body[['fields']],collapse=',')
+    if('fields' %in% names(body)) 
+        body[['fields']] = paste0(body[['fields']],collapse=',')
     response <- POST(
         uri, add_headers(`X-Auth-Token`=token),
         ...,
         #config = httr::config(ssl_verifypeer = FALSE),
         body=body, encode="json")
     stop_for_status(response)
-    response
 }
 
 #' Download one file from GDC, renaming to remote filename
