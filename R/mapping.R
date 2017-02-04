@@ -32,8 +32,9 @@ mapping <- function(endpoint) {
     response <- .gdc_get(
         sprintf("%s/%s", endpoint, "_mapping"))
     json <- content(response, type="application/json")
-    mapdat = json[['_mapping']]
     maplist = list()
+    fields = data.frame(field=unlist(json[['fields']]))
+    mapdat = json[['_mapping']]
     for(cname in names(mapdat[[1]])) {
         maplist[[cname]] = as.character(sapply(mapdat,'[[',cname))
     }
@@ -42,6 +43,8 @@ mapping <- function(endpoint) {
     fieldtypes = c('defaults', 'expand', 'multi', 'nested')
     colnames(tmpdf) = fieldtypes
     df = cbind(data.frame(df,stringsAsFactors=FALSE),tmpdf)
+    df = as.data.frame(merge(fields,df,by.x='field',by.y='field',all.x=TRUE),stringsAsFactors = FALSE)
+    df$field = as.character(df$field)
     for(i in fieldtypes) {
         df[df$field  %in% json[[i]],i] = TRUE
     }
