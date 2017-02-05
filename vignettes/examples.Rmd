@@ -60,6 +60,7 @@ cases() %>% filter(~ project.program.name=='TCGA') %>% count()
 resp = cases() %>% filter(~ project.project_id=='TCGA-BRCA' &
                               project.project_id=='TCGA-BRCA' ) %>%
     facet('samples.sample_type') %>% aggregations()
+resp$samples.sample_type
 ```
 
 ### Fetch all samples in TCGA-BRCA that use "Solid Tissue" as a normal.
@@ -70,11 +71,12 @@ resp = cases() %>% filter(~ project.project_id=='TCGA-BRCA' &
 # request to remove this requirement.
 resp = cases() %>% filter(~ project.project_id=='TCGA-BRCA' &
                               samples.sample_type=='Solid Tissue Normal') %>%
-    select(c(default_fields(cases()),'samples.sample_type')) %>%
+    GenomicDataCommons::select(c(default_fields(cases()),'samples.sample_type')) %>%
     response_all()
 count(resp)
 res = resp %>% results()
 str(res[1],list.len=6)
+head(ids(resp))
 ```
 
 The `listviewer` package is a great way to look into moderately-sized result sets
@@ -90,7 +92,7 @@ jsonedit(res)
 ### How many of each type of file are available?
 
 ```{r filesTypeCount}
-res = files() %>% facet('type') %>% aggregations()
+res = files() %>% facet(c('type','data_type')) %>% aggregations()
 res$type
 ggplot(res$type,aes(x = key,y = doc_count)) + geom_bar(stat='identity') +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))     
@@ -105,7 +107,49 @@ ggplot(res$type,aes(x = key,y = doc_count)) + geom_bar(stat='identity') +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))     
 ```
 
+### Find gene-level RNA-seq quantification files for GBM
 
+```{r filesRNAseqGeneGBM}
+q = files() %>%
+    GenomicDataCommons::select(available_fields('files')) %>%
+    filter(~ cases.project.project_id=='TCGA-GBM' &
+               data_type=='Gene Expression Quantification')
+q %>% facet('analysis.workflow_type') %>% aggregations()
+# so need to add another filter
+file_ids = q %>% filter(~ cases.project.project_id=='TCGA-GBM' &
+                            data_type=='Gene Expression Quantification' &
+                            analysis.workflow_type == 'HTSeq - Counts') %>%
+    GenomicDataCommons::select('file_id') %>%
+    response_all() %>%
+    ids()
+```
+
+## Downloading data
+
+** TODO **
+
+## Slicing 
+
+### Get all BAM file ids from TCGA-GBM
+
+**I need to figure out how to do slicing reproducibly in a testing environment and for vignette building**.
+
+```{r filesRNAseqGeneGBMforBAM}
+q = files() %>%
+    GenomicDataCommons::select(available_fields('files')) %>%
+    filter(~ cases.project.project_id == 'TCGA-GBM' &
+               data_type == 'Aligned Reads' &
+               experimental_strategy == 'RNA-Seq' &
+               data_format == 'BAM')
+file_ids = q %>% GenomicDataCommons::select('file_id') %>% response_all() %>% ids()
+```
+
+
+```{r slicing10}
+# bamfile = slicing(file_ids[1],regions="chr12:6534405-6538375",token=token)
+library(GenomicAlignments)
+# aligns = readGAlignments(bamfile)
+```
 
 # sessionInfo()
 
