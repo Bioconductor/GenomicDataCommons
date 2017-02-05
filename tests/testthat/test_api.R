@@ -41,7 +41,7 @@ test_that("mapping", {
     res = mapping('files')
     expect_equal(class(res),'data.frame')
     expect_equal(ncol(res), 9)
-    expect_equal(colnames(res),c('description','doc_type','field','full','type','defaults','expand','multi','nested'))
+    expect_equal(colnames(res),c('field','description','doc_type','full','type','defaults','expand','multi','nested'))
 })
 
 test_that("projects", {
