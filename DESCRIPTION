@@ -30,7 +30,9 @@ Suggests:
     DT,
     testthat,
     listviewer,
-    ggplot2
+    ggplot2,
+    GenomicAlignments,
+    Rsamtools
 biocViews:
     DataImport,
     Sequencing
