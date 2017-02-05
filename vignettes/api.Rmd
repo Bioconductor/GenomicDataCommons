@@ -168,7 +168,9 @@ And just to show a few full records:
 
 ```{r casesFull}
 a = cases()
-res = a %>% select(available_fields(a)) %>% response() %>% results()
+# you are generally not going to want to use all
+# available fields!
+res = a %>% select(available_fields(a)) %>% response(size=3) %>% results()
 jsonedit(res)
 ```
 
