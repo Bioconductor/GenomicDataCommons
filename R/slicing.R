@@ -54,12 +54,14 @@ slicing <- function(uuid, regions, symbols, destination=tempfile(),
     else
         ## FIXME: validate regions
         body <- list(regions=I(regions))
+    print(toJSON(body))
 
     response <- .gdc_post(
         endpoint=sprintf("slicing/view/%s", uuid),
+        add_headers('Content-type'='application/json'),
         write_disk(destination, overwrite),
         if (progress) progress() else NULL,
-        body=body, token=token)
+        body=toJSON(body), token=token)
     if (progress)
         cat("\n")
 

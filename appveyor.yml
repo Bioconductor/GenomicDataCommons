@@ -1,4 +1,4 @@
-# Script from https://github.com/hadley/devtools/blob/master/appveyor.yml
+# Based on https://github.com/krlmlr/r-appveyor
 # DO NOT CHANGE the "init" and "install" sections below
 
 # Download script file from GitHub
@@ -13,10 +13,19 @@ install:
 # Adapt as necessary starting from here
 
 build_script:
-  - travis-tool.sh isntall_bioc BiocInstaller
+  # The following configuration will use the development version of Bioconductor.  This
+  # is because under the hood, r-appveyor relies on r-travis, and r-travis sets an
+  # environment variable , BIOC_USE_DEVEL=${BIOC_USE_DEVEL:-"TRUE"}
+  #
+  # This is configurable, but devel is the default.  Here's the source:
+  #     https://github.com/craigcitro/r-travis/blob/master/scripts/travis-tool.sh#L11
+  #
+  # Notice: We'll need to decide on a workflow, if we want to provide CI builds of
+  # release versions in AppVeyor .
+  - git config --global user.name "travis"
+  - git config --global user.email "travis@example.org"
   - travis-tool.sh install_bioc_deps
-  - travis-tool.sh install_deps
-  - travis-tool.sh github_package jimhester/covr
+  - travis-tool.sh install_bioc grasp2db
 
 test_script:
   - travis-tool.sh run_tests
@@ -24,9 +33,6 @@ test_script:
 on_failure:
   - 7z a failure.zip *.Rcheck\*
   - appveyor PushArtifact failure.zip
-
-on_success:
-  - Rscript -e 'covr::codecov()'
 
 environment:
   global:
@@ -36,7 +42,7 @@ environment:
     USE_RTOOLS: true ## to be able to use Remotes (i.e. packages from non-CRAN sources)
 
   matrix:
-    - R_VERSION: devel
+    - R_VERSION: release
 
 artifacts:
   - path: '*.Rcheck\**\*.log'

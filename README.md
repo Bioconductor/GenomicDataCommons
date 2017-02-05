@@ -2,8 +2,9 @@
 
 | branch | status | 
 | ------ | ------ |
-| develop | [![Build Status](https://travis-ci.org/seandavi/GenomicDataCommons.svg?branch=develop)](https://travis-ci.org/seandavi/GenomicDataCommons)|
-| master  | [![Build Status](https://travis-ci.org/seandavi/GenomicDataCommons.svg?branch=master)](https://travis-ci.org/seandavi/GenomicDataCommons) |
+| Travis develop | [![Build Status](https://travis-ci.org/seandavi/GenomicDataCommons.svg?branch=develop)](https://travis-ci.org/seandavi/GenomicDataCommons)|
+| Travis master  | [![Build Status](https://travis-ci.org/seandavi/GenomicDataCommons.svg?branch=master)](https://travis-ci.org/seandavi/GenomicDataCommons) |
+| Appveyor develop | [![Build status](https://ci.appveyor.com/api/projects/status/2jy3whdaw6dd18fk/branch/develop?svg=true)](https://ci.appveyor.com/project/seandavi/genomicdatacommons/branch/develop) |
 
 
 
