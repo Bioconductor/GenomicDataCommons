@@ -8,15 +8,21 @@
 \usage{
 results(x)
 
+results(x)
+
 \method{results}{GDCQuery}(x)
 
 \method{results}{GDCResponse}(x)
 }
 \arguments{
 \item{x}{a \code{\link{GDCQuery}} object}
+
+\item{x}{a \code{\link{GDCQuery}} object}
 }
 \description{
 results
+
+results_all
 }
 \section{Methods (by class)}{
 \itemize{

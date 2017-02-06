@@ -136,16 +136,31 @@ results = function(x) {
     UseMethod('results',x)
 }
 
+#' results_all
+#'
+#' @param x a \code{\link{GDCQuery}} object
+#'
+#' 
+#' @export
+results = function(x) {
+    UseMethod('results_all',x)
+}
+
 
 #' @describeIn results
 #'
 #'
 #' @export
 results.GDCQuery = function(x) {
-    structure(
-        response(x)$results,
-        class=c('GDCResults','list')
-    )
+    results(response(x))
+}
+
+#' @describeIn results_all
+#'
+#'
+#' @export
+results_all.GDCQuery = function(x) {
+    results(response_all(x))
 }
 
 #' @describeIn results
@@ -155,7 +170,18 @@ results.GDCQuery = function(x) {
 results.GDCResponse = function(x) {
     structure(
         x$results,
-        class=c(sub('Response','Results',class(x)),'GDCResults','list')
+        class=c(sub('Response','Results',class(x)))
+    )
+}
+
+#' @describeIn results_all
+#'
+#'
+#' @export
+results_all.GDCResponse = function(x) {
+    structure(
+        x$results,
+        class=c(sub('Response','Results',class(x)))
     )
 }
 
