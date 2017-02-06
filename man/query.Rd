@@ -10,7 +10,7 @@
 \title{Start a query of GDC metadata}
 \usage{
 query(entity, token = NULL, filters = NULL, facets = NULL,
-  fields = default_fields(entity))
+  archive = "default", fields = default_fields(entity))
 
 cases(...)
 
@@ -30,7 +30,9 @@ or 'projects'}
 
 \item{facets}{a facets list}
 
-\item{fields}{a list of fields to return}
+\item{archive}{one of either 'default' or 'legacy'. See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.}
+
+\item{fields}{a character vector of fields to return}
 
 \item{...}{passed through to \code{\link{query}}}
 }
