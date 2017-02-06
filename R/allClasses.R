@@ -29,7 +29,7 @@ query = function(entity,
                  token=NULL,
                  filters=NULL,
                  facets=NULL,
-                 archive = c('default','legacy'),
+                 archive = 'default',
                  fields=default_fields(entity)) {
     stopifnot(entity %in% c('cases','files','annotations','projects'))
     ret = structure(
