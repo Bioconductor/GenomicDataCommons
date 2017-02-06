@@ -142,7 +142,7 @@ results = function(x) {
 #'
 #' 
 #' @export
-results = function(x) {
+results_all = function(x) {
     UseMethod('results_all',x)
 }
 
