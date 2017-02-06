@@ -91,7 +91,7 @@
 #' 
 #' @importFrom httr GET write_disk add_headers stop_for_status
 .gdc_download_one <-
-    function(uri, destination, overwrite, progress, archive, token=NULL, base=.gdc_base)
+    function(uri, destination, overwrite, progress, token=NULL, base=.gdc_base)
 {
     uri = sprintf('%s/%s',base,uri)
     response <- GET(uri, write_disk(destination, overwrite),
