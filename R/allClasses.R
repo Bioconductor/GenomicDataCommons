@@ -26,16 +26,18 @@
 #'
 #' @export
 query = function(entity,
-                    token=NULL,
-                    filters=NULL,
-                    facets=NULL,
-                    fields=default_fields(entity)) {
+                 token=NULL,
+                 filters=NULL,
+                 facets=NULL,
+                 archive = c('default','legacy'),
+                 fields=default_fields(entity)) {
     stopifnot(entity %in% c('cases','files','annotations','projects'))
     ret = structure(
         list(
             fields    = fields,
             filters   = filters,
             facets    = facets,
+            archive   = archive,
             token     = token),
         class = c(paste0('gdc_',entity),'GDCQuery','list')
     )

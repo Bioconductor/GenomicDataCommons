@@ -30,7 +30,7 @@ mapping <- function(endpoint) {
     stopifnot(is.character(endpoint), length(endpoint) == 1L,
               endpoint %in% valid)
     response <- .gdc_get(
-        sprintf("%s/%s", endpoint, "_mapping"))
+        sprintf("%s/%s", endpoint, "_mapping"), archive='default')
     json <- content(response, type="application/json")
     maplist = list()
     fields = data.frame(field=unlist(json[['fields']]))

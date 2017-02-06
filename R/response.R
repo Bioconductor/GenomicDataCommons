@@ -76,7 +76,7 @@ response.GDCQuery = function(x,from=1,size=10,...) {
     body[['size']]=size
     body[['format']]='JSON'
     body[['pretty']]='FALSE'
-    tmp = httr::content(.gdc_post(entity_name(x),body=body,token=NULL,...))
+    tmp = httr::content(.gdc_post(entity_name(x),body=body,archive=x$archive,token=NULL,...))
     structure(
         list(results = tmp$data$hits,
              query   = x,
