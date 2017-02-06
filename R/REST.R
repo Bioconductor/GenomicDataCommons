@@ -93,9 +93,7 @@
 .gdc_download_one <-
     function(uri, destination, overwrite, progress, archive, token=NULL, base=.gdc_base)
 {
-    uri <- sprintf("%s/%s", base, endpoint)
-    if(archive=='legacy')
-        uri <- sprintf("%s/legacy/%s", base, endpoint)
+    uri = sprintf('%s/%s',base,uri)
     response <- GET(uri, write_disk(destination, overwrite),
                     if (progress) progress() else NULL,
                     add_headers(`X-Auth-Token`=token))
