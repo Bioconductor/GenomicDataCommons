@@ -83,7 +83,7 @@ response.GDCQuery = function(x,from=1,size=10,...) {
              pages   = tmp$data$pagination,
              aggregations = lapply(tmp$data$aggregations,function(x) {x$buckets %>% purrr::map_df(extract,c('key','doc_count'))})
              ),
-        class = c('GDCResponse','list')
+        class = c(paste0('GDC',entity_name(x),'Response'),'GDCResponse','list')
     )
 }
 
@@ -155,7 +155,7 @@ results.GDCQuery = function(x) {
 results.GDCResponse = function(x) {
     structure(
         x$results,
-        class=c('GDCResults','list')
+        class=c(sub('Response','Results',class(x)),'GDCResults','list')
     )
 }
 
