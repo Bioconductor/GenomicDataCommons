@@ -8,6 +8,6 @@
 #'
 #' @export
 status <- function(version=NULL) {
-    response <- .gdc_get(paste(version, "status", sep="/"))
+    response <- .gdc_get(paste(version, "status", sep="/"),archive='default')
     content(response, type="application/json")
 }
