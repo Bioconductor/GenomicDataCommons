@@ -25,6 +25,11 @@
 #' shortManifest = gFiles %>% manifest(size=10)
 #' head(shortManifest,n=3)
 #'
+#' gCases = cases()
+#' manifestFromCases = manifest(gCases,size=10)
+#' manifestFromCases
+#'
+#' 
 #' @export
 manifest <- function(x,from=1,size=count(x),...) {
     UseMethod('manifest',x)
@@ -39,9 +44,35 @@ manifest.gdc_files <- function(x,from=1,size=count(x),...) {
 
 #' @describeIn manifest
 #'
+#' @importFrom purrr map
+#' @importFrom purrr map_chr
+#' @importFrom purrr flatten
+#' 
+#' @export
+manifest.gdc_cases <- function(x,from=1,size=count(x),...) {
+    fids = x %>%
+        select('files.file_id') %>%
+        response(from=from,size=size) %>%
+        results() %>%
+        purrr::map('files') %>%
+        purrr::flatten() %>%
+        purrr::map_chr('file_id')
+    q = files() %>% filter(~ file_id %in% fids)
+    .manifestCall(x=q,from=from,size=size,...)
+}
+
+#' @describeIn manifest
+#'
 #' @export
 manifest.GDCfilesResponse <- function(x,from=1,size=count(x),...) {
     .manifestCall(x=x$query,from=from,size=size,...)
+}
+
+#' @describeIn manifest
+#'
+#' @export
+manifest.GDCcasesResponse <- function(x,from=1,size=count(x),...) {
+    manifest(x=x$query,from=from,size=size,...)
 }
 
 
