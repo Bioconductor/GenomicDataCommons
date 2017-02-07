@@ -45,9 +45,13 @@
 #'
 #' @importFrom httr GET add_headers stop_for_status
 .gdc_get <-
-    function(endpoint, parameters=list(), token=NULL, ..., base=.gdc_base)
+    function(endpoint, parameters=list(), archive, token=NULL, ..., base=.gdc_base)
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
+    uri <- sprintf("%s/%s", base, endpoint)
+    if(archive=='legacy')
+        uri <- sprintf("%s/legacy/%s", base, endpoint)
+    
     uri <- sprintf("%s/%s%s", base, endpoint, .parameter_string(parameters))
     if(getOption('gdc.verbose',FALSE)) {
       message("GET request uri:\n",uri)
@@ -63,11 +67,12 @@
 #' 
 #' @importFrom httr POST add_headers write_disk stop_for_status
 .gdc_post <-
-    function(endpoint, body, token=NULL, ..., base=.gdc_base, legacy=FALSE)
+    function(endpoint, body, archive, token=NULL, ..., base=.gdc_base)
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
+    
     uri <- sprintf("%s/%s", base, endpoint)
-    if(legacy) 
+    if(archive=='legacy')
         uri <- sprintf("%s/legacy/%s", base, endpoint)
     if(getOption('gdc.verbose',FALSE)) {
       message("POST request uri:\n",uri)
@@ -88,7 +93,7 @@
 .gdc_download_one <-
     function(uri, destination, overwrite, progress, token=NULL, base=.gdc_base)
 {
-    uri <- sprintf("%s/%s", base, uri)
+    uri = sprintf('%s/%s',base,uri)
     response <- GET(uri, write_disk(destination, overwrite),
                     if (progress) progress() else NULL,
                     add_headers(`X-Auth-Token`=token))

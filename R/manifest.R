@@ -40,7 +40,7 @@ manifest.gdc_files <- function(x,from=1,size=count(x),...) {
 #' @describeIn manifest
 #'
 #' @export
-manifest.GDCResponse <- function(x,from=1,size=count(x),...) {
+manifest.GDCfilesResponse <- function(x,from=1,size=count(x),...) {
     .manifestCall(x=x$query,from=from,size=size,...)
 }
 
@@ -54,7 +54,7 @@ manifest.GDCResponse <- function(x,from=1,size=count(x),...) {
     body[['from']]=from
     body[['size']]=size
     body[['return_type']]='manifest'
-    tmp = httr::content(.gdc_post(entity_name(x),body=body,token=NULL,...))
+    tmp = httr::content(.gdc_post(entity_name(x), body=body, archive=x$archive, token=NULL, ...))
     tmp = readr::read_tsv(tmp)
     structure(
         tmp,

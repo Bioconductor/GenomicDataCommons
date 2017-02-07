@@ -13,7 +13,8 @@
 #' @param filters a filter list
 #' @param facets a facets list
 #' @param token a character string reprenting the token
-#' @param fields a list of fields to return
+#' @param archive one of either 'default' or 'legacy'. See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.
+#' @param fields a character vector of fields to return
 #' 
 #' @return An S3 object, the GDCQuery object. This is a list
 #' with filters, facets, and fields as members.
@@ -26,16 +27,18 @@
 #'
 #' @export
 query = function(entity,
-                    token=NULL,
-                    filters=NULL,
-                    facets=NULL,
-                    fields=default_fields(entity)) {
+                 token=NULL,
+                 filters=NULL,
+                 facets=NULL,
+                 archive = 'default',
+                 fields=default_fields(entity)) {
     stopifnot(entity %in% c('cases','files','annotations','projects'))
     ret = structure(
         list(
             fields    = fields,
             filters   = filters,
             facets    = facets,
+            archive   = archive,
             token     = token),
         class = c(paste0('gdc_',entity),'GDCQuery','list')
     )
