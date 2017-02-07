@@ -57,7 +57,7 @@ count.GDCQuery = function(x,...) {
 #'
 #' @export
 count.GDCResponse = function(x,...) {
-    resp$pages$total
+    x$pages$total
 }    
 
 #' @rdname response
