@@ -2,7 +2,9 @@
 % Please edit documentation in R/manifest.R
 \name{manifest}
 \alias{manifest}
+\alias{manifest.GDCcasesResponse}
 \alias{manifest.GDCfilesResponse}
+\alias{manifest.gdc_cases}
 \alias{manifest.gdc_files}
 \alias{transfer}
 \alias{transfer_help}
@@ -12,7 +14,11 @@ manifest(x, from = 1, size = count(x), ...)
 
 \method{manifest}{gdc_files}(x, from = 1, size = count(x), ...)
 
+\method{manifest}{gdc_cases}(x, from = 1, size = count(x), ...)
+
 \method{manifest}{GDCfilesResponse}(x, from = 1, size = count(x), ...)
+
+\method{manifest}{GDCcasesResponse}(x, from = 1, size = count(x), ...)
 
 transfer(manifest, destination_dir = tempfile(), args = character(),
   token_file = NULL, gdc_client = "gdc-client")
@@ -76,7 +82,11 @@ in the \code{transfer()} command.
 \itemize{
 \item \code{gdc_files}: 
 
+\item \code{gdc_cases}: 
+
 \item \code{GDCfilesResponse}: 
+
+\item \code{GDCcasesResponse}: 
 }}
 \examples{
 gFiles = files()
