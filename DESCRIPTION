@@ -22,7 +22,9 @@ Imports:
     assertthat,
     lazyeval,
     purrr,
-    readr
+    readr,
+    shiny,
+    miniUI
 Suggests:
     BiocStyle,
     knitr,
