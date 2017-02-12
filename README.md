@@ -1,1 +1,1 @@
-vignettes/overview.Rmd
+vignettes/examples.Rmd
