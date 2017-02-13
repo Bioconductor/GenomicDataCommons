@@ -2,7 +2,7 @@
 \usepackage{hyperref}
 \usepackage[maxbibnames=99,backend=biber,citestyle=authoryear,sorting=ydnt]{biblatex}
 \addbibresource{gdcCitations.bib}
-\title{A Small \LaTeX{} Article Template\thanks{To your mother}}
+\title{GenomicDataCommons: a Bioconductor Interface to the NCI Genomic Data Commons}
 \author{Sean R. Davis  \\
 	Center for Cancer Research\\
         National Cancer Institute\\
@@ -20,49 +20,67 @@
 
 
 \begin{abstract}
-The National Cancer Institute has established the Genomic Data Commons (\cite{Grossman2016}, \url{https://gdc.cancer.gov/}). The GDC provides the cancer research community with an open and unified repository for sharing and accessing data across numerous cancer studies and projects via high-performance data transfer and query infrastructure.  The Bioconductor project \parencite{Huber2015}.
+  The National Cancer Institute (NCI) has established the Genomic Data
+  Commons (\cite{Grossman2016}, \url{https://gdc.cancer.gov/}). The
+  GDC provides the cancer research community with an open and unified
+  repository for sharing and accessing data across numerous cancer
+  studies and projects via a high-performance data transfer and query
+  infrastructure.  The Bioconductor project \parencite{Huber2015} is
+  an open source and open development software project built on the R
+  statistical programming environment \parencite{RCoreTeam2016}.  A
+  major goal of the Bioconductor project is to facilitate the use,
+  analysis, and comprehension of genomic data.  The GenomicDataCommons
+  Bioconductor package provides basic infrastructure for querying,
+  accessing, and mining genomic datasets available from the GDC. We
+  expect that the Bioconductor developer and the larger bioinformatics
+  community will build on the GenomicDataCommons package to add
+  higher-level functionality and expose cancer genomics data to the
+  plethora of state-of-the-art bioinformatics methods available in
+  Bioconductor.
 
 \end{abstract}
 
 \section{Introduction}
-Make it possible for all to write documents with \LaTeX{}!
+Basic and translational cancer research projects--from large,
+multicenter consortia to individual labs--now produce vast quantities
+of genomic data. Such datasets are often accompanied by clinical
+information and valuable experimental metadata. Two such examples
+include The Cancer Genome Atlas (TCGA,
+\url{https://cancergenome.nih.gov/}) and the Therapeutically
+Applicable Research To Generate Effective Treatments (TARGET,
+\url{https://ocg.cancer.gov/programs/target}) projects. To address the
+needs of the cancer community to access, query, and utilize these
+cancer-related data resources, the NCI has developed the Genomic Data
+Commons (GDC, \cite{Grossman2016}). While similar in many respects to
+other large-scale genomics data repositories, the GDC differs in that
+data presented via the GDC have been ``harmonized'' using
+stardardized, publicly-available pipelines
+(\url{https://docs.gdc.cancer.gov/Data/Introduction/}). An additional
+and unusual new feature of the GDC relative to most genomic data
+repositories is that users can deposit and then apply GDC standardized
+pipelines to their own genomic data, provided they agree to share
+their data broadly (subject to data use agreements and participant
+consents). Web-based queries and tools exist and are expected to grow in both number and functionality.
 
-\paragraph{Outline}
-First we start with a little example of the article class, which is an 
-important documentclass. But there would be other documentclasses like 
-book \ref{book}, report \ref{report} and letter \ref{letter} which are 
-described in Section \ref{documentclasses}. Finally, Section 
-\ref{conclusions} gives the conclusions.
+The Bioconductor project is an open
+source and open development software project for the analysis and comprehension of genomic and molecular biology data \parencite{Huber2015}. Based on the statistical programming language, R \parencite{RCoreTeam2016}, the project comprises 1296 interoperable software packages contributed by a diverse community of scientists. Bioconductor tools to access cancer genomics data, including
+RTCGA \parencite{Kosinski2016},
+TCGABiolinks \parencite{Colaprico2016},
+RTCGAToolbox \parencite{Samur2014} facilitate access to cancer
+genomics data, but they are limited, by-and-large to TCGA data and
+rely on legacy data sharing platforms. The GenomicDataCommons software
+package is a new software package that provides infrastructure for
+finding, accessing, and downloading cancer genomics data from the
+GDC. Our expectation is that the GenomicDataCommons software package
+will facilitate use of GDC data by the larger Bioconductor community
+and increase the effiency of drawing biologically important
+conclusions from published cancer genomic data.
+
+\section{Design and Usage}
+The goal of the GenomicDataCommons Bioconductor package is to expose the RESTful (\url{https://en.wikipedia.org/wiki/Representational_state_transfer}) application programming interface (API, \url{https://gdc.cancer.gov/developers/gdc-application-programming-interface-api}) via an R client interface. 
 
 
-
-\section{Documentclasses} \label{documentclasses}
-
-\begin{itemize}
-\item article
-\item book 
-\item report 
-\item letter 
-\end{itemize}
-
-
-\begin{enumerate}
-\item article
-\item book 
-\item report 
-\item letter 
-\end{enumerate}
-
-\begin{description}
-\item[article\label{article}]{Article is \ldots}
-\item[book\label{book}]{The book class \ldots}
-\item[report\label{report}]{Report gives you \ldots}
-\item[letter\label{letter}]{If you want to write a letter.}
-\end{description}
-
-
-\section{Conclusions}\label{conclusions}
-There is no longer \LaTeX{} example which was written by \cite{doe}.
+\section{Conclusions}
 
 \printbibliography
 
