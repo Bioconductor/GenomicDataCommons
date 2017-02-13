@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage[maxbibnames=99,backend=biber,citestyle=authoryear,sorting=ydnt]{biblatex}
+\addbibresource{gdcCitations.bib}
+\title{A Small \LaTeX{} Article Template\thanks{To your mother}}
+\author{Sean R. Davis  \\
+	Center for Cancer Research\\
+        National Cancer Institute\\
+        National Institutes of Health\\
+	\and 
+	Martin T. Morgan \\
+	Roswell Park Cancer Institute \\
+	}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+The National Cancer Institute has established the Genomic Data Commons (\cite{Grossman2016}, \url{https://gdc.cancer.gov/}). The GDC provides the cancer research community with an open and unified repository for sharing and accessing data across numerous cancer studies and projects via high-performance data transfer and query infrastructure.  The Bioconductor project \parencite{Huber2015}.
+
+\end{abstract}
+
+\section{Introduction}
+Make it possible for all to write documents with \LaTeX{}!
+
+\paragraph{Outline}
+First we start with a little example of the article class, which is an 
+important documentclass. But there would be other documentclasses like 
+book \ref{book}, report \ref{report} and letter \ref{letter} which are 
+described in Section \ref{documentclasses}. Finally, Section 
+\ref{conclusions} gives the conclusions.
+
+
+
+\section{Documentclasses} \label{documentclasses}
+
+\begin{itemize}
+\item article
+\item book 
+\item report 
+\item letter 
+\end{itemize}
+
+
+\begin{enumerate}
+\item article
+\item book 
+\item report 
+\item letter 
+\end{enumerate}
+
+\begin{description}
+\item[article\label{article}]{Article is \ldots}
+\item[book\label{book}]{The book class \ldots}
+\item[report\label{report}]{Report gives you \ldots}
+\item[letter\label{letter}]{If you want to write a letter.}
+\end{description}
+
+
+\section{Conclusions}\label{conclusions}
+There is no longer \LaTeX{} example which was written by \cite{doe}.
+
+\printbibliography
+
+\end{document}

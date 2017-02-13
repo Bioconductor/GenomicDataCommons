@@ -11,3 +11,13 @@ vignettes/*cache
 scratch
 inst/doc/*
 docs/articles/*cache
+#GenomicDataCommons.Rnw#
+GenomicDataCommons.aux
+GenomicDataCommons.bbl
+GenomicDataCommons.bcf
+GenomicDataCommons.blg
+GenomicDataCommons.log
+GenomicDataCommons.out
+GenomicDataCommons.pdf
+GenomicDataCommons.run.xml
+GenomicDataCommons.tex
