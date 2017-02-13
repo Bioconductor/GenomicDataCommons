@@ -43,6 +43,11 @@
 \end{abstract}
 
 \section{Introduction}
+
+<<init,results='hide',echo=FALSE>>=
+library(knitr)
+opts_chunk$set(warning=FALSE,message=FALSE,results='hide')
+@ 
 Basic and translational cancer research projects--from large,
 multicenter consortia to individual labs--now produce vast quantities
 of genomic data. Such datasets are often accompanied by clinical
@@ -79,27 +84,51 @@ and increase the effiency of drawing biologically important
 conclusions from published cancer genomic data.
 
 \section{Design and Usage}
-The goal of the GenomicDataCommons Bioconductor package is to expose the RESTful (\url{https://en.wikipedia.org/wiki/Representational_state_transfer}) application programming interface (API, \url{https://gdc.cancer.gov/developers/gdc-application-programming-interface-api}) via an R client interface. The GDC API can be roughly divided into metadata query capabilities and data download capabilities. 
+The goal of the GenomicDataCommons Bioconductor package is to expose the RESTful (\url{https://en.wikipedia.org/wiki/Representational_state_transfer}) application programming interface (API, \url{https://gdc.cancer.gov/developers/gdc-application-programming-interface-api}) via an R client interface. The GDC API can be roughly divided into metadata query capabilities and data download capabilities. The GenomicDataCommons package is implemented as a set of S3 classes and methods with accompanying utility functions. 
 
-\subsection{Design and Usage}
-The GenomicDataCommons package is implemented as a set of S3 classes and methods with accompanying utility functions. 
+\subsection{Querying GDC metadata and finding GDC data}
 
 Finding data in the GDC starts with a query of available metadata. We model our R interface for querying GDC metadata on a now-common approach, XXXXXX, similar in spirit to that used by packages such as dplyr \parencite{Wickham2016}. Querying the GDC API to get the unique file ids of all HTSeq quantified gene expression data from the TCGA-GBM project forms an illustrative example:
 
-<<metaquery1,eval=FALSE>>=
+<<metaquery1,results='hide'>>=
 library(GenomicDataCommons)
-file_ids = files() %>% 
+file_records = files() %>% 
     filter(~ cases.project.project_id == 'TCGA-GBM' &
                data_type == 'Gene Expression Quantification' &
                analysis.workflow_type == 'HTSeq - Counts') %>%
     select('file_id') %>%
-    response_all() %>%
-    ids()
+    response_all()
 @ 
 
-The \code{files()} call creates a \code{GDCquery}. The \code{filter()} verb allows using R-like syntax to generate filter criteria; note that field names like ``data\_type'' can be used without quotes. The \code{select()} verb then sets the return fields, which, in this case is limited to just \code{file\_id}. Up to this point, no calls to the GDC have occurred and the \code{response\_all()} call performs the actual API call, returning a \code{GDCResponse} object. Finally, the \code{ids()} method returns the unique file ids which can be used for data download.
+The \code{files()} call creates a \code{GDCquery}. The \code{filter()} verb allows using R-like syntax to generate filter criteria; note that field names like ``data\_type'' can be used without quotes. The \code{select()} verb then sets the return fields, which, in this case is limited to just \code{file\_id}. Up to this point, no calls to the GDC have occurred and the \code{response\_all()} call performs the actual API call, returning a \code{GDCResponse} object. 
 
- 
+The GDC API also supports simple aggregation based on metadata fields, such as the number of cases summarized by GDC project.
+
+<<agg,results='hide'>>=
+cases_by_project = cases() %>% 
+    facet('project.project_id') %>%
+    aggregations()
+@ 
+
+The \code{cases\_by\_project} inherits from an R \code{list} and contains one \code{data.frame} for each field named in \code{facet()}. 
+
+\subsection{Downloading data}
+
+
+
+<<downloadSingle>>=
+
+@ 
+
+Bulk downloads using the \href{https://docs.gdc.cancer.gov/Data_Transfer_Tool/Users_Guide/Getting_Started/}{GDC data transfer tool} require a manifest file.  To create a manifest file from the files query above, we simply apply the \code{manifest()} verb and write the resulting \code{data.frame} to disk.
+
+<<createManifest,results='hide'>>=
+manifest_df = file_records %>%
+    manifest()
+@ 
+
+\subsection{BAM file slicing}
+
 
 \section{Conclusions}
 
