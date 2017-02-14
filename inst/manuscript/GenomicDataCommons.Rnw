@@ -127,8 +127,19 @@ manifest_df = file_records %>%
     manifest()
 @ 
 
+Once written to a file, the \code{transfer()} function will utilize the GDC transfer client to perform robust, performant download of the data. 
+
 \subsection{BAM file slicing}
 
+The BAM file is the current standard for storing aligned reads against a reference. Many use cases for these alignments require only a particular genomic region rather than all alignments.  BAM ``slicing'' is implemented as a very basic wrapper upon which developers can build functionality.  
+
+<<bamslice,results="hide">>=
+# get 10 RNA-seq BAM files
+files() %>% 
+    filter(~ data_format=='BAM' & experimental_strategy=='RNA-Seq') %>% 
+    response() %>% 
+    ids()
+@ 
 
 \section{Conclusions}
 
