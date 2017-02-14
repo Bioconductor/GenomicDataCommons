@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
 \usepackage[maxbibnames=99,backend=biber,citestyle=authoryear,sorting=ydnt]{biblatex}
 \addbibresource{gdcCitations.bib}
 \title{GenomicDataCommons: a Bioconductor Interface to the NCI Genomic Data Commons}
@@ -48,6 +49,7 @@
 library(knitr)
 opts_chunk$set(warning=FALSE,message=FALSE,results='hide')
 @ 
+
 Basic and translational cancer research projects--from large,
 multicenter consortia to individual labs--now produce vast quantities
 of genomic data. Such datasets are often accompanied by clinical
@@ -67,11 +69,15 @@ and unusual new feature of the GDC relative to most genomic data
 repositories is that users can deposit and then apply GDC standardized
 pipelines to their own genomic data, provided they agree to share
 their data broadly (subject to data use agreements and participant
-consents). Web-based queries and tools exist and are expected to grow in both number and functionality.
+consents). 
 
-The Bioconductor project is an open
-source and open development software project for the analysis and comprehension of genomic and molecular biology data \parencite{Huber2015}. Based on the statistical programming language, R \parencite{RCoreTeam2016}, the project comprises 1296 interoperable software packages contributed by a diverse community of scientists. Bioconductor tools to access cancer genomics data, including
-RTCGA \parencite{Kosinski2016},
+The Bioconductor project is an open source and open development
+software project for the analysis and comprehension of genomic and
+molecular biology data \parencite{Huber2015}. Based on the statistical
+programming language, R \parencite{RCoreTeam2016}, the project
+comprises 1296 interoperable software packages contributed by a
+diverse community of scientists. Bioconductor tools to access cancer
+genomics data, including RTCGA \parencite{Kosinski2016},
 TCGABiolinks \parencite{Colaprico2016},
 RTCGAToolbox \parencite{Samur2014} facilitate access to cancer
 genomics data, but they are limited, by-and-large to TCGA data and
@@ -84,11 +90,24 @@ and increase the effiency of drawing biologically important
 conclusions from published cancer genomic data.
 
 \section{Design and Usage}
-The goal of the GenomicDataCommons Bioconductor package is to expose the RESTful (\url{https://en.wikipedia.org/wiki/Representational_state_transfer}) application programming interface (API, \url{https://gdc.cancer.gov/developers/gdc-application-programming-interface-api}) via an R client interface. The GDC API can be roughly divided into metadata query capabilities and data download capabilities. The GenomicDataCommons package is implemented as a set of S3 classes and methods with accompanying utility functions. 
+The goal of the GenomicDataCommons Bioconductor package is to expose
+the RESTful
+(\url{https://en.wikipedia.org/wiki/Representational_state_transfer})
+application programming interface (API,
+\url{https://gdc.cancer.gov/developers/gdc-application-programming-interface-api})
+via an R client interface. The GDC API can be roughly divided into
+metadata query capabilities and data download capabilities. The
+GenomicDataCommons package is implemented as a set of S3 classes and
+methods with accompanying utility functions.
 
 \subsection{Querying GDC metadata and finding GDC data}
 
-Finding data in the GDC starts with a query of available metadata. We model our R interface for querying GDC metadata on a now-common approach, XXXXXX, similar in spirit to that used by packages such as dplyr \parencite{Wickham2016}. Querying the GDC API to get the unique file ids of all HTSeq quantified gene expression data from the TCGA-GBM project forms an illustrative example:
+Finding data in the GDC starts with a query of available metadata. We
+model our R interface for querying GDC metadata on a now-common
+approach, XXXXXX, similar in spirit to that used by packages such as
+dplyr \parencite{Wickham2016}. Querying the GDC API to get the unique
+file ids of all HTSeq quantified gene expression data from the
+TCGA-GBM project forms an illustrative example:
 
 <<metaquery1,results='hide'>>=
 library(GenomicDataCommons)
@@ -100,9 +119,16 @@ file_records = files() %>%
     response_all()
 @ 
 
-The \code{files()} call creates a \code{GDCquery}. The \code{filter()} verb allows using R-like syntax to generate filter criteria; note that field names like ``data\_type'' can be used without quotes. The \code{select()} verb then sets the return fields, which, in this case is limited to just \code{file\_id}. Up to this point, no calls to the GDC have occurred and the \code{response\_all()} call performs the actual API call, returning a \code{GDCResponse} object. 
+The \code{files()} call creates a \code{GDCquery}. The \code{filter()}
+verb allows using R-like syntax to generate filter criteria; note that
+field names like ``data\_type'' can be used without quotes. The
+\code{select()} verb then sets the return fields, which, in this case
+is limited to just \code{file\_id}. Up to this point, no calls to the
+GDC have occurred and the \code{response\_all()} call performs the
+actual API call, returning a \code{GDCResponse} object.
 
-The GDC API also supports simple aggregation based on metadata fields, such as the number of cases summarized by GDC project.
+The GDC API also supports simple aggregation based on metadata fields,
+such as the number of cases summarized by GDC project.
 
 <<agg,results='hide'>>=
 cases_by_project = cases() %>% 
@@ -110,38 +136,55 @@ cases_by_project = cases() %>%
     aggregations()
 @ 
 
-The \code{cases\_by\_project} inherits from an R \code{list} and contains one \code{data.frame} for each field named in \code{facet()}. 
+The \code{cases\_by\_project} inherits from an R \code{list} and
+contains one \code{data.frame} for each field named in \code{facet()}.
 
 \subsection{Downloading data}
 
-
-
-<<downloadSingle>>=
-
-@ 
-
-Bulk downloads using the \href{https://docs.gdc.cancer.gov/Data_Transfer_Tool/Users_Guide/Getting_Started/}{GDC data transfer tool} require a manifest file.  To create a manifest file from the files query above, we simply apply the \code{manifest()} verb and write the resulting \code{data.frame} to disk.
+Downloading single files or multiple small files is supported directly
+from R.  For larger sets of files or single large files, we utilize
+the GDC data transfer tool and ``manifest'' file. To create a manifest
+file from the file records collected above, we simply apply the
+\code{manifest()} verb and write the resulting \code{data.frame} to
+disk.
 
 <<createManifest,results='hide'>>=
 manifest_df = file_records %>%
     manifest()
 @ 
 
-Once written to a file, the \code{transfer()} function will utilize the GDC transfer client to perform robust, performant download of the data. 
+Once written to a file, the \code{transfer()} function will utilize
+the GDC transfer client (a separate command-line tool) to perform
+robust, performant download of the data.
 
 \subsection{BAM file slicing}
 
-The BAM file is the current standard for storing aligned reads against a reference. Many use cases for these alignments require only a particular genomic region rather than all alignments.  BAM ``slicing'' is implemented as a very basic wrapper upon which developers can build functionality.  
+The BAM file is the current standard for storing aligned reads against
+a reference. Many use cases for these alignments require only a
+particular genomic region rather than all alignments.  BAM ``slicing''
+is implemented as a very basic wrapper upon which developers can build
+functionality.
 
 <<bamslice,results="hide">>=
 # get 10 RNA-seq BAM files
-files() %>% 
+file_ids = files() %>% 
     filter(~ data_format=='BAM' & experimental_strategy=='RNA-Seq') %>% 
     response() %>% 
     ids()
 @ 
 
+The file ids, all associated with aligned BAM files, can be used for
+region-based slicing.
+
+<<slicing,eval=FALSE>>=
+# An access token from the GDC is needed here
+# for the the controlled-access BAM files.
+slicing(file_ids[1], regions = 'chr17:74000000-76000000', token=token)
+@ 
+
 \section{Conclusions}
+
+
 
 \parencite{Sandve2013}
 
