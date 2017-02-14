@@ -24,10 +24,13 @@
 #'     progress bar be used?
 #'
 #' @param token character(1) security token allowing access to
-#'     restricted data. All BAM data is restricted, so a token is
-#'     required. See
+#'     restricted data. Almost all BAM data is restricted, so a token is
+#'     usually required. See
 #'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
 #'
+#' @param archive character(1) label for either the "default" archive or the "legacy"
+#'     archive, containing older, non-harmonized data.
+#' 
 #' @return character(1) destination to the downloaded BAM file
 #'
 #' @importFrom httr progress
@@ -40,7 +43,7 @@
 #' }
 #' @export
 slicing <- function(uuid, regions, symbols, destination=tempfile(),
-                    overwrite=FALSE, progress=interactive(), token)
+                    overwrite=FALSE, progress=interactive(), token=NULL, archive = 'default')
 {
     stopifnot(is.character(uuid), length(uuid) == 1L)
     stopifnot(missing(regions) || missing(symbols),
@@ -61,7 +64,7 @@ slicing <- function(uuid, regions, symbols, destination=tempfile(),
         add_headers('Content-type'='application/json'),
         write_disk(destination, overwrite),
         if (progress) progress() else NULL,
-        body=toJSON(body), token=token)
+        body=toJSON(body), token=token, archive = archive)
     if (progress)
         cat("\n")
 
