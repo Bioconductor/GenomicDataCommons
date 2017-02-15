@@ -1,16 +1,17 @@
 \documentclass{article}
 \usepackage{hyperref}
+\usepackage{todonotes}
 \usepackage[margin=1in]{geometry}
 \usepackage[maxbibnames=99,backend=biber,citestyle=authoryear,sorting=ydnt]{biblatex}
 \addbibresource{gdcCitations.bib}
 \title{GenomicDataCommons: a Bioconductor Interface to the NCI Genomic Data Commons}
-\author{Sean R. Davis  \\
+\author{Martin T. Morgan\thanks{martin.morgan@roswellpark.org}\\
+	Roswell Park Cancer Institute \\
+	\and 
+	Sean R. Davis\thanks{seandavi@gmail.com, to whom correspondence should be addressed}  \\
 	Center for Cancer Research\\
         National Cancer Institute\\
         National Institutes of Health\\
-	\and 
-	Martin T. Morgan \\
-	Roswell Park Cancer Institute \\
 	}
 
 \date{\today}
@@ -39,7 +40,8 @@
   community will build on the GenomicDataCommons package to add
   higher-level functionality and expose cancer genomics data to the
   plethora of state-of-the-art bioinformatics methods available in
-  Bioconductor.
+  Bioconductor. \textbf{Availability}:
+  https://github.com/Bioconductor/GenomicDataCommons.
 
 \end{abstract}
 
@@ -73,7 +75,7 @@ consents).
 
 The Bioconductor project is an open source and open development
 software project for the analysis and comprehension of genomic and
-molecular biology data \parencite{Huber2015}. Based on the statistical
+molecular biology data \parencite{Huber2015}. Based in the statistical
 programming language, R \parencite{RCoreTeam2016}, the project
 comprises 1296 interoperable software packages contributed by a
 diverse community of scientists. Bioconductor tools to access cancer
@@ -82,9 +84,9 @@ TCGABiolinks \parencite{Colaprico2016},
 RTCGAToolbox \parencite{Samur2014} facilitate access to cancer
 genomics data, but they are limited, by-and-large to TCGA data and
 rely on legacy data sharing platforms. The GenomicDataCommons software
-package is a new software package that provides infrastructure for
+package provides infrastructure for
 finding, accessing, and downloading cancer genomics data from the
-GDC. Our expectation is that the GenomicDataCommons software package
+NCI GDC. Our expectation is that the GenomicDataCommons package
 will facilitate use of GDC data by the larger Bioconductor community
 and increase the effiency of drawing biologically important
 conclusions from published cancer genomic data.
@@ -95,16 +97,17 @@ the RESTful
 (\url{https://en.wikipedia.org/wiki/Representational_state_transfer})
 application programming interface (API,
 \url{https://gdc.cancer.gov/developers/gdc-application-programming-interface-api})
-via an R client interface. The GDC API can be roughly divided into
-metadata query capabilities and data download capabilities. The
-GenomicDataCommons package is implemented as a set of S3 classes and
-methods with accompanying utility functions.
+via an R client interface. The GenomicDataCommons package supports
+both the metadata query capabilities and data download capabilities of
+the GDC API. The GenomicDataCommons package is implemented as a set of
+S3 classes and methods with accompanying utility functions.
 
 \subsection{Querying GDC metadata and finding GDC data}
 
 Finding data in the GDC starts with a query of available metadata. We
 model our R interface for querying GDC metadata on a now-common
-approach, XXXXXX, similar in spirit to that used by packages such as
+approach, \todo{need to come up with a name for this approach}similar
+in spirit to that used by packages such as
 dplyr \parencite{Wickham2016}. Querying the GDC API to get the unique
 file ids of all HTSeq quantified gene expression data from the
 TCGA-GBM project forms an illustrative example:
@@ -184,9 +187,23 @@ slicing(file_ids[1], regions = 'chr17:74000000-76000000', token=token)
 
 \section{Conclusions}
 
+The GDC is the latest iteration of genomic data repositories from the
+NCI. While the GDC offers excellent web-based query interfaces and a
+growing number of web-based tools for interacting with data, many
+bioinformatics and genomic data scientists adhere to text-based
+analysis tools, version control, and principles of reproducible
+computational research \parencite{Sandve2013}. The Bioconductor
+project enjoys a large, innovative community of such researchers and
+software developers, many of whom focus on cancer research. The
+reproducibility, interoperability, usability, sustainability, and
+continuous integration that are intrinsic to Bioconductor, combined
+with a plethora of existing tools, have produced a multiplier effect
+for software contributed to the project, making it an excellent
+environment for cancer genomic data science. The GenomicDataCommons
+package forms the foundation to build and rapidly iterate on
+innovative tools for the analysis and comprehension of cancer genomics
+datasets available at the NCI GDC.
 
-
-\parencite{Sandve2013}
 
 \printbibliography
 
