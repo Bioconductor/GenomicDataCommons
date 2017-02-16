@@ -3,7 +3,7 @@ title: "Introduction to Accessing the NCI Genomic Data Commons"
 author: "Sean Davis & Martin Morgan"
 date: "`r Sys.Date()`"
 output:
-  BiocStyle::html_document:
+  html_document:
     toc: true
     df_print: paged
 abstract: >
@@ -70,9 +70,9 @@ This package design is meant to have some similarities to the "hadleyverse" appr
 In addition, there are exhiliary functions for asking the GDC API for information about available and default fields, slicing BAM files, and downloading actual data files.
 
 
-+-------------------------------------+------------------------------------+
-| Basic Operation                     | Applicable Functions or Methods    |
-+=====================================+====================================+
++-------------------------------------+-------------------------------------+
+| Basic Operation                     | Applicable Functions or Methods[^1] |
++=====================================+=====================================+
 | Forming a query                     | - Generic `query()`       |
 |                                     | - Endpoint-specific convenience functions |
 | - These operations produce a        |     - `projects()`                 |
@@ -83,13 +83,27 @@ In addition, there are exhiliary functions for asking the GDC API for informatio
 | Manipulating a `GDCQuery` object    | - `filter()`                       |
 |                                     | - `facet()`                        |
 | - filtering                         | - `select()`                       |
-| - adding facets for aggregation     |                                    |
+| - adding facets for aggregation     | - `archive()`                      |
 |   (counting)                        |                                    |
 | - selecting return fields           |                                    |
-|                                     |                                    |
+| - selecting archive ("legacy" or    |                                    |
+|   "default")                        |                                    |
++-------------------------------------+------------------------------------+
+| Calling the GDC API to "execute" a  |                                    |
+| `GDCQuery`                          | - `results()`                      |
+| to fetch results                    | - `count()`                        | 
+|                                     | - `response()`                     | 
++-------------------------------------+------------------------------------+
+| Return aggregations (facets)        | - `aggregations()`                 |
++-------------------------------------+------------------------------------+
+| Fetch a file manifest for bulk      | - `manifest()`                     |
+| downloadingusing the GDC Transfer   |                                    |
+| Tool                                |                                    |
 +-------------------------------------+------------------------------------+
 
 Table: abc test 
+
+[^1]: See individual function and methods documentation for specific details.
 
 # Use Cases
 
