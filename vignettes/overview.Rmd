@@ -3,19 +3,18 @@ title: "Introduction to Accessing the NCI Genomic Data Commons"
 author: "Sean Davis & Martin Morgan"
 date: "`r Sys.Date()`"
 output:
-  html_document:
+  BiocStyle::html_document:
     toc: true
-    toc_float: true
-    theme: spacelab
-    highlight: tango
     df_print: paged
-      
+abstract: >
+  The NCI [Genomic Data Commons](https://gdc.nci.nih.gov/) 
+       
 vignette: >
   %\VignetteIndexEntry{Introduction to Accessing the NCI Genomic Data Commons}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
+ 
 ```{r init, results='hide', echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 ```
@@ -49,8 +48,6 @@ it will become an even more powerful tool for making discoveries about
 the molecular basis of cancer that may lead to better care for
 patients.
 
-## GDC Data Model
-
 The
 [data model for the GDC is complex](https://gdc.cancer.gov/developers/gdc-data-model/gdc-data-model-components),
 but it worth a quick overview. The data model is encoded as a
@@ -71,6 +68,28 @@ This package design is meant to have some similarities to the "hadleyverse" appr
 3. A set of verbs that take a query and return results from the GDC
 
 In addition, there are exhiliary functions for asking the GDC API for information about available and default fields, slicing BAM files, and downloading actual data files.
+
+
++-------------------------------------+------------------------------------+
+| Basic Operation                     | Applicable Functions or Methods    |
++=====================================+====================================+
+| Forming a query                     | - Generic `query()`       |
+|                                     | - Endpoint-specific convenience functions |
+| - These operations produce a        |     - `projects()`                 |
+| `GDCQuery` class object             |     - `cases()`                    |
+|                                     |     - `files()`                    |
+|                                     |     - `annotations()`              |
++-------------------------------------+------------------------------------+
+| Manipulating a `GDCQuery` object    | - `filter()`                       |
+|                                     | - `facet()`                        |
+| - filtering                         | - `select()`                       |
+| - adding facets for aggregation     |                                    |
+|   (counting)                        |                                    |
+| - selecting return fields           |                                    |
+|                                     |                                    |
++-------------------------------------+------------------------------------+
+
+Table: abc test 
 
 # Use Cases
 
