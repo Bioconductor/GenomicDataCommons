@@ -144,8 +144,6 @@ aggregations.GDCResponse = function(x) {
 #' @examples
 #' qcases = cases() %>% results()
 #' length(qcases)
-#' qcases = cases() %>% results(size=20)
-#' length(qcases)
 #' 
 #' @export
 results = function(x) {
