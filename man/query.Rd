@@ -63,4 +63,10 @@ is required for accessing certain datasets.
 
 \item \code{annotations}: convenience contructor for a GDCQuery for annotations
 }}
+\examples{
+qcases = query('cases')
+# equivalent to:
+qcases = cases()
+
+}
 

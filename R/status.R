@@ -6,6 +6,9 @@
 #' 
 #' @importFrom httr content
 #'
+#' @examples
+#' status()
+#' 
 #' @export
 status <- function(version=NULL) {
     response <- .gdc_get(paste(version, "status", sep="/"),archive='default')

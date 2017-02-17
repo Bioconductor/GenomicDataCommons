@@ -40,6 +40,13 @@ response = function(x,...) {
 #' @param x a \code{\link{GDCQuery}} object
 #' @param ... passed to httr (good for passing config info, etc.)
 #'
+#' @examples
+#' # total number of projects
+#' projects() %>% count()
+#'
+#' # total number of cases
+#' cases() %>% count()
+#' 
 #' @export
 count = function(x,...) {
     UseMethod('count',x)
@@ -100,6 +107,10 @@ response_all = function(x,...) {
 #'
 #' @param x a \code{\link{GDCQuery}} object
 #'
+#' @examples
+#' # Number of each file type
+#' res = files() %>% facet(c('type','data_type')) %>% aggregations()
+#' res$type
 #' 
 #' @export
 aggregations = function(x) {
@@ -130,6 +141,11 @@ aggregations.GDCResponse = function(x) {
 #'
 #' @param x a \code{\link{GDCQuery}} object
 #'
+#' @examples
+#' qcases = cases() %>% results()
+#' length(qcases)
+#' qcases = cases() %>% results(size=20)
+#' length(qcases)
 #' 
 #' @export
 results = function(x) {
@@ -139,6 +155,12 @@ results = function(x) {
 #' results_all
 #'
 #' @param x a \code{\link{GDCQuery}} object
+#'
+#' @examples
+#' # details of all available projects
+#' projResults = projects() %>% results_all()
+#' length(projResults)
+#' count(projects())
 #'
 #' 
 #' @export

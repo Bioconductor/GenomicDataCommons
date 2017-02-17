@@ -25,6 +25,11 @@
 #' \item{token}
 #' }
 #'
+#' @examples
+#' qcases = query('cases')
+#' # equivalent to:
+#' qcases = cases()
+#' 
 #' @export
 query = function(entity,
                  token=NULL,
