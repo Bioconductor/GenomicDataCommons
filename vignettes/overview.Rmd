@@ -1,29 +1,24 @@
 ---
-title: "Introduction to Accessing the NCI Genomic Data Commons"
+title: "The GenomicDataCommons Package"
 author: "Sean Davis & Martin Morgan"
 date: "`r Sys.Date()`"
 output:
   html_document:
-    toc: true
-    toc_float: true
-    theme: spacelab
-    highlight: tango
     df_print: paged
-      
+    theme: readable
+abstract: >
+  The NCI [Genomic Data Commons](https://gdc.nci.nih.gov/) 
+       
 vignette: >
   %\VignetteIndexEntry{Introduction to Accessing the NCI Genomic Data Commons}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
+ 
 ```{r init, results='hide', echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 ```
 
-```{r libraries, message=FALSE}
-library(GenomicDataCommons)
-library(DT)
-```
 
 # What is the GDC?
 
@@ -49,8 +44,6 @@ it will become an even more powerful tool for making discoveries about
 the molecular basis of cancer that may lead to better care for
 patients.
 
-## GDC Data Model
-
 The
 [data model for the GDC is complex](https://gdc.cancer.gov/developers/gdc-data-model/gdc-data-model-components),
 but it worth a quick overview. The data model is encoded as a
@@ -71,6 +64,181 @@ This package design is meant to have some similarities to the "hadleyverse" appr
 3. A set of verbs that take a query and return results from the GDC
 
 In addition, there are exhiliary functions for asking the GDC API for information about available and default fields, slicing BAM files, and downloading actual data files.
+
+
++-------------------------------------+-------------------------------------+
+| Basic Operation                     | Applicable Functions or Methods[^1] |
++=====================================+=====================================+
+| Forming a query                     | - Generic `query()`                 |
+|                                     | - Endpoint-specific convenience functions |
+| - These operations produce a        |     - `projects()`                 |
+| `GDCQuery` class object             |     - `cases()`                    |
+|                                     |     - `files()`                    |
+|                                     |     - `annotations()`              |
++-------------------------------------+------------------------------------+
+| Manipulating a `GDCQuery` object    | - `filter()`                       |
+|                                     | - `facet()`                        |
+| - filtering                         | - `select()`                       |
+| - adding facets for aggregation     | - `archive()`                      |
+|   (counting)                        |                                    |
+| - selecting return fields           |                                    |
+| - selecting archive ("legacy" or    |                                    |
+|   "default")                        |                                    |
++-------------------------------------+------------------------------------+
+| Finding fields for filtering        | - `mapping()`                      |
+| and selecting                       | - `available_fields()`             |
+|                                     | - `default_fields()`               |
++-------------------------------------+------------------------------------+
+| Calling the GDC API to "execute" a  |                                    |
+| `GDCQuery`                          | - `results()`                      |
+| to fetch results                    | - `count()`                        | 
+|                                     | - `response()`                     | 
++-------------------------------------+------------------------------------+
+| Return aggregations (facets)        | - `aggregations()`                 |
++-------------------------------------+------------------------------------+
+| Fetch a file manifest for bulk      | - `manifest()`                     |
+| downloading using the               |                                    |
+| GDC Transfer Tool                   |                                    |
++-------------------------------------+------------------------------------+
+| Downloading data files              | - `gdcdata()`                      |
+|                                     | - `transfer()`                     |
++-------------------------------------+------------------------------------+
+| BAM slicing                         | - `slicing()`                      |
++-------------------------------------+------------------------------------+
+
+
+Table: Overview of functionality for querying and retrieving metadata from the NCI Genomic Data Commons.
+
+
+
+[^1]: See individual function and methods documentation for specific details.
+
+# Quickstart
+
+```{r libraries, message=FALSE}
+library(GenomicDataCommons)
+library(DT)
+```
+
+# Usage
+
+There are two main classes of operations when working with the NCI GDC.  
+
+1. [Querying metadata and finding data files](#querying-metadata) (e.g., finding all gene expression quantifications data files for all colon cancer patients).
+2. [Transferring raw or processed data](#datafile-access-and-download) from the GDC to another computer (e.g., downloading raw or processed data)
+
+Both classes of operation are reviewed in detail in the following sections.
+
+## Querying metadata
+
+Vast amounts of metadata about cases (patients, basically), files, projects, and so-called annotations are available via the NCI GDC API. Typically, one will want to query metadata to either focus in on a set of files for download or transfer *or* to perform so-called aggregations (pivot-tables, facets, similar to the R `table()` functionality). 
+
+Querying metadata starts with [creating a "blank" query](#creating-a-query). One will often then want to [`filter`](#filtering) the query to limit results prior to [retrieving results](#retrieving-results). The GenomicDataCommons package has [helper functions for listing fields](#fields-and-values) that are available for filtering. 
+
+In addition to fetching results, the GDC API allows [faceting, or aggregating,](#facets-and-aggregation), useful for compiling reports, generating dashboards, or building user interfaces to GDC data (see GDC web query interface for a non-R-based example).
+
+### Creating a query
+
+A query of the GDC starts its life in R. Queries follow the four metadata endpoints available at the GDC.  In particular, there are four convenience functions that each create `GDCQuery` objects (actually, specific subclasses of `GDCQuery`):
+
+- `projects()`
+- `cases()`
+- `files()`
+- `annotations()`
+
+```{r projectquery}
+pquery = projects()
+```
+
+The `pquery` object is now an object of (S3) class, `GDCQuery` (and `gdc_projects` and `list`). The object contains the following elements:
+
+- fields: This is a character vector of the fields that will be returned when we [retrieve data](#retrieving-results). If no fields are specified to, for example, the `projects()` function, the default fields from the GDC are used (see `default_fields()`)
+- filters: This will contain results after calling the [`filter()` method](#filtering) and will be used to filter results on [retrieval](#retrieving-results).
+- facets: A character vector of field names that will be used for [aggregating data](#facets-and-aggregation) in a call to `aggregations()`. 
+- archive: One of either "default" or ["legacy"](https://gdc-portal.nci.nih.gov/legacy-archive/). 
+- token: A character(1) token from the GDC. See [the authentication section](#authentication) for details, but note that, in general, the token is not necessary for metadata query and retrieval, only for actual data download.
+
+Looking at the actual object (get used to using `str()`!), note that the query contains no results. 
+
+```{r pquery}
+str(pquery)
+```
+### Retrieving results
+
+[[ GDC pagination documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#size-and-from)
+
+[[ GDC sorting documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#sort)
+
+With a query object available, the next step is to retrieve results from the GDC. The GenomicDataCommons package.  The most basic type of results we can get is a simple `count()` of records available that satisfy the filter criteria. Note that we have not set any filters, so a `count()` here will represent all the project records publicly available at the GDC in the "default" archive"
+
+```{r pquerycount}
+pcount = count(pquery)
+# or
+pcount = pquery %>% count()
+pcount
+```
+
+The `results()` method will fetch actual results. 
+
+```{r pqueryresults}
+presults = pquery %>% results()
+```
+These results are
+returned from the GDC in [JSON](http://www.json.org/) format and
+converted into a (potentially nested) list in R. The `str()` method is useful for taking a quick glimpse of the data.
+
+```{r presultsstr}
+str(presults[1:2])
+```
+
+A default of only 10 records are returned. We can use the `size` and `from` arguments to `results()` to either page through results or to change the number of results. Finally, there is a convenience method, `results_all()` that will simply fetch all the available results given a query. Note that `results_all()` may take a long time and return HUGE result sets if not used carefully. Use of a combination of `count()` and `results()` to get a sense of the expected data size is probably warranted before calling `results_all()`
+
+```{r presultsall}
+length(presults)
+presults = pquery %>% results_all()
+length(presults)
+# includes all records
+length(presults) == count(pquery)
+```
+
+Extracting subsets of
+results or manipulating the results into a more conventional R data
+structure is not easily generalizable.  However,
+the
+[purrr](https://github.com/hadley/purrr),
+[rlist](https://renkun.me/rlist/),
+and [data.tree](https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html) packages
+are all potentially of interest for manipulating complex, nested list structures. For viewing the results in an interactive viewer, consider the [listviewer](https://github.com/timelyportfolio/listviewer) package.
+
+```{r listviewer}
+library(listviewer)
+jsonedit(presults[1:5])
+```
+
+### Filtering
+
+[[ GDC `filtering` documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#filters-specifying-the-query)
+
+### Fields and Values
+
+[[ GDC `fields` documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#fields)
+
+
+### Facets and aggregation
+
+[[ GDC `facet` documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#facets)
+
+## Authentication
+
+[[ GDC authentication documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#facets)
+
+## Datafile access and download
+
+### Single file download
+
+### Bulk downloads
+
+### BAM slicing
 
 # Use Cases
 
@@ -205,3 +373,8 @@ library(GenomicAlignments)
 sessionInfo()
 ```
 
+# Developer notes
+
+- The S3 object-oriented programming paradigm is used.
+- We have adopted a functional programming style with functions and methods that often take an "object" as the first argument. This style lends itself to pipeline-style programming. 
+- The GenomicDataCommons package uses the [alternative request format (POST)](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#alternative-request-format) to allow very large request bodies. 
