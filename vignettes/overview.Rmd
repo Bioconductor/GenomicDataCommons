@@ -212,21 +212,55 @@ are all potentially of interest for manipulating complex, nested list structures
 
 ```{r listviewer}
 library(listviewer)
-jsonedit(presults[1:5])
+jsonedit(presults)
 ```
-
-### Filtering
-
-[[ GDC `filtering` documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#filters-specifying-the-query)
 
 ### Fields and Values
 
 [[ GDC `fields` documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#fields)
 
+Central to querying and retrieving data from the GDC is the ability to specify which fields to return, filtering by fields and values, and faceting or aggregating. The GenomicDataCommons package includes two simple functions, `available_fields()` and `default_fields()`. Each can operate on a character(1) endpoint name ("cases", "files", "annotations", or "projects") or a `GDCQuery` object. 
+
+```{r defaultfields}
+default_fields('files')
+# The number of fields available for files endpoint
+length(available_fields('files'))
+# The first few fields available for files endpoint
+head(available_fields('files'))
+```
+
+The fields to be returned by a query can be specified following a similar paradigm to that of the dplyr package. The `select()` function is a verb that resets the fields slot of a `GDCQuery`; note that this is not quite analogous to the dplyr `select()` verb that limits from already-present fields. We *completely replace* the fields when using `select()` on a `GDCQuery`.
+
+```{r selectexample}
+# Default fields here
+qcases = cases()
+qcases$fields
+# set up query to use ALL available fields
+# Note that checking of fields is done by select()
+qcases = cases() %>% select(available_fields('cases'))
+head(qcases$fields)
+```
 
 ### Facets and aggregation
 
 [[ GDC `facet` documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#facets)
+
+The GDC API offers a feature known as aggregation or faceting. By specifying one or more fields (of appropriate type), the GDC can return to us a count of the number of records matching each potential value. This is similar to the R `table` method. Multiple fields can be returned at once, but the GDC API does not have a cross-tabulation feature; all aggregations are only on one field at a time. Results of `aggregation()` calls come back as a list of data.frames (actually, tibbles).
+
+```{r aggexample}
+# total number of files of a specific type
+res = files() %>% facet(c('type','data_type')) %>% aggregations()
+res$type
+```
+
+Using `aggregations()` is an also easy way to learn the contents of individual fields.
+
+### Filtering
+
+[[ GDC `filtering` documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#filters-specifying-the-query)
+
+
+
 
 ## Authentication
 
