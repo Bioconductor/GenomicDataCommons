@@ -24,4 +24,11 @@ results
 
 \item \code{GDCResponse}: 
 }}
+\examples{
+qcases = cases() \%>\% results()
+length(qcases)
+qcases = cases() \%>\% results(size=20)
+length(qcases)
+
+}
 

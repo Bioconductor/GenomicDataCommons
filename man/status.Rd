@@ -15,4 +15,8 @@ List describing current status.
 \description{
 Query the GDC for current status
 }
+\examples{
+status()
+
+}
 
