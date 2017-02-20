@@ -24,6 +24,10 @@ member}
 (without quotes) are allowed if they are available
 fields associated with the \code{x}}
 }
+\value{
+A \code{\link{GDCQuery}} object with the filter
+field replaced by specified filter expression
+}
 \description{
 Manipulating GDCQuery filters
 

@@ -14,6 +14,10 @@ select(x, fields)
 
 \item{fields}{a character vector specifying the fields}
 }
+\value{
+A \code{\link{GDCQuery}} object, with the fields
+member altered.
+}
 \description{
 S3 generic to set GDCQuery fields
 }

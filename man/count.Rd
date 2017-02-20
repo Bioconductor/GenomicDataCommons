@@ -17,6 +17,10 @@ count(x, ...)
 
 \item{...}{passed to httr (good for passing config info, etc.)}
 }
+\value{
+integer(1) representing the count of records that will
+ be returned by the current query
+}
 \description{
 provide count of records in a \code{\link{GDCQuery}}
 }

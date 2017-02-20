@@ -15,6 +15,9 @@ results(x)
 \arguments{
 \item{x}{a \code{\link{GDCQuery}} object}
 }
+\value{
+A (typically nested) \code{list} of GDC records
+}
 \description{
 results
 }

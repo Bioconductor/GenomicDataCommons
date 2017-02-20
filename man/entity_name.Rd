@@ -9,6 +9,10 @@ entity_name(x)
 \arguments{
 \item{x}{a \code{\link{GDCQuery}} object}
 }
+\value{
+character(1) name of an associated entity; one of
+"cases", "files", "projects", "annotations".
+}
 \description{
 An "entity" is simply one of the four medata endpoints.
 \itemize{

@@ -6,6 +6,9 @@
 #' Default is to set facets for all default fields.
 #' See \code{\link{default_fields}} for details
 #'
+#' @return returns a \code{\link{GDCQuery}} object,
+#' with facets field updated.
+#' 
 #' @rdname faceting
 #'
 #' @examples

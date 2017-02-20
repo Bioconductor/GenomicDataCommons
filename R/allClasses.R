@@ -84,6 +84,9 @@ annotations = function(...) {return(query('annotations',...))}
 #' 
 #' @param x a \code{\link{GDCQuery}} object
 #'
+#' @return character(1) name of an associated entity; one of
+#' "cases", "files", "projects", "annotations".
+#' 
 #' @examples
 #' cases = cases()
 #' projects = projects()

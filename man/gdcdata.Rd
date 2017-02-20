@@ -24,6 +24,10 @@ produced for each file download.}
 to restricted data. See
 \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.}
 }
+\value{
+a named vector with file uuids as the names and paths as
+the value
+}
 \description{
 Download one or more files from GDC. Files are downloaded using the
 UUID and renamed to the file name on the remote system. By default,

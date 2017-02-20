@@ -105,6 +105,10 @@ make_filter = function(expr,available_fields=NULL,toJSON=TRUE) {
 #' @param available_fields a character vector of the
 #' additional names that will be injected into the
 #' filter evaluation environment
+#'
+#' @return a \code{link} that represents an R version
+#' of the JSON that will ultimately be used in an
+#' NCI GDC search or other query.
 #' 
 #' @importFrom lazyeval f_eval
 #' 
@@ -121,6 +125,10 @@ make_filter2 = function(expr,available_fields) {
 #' Manipulating GDCQuery filters
 #'
 #' @name filtering
+#'
+#' @return A \code{\link{GDCQuery}} object with the filter
+#' field replaced by specified filter expression
+#' 
 #' @examples
 #' # make a GDCQuery object to start
 #' #

@@ -61,6 +61,9 @@ default_fields.GDCQuery = function(x) {
 #'
 #' @param x the objects on which to set fields
 #' @param fields a character vector specifying the fields
+#'
+#' @return A \code{\link{GDCQuery}} object, with the fields
+#' member altered.
 #' 
 #' @importFrom assertthat assert_that
 #'

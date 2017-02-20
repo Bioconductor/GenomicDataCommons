@@ -47,6 +47,9 @@
 #'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
 #'
 #' @seealso \code{\link{manifest}} for downloading large data.
+#'
+#' @return a named vector with file uuids as the names and paths as
+#' the value
 #' 
 #' @examples
 #' uuids <- c("e3228020-1c54-4521-9182-1ea14c5dc0f7",

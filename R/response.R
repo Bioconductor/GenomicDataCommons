@@ -18,7 +18,7 @@
 #' \item{pages}
 #' }
 #' 
-#'
+#' 
 #' @examples
 #'
 #' # basic class stuff
@@ -40,6 +40,9 @@ response = function(x,...) {
 #' @param x a \code{\link{GDCQuery}} object
 #' @param ... passed to httr (good for passing config info, etc.)
 #'
+#' @return integer(1) representing the count of records that will
+#'  be returned by the current query
+#' 
 #' @examples
 #' # total number of projects
 #' projects() %>% count()
@@ -107,10 +110,16 @@ response_all = function(x,...) {
 #'
 #' @param x a \code{\link{GDCQuery}} object
 #'
+#' @return a \code{list} of \code{data.frame} with one
+#' member for each requested facet. The data frames
+#' each have two columns, key and doc_count.
+#' 
 #' @examples
 #' # Number of each file type
 #' res = files() %>% facet(c('type','data_type')) %>% aggregations()
 #' res$type
+#'
+#'
 #' 
 #' @export
 aggregations = function(x) {
@@ -141,10 +150,12 @@ aggregations.GDCResponse = function(x) {
 #'
 #' @param x a \code{\link{GDCQuery}} object
 #'
+#' @return A (typically nested) \code{list} of GDC records
+#' 
 #' @examples
 #' qcases = cases() %>% results()
 #' length(qcases)
-#' 
+#'
 #' @export
 results = function(x) {
     UseMethod('results',x)
@@ -154,6 +165,8 @@ results = function(x) {
 #'
 #' @param x a \code{\link{GDCQuery}} object
 #'
+#' @return A (typically nested) \code{list} of GDC records
+#' 
 #' @examples
 #' # details of all available projects
 #' projResults = projects() %>% results_all()

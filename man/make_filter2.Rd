@@ -13,6 +13,11 @@ make_filter2(expr, available_fields)
 additional names that will be injected into the
 filter evaluation environment}
 }
+\value{
+a \code{link} that represents an R version
+of the JSON that will ultimately be used in an
+NCI GDC search or other query.
+}
 \description{
 makefilter2
 }
