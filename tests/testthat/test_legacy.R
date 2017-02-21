@@ -1,5 +1,5 @@
 library(GenomicDataCommons)
-context('API')
+context('legacy endpoint')
 
 ## IDs here were selected interactively, just for testing.
 ## If GDC removes these IDs, expect tests to fail.
