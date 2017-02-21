@@ -4,54 +4,29 @@
 \alias{make_filter}
 \title{Create NCI GDC filters for limiting GDC query results}
 \usage{
-make_filter(expr, available_fields = NULL, toJSON = TRUE)
+make_filter(expr, available_fields)
 }
 \arguments{
-\item{expr}{an R expression}
+\item{expr}{a filter expression}
 
-\item{available_fields}{A character vector of field names that, if specified,
-can be used unquoted in creating filter expressions}
-
-\item{toJSON}{boolean, return JSON (if true) or just a list}
+\item{available_fields}{a character vector of the
+additional names that will be injected into the
+filter evaluation environment}
 }
 \value{
-a JSON data object (if toJSON==TRUE, the default)
-can be used as the filter parameter in an NCI GDC search or other query.
+a \code{list} that represents an R version
+of the JSON that will ultimately be used in an
+NCI GDC search or other query.
 }
 \description{
-Create filters using standard R formatting
-}
-\details{
 Searching the NCI GDC allows for complex filtering based
 on logical operations and simple comparisons.  This function
 facilitates writing such filter expressions in R-like syntax
 with R code evaluation.
-
-
-This function can be used in several different ways.
-
-\itemize{
-\item{If used with available_fields, "bare" fields that are
+}
+\details{
+If used with available_fields, "bare" fields that are
 named in the available_fields character vector can be used
-in the filter expression without quotes.}
-\item{If toJSON==TRUE, then the appropriate JSON for using
-in a query filter (filter = make_filter(....,)) is returned.}
-\item{If toJSON==FALSE, then a list is returned that could
-be manipulated further before converrsion to JSON for use in
-a query. Note that the appropriate toJSON() will likely need
-to include \dQuote{auto_unbox=TRUE}.}
-}
-}
-\examples{
-make_filter("diagnoses.age_at_diagnosis" <= 10*365)
-make_filter("project.primary_site" \%in\% c('blood','brain'))
-fe = make_filter("project.primary_site" \%in\% c('blood','brain')
-                 & "diagnosis.age_at_diagnosis" <= 10*365)
-fe
-
-fe = make_filter("project.primary_site" \%in\% c('blood','brain')
-                 & "diagnosis.age_at_diagnosis" <= 10*365,toJSON=FALSE)
-fe
-
+in the filter expression without quotes.
 }
 
