@@ -245,7 +245,14 @@ head(qcases$fields)
 
 [[ GDC `facet` documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#facets)
 
-The GDC API offers a feature known as aggregation or faceting. By specifying one or more fields (of appropriate type), the GDC can return to us a count of the number of records matching each potential value. This is similar to the R `table` method. Multiple fields can be returned at once, but the GDC API does not have a cross-tabulation feature; all aggregations are only on one field at a time. Results of `aggregation()` calls come back as a list of data.frames (actually, tibbles).
+The GDC API offers a feature known as aggregation or faceting. By
+specifying one or more fields (of appropriate type), the GDC can
+return to us a count of the number of records matching each potential
+value. This is similar to the R `table` method. Multiple fields can be
+returned at once, but the GDC API does not have a cross-tabulation
+feature; all aggregations are only on one field at a time. Results of
+`aggregation()` calls come back as a list of data.frames (actually,
+tibbles).
 
 ```{r aggexample}
 # total number of files of a specific type
@@ -259,12 +266,59 @@ Using `aggregations()` is an also easy way to learn the contents of individual f
 
 [[ GDC `filtering` documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#filters-specifying-the-query)
 
+The GenomicDataCommons package uses a form of non-standard evaluation to specify R-like queries that are then translated into an R list. That R list is, upon calling a method that fetches results from the GDC API, translated into the appropriate JSON string. The R expression uses the formula interface as suggested by Hadley Wickham in his [vignette on non-standard evaluation](https://cran.r-project.org/web/packages/dplyr/vignettes/nse.html)
 
+> It’s best to use a formula because a formula captures both the expression to evaluate and the environment where the evaluation occurs. This is important if the expression is a mixture of variables in a data frame and objects in the local environment [for example].
+
+For the user, these details will not be too important except to note that a filter expression must begin with a "~".
+
+```{r allfilesunfiltered}
+qfiles = files()
+qfiles %>% count() # all files
+```
+To limit the file type, we can refer back to the [section on faceting](#facets-and-aggregation) to see the possible values for the file field "type". For example, to filter file results to only "gene_expression" files, we simply specify a filter.
+
+```{r onlyGeneExpression}
+qfiles = files() %>% filter(~ type == 'gene_expression')
+# here is what the filter looks like after translation
+str(get_filter(qfiles))
+```
+
+What if we want to create a filter based on the project ('TCGA-OVCA', for example)? Well, we have a couple of possible ways to discover available fields. The first is based on base R functionality and some intuition.
+
+```{r filtAvailFields}
+grep('pro',available_fields('files'),value=TRUE)
+```
+
+Interestingly, the project information is "nested" inside the case. We don't need to know that detail other than to know that we now have a few potential guesses for where our information might be in the files records.  We need to know where because we need to construct the appropriate filter.  
+
+```{r filtProgramID}
+files() %>% facet('cases.project.project_id') %>% aggregations()
+```
+
+We note that `cases.project.project_id` looks like it is a good fit. We also note that `TCGA-OV` is the correct project_id, not `TCGA-OVCA`. Note that *unlike with dplyr and friends, the `filter()` method here **replaces** the filter and does not build on any previous filters*.
+
+```{r filtfinal}
+qfiles = files() %>% filter( ~ cases.project.project_id == 'TCGA-OV' & type == 'gene_expression')
+str(get_filter(qfiles))
+qfiles %>% count()
+```
+
+Asking for a `count()` of results given these new filter criteria gives `r qfiles %>% count()` results.  Generating a manifest for bulk downloads is as simple as asking for the manifest from the current query.
+
+```{r filtAndManifest}
+manifest_df = qfiles %>% manifest()
+head(manifest_df)
+```
+
+After writing this data.frame to disk, the GDC Data Transfer Tool can be used (from R or from the command-line) to orchestrate high-performance, restartable transfers of all the files in the manifest.
 
 
 ## Authentication
 
 [[ GDC authentication documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#facets)
+
+
 
 ## Datafile access and download
 
