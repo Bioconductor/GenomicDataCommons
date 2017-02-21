@@ -2,9 +2,15 @@
 % Please edit documentation in R/allClasses.R
 \name{entity_name}
 \alias{entity_name}
+\alias{entity_name.GDCQuery}
+\alias{entity_name.GDCResults}
 \title{Get the entity name from a GDCQuery object}
 \usage{
 entity_name(x)
+
+\method{entity_name}{GDCQuery}(x)
+
+\method{entity_name}{GDCResults}(x)
 }
 \arguments{
 \item{x}{a \code{\link{GDCQuery}} object}

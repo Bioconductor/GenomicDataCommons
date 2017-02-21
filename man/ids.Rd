@@ -4,11 +4,14 @@
 \alias{ids}
 \alias{ids.GDCQuery}
 \alias{ids.GDCResponse}
+\alias{ids.GDCResults}
 \title{Get the ids associated with a GDC query or response}
 \usage{
 ids(x)
 
 \method{ids}{GDCQuery}(x)
+
+\method{ids}{GDCResults}(x)
 
 \method{ids}{GDCResponse}(x)
 }

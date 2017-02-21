@@ -96,8 +96,22 @@ annotations = function(...) {return(query('annotations',...))}
 #' 
 #' @export
 entity_name = function(x) {
+    UseMethod('entity_name',x)
+}
+
+
+#' @rdname entity_name
+#' @export
+entity_name.GDCQuery = function(x) {
     cls = class(x)[1]
     return(substr(cls,5,nchar(cls)))
+}
+
+#' @rdname entity_name
+#' @export
+entity_name.GDCResults = function(x) {
+    cls = class(x)[1]
+    return(substr(cls,4,nchar(cls)-8))
 }
 
 
@@ -132,12 +146,12 @@ ids.GDCQuery = function(x) {
 }
 
 
-## #' @rdname ids
-## #' @export
-## ids.GDCResults = function(x) {
-##     fieldname = paste0(sub('s$','',entity_name(x)),'_id')
-##     return(sapply(x,'[[',fieldname))
-## }
+#' @rdname ids
+#' @export
+ids.GDCResults = function(x) {
+    fieldname = paste0(sub('s$','',entity_name(x)),'_id')
+    return(sapply(x,'[[',fieldname))
+}
 
 #' @rdname ids
 #' @export
