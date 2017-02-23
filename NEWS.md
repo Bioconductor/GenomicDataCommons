@@ -1,3 +1,15 @@
+# GenomicDataCommons 0.99.7
+
+## API changes
+
+* `results()` now accepts `size`, `from` to allow paging
+
+## New features
+
+## Bug Fixes
+
+
+
 # GenomicDataCommons 0.99.6
 
 * Now using `fromJSON` with `simplifyDataFrame=TRUE` for parsing and

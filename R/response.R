@@ -173,7 +173,8 @@ aggregations.GDCResponse = function(x) {
 #' results
 #'
 #' @param x a \code{\link{GDCQuery}} object
-#'
+#' @param ... passed on to \code{\link{response}}
+#' 
 #' @return A (typically nested) \code{list} of GDC records
 #' 
 #' @examples
@@ -181,7 +182,7 @@ aggregations.GDCResponse = function(x) {
 #' length(qcases)
 #'
 #' @export
-results = function(x) {
+results = function(x,...) {
     UseMethod('results',x)
 }
 
@@ -208,8 +209,8 @@ results_all = function(x) {
 #'
 #'
 #' @export
-results.GDCQuery = function(x) {
-    results(response(x))
+results.GDCQuery = function(x,...) {
+    results(response(x,...))
 }
 
 #' @describeIn results_all
@@ -224,7 +225,7 @@ results_all.GDCQuery = function(x) {
 #'
 #'
 #' @export
-results.GDCResponse = function(x) {
+results.GDCResponse = function(x,...) {
     structure(
         x$results,
         class=c(sub('Response','Results',class(x)))

@@ -6,14 +6,16 @@
 \alias{results.GDCResponse}
 \title{results}
 \usage{
-results(x)
+results(x, ...)
 
-\method{results}{GDCQuery}(x)
+\method{results}{GDCQuery}(x, ...)
 
-\method{results}{GDCResponse}(x)
+\method{results}{GDCResponse}(x, ...)
 }
 \arguments{
 \item{x}{a \code{\link{GDCQuery}} object}
+
+\item{...}{passed on to \code{\link{response}}}
 }
 \value{
 A (typically nested) \code{list} of GDC records
