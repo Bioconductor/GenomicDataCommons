@@ -238,7 +238,7 @@ allows for download restarts if necessary. After finding the UUIDs of a set of i
 files:
 
 ```{r}
-a = files(filters=make_filter('data_format'=='MAF' & 'access'=='open'))
+resp = files() %>% filter(~ data_format == 'MAF' & access =='open')
 ```
 
 we create a "manifest file".

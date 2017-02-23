@@ -1,6 +1,6 @@
 #' S3 Generic to return all GDC fields
 #'
-#' @param x A character string ('cases','files','projects',
+#' @param x A character(1) string ('cases','files','projects',
 #' 'annotations') or an subclass of \code{\link{GDCQuery}}.
 #' @return a character vector of the default fields
 #'
@@ -23,7 +23,7 @@ available_fields.GDCQuery = function(x) {
 #' @describeIn available_fields character method
 #' @export
 available_fields.character = function(x) {
-    stopifnot(length(x)==1)
+    stopifnot(length(x)==1,x %in% .gdc_entities)
     return(mapping(x)$field)
 }
 
@@ -47,7 +47,7 @@ default_fields = function(x) {
 #' @describeIn default_fields character method
 #' @export
 default_fields.character = function(x) {
-    stopifnot(length(x)==1)
+    stopifnot(length(x)==1,x %in% .gdc_entities)
     return(subset(mapping(x),defaults)$field)
 }
 
@@ -102,3 +102,4 @@ select.GDCQuery <- function(x,fields) {
     x$fields = .gdcRectifyFieldsForEntity(entity_name(x),fields)
     return(x)
 }
+
