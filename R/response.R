@@ -72,6 +72,15 @@ count.GDCResponse = function(x,...) {
     x$pages$total
 }
 
+.prepareResults <- function(res,idfield) {
+    for(i in names(res)) {
+        if(inherits(res[[i]],'data.frame'))
+            rownames(res[[i]]) = res[[idfield]]
+        else
+            names(res[[i]]) = res[[idfield]]}
+    return(res)
+}
+
 #' @rdname response
 #' 
 #' @importFrom magrittr %>%
@@ -90,9 +99,12 @@ response.GDCQuery = function(x, from = 1, size = 10, ...,
     body[['pretty']]='FALSE'
     tmp = response_handler(httr::content(.gdc_post(entity_name(x),body=body,
                                                      archive=x$archive,token=NULL,...),
-                                           as="text", encoding = "UTF-8"))
+                                         as="text", encoding = "UTF-8"))
+    res = tmp$data$hits
+    idfield = paste0(sub('s$','',entity_name(x)),'_id')
+    ## the following code just sets names on the 
     structure(
-        list(results = tmp$data$hits,
+        list(results = .prepareResults(res,idfield),
              query   = x,
              pages   = tmp$data$pagination,
              aggregations = lapply(tmp$data$aggregations,function(x) {x$buckets %>% purrr::map_df(extract,c('key','doc_count'))})
