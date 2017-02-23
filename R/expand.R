@@ -82,7 +82,7 @@ expand <- function(x,expand) {
 #' @describeIn expand set expand fields on a GDCQuery object
 #' @export
 expand.GDCQuery <- function(x,expand) {
-    .gdcCheckExpands(x,expand)
+    .gdcCheckExpands(entity_name(x),expand)
     x$expand = expand
     return(x)
 }
