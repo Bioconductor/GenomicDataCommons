@@ -72,6 +72,14 @@ count.GDCResponse = function(x,...) {
     x$pages$total
 }
 
+
+#' prepare "results" for return
+#'
+#' In particular, this function sets
+#' entity_ids for every element so that
+#' one does not loose track of the relationships
+#' given the nested nature of GDC returns
+#' 
 .prepareResults <- function(res,idfield) {
     for(i in names(res)) {
         if(inherits(res[[i]],'data.frame'))
