@@ -6,6 +6,8 @@
 #' @param from integer index from which to start returning data
 #' @param size number of records to return
 #' @param ... passed to httr (good for passing config info, etc.)
+#' @param response_handler a function that processes JSON (as text)
+#' and returns an R object.  Default is \code{\link[jsonlite]{fromJSON}}.
 #' 
 #' @rdname response
 #'
@@ -68,25 +70,27 @@ count.GDCQuery = function(x,...) {
 #' @export
 count.GDCResponse = function(x,...) {
     x$pages$total
-}    
+}
 
 #' @rdname response
 #' 
 #' @importFrom magrittr %>%
-#' @importFrom magrittr extract
-#' @importFrom purrr map map_df
-#'
+#' @importFrom jsonlite fromJSON
 #' 
 #' @export
-response.GDCQuery = function(x,from=1,size=10,...) {
+response.GDCQuery = function(x, from = 1, size = 10, ...,
+                             response_handler = jsonlite::fromJSON) {
     body = Filter(function(z) !is.null(z),x)
     body[['facets']]=paste0(body[['facets']],collapse=",")
     body[['fields']]=paste0(body[['fields']],collapse=",")
+    body[['expand']]=paste0(body[['expand']],collapse=",")
     body[['from']]=from
     body[['size']]=size
     body[['format']]='JSON'
     body[['pretty']]='FALSE'
-    tmp = httr::content(.gdc_post(entity_name(x),body=body,archive=x$archive,token=NULL,...))
+    tmp = response_handler(httr::content(.gdc_post(entity_name(x),body=body,
+                                                     archive=x$archive,token=NULL,...),
+                                           as="text", encoding = "UTF-8"))
     structure(
         list(results = tmp$data$hits,
              query   = x,

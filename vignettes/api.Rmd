@@ -225,7 +225,7 @@ resp = files() %>%
     filter(~data_format=='MAF' & access=='open') %>%
     response() 
 # get the file_ids from the response
-file_ids = resp %>% results() %>% purrr::map_chr('file_id')
+file_ids = ids(resp)
 # download the files specified by file_id
 fpaths = gdcdata(file_ids,progress=FALSE)
 basename(fpaths)

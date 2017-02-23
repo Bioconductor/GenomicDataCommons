@@ -19,12 +19,12 @@ Imports:
     xml2,
     jsonlite,
     utils,
-    assertthat,
     lazyeval,
     purrr,
     readr,
     shiny,
-    miniUI
+    miniUI,
+    data.table
 Suggests:
     BiocStyle,
     knitr,

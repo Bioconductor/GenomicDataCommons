@@ -61,12 +61,11 @@ default_fields.GDCQuery = function(x) {
 #'
 #' @param x the objects on which to set fields
 #' @param fields a character vector specifying the fields
+#' 
 #'
 #' @return A \code{\link{GDCQuery}} object, with the fields
 #' member altered.
 #' 
-#' @importFrom assertthat assert_that
-#'
 #' @examples
 #' gProj = projects()
 #' gProj$fields
@@ -84,10 +83,11 @@ select <- function(x,fields) {
     UseMethod('select',x)
 }
 
+
+
 #' rectify specified fields with available fields
 #'
 .gdcRectifyFieldsForEntity <- function(entity,fields) {
-    stopifnot(entity %in% .gdc_entities)
     af = available_fields(entity)
     mismatches = fields[!(fields %in% af)]
     if(length(mismatches)>0)

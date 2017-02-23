@@ -237,7 +237,7 @@ qcases = cases()
 qcases$fields
 # set up query to use ALL available fields
 # Note that checking of fields is done by select()
-qcases = cases() %>% select(available_fields('cases'))
+qcases = cases() %>% GenomicDataCommons::select(available_fields('cases'))
 head(qcases$fields)
 ```
 
@@ -311,6 +311,16 @@ manifest_df = qfiles %>% manifest()
 head(manifest_df)
 ```
 
+Note that we might still not be quite there. Looking at filenames, there are suspiciously named files that might include "FPKM", "FPKM-UQ", or "counts". Another round of `grep` and `available_fields`, looking for "type" turned up that the field "analysis.workflow_type" has the appropriate filter criteria.
+
+```{r filterForHTSeqCounts}
+qfiles = files() %>% filter( ~ cases.project.project_id == 'TCGA-OV' &
+                            type == 'gene_expression' &
+                            analysis.workflow_type == 'HTSeq - Counts')
+manifest_df = qfiles %>% manifest()
+nrow(manifest_df)
+```
+
 After writing this data.frame to disk, the GDC Data Transfer Tool can be used (from R or from the command-line) to orchestrate high-performance, restartable transfers of all the files in the manifest.
 
 
@@ -322,9 +332,20 @@ After writing this data.frame to disk, the GDC Data Transfer Tool can be used (f
 
 ## Datafile access and download
 
-### Single file download
+### Single (or few small) file(s) download
+
+```{r singlefileDL}
+fnames = gdcdata(manifest_df$id[1:2])
+```
 
 ### Bulk downloads
+
+```{r bulkDL}
+mfile = tempfile()
+write.table(manifest_df[1:50,],mfile,col.names=TRUE, row.names=FALSE, quote=FALSE,sep="\t")
+transfer(mfile,gdc_client='gdc-client')
+```
+
 
 ### BAM slicing
 

@@ -44,19 +44,14 @@ manifest.gdc_files <- function(x,from=1,size=count(x),...) {
 
 #' @describeIn manifest
 #'
-#' @importFrom purrr map
-#' @importFrom purrr map_chr
-#' @importFrom purrr flatten
+#' @importFrom data.table rbindlist
 #' 
 #' @export
 manifest.gdc_cases <- function(x,from=1,size=count(x),...) {
-    fids = x %>%
+    fids = rbindlist((x %>%
         select('files.file_id') %>%
         response(from=from,size=size) %>%
-        results() %>%
-        purrr::map('files') %>%
-        purrr::flatten() %>%
-        purrr::map_chr('file_id')
+        results())$files)$file_id
     q = files() %>% filter(~ file_id %in% fids)
     .manifestCall(x=q,from=from,size=size,...)
 }
@@ -136,12 +131,13 @@ transfer <-
 
     dir <- sprintf("--dir %s", destination_dir)
     manifest <- sprintf("--manifest %s", manifest)
-    if (!is.null(token)) {
-        stopifnot(file.exists(token))
-        token <- sprintf("--token-file %s", token)
+    token = NULL
+    if (!is.null(token_file)) {
+        stopifnot(file.exists(token_file))
+        token <- sprintf("--token-file %s", token_file)
     }
     args <- paste(c("download", dir, manifest, args), collapse=" ")
-    system2("gdc-client", args)
+    system2(gdc_client, args)
 
     destination_dir
 }

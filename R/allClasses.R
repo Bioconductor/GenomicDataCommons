@@ -1,75 +1,3 @@
-#' Start a query of GDC metadata
-#'
-#' The basis for all functionality in this package
-#' starts with constructing a query in R. The GDCQuery
-#' object contains the filters, facets, and other
-#' parameters that define the returned results. A token
-#' is required for accessing certain datasets.
-#'
-#' @aliases GDCQuery
-#' 
-#' @param entity character vector of 'cases','files','annotations',
-#' or 'projects'
-#' @param filters a filter list
-#' @param facets a facets list
-#' @param token a character string reprenting the token
-#' @param archive one of either 'default' or 'legacy'. See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.
-#' @param fields a character vector of fields to return
-#' 
-#' @return An S3 object, the GDCQuery object. This is a list
-#' with filters, facets, and fields as members.
-#' \itemize{
-#' \item{filters}
-#' \item{facets}
-#' \item{fields}
-#' \item{token}
-#' }
-#'
-#' @examples
-#' qcases = query('cases')
-#' # equivalent to:
-#' qcases = cases()
-#' 
-#' @export
-query = function(entity,
-                 token=NULL,
-                 filters=NULL,
-                 facets=NULL,
-                 archive = 'default',
-                 fields=default_fields(entity)) {
-    stopifnot(entity %in% c('cases','files','annotations','projects'))
-    ret = structure(
-        list(
-            fields    = fields,
-            filters   = filters,
-            facets    = facets,
-            archive   = archive,
-            token     = token),
-        class = c(paste0('gdc_',entity),'GDCQuery','list')
-    )
-    return(ret)
-}
-
-
-#' @describeIn query convenience contructor for a GDCQuery for cases
-#' @param ... passed through to \code{\link{query}}
-#' 
-#' @export
-cases = function(...) {return(query('cases',...))}
-
-#' @describeIn query convenience contructor for a GDCQuery for cases
-#' @export
-files = function(...) {return(query('files',...))}
-
-#' @describeIn query convenience contructor for a GDCQuery for cases
-#' @export
-projects = function(...) {return(query('projects',...))}
-
-#' @describeIn query convenience contructor for a GDCQuery for annotations
-#' @export
-annotations = function(...) {return(query('annotations',...))}
-
-
 #' Get the entity name from a GDCQuery object
 #'
 #' An "entity" is simply one of the four medata endpoints.
@@ -115,6 +43,19 @@ entity_name.GDCResults = function(x) {
 }
 
 
+#' return character(0) instead of NULL
+#'
+#' Always return a vector and not
+#' NULL.
+#'
+#' @param x an object
+#' 
+.ifNullCharacterZero <- function(x) {
+    if(is.null(x))
+        return(character(0))
+    return(x)
+}
+
 #' Get the ids associated with a GDC query or response
 #'
 #' The GDC assigns ids (in the form of uuids) to objects in its database. Those
@@ -138,11 +79,14 @@ ids = function(x) {
 }
 
 
+
+
 #' @rdname ids
 #' @export
 ids.GDCQuery = function(x) {
     fieldname = paste0(sub('s$','',entity_name(x)),'_id')
-    return(sapply(results(x),'[[',fieldname))
+    res = results(x)[[fieldname]]
+    return(.ifNullCharacterZero(res))
 }
 
 
@@ -150,12 +94,14 @@ ids.GDCQuery = function(x) {
 #' @export
 ids.GDCResults = function(x) {
     fieldname = paste0(sub('s$','',entity_name(x)),'_id')
-    return(sapply(x,'[[',fieldname))
+    res = x[[fieldname]]
+    return(.ifNullCharacterZero(res))
 }
 
 #' @rdname ids
 #' @export
 ids.GDCResponse = function(x) {
     fieldname = paste0(sub('s$','',entity_name(x$query)),'_id')
-    return(sapply(results(x),'[[',fieldname))
+    res = results(x)[[fieldname]]
+    return(.ifNullCharacterZero(res))
 }
