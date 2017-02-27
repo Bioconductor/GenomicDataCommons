@@ -91,4 +91,30 @@ manifest.GDCcasesResponse <- function(x,from=1,size=count(x),...) {
     )
 }
 
+#' write a manifest data.frame to disk
+#' 
+#' The \code{\link{manifest}} method creates a data.frame
+#' that represents the data for a manifest file needed
+#' by the GDC Data Transfer Tool. While the file format
+#' is nothing special, this is a simple helper function
+#' to write a manifest data.frame to disk. It returns
+#' the path to which the file is written, so it can
+#' be used "in-line" in a call to \code{\link{transfer}}.
+#' 
+#' @param manifest A data.frame with five columns, typically
+#'     created by a call to \code{\link{manifest}}
+#' 
+#' @param destfile The filename for saving the manifest.
+#'             
+#' @examples 
+#' mf = files() %>% manifest(size=10)
+#' write_manifest(mf)
+#' 
+#' @export
+write_manifest <- function(manifest,destfile=tempfile()) {
+    stopifnot(colnames(manifest) %in% .gdc_manifest_colnames,
+              ncol(manifest) == 5)
+    write.table(manifest,file=destfile,
+                col.names=TRUE,row.names=FALSE,quote=FALSE)
+}
 
