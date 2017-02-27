@@ -46,8 +46,13 @@ program that requires separate download.
 }
 \examples{
 \donttest{
-destination <- transfer(manifest)
+file_manifest = files() \%>\% manifest(size=10)
+manifest_file = tempfile()
+write.table(file_manifest,file=manifest_file,col.names=TRUE,row.names=FALSE,quote=FALSE)
+destination <- transfer(manifest_file)
 dir(destination)
+# and with authenication
+destination <- transfer(manifest_file,token=gdc_token())
 }
 
 }
