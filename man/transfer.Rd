@@ -2,10 +2,13 @@
 % Please edit documentation in R/bulk_transfer.R
 \name{transfer}
 \alias{transfer}
+\alias{transfer_help}
 \title{Bulk data download}
 \usage{
 transfer(manifest, destination_dir = tempfile(), args = character(),
   token = NULL, gdc_client = "gdc-client")
+
+transfer_help(gdc_client = "gdc-client")
 }
 \arguments{
 \item{manifest}{character(1) file path to manifest created by
@@ -43,7 +46,15 @@ The GDC maintains a special tool,
 that enables high-performance, potentially parallel, and 
 resumable downloads. The Data Transfer Tool is an external
 program that requires separate download.
+
+\code{transfer_help()} queries the the command line GDC Data
+Transfer Tool, \code{gdc-client}, for available options to be used
+in the \code{\link{transfer}} command.
 }
+\section{Functions}{
+\itemize{
+\item \code{transfer_help}: 
+}}
 \examples{
 \donttest{
 file_manifest = files() \%>\% filter(~ access == "open") \%>\% manifest(size=10)
