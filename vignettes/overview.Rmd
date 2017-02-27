@@ -117,7 +117,6 @@ Table: Overview of functionality for querying and retrieving metadata from the N
 
 ```{r libraries, message=FALSE}
 library(GenomicDataCommons)
-library(DT)
 ```
 
 # Usage
@@ -404,14 +403,6 @@ str(res[1],list.len=6)
 head(ids(resp))
 ```
 
-The `listviewer` package is a great way to look into moderately-sized result sets
-in an interactive web page (or, as here, embedded in an rmarkdown document).
-
-```{r casesListViewer}
-library(listviewer)
-jsonedit(res)
-```
-
 ## Files
 
 ### How many of each type of file are available?
@@ -472,7 +463,7 @@ file_ids = q %>% GenomicDataCommons::select('file_id') %>% response_all() %>% id
 
 ```{r slicing10}
 # bamfile = slicing(file_ids[1],regions="chr12:6534405-6538375",token=token)
-library(GenomicAlignments)
+# library(GenomicAlignments)
 # aligns = readGAlignments(bamfile)
 ```
 
@@ -484,6 +475,6 @@ sessionInfo()
 
 # Developer notes
 
-- The S3 object-oriented programming paradigm is used.
+- The `S3` object-oriented programming paradigm is used.
 - We have adopted a functional programming style with functions and methods that often take an "object" as the first argument. This style lends itself to pipeline-style programming. 
 - The GenomicDataCommons package uses the [alternative request format (POST)](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#alternative-request-format) to allow very large request bodies. 
