@@ -6,9 +6,7 @@
 \alias{manifest.GDCfilesResponse}
 \alias{manifest.gdc_cases}
 \alias{manifest.gdc_files}
-\alias{transfer}
-\alias{transfer_help}
-\title{GDC manifest file creation and file download}
+\title{Prepare GDC manifest file for bulk download}
 \usage{
 manifest(x, from = 1, size = count(x), ...)
 
@@ -19,43 +17,19 @@ manifest(x, from = 1, size = count(x), ...)
 \method{manifest}{GDCfilesResponse}(x, from = 1, size = count(x), ...)
 
 \method{manifest}{GDCcasesResponse}(x, from = 1, size = count(x), ...)
-
-transfer(manifest, destination_dir = tempfile(), args = character(),
-  token_file = NULL, gdc_client = "gdc-client")
-
-transfer_help(gdc_client = "gdc-client")
 }
 \arguments{
-\item{x}{An \code{\link{GDCQuery}} object of type 'gdc_files'.}
+\item{x}{An \code{\link{GDCQuery}} object of subclass "gdc_files" or "gdc_cases".}
 
 \item{from}{Record number from which to start when returning the manifest.}
 
-\item{size}{The total number of records to return.  Default will return the usually desirable full set of records.}
+\item{size}{The total number of records to return.  Default 
+will return the usually desirable full set of records.}
 
 \item{...}{passed to \code{\link[httr]{PUT}}.}
-
-\item{manifest}{character(1) file path to manifest created by
-\code{manifest()}}
-
-\item{destination_dir}{The path into which to place the transfered files.}
-
-\item{args}{character() vector specifying command-line arguments to
-be passed to \code{gdc-client}. See \code{transfer_help} for
-possible values. The arguments \code{--manifest}, \code{--dir},
-and \code{--token-file} are determined by \code{manifest},
-\code{destination_dir}, and \code{token}, respectively, and
-should NOT be provided as elements of \code{args}.}
-
-\item{token_file}{character(1) path to a file containing security
-token allowing access to restricted data. See
-\url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.}
-
-\item{gdc_client}{character(1) name or path to \code{gdc-client}
-executable. On Windows, use \code{/} or \code{\\\\} as the file
-separator.}
 }
 \value{
-A \code{\link[tibble]{tibble}} with five columns:
+A \code{\link[tibble]{tibble}}, also of type "gdc_manifest", with five columns:
 \itemize{
 \item{id}
 \item{filename}
@@ -63,20 +37,12 @@ A \code{\link[tibble]{tibble}} with five columns:
 \item{size}
 \item{state}
 }
-
-character(1) directory path to which the files were
-    downloaded.
 }
 \description{
-\code{manifest()} creates a manifest of files to be downloaded
-using the GDC Data Transfer Tool.
-
-\code{transfer()} retrieves files from the manifest using the GDC
-Data Transfer Tool.
-
-\code{transfer_help()} queries the the command line GDC Data
-Transfer Tool, \code{gdc-client}, for available options to be used
-in the \code{transfer()} command.
+The \code{manifest} function/method creates a manifest of files to be downloaded
+using the GDC Data Transfer Tool. There are methods for
+creating manifest data frames from \code{\link{GDCQuery}} objects
+that contain file information ("cases" and "files" queries).
 }
 \section{Methods (by class)}{
 \itemize{
@@ -98,9 +64,5 @@ manifestFromCases = manifest(gCases,size=10)
 manifestFromCases
 
 
-\donttest{
-destination <- transfer(manifest)
-dir(destination)
-}
 }
 

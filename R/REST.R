@@ -45,14 +45,13 @@
 #'
 #' @importFrom httr GET add_headers stop_for_status
 .gdc_get <-
-    function(endpoint, parameters=list(), archive, token=NULL, ..., base=.gdc_base)
+    function(endpoint, parameters=list(), legacy=FALSE, token=NULL, ..., base=.gdc_base)
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
     uri <- sprintf("%s/%s", base, endpoint)
-    if(archive=='legacy')
+    if(legacy)
         uri <- sprintf("%s/legacy/%s", base, endpoint)
-    
-    uri <- sprintf("%s/%s%s", base, endpoint, .parameter_string(parameters))
+    uri <- sprintf("%s%s", uri, .parameter_string(parameters))
     if(getOption('gdc.verbose',FALSE)) {
       message("GET request uri:\n",uri)
     }
@@ -67,12 +66,12 @@
 #' 
 #' @importFrom httr POST add_headers write_disk stop_for_status
 .gdc_post <-
-    function(endpoint, body, archive, token=NULL, ..., base=.gdc_base)
+    function(endpoint, body, legacy=FALSE, token=NULL, ..., base=.gdc_base)
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
     
     uri <- sprintf("%s/%s", base, endpoint)
-    if(archive=='legacy')
+    if(legacy)
         uri <- sprintf("%s/legacy/%s", base, endpoint)
     if(getOption('gdc.verbose',FALSE)) {
       message("POST request uri:\n",uri)

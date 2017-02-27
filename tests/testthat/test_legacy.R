@@ -36,7 +36,7 @@ test_that("legacy file ids only in legacy archive", {
 
 test_that("legacy file ids found", {
     fquery = files()
-    fquery$archive = "legacy"
+    fquery$legacy = TRUE
     fres = fquery %>% filter( ~ file_id %in% files_legacy_ids) %>% ids()
     expect_length(fres,length(files_legacy_ids))
     rm(fquery,fres)
@@ -47,7 +47,7 @@ test_that("legacy file ids found", {
 
 test_that("legacy manifest matches legacy ids", {
     fquery = files()
-    fquery$archive = "legacy"
+    fquery$legacy = TRUE
     fres = fquery %>% filter( ~ file_id %in% files_legacy_ids) %>% manifest()
     expect_equal(nrow(fres),length(files_legacy_ids))
     expect_true(all(fres$id %in% files_legacy_ids))
@@ -64,7 +64,7 @@ test_that("legacy manifest matches legacy ids", {
 
 test_that("legacy case ids found", {
     cquery = cases()
-    cquery$archive = "legacy"
+    cquery$legacy = TRUE
     cres = cquery %>% filter( ~ case_id %in% cases_legacy_ids) %>% ids()
     expect_equal(length(cres),length(cases_legacy_ids))
 })
@@ -72,7 +72,7 @@ test_that("legacy case ids found", {
 # Note that case ids may be in both legacy and default archives
 test_that("legacy case ids in default archive, also", {
     cquery = cases()
-    cquery$archive = "default"
+    cquery$legacy = FALSE
     cres = cquery %>% filter( ~ case_id %in% cases_legacy_ids) %>% ids()
     expect_equal(length(cres),10)
 })
@@ -81,7 +81,7 @@ test_that("legacy case ids in default archive, also", {
 
 test_that("legacy cases manifest matches", {
     cquery = cases()
-    cquery$archive = "legacy"
+    cquery$legacy = TRUE
     cres = cquery %>% filter( ~ files.file_id %in% files_legacy_ids) %>% manifest()
     # note that this is not a one-to-one, so use gte rather than equal
     expect_gte(nrow(cres),length(files_legacy_ids))

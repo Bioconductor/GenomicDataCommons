@@ -1,17 +1,20 @@
-#' GDC manifest file creation and file download
+#' Prepare GDC manifest file for bulk download
 #'
-#' \code{manifest()} creates a manifest of files to be downloaded
-#' using the GDC Data Transfer Tool.
+#' The \code{manifest} function/method creates a manifest of files to be downloaded
+#' using the GDC Data Transfer Tool. There are methods for
+#' creating manifest data frames from \code{\link{GDCQuery}} objects
+#' that contain file information ("cases" and "files" queries).
 #' 
-#' @param x An \code{\link{GDCQuery}} object of type 'gdc_files'.
+#' @param x An \code{\link{GDCQuery}} object of subclass "gdc_files" or "gdc_cases".
 #'
-#' @param size The total number of records to return.  Default will return the usually desirable full set of records.
+#' @param size The total number of records to return.  Default 
+#' will return the usually desirable full set of records.
 #'
 #' @param from Record number from which to start when returning the manifest.
 #'
 #' @param ... passed to \code{\link[httr]{PUT}}.
 #'
-#' @return A \code{\link[tibble]{tibble}} with five columns:
+#' @return A \code{\link[tibble]{tibble}}, also of type "gdc_manifest", with five columns:
 #' \itemize{
 #' \item{id}
 #' \item{filename}
@@ -88,66 +91,30 @@ manifest.GDCcasesResponse <- function(x,from=1,size=count(x),...) {
     )
 }
 
-#' \code{transfer()} retrieves files from the manifest using the GDC
-#' Data Transfer Tool.
-#'
-#' @param manifest character(1) file path to manifest created by
-#'     \code{manifest()}
-#'
-#' @param args character() vector specifying command-line arguments to
-#'     be passed to \code{gdc-client}. See \code{transfer_help} for
-#'     possible values. The arguments \code{--manifest}, \code{--dir},
-#'     and \code{--token-file} are determined by \code{manifest},
-#'     \code{destination_dir}, and \code{token}, respectively, and
-#'     should NOT be provided as elements of \code{args}.
-#'
-#' @param token_file character(1) path to a file containing security
-#'     token allowing access to restricted data. See
-#'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
-#'
-#' @param gdc_client character(1) name or path to \code{gdc-client}
-#'     executable. On Windows, use \code{/} or \code{\\\\} as the file
-#'     separator.
-#'
-#' @param destination_dir The path into which to place the transfered files.
-#'
-#' @return character(1) directory path to which the files were
-#'     downloaded.
+#' write a manifest data.frame to disk
 #' 
-#' @examples
-#' \donttest{
-#' destination <- transfer(manifest)
-#' dir(destination)
-#' }
-#' @rdname manifest
+#' The \code{\link{manifest}} method creates a data.frame
+#' that represents the data for a manifest file needed
+#' by the GDC Data Transfer Tool. While the file format
+#' is nothing special, this is a simple helper function
+#' to write a manifest data.frame to disk. It returns
+#' the path to which the file is written, so it can
+#' be used "in-line" in a call to \code{\link{transfer}}.
+#' 
+#' @param manifest A data.frame with five columns, typically
+#'     created by a call to \code{\link{manifest}}
+#' 
+#' @param destfile The filename for saving the manifest.
+#'             
+#' @examples 
+#' mf = files() %>% manifest(size=10)
+#' write_manifest(mf)
+#' 
 #' @export
-transfer <-
-    function(manifest, destination_dir=tempfile(), args=character(),
-             token_file=NULL, gdc_client="gdc-client")
-{
-    stopifnot(is.character(manifest), length(manifest) == 1L,
-              file.exists(manifest))
-    .dir_validate_or_create(destination_dir)
-
-    dir <- sprintf("--dir %s", destination_dir)
-    manifest <- sprintf("--manifest %s", manifest)
-    token = NULL
-    if (!is.null(token_file)) {
-        stopifnot(file.exists(token_file))
-        token <- sprintf("--token-file %s", token_file)
-    }
-    args <- paste(c("download", dir, manifest, args), collapse=" ")
-    system2(gdc_client, args)
-
-    destination_dir
+write_manifest <- function(manifest,destfile=tempfile()) {
+    stopifnot(colnames(manifest) %in% .gdc_manifest_colnames,
+              ncol(manifest) == 5)
+    write.table(manifest,file=destfile,
+                col.names=TRUE,row.names=FALSE,quote=FALSE)
 }
 
-#' \code{transfer_help()} queries the the command line GDC Data
-#' Transfer Tool, \code{gdc-client}, for available options to be used
-#' in the \code{transfer()} command.
-#' 
-#' @rdname manifest
-#' @export
-transfer_help <- function(gdc_client="gdc-client") {
-    system2(gdc_client, "download -h")
-}
