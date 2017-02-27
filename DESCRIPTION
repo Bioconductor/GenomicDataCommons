@@ -38,5 +38,6 @@ Suggests:
 biocViews:
     DataImport,
     Sequencing
+BugReport: https://github.com/Bioconductor/GenomicDataCommons/issues/new
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
