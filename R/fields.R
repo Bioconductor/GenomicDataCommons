@@ -103,3 +103,27 @@ select.GDCQuery <- function(x,fields) {
     return(x)
 }
 
+#' Find matching field names
+#' 
+#' This utility function allows quick text-based
+#' search of available fields for using \code{\link{grep}}
+#' 
+#' @param entity one of \dquote{files}, \dquote{cases}, 
+#' \dquote{annotations}, \dquote{projects} against which
+#' to gather available fields for matching
+#' 
+#' @param regex A regular expression that will be used
+#' in a call to \code{\link{grep}}
+#' 
+#' @param ... passed on to grep
+#' 
+#' @examples 
+#' grep_fields('files','analysis')
+#' 
+#' @export
+grep_fields <- function(entity,pattern,...,value=TRUE) {
+  stopifnot(entity %in% .gdc_entities)
+  return(grep(pattern=pattern,
+              x=available_fields(entity),
+              value=TRUE,...))
+}
