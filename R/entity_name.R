@@ -16,11 +16,11 @@
 #' "cases", "files", "projects", "annotations".
 #' 
 #' @examples
-#' cases = cases()
-#' projects = projects()
+#' qcases = cases()
+#' qprojects = projects()
 #' 
-#' entity_name(cases)
-#' entity_name(projects)
+#' entity_name(qcases)
+#' entity_name(qprojects)
 #' 
 #' @export
 entity_name = function(x) {

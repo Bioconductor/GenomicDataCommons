@@ -9,8 +9,8 @@
 \alias{query}
 \title{Start a query of GDC metadata}
 \usage{
-query(entity, token = NULL, filters = NULL, facets = NULL,
-  archive = "default", expand = NULL, fields = default_fields(entity))
+query(entity, filters = NULL, facets = NULL, archive = "default",
+  expand = NULL, fields = default_fields(entity))
 
 cases(...)
 
@@ -23,8 +23,6 @@ annotations(...)
 \arguments{
 \item{entity}{character vector of 'cases','files','annotations',
 or 'projects'}
-
-\item{token}{a character string reprenting the token}
 
 \item{filters}{a filter list}
 

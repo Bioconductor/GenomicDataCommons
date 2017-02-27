@@ -12,7 +12,6 @@
 #' or 'projects'
 #' @param filters a filter list
 #' @param facets a facets list
-#' @param token a character string reprenting the token
 #' @param archive one of either 'default' or 'legacy'. See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.
 #' @param fields a character vector of fields to return
 #' @param expand a character vector of "expands" to include in returned data
@@ -35,7 +34,6 @@
 #' 
 #' @export
 query = function(entity,
-                 token=NULL,
                  filters=NULL,
                  facets=NULL,
                  archive = 'default',
@@ -48,8 +46,7 @@ query = function(entity,
             filters   = filters,
             facets    = facets,
             archive   = archive,
-            expand    = expand,
-            token     = token),
+            expand    = expand),
         class = c(paste0('gdc_',entity),'GDCQuery','list')
     )
     return(ret)
