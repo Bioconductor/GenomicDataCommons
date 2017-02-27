@@ -14,3 +14,16 @@
             stop("'destination_dir' exists but is not a directory")
     }
 }
+
+#' return character(0) instead of NULL
+#'
+#' Always return a vector and not
+#' NULL.
+#'
+#' @param x an object
+#' 
+.ifNullCharacterZero <- function(x) {
+    if(is.null(x))
+        return(character(0))
+    return(x)
+}
