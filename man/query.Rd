@@ -9,7 +9,7 @@
 \alias{query}
 \title{Start a query of GDC metadata}
 \usage{
-query(entity, filters = NULL, facets = NULL, archive = "default",
+query(entity, filters = NULL, facets = NULL, legacy = FALSE,
   expand = NULL, fields = default_fields(entity))
 
 cases(...)
@@ -24,11 +24,14 @@ annotations(...)
 \item{entity}{character vector of 'cases','files','annotations',
 or 'projects'}
 
-\item{filters}{a filter list}
+\item{filters}{a filter list, typically created using \code{\link{make_filter}}, or added
+to an existing \code{GDCQuery} object using \code{\link{filter}}.}
 
-\item{facets}{a facets list}
+\item{facets}{a character vector of}
 
-\item{archive}{one of either 'default' or 'legacy'. See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.}
+\item{legacy}{logical(1) whether to use the \dquote{legacy} archive or not. 
+See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} 
+and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.}
 
 \item{expand}{a character vector of "expands" to include in returned data}
 

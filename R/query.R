@@ -10,9 +10,12 @@
 #' 
 #' @param entity character vector of 'cases','files','annotations',
 #' or 'projects'
-#' @param filters a filter list
-#' @param facets a facets list
-#' @param archive one of either 'default' or 'legacy'. See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.
+#' @param filters a filter list, typically created using \code{\link{make_filter}}, or added
+#'     to an existing \code{GDCQuery} object using \code{\link{filter}}.
+#' @param facets a character vector of 
+#' @param legacy logical(1) whether to use the \dquote{legacy} archive or not. 
+#'     See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} 
+#'     and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.
 #' @param fields a character vector of fields to return
 #' @param expand a character vector of "expands" to include in returned data
 #' 
@@ -36,7 +39,7 @@
 query = function(entity,
                  filters=NULL,
                  facets=NULL,
-                 archive = 'default',
+                 legacy = FALSE,
                  expand = NULL,
                  fields=default_fields(entity)) {
     stopifnot(entity %in% .gdc_entities)
@@ -45,7 +48,7 @@ query = function(entity,
             fields    = fields,
             filters   = filters,
             facets    = facets,
-            archive   = archive,
+            legacy    = legacy,
             expand    = expand),
         class = c(paste0('gdc_',entity),'GDCQuery','list')
     )
