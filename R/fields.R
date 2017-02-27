@@ -108,8 +108,8 @@ select.GDCQuery <- function(x,fields) {
 #' This utility function allows quick text-based
 #' search of available fields for using \code{\link{grep}}
 #' 
-#' @param entity one of \dquote{files}, \dquote{cases}, 
-#' \dquote{annotations}, \dquote{projects} against which
+#' @param entity one of "files", "cases", 
+#' "annotations", "projects" against which
 #' to gather available fields for matching
 #' 
 #' @param regex A regular expression that will be used

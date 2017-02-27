@@ -13,7 +13,7 @@
 #' @param filters a filter list, typically created using \code{\link{make_filter}}, or added
 #'     to an existing \code{GDCQuery} object using \code{\link{filter}}.
 #' @param facets a character vector of 
-#' @param legacy logical(1) whether to use the \dquote{legacy} archive or not. 
+#' @param legacy logical(1) whether to use the "legacy" archive or not. 
 #'     See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} 
 #'     and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.
 #' @param fields a character vector of fields to return

@@ -15,8 +15,7 @@ data that are "controlled access". For example,
 BAM files for human datasets, germline variant calls,
 and SNP array raw data all are protected as "controlled
 access". For these files, a GDC access token is required.
-See the \href[details on the GDC authentication and token 
-information]{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Authentication/#gdc-authentication-tokens}.
+See the \href{details on the GDC authentication and token information}{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Authentication/#gdc-authentication-tokens}.
 Note that this function simply returns a string value. 
 It is possible to keep the GDC token in a variable in R
 or to pass a string directly to the appropriate parameter.
@@ -44,6 +43,6 @@ token = gdc_token()
 
 }
 \references{
-\href{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Authentication/#gdc-authentication-tokens}
+\url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Authentication/#gdc-authentication-tokens}
 }
 

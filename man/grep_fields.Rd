@@ -7,8 +7,8 @@
 grep_fields(entity, pattern, ..., value = TRUE)
 }
 \arguments{
-\item{entity}{one of \dquote{files}, \dquote{cases}, 
-\dquote{annotations}, \dquote{projects} against which
+\item{entity}{one of "files", "cases", 
+"annotations", "projects" against which
 to gather available fields for matching}
 
 \item{...}{passed on to grep}
