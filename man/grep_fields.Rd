@@ -11,10 +11,13 @@ grep_fields(entity, pattern, ..., value = TRUE)
 "annotations", "projects" against which
 to gather available fields for matching}
 
+\item{pattern}{A regular expression that will be used
+in a call to \code{\link{grep}}}
+
 \item{...}{passed on to grep}
 
-\item{regex}{A regular expression that will be used
-in a call to \code{\link{grep}}}
+\item{value}{logical(1) whether to return values as opposed
+to indices (passed along to grep)}
 }
 \description{
 This utility function allows quick text-based
