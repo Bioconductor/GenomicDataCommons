@@ -77,6 +77,8 @@ transfer <-
 #' Transfer Tool, \code{gdc-client}, for available options to be used
 #' in the \code{\link{transfer}} command.
 #' 
+#' @describeIn transfer
+#' 
 #' @export
 transfer_help <- function(gdc_client="gdc-client") {
     system2(gdc_client, "download -h")

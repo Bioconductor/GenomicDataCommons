@@ -112,10 +112,13 @@ select.GDCQuery <- function(x,fields) {
 #' "annotations", "projects" against which
 #' to gather available fields for matching
 #' 
-#' @param regex A regular expression that will be used
+#' @param pattern A regular expression that will be used
 #' in a call to \code{\link{grep}}
 #' 
 #' @param ... passed on to grep
+#' 
+#' @param value logical(1) whether to return values as opposed
+#' to indices (passed along to grep)
 #' 
 #' @examples 
 #' grep_fields('files','analysis')
