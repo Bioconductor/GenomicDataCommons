@@ -37,36 +37,41 @@
 #' 
 #' @examples
 #' \donttest{
-#' file_manifest = files() %>% manifest(size=10)
+#' file_manifest = files() %>% filter(~ access == "open") %>% manifest(size=10)
 #' manifest_file = tempfile()
 #' write.table(file_manifest,file=manifest_file,col.names=TRUE,row.names=FALSE,quote=FALSE)
 #' destination <- transfer(manifest_file)
 #' dir(destination)
 #' # and with authenication
-#' destination <- transfer(manifest_file,token=gdc_token())
+#' destination <- transfer(manifest_file,token=gdc_token)
 #' }
 #' 
 #' @export
 transfer <-
-  function(manifest, destination_dir=tempfile(), args=character(),
-           token_file=NULL, gdc_client="gdc-client")
-  {
-    stopifnot(is.character(manifest), length(manifest) == 1L,
-              file.exists(manifest))
-    .dir_validate_or_create(destination_dir)
-    
-    dir <- sprintf("--dir %s", destination_dir)
-    manifest <- sprintf("--manifest %s", manifest)
-    token = NULL
-    if (!is.null(token_file)) {
-      stopifnot(file.exists(token_file))
-      token <- sprintf("--token-file %s", token_file)
+    function(manifest, destination_dir=tempfile(), args=character(),
+             token=NULL, gdc_client="gdc-client")
+    {
+        stopifnot(is.character(manifest), length(manifest) == 1L,
+                  file.exists(manifest))
+        .dir_validate_or_create(destination_dir)
+        
+        dir <- sprintf("--dir %s", destination_dir)
+        manifest <- sprintf("--manifest %s", manifest)
+        token_file = tempfile()
+        if (!is.null(token)) {
+            writeLines(token,con=token_file)
+            stopifnot(file.exists(token_file))
+            Sys.chmod(token_file,mode="600")
+            token <- sprintf("--token-file %s", token_file)
+        }
+        args <- paste(c("download", dir, manifest, args, token), collapse=" ")
+        system2(gdc_client, args)
+        
+        if(!is.null(token))
+            unlink(token_file)
+        
+        destination_dir
     }
-    args <- paste(c("download", dir, manifest, args, token), collapse=" ")
-    system2(gdc_client, args)
-    
-    destination_dir
-  }
 
 #' \code{transfer_help()} queries the the command line GDC Data
 #' Transfer Tool, \code{gdc-client}, for available options to be used
@@ -74,5 +79,5 @@ transfer <-
 #' 
 #' @export
 transfer_help <- function(gdc_client="gdc-client") {
-  system2(gdc_client, "download -h")
+    system2(gdc_client, "download -h")
 }

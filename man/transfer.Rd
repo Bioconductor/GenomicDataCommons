@@ -5,7 +5,7 @@
 \title{Bulk data download}
 \usage{
 transfer(manifest, destination_dir = tempfile(), args = character(),
-  token_file = NULL, gdc_client = "gdc-client")
+  token = NULL, gdc_client = "gdc-client")
 }
 \arguments{
 \item{manifest}{character(1) file path to manifest created by
@@ -22,16 +22,16 @@ and \code{--token-file} are determined by \code{manifest},
 \code{destination_dir}, and \code{token}, respectively, and
 should NOT be provided as elements of \code{args}.}
 
-\item{gdc_client}{character(1) name or path to \code{gdc-client}
-executable. On Windows, use \code{/} or \code{\\\\} as the file
-separator.}
-
 \item{token}{character(1) containing security
 token allowing access to restricted data. See
 \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
 Note that the GDC transfer tool requires a file for data
 transfer. Therefore, this token will be written to a temporary
 file (with appropriate permissions set).}
+
+\item{gdc_client}{character(1) name or path to \code{gdc-client}
+executable. On Windows, use \code{/} or \code{\\\\} as the file
+separator.}
 }
 \value{
 character(1) directory path to which the files were
@@ -46,13 +46,13 @@ program that requires separate download.
 }
 \examples{
 \donttest{
-file_manifest = files() \%>\% manifest(size=10)
+file_manifest = files() \%>\% filter(~ access == "open") \%>\% manifest(size=10)
 manifest_file = tempfile()
 write.table(file_manifest,file=manifest_file,col.names=TRUE,row.names=FALSE,quote=FALSE)
 destination <- transfer(manifest_file)
 dir(destination)
 # and with authenication
-destination <- transfer(manifest_file,token=gdc_token())
+destination <- transfer(manifest_file,token=gdc_token)
 }
 
 }
