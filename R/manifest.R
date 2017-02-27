@@ -1,17 +1,20 @@
-#' GDC manifest file creation and file download
+#' Prepare GDC manifest file for bulk download
 #'
-#' \code{manifest()} creates a manifest of files to be downloaded
-#' using the GDC Data Transfer Tool.
+#' The \code{manifest} function/method creates a manifest of files to be downloaded
+#' using the GDC Data Transfer Tool. There are methods for
+#' creating manifest data frames from \code{\link{GDCQuery}} objects
+#' that contain file information ("cases" and "files" queries).
 #' 
-#' @param x An \code{\link{GDCQuery}} object of type 'gdc_files'.
+#' @param x An \code{\link{GDCQuery}} object of subclass "gdc_files" or "gdc_cases".
 #'
-#' @param size The total number of records to return.  Default will return the usually desirable full set of records.
+#' @param size The total number of records to return.  Default 
+#' will return the usually desirable full set of records.
 #'
 #' @param from Record number from which to start when returning the manifest.
 #'
 #' @param ... passed to \code{\link[httr]{PUT}}.
 #'
-#' @return A \code{\link[tibble]{tibble}} with five columns:
+#' @return A \code{\link[tibble]{tibble}}, also of type "gdc_manifest", with five columns:
 #' \itemize{
 #' \item{id}
 #' \item{filename}
@@ -136,7 +139,7 @@ transfer <-
         stopifnot(file.exists(token_file))
         token <- sprintf("--token-file %s", token_file)
     }
-    args <- paste(c("download", dir, manifest, args), collapse=" ")
+    args <- paste(c("download", dir, manifest, args, token), collapse=" ")
     system2(gdc_client, args)
 
     destination_dir

@@ -8,7 +8,7 @@
 \alias{manifest.gdc_files}
 \alias{transfer}
 \alias{transfer_help}
-\title{GDC manifest file creation and file download}
+\title{Prepare GDC manifest file for bulk download}
 \usage{
 manifest(x, from = 1, size = count(x), ...)
 
@@ -26,11 +26,12 @@ transfer(manifest, destination_dir = tempfile(), args = character(),
 transfer_help(gdc_client = "gdc-client")
 }
 \arguments{
-\item{x}{An \code{\link{GDCQuery}} object of type 'gdc_files'.}
+\item{x}{An \code{\link{GDCQuery}} object of subclass "gdc_files" or "gdc_cases".}
 
 \item{from}{Record number from which to start when returning the manifest.}
 
-\item{size}{The total number of records to return.  Default will return the usually desirable full set of records.}
+\item{size}{The total number of records to return.  Default 
+will return the usually desirable full set of records.}
 
 \item{...}{passed to \code{\link[httr]{PUT}}.}
 
@@ -55,7 +56,7 @@ executable. On Windows, use \code{/} or \code{\\\\} as the file
 separator.}
 }
 \value{
-A \code{\link[tibble]{tibble}} with five columns:
+A \code{\link[tibble]{tibble}}, also of type "gdc_manifest", with five columns:
 \itemize{
 \item{id}
 \item{filename}
@@ -68,8 +69,10 @@ character(1) directory path to which the files were
     downloaded.
 }
 \description{
-\code{manifest()} creates a manifest of files to be downloaded
-using the GDC Data Transfer Tool.
+The \code{manifest} function/method creates a manifest of files to be downloaded
+using the GDC Data Transfer Tool. There are methods for
+creating manifest data frames from \code{\link{GDCQuery}} objects
+that contain file information ("cases" and "files" queries).
 
 \code{transfer()} retrieves files from the manifest using the GDC
 Data Transfer Tool.
