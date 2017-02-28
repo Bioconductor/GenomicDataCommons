@@ -47,3 +47,42 @@ ids.GDCResponse = function(x) {
     res = results(x)[[fieldname]]
     return(.ifNullCharacterZero(res))
 }
+
+.id_field = function(x) {
+    return(sub('s$','',entity_name(x)))
+}
+
+#' get the name of the id field
+#' 
+#' In many places in the GenomicDataCommons package,
+#' the entity ids are stored in a column or a vector
+#' with a specific name that corresponds to the field name 
+#' at the GDC. The format is the entity name (singular) "_id".
+#' This generic simply returns that name from a given object.
+#' 
+#' @param x An object representing the query or results 
+#'     of an entity from the GDC ("cases", "files", "annotations", "projects")
+#' 
+#' @return character(1) such as "case_id", "file_id", etc.
+#' 
+#' @examples 
+#' id_field(cases())
+#' 
+#' @export
+id_field = function(x) {
+    UseMethod('id_field',x)
+}
+
+#' @describeIn id_field GDCQuery method
+#' @export
+id_field.GDCQuery = function(x) {
+    return(.id_field(x))
+}
+
+#' @describeIn id_field GDCResults method
+#' @export
+id_field.GDCResults = function(x) {
+    return(.id_field(x))
+}
+
+
