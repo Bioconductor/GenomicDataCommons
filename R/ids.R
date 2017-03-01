@@ -49,7 +49,7 @@ ids.GDCResponse = function(x) {
 }
 
 .id_field = function(x) {
-    return(sub('s$','',entity_name(x)))
+    return(paste0(sub('s$','',entity_name(x)),"_id"))
 }
 
 #' get the name of the id field
