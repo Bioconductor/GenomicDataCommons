@@ -114,7 +114,7 @@ manifest.GDCcasesResponse <- function(x,from=1,size=count(x),...) {
 write_manifest <- function(manifest,destfile=tempfile()) {
     stopifnot(colnames(manifest) %in% .gdc_manifest_colnames,
               ncol(manifest) == 5)
-    write.table(manifest,file=destfile,
+    write.table(manifest,file=destfile,sep="\t",
                 col.names=TRUE,row.names=FALSE,quote=FALSE)
 }
 
