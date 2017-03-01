@@ -5,7 +5,7 @@
 \title{Query GDC for data slices}
 \usage{
 slicing(uuid, regions, symbols, destination = tempfile(), overwrite = FALSE,
-  progress = interactive(), token = NULL, archive = "default")
+  progress = interactive(), token = NULL, legacy = FALSE)
 }
 \arguments{
 \item{uuid}{character(1) identifying the BAM file resource}
@@ -32,7 +32,7 @@ restricted data. Almost all BAM data is restricted, so a token is
 usually required. See
 \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.}
 
-\item{archive}{character(1) label for either the "default" archive or the "legacy"
+\item{legacy}{logical(1) whether or not to use the "legacy"
 archive, containing older, non-harmonized data.}
 }
 \value{
@@ -47,7 +47,7 @@ symbols.
 \donttest{
 slicing("df80679e-c4d3-487b-934c-fcc782e5d46e",
         regions="chr17:75000000-76000000",
-        token=token)
+        token=gdc_token())
 }
 }
 
