@@ -12,6 +12,9 @@ created by a call to \code{\link{manifest}}}
 
 \item{destfile}{The filename for saving the manifest.}
 }
+\value{
+character(1) the destination file name.
+}
 \description{
 The \code{\link{manifest}} method creates a data.frame
 that represents the data for a manifest file needed

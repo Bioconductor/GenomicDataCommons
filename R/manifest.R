@@ -105,7 +105,9 @@ manifest.GDCcasesResponse <- function(x,from=1,size=count(x),...) {
 #'     created by a call to \code{\link{manifest}}
 #' 
 #' @param destfile The filename for saving the manifest.
-#'             
+#'          
+#' @return character(1) the destination file name.
+#'                   
 #' @examples 
 #' mf = files() %>% manifest(size=10)
 #' write_manifest(mf)
@@ -116,5 +118,35 @@ write_manifest <- function(manifest,destfile=tempfile()) {
               ncol(manifest) == 5)
     write.table(manifest,file=destfile,sep="\t",
                 col.names=TRUE,row.names=FALSE,quote=FALSE)
+    destfile
+}
+
+#' return gdc-client executable path
+#' 
+#' This function is a convenience function to 
+#' find and return the path to the GDC Data Transfer
+#' Tool executable assumed to be named 'gdc-client'.
+#' The following locations are checked:
+#' 
+#' \itemize{
+#' \item{Sys.which() to see if gdc-client is on the path}
+#' \item{The current working directory}
+#' \item{The file name specified in the environment variable \code{GDC_CLIENT}}
+#' }
+#' 
+#' @return character(1) the path to the gdc-client executable.
+#' 
+#' 
+#' @export
+gdc_client <- function() {
+    client = Sys.which('gdc-client')
+    if(client['gdc-client']=="gdc-client") 
+        return(client)
+    client=dir('.',pattern='^gdc-client$',full.names=TRUE)
+    if(client=='./gdc-client')
+        return(client)
+    if(file.exists(Sys.getenv('GDC_CLIENT')))
+        return(Sys.getenv('GDC_CLIENT'))
+    stop('gdc-client not found')
 }
 
