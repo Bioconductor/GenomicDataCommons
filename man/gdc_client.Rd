@@ -12,7 +12,11 @@ character(1) the path to the gdc-client executable.
 \description{
 This function is a convenience function to 
 find and return the path to the GDC Data Transfer
-Tool executable assumed to be named 'gdc-client'.
+Tool executable assumed to be named 'gdc-client'. 
+The assumption is that the appropriate version of the
+GDC Data Transfer Tool is a separate download available
+from \href{the GDC website}{https://gdc.cancer.gov/access-data/gdc-data-transfer-tool}
+and as a backup from \href{on github}{https://github.com/NCI-GDC/gdc-client}.
 The following locations are checked:
 }
 \details{
