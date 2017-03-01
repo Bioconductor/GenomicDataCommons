@@ -138,7 +138,7 @@ register(MulticoreParam())
 destdir = tempdir()
 fnames = bplapply(ge_manifest$id,gdcdata,
                   token=gdc_token(),destination_dir=destdir,
-                  BPPARAM = MulticoreParam(progressbar=TRUE)))
+                  BPPARAM = MulticoreParam(progressbar=TRUE))
 ```
 
 ## Metadata queries
