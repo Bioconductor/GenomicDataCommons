@@ -130,3 +130,22 @@ grep_fields <- function(entity,pattern,...,value=TRUE) {
               x=available_fields(entity),
               value=TRUE,...))
 }
+
+#' Find common values for a GDC field
+#' 
+#' @param entity character(1), a GDC entity ("cases", "files", "annotations", "projects")
+#' @param field character(1), a field that is present in the entity record
+#' @param legacy logical(1), use the legacy endpoint or not.
+#' 
+#' @return character vector of the top 100 (or fewer) most frequent values for a the given field
+#' 
+#' @examples 
+#' available_values('files','cases.project.project_id')[1:5]
+#' 
+#' @export
+available_values <- function(entity,field,legacy=FALSE) {
+    stopifnot(entity %in% .gdc_entities)
+    agg = query(entity,legacy=legacy) %>% facet(field) %>% aggregations()
+    agg[[field]]$key
+}
+

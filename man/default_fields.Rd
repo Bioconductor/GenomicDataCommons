@@ -2,8 +2,8 @@
 % Please edit documentation in R/fields.R
 \name{default_fields}
 \alias{default_fields}
-\alias{default_fields.GDCQuery}
 \alias{default_fields.character}
+\alias{default_fields.GDCQuery}
 \title{S3 Generic to return default GDC fields}
 \usage{
 default_fields(x)
@@ -28,10 +28,10 @@ S3 Generic to return default GDC fields
 
 \item \code{GDCQuery}: GDCQuery method
 }}
+
 \examples{
 default_fields('projects')
 projQuery = query('projects')
 default_fields(projQuery)
 
 }
-

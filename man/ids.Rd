@@ -3,8 +3,8 @@
 \name{ids}
 \alias{ids}
 \alias{ids.GDCQuery}
-\alias{ids.GDCResponse}
 \alias{ids.GDCResults}
+\alias{ids.GDCResponse}
 \title{Get the ids associated with a GDC query or response}
 \usage{
 ids(x)
@@ -34,4 +34,3 @@ ids(response(files()))
 
 
 }
-

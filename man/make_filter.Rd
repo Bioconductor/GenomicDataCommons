@@ -29,4 +29,3 @@ If used with available_fields, "bare" fields that are
 named in the available_fields character vector can be used
 in the filter expression without quotes.
 }
-

@@ -29,6 +29,7 @@ aggregations
 
 \item \code{GDCResponse}: 
 }}
+
 \examples{
 # Number of each file type
 res = files() \%>\% facet(c('type','data_type')) \%>\% aggregations()
@@ -37,4 +38,3 @@ res$type
 
 
 }
-

@@ -40,4 +40,4 @@ biocViews:
     Sequencing
 BugReport: https://github.com/Bioconductor/GenomicDataCommons/issues/new
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

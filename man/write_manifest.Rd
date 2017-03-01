@@ -26,4 +26,3 @@ mf = files() \%>\% manifest(size=10)
 write_manifest(mf)
 
 }
-
