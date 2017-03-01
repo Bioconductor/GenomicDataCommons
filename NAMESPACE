@@ -2,6 +2,7 @@
 
 S3method(aggregations,GDCQuery)
 S3method(aggregations,GDCResponse)
+S3method(as.data.frame,GDCResults)
 S3method(available_expand,GDCQuery)
 S3method(available_expand,character)
 S3method(available_fields,GDCQuery)
