@@ -4,10 +4,10 @@
 \alias{as.data.frame.GDCResults}
 \title{Convert GDC results to data.frame}
 \usage{
-\method{as.data.frame}{GDCResults}(res)
+\method{as.data.frame}{GDCResults}(x, row.names, optional, ...)
 }
 \arguments{
-\item{res}{a \code{GDCResults} object to be converted to a 
+\item{x}{a \code{GDCResults} object to be converted to a 
 data.frame.}
 }
 \value{
@@ -21,6 +21,12 @@ R list structure to a data.frame. Some columns
 in the resulting data.frame may remain lists, but
 there will be one list element for each row though
 that list element may contain multiple values.
+}
+\note{
+The data.frame that is returned is the cartesian product 
+of sub-data.frames that come from the GDC. This may lead to more
+than one row per entity id. It is up to the user to determine 
+how to make rows unique per entity, if that is desired.
 }
 \examples{
 expands = c("diagnoses","diagnoses.treatments","annotations",
