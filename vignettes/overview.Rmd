@@ -3,9 +3,8 @@ title: "The GenomicDataCommons Package"
 author: "Sean Davis & Martin Morgan"
 date: "`r Sys.Date()`"
 output:
-  html_document:
+  BiocStyle::html_document:
     df_print: paged
-    theme: readable
 abstract: >
   The NCI [Genomic Data Commons](https://gdc.nci.nih.gov/) 
        
@@ -119,6 +118,41 @@ Table: Overview of functionality for querying and retrieving metadata from the N
 library(GenomicDataCommons)
 ```
 
+## Find data
+
+```{r findQS}
+ge_manifest = files() %>% 
+    filter( ~ cases.project.project_id == 'TCGA-OV' &
+                type == 'gene_expression' &
+                analysis.workflow_type == 'HTSeq - Counts') %>%
+    manifest()
+```
+
+## Download data
+
+This code block downloads the `r nrow(ge_manifest)` gene expression files specified in the query above. Using multiple processes to do the download very significantly speeds up the transfer in many cases.  On a standard 1Gb connection using 10 processes, the following completes in about 15 seconds.
+
+```{r downloadQS, eval=FALSE}
+library(BiocParallel)
+register(MulticoreParam())
+destdir = tempdir()
+fnames = bplapply(ge_manifest$id,gdcdata,
+                  token=gdc_token(),destination_dir=destdir,
+                  BPPARAM = MulticoreParam(progressbar=TRUE)))
+```
+
+## Metadata queries
+
+```{r metadataQS}
+expands = c("diagnoses","diagnoses.treatments","annotations",
+             "demographic","exposures")
+clinResults = cases() %>% 
+    select(NULL) %>%
+    expand(expands) %>% 
+    results()
+```
+
+
 # Usage
 
 There are two main classes of operations when working with the NCI GDC.  
@@ -187,17 +221,17 @@ returned from the GDC in [JSON](http://www.json.org/) format and
 converted into a (potentially nested) list in R. The `str()` method is useful for taking a quick glimpse of the data.
 
 ```{r presultsstr}
-str(presults[1:2])
+str(presults)
 ```
 
 A default of only 10 records are returned. We can use the `size` and `from` arguments to `results()` to either page through results or to change the number of results. Finally, there is a convenience method, `results_all()` that will simply fetch all the available results given a query. Note that `results_all()` may take a long time and return HUGE result sets if not used carefully. Use of a combination of `count()` and `results()` to get a sense of the expected data size is probably warranted before calling `results_all()`
 
 ```{r presultsall}
-length(presults)
+length(ids(presults))
 presults = pquery %>% results_all()
-length(presults)
+length(ids(presults))
 # includes all records
-length(presults) == count(pquery)
+length(ids(presults)) == count(pquery)
 ```
 
 Extracting subsets of
@@ -209,10 +243,12 @@ the
 and [data.tree](https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html) packages
 are all potentially of interest for manipulating complex, nested list structures. For viewing the results in an interactive viewer, consider the [listviewer](https://github.com/timelyportfolio/listviewer) package.
 
-```{r listviewer}
-library(listviewer)
-jsonedit(presults)
+In the case of the `projects` entity, the default results (using default fields, that is) can be simplified easily with `as.data.frame`.
+
+```{r simplifyProjects}
+head(as.data.frame(presults))
 ```
+
 
 ### Fields and Values
 
@@ -240,6 +276,8 @@ qcases = cases() %>% GenomicDataCommons::select(available_fields('cases'))
 head(qcases$fields)
 ```
 
+Finding fields of interest is such a common operation that the GenomicDataCommons includes the `grep_fields()` function and the `field_picker()` widget. See the appropriate help pages for details.
+
 ### Facets and aggregation
 
 [[ GDC `facet` documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#facets)
@@ -259,7 +297,7 @@ res = files() %>% facet(c('type','data_type')) %>% aggregations()
 res$type
 ```
 
-Using `aggregations()` is an also easy way to learn the contents of individual fields.
+Using `aggregations()` is an also easy way to learn the contents of individual fields and forms the basis for faceted search pages.
 
 ### Filtering
 
@@ -320,24 +358,48 @@ manifest_df = qfiles %>% manifest()
 nrow(manifest_df)
 ```
 
-After writing this data.frame to disk, the GDC Data Transfer Tool can be used (from R or from the command-line) to orchestrate high-performance, restartable transfers of all the files in the manifest.
+The GDC Data Transfer Tool can be used (from R, `transfer()` or from the command-line) to orchestrate high-performance, restartable transfers of all the files in the manifest. See [the bulk downloads section](bulk-downloads) for details.
 
 
 ## Authentication
 
 [[ GDC authentication documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#facets)
 
+The GDC offers both "controlled-access" and "open" data. As of this writing, only data stored as files is "controlled-access"; that is, metadata accessible via the GDC is all "open" data and some files are "open" and some are "controlled-access". Controlled-access data are only available after [going through the process of obtaining access.](https://gdc.cancer.gov/access-data/obtaining-access-controlled-data) 
+
+After controlled-access to one or more datasets has been granted, logging into the GDC web portal will allow you to [access a GDC authentication token](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Authentication/#gdc-authentication-tokens), which can be downloaded and then used to access available controlled-access data via the GenomicDataCommons package.
+
+The GenomicDataCommons uses authentication tokens only for downloading data (see `transfer` and `gdcdata` documentation). The package includes a helper function, `gdc_token`, that looks for the token to be stored in one of three ways (resolved in this order):
+
+1. As a string stored in the environment variable, `GDC_TOKEN`
+2. As a file, stored in the file named by the environment variable, `GDC_TOKEN_FILE`
+3. In a file in the user home directory, called `.gdc_token`
+
+As a concrete example:
+
+```{r authenNoRun, eval=FALSE}
+token = gdc_token()
+transfer(...,token=token)
+# or
+transfer(...,token=get_token())
+```
 
 
 ## Datafile access and download
 
-### Single (or few small) file(s) download
+### Data downloads via the GDC API
+
+The `gdcdata` function takes a character vector of one or more file ids. A simple way of producing such a vector is to produce a `manifest` data frame and then pass in the first column, which will contain file ids. 
 
 ```{r singlefileDL}
 fnames = gdcdata(manifest_df$id[1:2])
 ```
 
+Note that for controlled-access data, a GDC [authentication token](#authentication) is required. Using the `BiocParallel` package may be useful for downloading in parallel, particularly for large numbers of smallish files.
+
 ### Bulk downloads
+
+The bulk download functionality is only efficient (as of v1.2.0 of the GDC Data Transfer Tool) for relatively large files, so use this approach only when transferring BAM files or larger VCF files, for example. Otherwise, consider using the approach shown above, perhaps in parallel.
 
 ```{r bulkDL}
 mfile = tempfile()
@@ -457,7 +519,7 @@ q = files() %>%
                data_type == 'Aligned Reads' &
                experimental_strategy == 'RNA-Seq' &
                data_format == 'BAM')
-file_ids = q %>% GenomicDataCommons::select('file_id') %>% response_all() %>% ids()
+file_ids = q %>% response_all() %>% ids()
 ```
 
 
