@@ -25,7 +25,7 @@ rbindlist2 = function(x,...) {rbindlist(Filter(Negate(is.null),x),...,fill=TRUE)
 #' @examples 
 #' expands = c("diagnoses","diagnoses.treatments","annotations",
 #'             "demographic","exposures")
-#' head(cases() %>% expand(expands) %>% as.data.frame())
+#' head(cases() %>% expand(expands) %>% results() %>% as.data.frame())
 #' 
 #' @export
 as.data.frame.GDCResults <- function(x, row.names, optional, ...) {
