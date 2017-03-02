@@ -31,6 +31,6 @@ how to make rows unique per entity, if that is desired.
 \examples{
 expands = c("diagnoses","diagnoses.treatments","annotations",
             "demographic","exposures")
-head(cases() \%>\% expand(expands) \%>\% as.data.frame())
+head(cases() \%>\% expand(expands) \%>\% results() \%>\% as.data.frame())
 
 }
