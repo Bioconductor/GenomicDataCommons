@@ -37,11 +37,13 @@ home directory}
 If all of these fail, this function will return an error.
 }
 \examples{
-\dontrun{
-token = gdc_token()
-}
+# This will not run before a GDC token
+# is in place.  
+token = try(gdc_token(),silent=TRUE)
+
 
 }
 \references{
 \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Authentication/#gdc-authentication-tokens}
 }
+

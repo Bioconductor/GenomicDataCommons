@@ -7,9 +7,8 @@
 grep_fields(entity, pattern, ..., value = TRUE)
 }
 \arguments{
-\item{entity}{one of "files", "cases", 
-"annotations", "projects" against which
-to gather available fields for matching}
+\item{entity}{one of "files", "cases", "annotations", "projects"
+against which to gather available fields for matching}
 
 \item{pattern}{A regular expression that will be used
 in a call to \code{\link{grep}}}
@@ -19,11 +18,16 @@ in a call to \code{\link{grep}}}
 \item{value}{logical(1) whether to return values as opposed
 to indices (passed along to grep)}
 }
+\value{
+character() vector of field names matching
+    \code{pattern}
+}
 \description{
-This utility function allows quick text-based
-search of available fields for using \code{\link{grep}}
+This utility function allows quick text-based search of available
+fields for using \code{\link{grep}}
 }
 \examples{
 grep_fields('files','analysis')
 
 }
+

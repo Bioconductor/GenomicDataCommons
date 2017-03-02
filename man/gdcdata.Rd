@@ -47,3 +47,4 @@ setNames(file.size(files), names(files))
 \seealso{
 \code{\link{manifest}} for downloading large data.
 }
+

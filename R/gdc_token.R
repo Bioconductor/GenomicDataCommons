@@ -32,9 +32,10 @@
 #' @references \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Authentication/#gdc-authentication-tokens}
 #'
 #' @examples 
-#' \dontrun{
-#' token = gdc_token()
-#' }
+#' # This will not run before a GDC token
+#' # is in place.  
+#' token = try(gdc_token(),silent=TRUE)
+#' 
 #'
 #' @export
 gdc_token <- function() {

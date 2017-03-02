@@ -55,7 +55,6 @@ in the \code{\link{transfer}} command.
 \itemize{
 \item \code{transfer_help}: 
 }}
-
 \examples{
 \donttest{
 file_manifest = files() \%>\% filter(~ access == "open") \%>\% manifest(size=10)
@@ -68,3 +67,4 @@ destination <- transfer(manifest_file,token=gdc_token)
 }
 
 }
+

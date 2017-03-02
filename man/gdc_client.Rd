@@ -26,3 +26,10 @@ The following locations are checked:
 \item{The file name specified in the environment variable \code{GDC_CLIENT}}
 }
 }
+\examples{
+# this cannot run without first
+# downloading the GDC Data Transfer Tool
+gdc_client = try(gdc_client(),silent=TRUE)
+
+}
+

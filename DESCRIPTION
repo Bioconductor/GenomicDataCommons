@@ -20,7 +20,6 @@ Imports:
     jsonlite,
     utils,
     lazyeval,
-    purrr,
     readr,
     shiny,
     miniUI,

@@ -105,12 +105,11 @@ select.GDCQuery <- function(x,fields) {
 
 #' Find matching field names
 #' 
-#' This utility function allows quick text-based
-#' search of available fields for using \code{\link{grep}}
+#' This utility function allows quick text-based search of available
+#' fields for using \code{\link{grep}}
 #' 
-#' @param entity one of "files", "cases", 
-#' "annotations", "projects" against which
-#' to gather available fields for matching
+#' @param entity one of "files", "cases", "annotations", "projects"
+#'     against which to gather available fields for matching
 #' 
 #' @param pattern A regular expression that will be used
 #' in a call to \code{\link{grep}}
@@ -119,6 +118,9 @@ select.GDCQuery <- function(x,fields) {
 #' 
 #' @param value logical(1) whether to return values as opposed
 #' to indices (passed along to grep)
+#'
+#' @return character() vector of field names matching
+#'     \code{pattern}
 #' 
 #' @examples 
 #' grep_fields('files','analysis')
@@ -137,7 +139,8 @@ grep_fields <- function(entity,pattern,...,value=TRUE) {
 #' @param field character(1), a field that is present in the entity record
 #' @param legacy logical(1), use the legacy endpoint or not.
 #' 
-#' @return character vector of the top 100 (or fewer) most frequent values for a the given field
+#' @return character vector of the top 100 (or fewer) most frequent
+#'     values for a the given field
 #' 
 #' @examples 
 #' available_values('files','cases.project.project_id')[1:5]

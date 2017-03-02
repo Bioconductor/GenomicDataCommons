@@ -1,6 +1,29 @@
-#' rbindlist, but with null values allowed
+#' rbindlist that deals with \code{NULL} rows
+#'
+#' This is a simple function that removes \code{null}
+#' values from the input list
+#' before applying \code{\link[data.table]{rbindlist}}.
+#'
+#' @param x a list that is appropriate for input
+#'     to \code{\link[data.table]{rbindlist}}, but
+#'     may include \code{NULL}s, which will be filtered.
+#'
+#' @param ... passed directly to \code{\link[data.table]{rbindlist}}.
+#'
 #' @importFrom data.table rbindlist
-rbindlist2 = function(x,...) {rbindlist(Filter(Negate(is.null),x),...,fill=TRUE)}
+#' 
+#' @return a \code{data.table,data.frame} object.
+#'
+#' @examples
+#' input = list(list(a=1,b=2,d='only this row'),
+#'              NULL,
+#'              list(a=3,b=4))
+#' rbindlist2(input)
+#' 
+#' @export
+rbindlist2 = function(x,...) {
+    rbindlist(Filter(Negate(is.null),x),...,fill=TRUE)
+}
 
 #' Convert GDC results to data.frame
 #'

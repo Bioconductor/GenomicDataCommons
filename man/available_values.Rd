@@ -14,7 +14,8 @@ available_values(entity, field, legacy = FALSE)
 \item{legacy}{logical(1), use the legacy endpoint or not.}
 }
 \value{
-character vector of the top 100 (or fewer) most frequent values for a the given field
+character vector of the top 100 (or fewer) most frequent
+    values for a the given field
 }
 \description{
 Find common values for a GDC field
@@ -23,3 +24,4 @@ Find common values for a GDC field
 available_values('files','cases.project.project_id')[1:5]
 
 }
+

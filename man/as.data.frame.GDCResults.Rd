@@ -41,3 +41,4 @@ expands = c("diagnoses","diagnoses.treatments","annotations",
 head(cases() \%>\% expand(expands) \%>\% results() \%>\% as.data.frame())
 
 }
+

@@ -38,3 +38,4 @@ entity_name(qcases)
 entity_name(qprojects)
 
 }
+

@@ -107,7 +107,9 @@ manifest.GDCcasesResponse <- function(x,from=1,size=count(x),...) {
 #' @param destfile The filename for saving the manifest.
 #'          
 #' @return character(1) the destination file name.
-#'                   
+#'
+#' @importFrom utils write.table
+#' 
 #' @examples 
 #' mf = files() %>% manifest(size=10)
 #' write_manifest(mf)
@@ -139,7 +141,11 @@ write_manifest <- function(manifest,destfile=tempfile()) {
 #' }
 #' 
 #' @return character(1) the path to the gdc-client executable.
-#' 
+#'
+#' @examples
+#' # this cannot run without first
+#' # downloading the GDC Data Transfer Tool
+#' gdc_client = try(gdc_client(),silent=TRUE)
 #' 
 #' @export
 gdc_client <- function() {

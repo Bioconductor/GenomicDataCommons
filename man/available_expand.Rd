@@ -2,8 +2,8 @@
 % Please edit documentation in R/expand.R
 \name{available_expand}
 \alias{available_expand}
-\alias{available_expand.character}
 \alias{available_expand.GDCQuery}
+\alias{available_expand.character}
 \title{Return valid values for "expand"}
 \usage{
 available_expand(entity)
@@ -34,3 +34,4 @@ head(available_expand('files'))
 See \url{https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#expand}
 for details
 }
+

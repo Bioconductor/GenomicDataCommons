@@ -28,10 +28,10 @@ S3 Generic to return all GDC fields
 
 \item \code{character}: character method
 }}
-
 \examples{
 available_fields('projects')
 projQuery = query('projects')
 available_fields(projQuery)
 
 }
+

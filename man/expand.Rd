@@ -25,7 +25,6 @@ S3 generic to set GDCQuery expand parameter
 \itemize{
 \item \code{GDCQuery}: set expand fields on a GDCQuery object
 }}
-
 \examples{
 gProj = projects()
 gProj$fields
@@ -39,3 +38,4 @@ gProj \%>\%
   str(max_level=2)
 
 }
+
