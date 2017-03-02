@@ -550,10 +550,6 @@ file_ids = q %>% filter(~ cases.project.project_id=='TCGA-GBM' &
     ids()
 ```
 
-## Downloading data
-
-** TODO **
-
 ## Slicing 
 
 ### Get all BAM file ids from TCGA-GBM
@@ -571,10 +567,10 @@ file_ids = q %>% response_all() %>% ids()
 ```
 
 
-```{r slicing10}
-# bamfile = slicing(file_ids[1],regions="chr12:6534405-6538375",token=token)
-# library(GenomicAlignments)
-# aligns = readGAlignments(bamfile)
+```{r slicing10, eval=FALSE}
+bamfile = slicing(file_ids[1],regions="chr12:6534405-6538375",token=gdc_token())
+library(GenomicAlignments)
+aligns = readGAlignments(bamfile)
 ```
 
 # sessionInfo()
