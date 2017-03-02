@@ -47,7 +47,7 @@
   Bioconductor.
   
   \textbf{Availability}:
-  https://github.com/Bioconductor/GenomicDataCommons (\& soon in Bioconductor).
+  \url{https://github.com/Bioconductor/GenomicDataCommons} (\& soon in Bioconductor).
 
 \end{abstract}
 
@@ -68,8 +68,7 @@ NCI has developed the Genomic Data Commons (GDC,
 \cite{Grossman2016}). While similar in many respects to other
 large-scale genomics data repositories, the GDC differs in that data
 presented via the GDC have been ``harmonized'' using stardardized,
-publicly-available pipelines
-(\url{https://docs.gdc.cancer.gov/Data/Introduction/}). An additional
+publicly-available pipelines\footnote{See \url{https://docs.gdc.cancer.gov/Data/Introduction/} for details.}. An additional
 and unusual new feature of the GDC relative to most genomic data
 repositories is that users can deposit and then apply GDC standardized
 pipelines to their own genomic data, provided they agree to share
@@ -95,22 +94,21 @@ increase the effiency of drawing biologically important conclusions
 from published cancer genomic data.
 
 \section{Design and Usage}
-The goal of the \Rpkg{GenomicDataCommons} Bioconductor package is to expose
-the RESTful
-(\url{https://en.wikipedia.org/wiki/Representational_state_transfer})
-application programming interface (API,
-\url{https://gdc.cancer.gov/developers/gdc-application-programming-interface-api})
-via an R client interface. The \Rpkg{GenomicDataCommons} package supports
-both the metadata query capabilities and data download capabilities of
-the GDC API. The \Rpkg{GenomicDataCommons} package is implemented as a set of
-S3 classes and methods with accompanying utility functions.
+The goal of the \Rpkg{GenomicDataCommons} Bioconductor package is to
+expose the GDC RESTful application programming interface
+(API\footnote{\url{https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/}})
+via an R client interface. The \Rpkg{GenomicDataCommons} package
+supports both the metadata query capabilities and data download
+capabilities of the GDC API. The \Rpkg{GenomicDataCommons} package is
+implemented as a set of S3 classes and methods with accompanying
+utility functions.
 
-\subsection{Querying GDC metadata and finding GDC data}
+\subsection{Usage}
 
-Finding data in the GDC starts with a query of available metadata. We
-model our R interface for querying GDC metadata on a now-common
-approach, \todo{need to come up with a name for this approach}similar
-in spirit to that used by packages such as
+Finding data in the GDC starts with constructing a query of available
+metadata. We model our R interface for querying GDC metadata on a
+now-common approach, using pipes to connect functional methods,
+similar in spirit to that used by packages such as
 dplyr \parencite{Wickham2016}. Querying the GDC API to get the unique
 file ids of all HTSeq quantified gene expression data from the
 TCGA-GBM project forms an illustrative example:
@@ -121,17 +119,19 @@ file_records = files() %>%
     filter(~ cases.project.project_id == 'TCGA-GBM' &
                data_type == 'Gene Expression Quantification' &
                analysis.workflow_type == 'HTSeq - Counts') %>%
-    select('file_id') %>%
+    select(default_fields('files')) %>%
     response_all()
 @ 
 
 The \code{files()} call creates a \code{GDCquery}. The \code{filter()}
-verb allows using R-like syntax to generate filter criteria; note that
-field names like ``data\_type'' can be used without quotes. The
-\code{select()} verb then sets the return fields, which, in this case
-is limited to just \code{file\_id}. Up to this point, no calls to the
-GDC have occurred and the \code{response\_all()} call performs the
-actual API call, returning a \code{GDCResponse} object.
+verb allows R-like syntax to generate filter criteria (that are then
+translated to an R list); note that field names like ``data\_type''
+can be used as R names by capitalizing on so-called non-standard
+evaluation. The \code{select()} verb then sets the return fields,
+which, in this case are limited to the GDC-specified
+\code{default\_fields}. Up to this point, no data have been retrieved
+from the GDC. The \code{response\_all()} call performs the actual
+metadata retrieval, returning a \code{GDCResponse} object.
 
 The GDC API also supports simple aggregation based on metadata fields,
 such as the number of cases summarized by GDC project.
@@ -140,19 +140,16 @@ such as the number of cases summarized by GDC project.
 cases_by_project = cases() %>% 
     facet('project.project_id') %>%
     aggregations()
+head(cases_by_project)
 @ 
-
-The \code{cases\_by\_project} inherits from an R \code{list} and
-contains one \code{data.frame} for each field named in \code{facet()}.
 
 \subsection{Downloading data}
 
 Downloading single files or multiple small files is supported directly
 from R.  For larger sets of files or single large files, we utilize
-the GDC data transfer tool and ``manifest'' file. To create a manifest
-file from the file records collected above, we simply apply the
-\code{manifest()} verb and write the resulting \code{data.frame} to
-disk.
+the GDC data transfer tool and a ``manifest'' file. As an example, to
+create a manifest from the file records collected above, we
+simply apply the \code{manifest()} verb.
 
 <<createManifest,results='hide'>>=
 manifest_df = file_records %>%
@@ -174,7 +171,8 @@ functionality.
 <<bamslice,results="hide">>=
 # get 10 RNA-seq BAM files
 file_ids = files() %>% 
-    filter(~ data_format=='BAM' & experimental_strategy=='RNA-Seq') %>% 
+    filter(~ data_format=='BAM' & 
+           experimental_strategy=='RNA-Seq') %>% 
     response() %>% 
     ids()
 @ 
@@ -185,12 +183,17 @@ region-based slicing.
 <<slicing,eval=FALSE>>=
 # An access token from the GDC is needed here
 # for the the controlled-access BAM files.
-slicing(file_ids[1], regions = 'chr17:74000000-76000000', token=token)
+bamfile = slicing(file_ids[1], regions = 'chr17:74000000-76000000', 
+        token=gdc_token())
 @ 
+
+The resulting BAM file, with the file name \code{bamfile}, can be
+accessed using any of the standard Bioconductor tools for working with
+aligned reads in BAM format.
 
 \section{Conclusions}
 
-The GDC is the latest iteration of genomic data repositories from the
+The GDC is the latest iteration of a genomic data repository from the
 NCI. While the GDC offers excellent web-based query interfaces and a
 growing number of web-based tools for interacting with data, many
 bioinformatics and genomic data scientists adhere to text-based
