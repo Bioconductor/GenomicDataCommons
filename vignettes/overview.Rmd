@@ -62,53 +62,40 @@ This package design is meant to have some similarities to the "hadleyverse" appr
 2. A set of verbs that when applied, adjust filtering, field selection, and faceting (fields for aggregation) and result in a new query object (an endomorphism)
 3. A set of verbs that take a query and return results from the GDC
 
-In addition, there are exhiliary functions for asking the GDC API for information about available and default fields, slicing BAM files, and downloading actual data files.
+In addition, there are exhiliary functions for asking the GDC API for information about available and default fields, slicing BAM files, and downloading actual data files.  Here is an overview of functionality[^1].
 
 
-+-------------------------------------+-------------------------------------+
-| Basic Operation                     | Applicable Functions or Methods[^1] |
-+=====================================+=====================================+
-| Forming a query                     | - Generic `query()`                 |
-|                                     | - Endpoint-specific convenience functions |
-| - These operations produce a        |     - `projects()`                 |
-| `GDCQuery` class object             |     - `cases()`                    |
-|                                     |     - `files()`                    |
-|                                     |     - `annotations()`              |
-+-------------------------------------+------------------------------------+
-| Manipulating a `GDCQuery` object    | - `filter()`                       |
-|                                     | - `facet()`                        |
-| - filtering                         | - `select()`                       |
-| - adding facets for aggregation     | - `archive()`                      |
-|   (counting)                        |                                    |
-| - selecting return fields           |                                    |
-| - selecting archive ("legacy" or    |                                    |
-|   "default")                        |                                    |
-+-------------------------------------+------------------------------------+
-| Finding fields for filtering        | - `mapping()`                      |
-| and selecting                       | - `available_fields()`             |
-|                                     | - `default_fields()`               |
-+-------------------------------------+------------------------------------+
-| Calling the GDC API to "execute" a  |                                    |
-| `GDCQuery`                          | - `results()`                      |
-| to fetch results                    | - `count()`                        | 
-|                                     | - `response()`                     | 
-+-------------------------------------+------------------------------------+
-| Return aggregations (facets)        | - `aggregations()`                 |
-+-------------------------------------+------------------------------------+
-| Fetch a file manifest for bulk      | - `manifest()`                     |
-| downloading using the               |                                    |
-| GDC Transfer Tool                   |                                    |
-+-------------------------------------+------------------------------------+
-| Downloading data files              | - `gdcdata()`                      |
-|                                     | - `transfer()`                     |
-+-------------------------------------+------------------------------------+
-| BAM slicing                         | - `slicing()`                      |
-+-------------------------------------+------------------------------------+
-
-
-Table: Overview of functionality for querying and retrieving metadata from the NCI Genomic Data Commons.
-
-
+- Creating a query
+    - `projects()`
+    - `cases()`
+    - `files()`
+    - `annotations()`
+- Manipulating a query
+    - `filter()`
+    - `facet()`
+    - `select()`
+- Introspection on the GDC API fields
+    - `mapping()`
+    - `available_fields()`
+    - `default_fields()`
+    - `grep_fields()`
+    - `field_picker()`
+    - `available_values()`
+    - `available_expand()`
+- Executing an API call to retrieve query results
+    - `results()`
+    - `count()`
+    - `response()`
+- Raw data file downloads
+    - `gdcdata()`
+    - `transfer()`
+    - `gdc_client()`
+- Summarizing and aggregating field values (faceting)
+    - `aggregations()`
+- Authentication
+    - `gdc_token()`
+- BAM file slicing
+    - `slicing()`
 
 [^1]: See individual function and methods documentation for specific details.
 
