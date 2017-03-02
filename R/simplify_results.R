@@ -18,6 +18,10 @@ rbindlist2 = function(x,...) {rbindlist(Filter(Negate(is.null),x),...,fill=TRUE)
 #'
 #' @param x a \code{GDCResults} object to be converted to a 
 #'     data.frame.
+#' @param row.names not used here; row.names are calculated
+#'     from the data to maintain data integrity
+#' @param optional not used here; just for matching method call for \code{\link{as.data.frame}}
+#' @param ... not used here; just for matching method call for \code{\link{as.data.frame}}
 #'
 #' @return a data.frame, potentially with list columns still
 #'     present.

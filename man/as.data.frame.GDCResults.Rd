@@ -9,6 +9,13 @@
 \arguments{
 \item{x}{a \code{GDCResults} object to be converted to a 
 data.frame.}
+
+\item{row.names}{not used here; row.names are calculated
+from the data to maintain data integrity}
+
+\item{optional}{not used here; just for matching method call for \code{\link{as.data.frame}}}
+
+\item{...}{not used here; just for matching method call for \code{\link{as.data.frame}}}
 }
 \value{
 a data.frame, potentially with list columns still
