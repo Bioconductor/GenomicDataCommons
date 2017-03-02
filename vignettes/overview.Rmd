@@ -147,8 +147,8 @@ fnames = bplapply(ge_manifest$id,gdcdata,
 expands = c("diagnoses","diagnoses.treatments","annotations",
              "demographic","exposures")
 clinResults = cases() %>% 
-    select(NULL) %>%
-    expand(expands) %>% 
+    GenomicDataCommons::select(NULL) %>%
+    GenomicDataCommons::expand(expands) %>% 
     results()
 ```
 
