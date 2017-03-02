@@ -131,12 +131,20 @@ fnames = bplapply(ge_manifest$id,gdcdata,
 ## Metadata queries
 
 ```{r metadataQS}
-expands = c("diagnoses","diagnoses.treatments","annotations",
+expands = c("diagnoses","annotations",
              "demographic","exposures")
 clinResults = cases() %>% 
     GenomicDataCommons::select(NULL) %>%
     GenomicDataCommons::expand(expands) %>% 
-    results()
+    results(size=50)
+clinDF = as.data.frame(clinResults)
+library(DT)
+datatable(clinDF, extensions = 'Scroller', options = list(
+  deferRender = TRUE,
+  scrollY = 200,
+  scrollX = TRUE,
+  scroller = TRUE
+))
 ```
 
 
@@ -352,14 +360,29 @@ The GDC Data Transfer Tool can be used (from R, `transfer()` or from the command
 
 [[ GDC authentication documentation ]](https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#facets)
 
-The GDC offers both "controlled-access" and "open" data. As of this writing, only data stored as files is "controlled-access"; that is, metadata accessible via the GDC is all "open" data and some files are "open" and some are "controlled-access". Controlled-access data are only available after [going through the process of obtaining access.](https://gdc.cancer.gov/access-data/obtaining-access-controlled-data) 
+The GDC offers both "controlled-access" and "open" data. As of this
+writing, only data stored as files is "controlled-access"; that is,
+metadata accessible via the GDC is all "open" data and some files are
+"open" and some are "controlled-access". Controlled-access data are
+only available
+after
+[going through the process of obtaining access.](https://gdc.cancer.gov/access-data/obtaining-access-controlled-data)
 
-After controlled-access to one or more datasets has been granted, logging into the GDC web portal will allow you to [access a GDC authentication token](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Authentication/#gdc-authentication-tokens), which can be downloaded and then used to access available controlled-access data via the GenomicDataCommons package.
+After controlled-access to one or more datasets has been granted,
+logging into the GDC web portal will allow you
+to
+[access a GDC authentication token](https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Authentication/#gdc-authentication-tokens),
+which can be downloaded and then used to access available
+controlled-access data via the GenomicDataCommons package.
 
-The GenomicDataCommons uses authentication tokens only for downloading data (see `transfer` and `gdcdata` documentation). The package includes a helper function, `gdc_token`, that looks for the token to be stored in one of three ways (resolved in this order):
+The GenomicDataCommons uses authentication tokens only for downloading
+data (see `transfer` and `gdcdata` documentation). The package
+includes a helper function, `gdc_token`, that looks for the token to
+be stored in one of three ways (resolved in this order):
 
 1. As a string stored in the environment variable, `GDC_TOKEN`
-2. As a file, stored in the file named by the environment variable, `GDC_TOKEN_FILE`
+2. As a file, stored in the file named by the environment variable,
+   `GDC_TOKEN_FILE`
 3. In a file in the user home directory, called `.gdc_token`
 
 As a concrete example:
@@ -376,21 +399,33 @@ transfer(...,token=get_token())
 
 ### Data downloads via the GDC API
 
-The `gdcdata` function takes a character vector of one or more file ids. A simple way of producing such a vector is to produce a `manifest` data frame and then pass in the first column, which will contain file ids. 
+The `gdcdata` function takes a character vector of one or more file
+ids. A simple way of producing such a vector is to produce a
+`manifest` data frame and then pass in the first column, which will
+contain file ids.
 
 ```{r singlefileDL}
-fnames = gdcdata(manifest_df$id[1:2])
+fnames = gdcdata(manifest_df$id[1:2],progress=FALSE)
+
 ```
 
-Note that for controlled-access data, a GDC [authentication token](#authentication) is required. Using the `BiocParallel` package may be useful for downloading in parallel, particularly for large numbers of smallish files.
+Note that for controlled-access data, a
+GDC [authentication token](#authentication) is required. Using the
+`BiocParallel` package may be useful for downloading in parallel,
+particularly for large numbers of smallish files.
 
 ### Bulk downloads
 
-The bulk download functionality is only efficient (as of v1.2.0 of the GDC Data Transfer Tool) for relatively large files, so use this approach only when transferring BAM files or larger VCF files, for example. Otherwise, consider using the approach shown above, perhaps in parallel.
+The bulk download functionality is only efficient (as of v1.2.0 of the
+GDC Data Transfer Tool) for relatively large files, so use this
+approach only when transferring BAM files or larger VCF files, for
+example. Otherwise, consider using the approach shown above, perhaps
+in parallel.
 
 ```{r bulkDL}
 mfile = tempfile()
-write.table(manifest_df[1:50,],mfile,col.names=TRUE, row.names=FALSE, quote=FALSE,sep="\t")
+write.table(manifest_df[1:50,],mfile,
+            col.names=TRUE, row.names=FALSE, quote=FALSE,sep="\t")
 transfer(mfile,gdc_client='gdc-client')
 ```
 

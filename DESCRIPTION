@@ -3,8 +3,8 @@ Type: Package
 Title: NIH / NCI Genomic Data Commons Access
 Description: Programmatically access the NIH / NCI Genomic Data
     Commons RESTful service.
-Version: 0.99.7
-Date: 2017-02-26
+Version: 0.99.8
+Date: 2017-03-02
 Authors@R: c(
     person("Martin", "Morgan", email="martin.morgan@roswellpark.org",
         role=c("aut")),
@@ -34,8 +34,7 @@ Suggests:
     ggplot2,
     GenomicAlignments,
     Rsamtools
-biocViews:
-    DataImport,
+biocViews: DataImport,
     Sequencing
 BugReport: https://github.com/Bioconductor/GenomicDataCommons/issues/new
 VignetteBuilder: knitr
