@@ -225,7 +225,7 @@ resp = files() %>%
     filter(~data_format=='MAF' & access=='open') %>%
     response() 
 # get the file_ids from the response
-file_ids = resp %>% results() %>% purrr::map_chr('file_id')
+file_ids = ids(resp)
 # download the files specified by file_id
 fpaths = gdcdata(file_ids,progress=FALSE)
 basename(fpaths)
@@ -238,7 +238,7 @@ allows for download restarts if necessary. After finding the UUIDs of a set of i
 files:
 
 ```{r}
-a = files(filters=make_filter('data_format'=='MAF' & 'access'=='open'))
+resp = files() %>% filter(~ data_format == 'MAF' & access =='open')
 ```
 
 we create a "manifest file".

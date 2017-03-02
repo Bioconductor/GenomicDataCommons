@@ -15,3 +15,9 @@ test_that("manifest files", {
     expect_equal(ncol(m),5)
 })
 
+test_that("write_manifest", {
+    m = files() %>% manifest(size=10)
+    tf = tempfile()
+    write_manifest(m, tf)
+    expect_true(file.exists(tf))
+})

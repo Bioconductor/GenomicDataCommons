@@ -13,7 +13,7 @@ available_fields(x)
 \method{available_fields}{character}(x)
 }
 \arguments{
-\item{x}{A character string ('cases','files','projects',
+\item{x}{A character(1) string ('cases','files','projects',
 'annotations') or an subclass of \code{\link{GDCQuery}}.}
 }
 \value{

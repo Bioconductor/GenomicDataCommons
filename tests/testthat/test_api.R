@@ -55,8 +55,8 @@ test_that("annotations", {
 test_that("mapping", {
     res = mapping('files')
     expect_equal(class(res),'data.frame')
-    expect_equal(ncol(res), 9)
-    expect_equal(colnames(res),c('field','description','doc_type','full','type','defaults','expand','multi','nested'))
+    expect_equal(ncol(res), 6)
+    expect_equal(colnames(res),c('field','description','doc_type','full','type','defaults'))
 })
 
 test_that("projects", {

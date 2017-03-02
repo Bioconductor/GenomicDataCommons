@@ -6,6 +6,8 @@
 #' @param from integer index from which to start returning data
 #' @param size number of records to return
 #' @param ... passed to httr (good for passing config info, etc.)
+#' @param response_handler a function that processes JSON (as text)
+#' and returns an R object.  Default is \code{\link[jsonlite]{fromJSON}}.
 #' 
 #' @rdname response
 #'
@@ -18,7 +20,7 @@
 #' \item{pages}
 #' }
 #' 
-#'
+#' 
 #' @examples
 #'
 #' # basic class stuff
@@ -40,6 +42,16 @@ response = function(x,...) {
 #' @param x a \code{\link{GDCQuery}} object
 #' @param ... passed to httr (good for passing config info, etc.)
 #'
+#' @return integer(1) representing the count of records that will
+#'  be returned by the current query
+#' 
+#' @examples
+#' # total number of projects
+#' projects() %>% count()
+#'
+#' # total number of cases
+#' cases() %>% count()
+#' 
 #' @export
 count = function(x,...) {
     UseMethod('count',x)
@@ -58,31 +70,52 @@ count.GDCQuery = function(x,...) {
 #' @export
 count.GDCResponse = function(x,...) {
     x$pages$total
-}    
+}
+
+
+#' prepare "results" for return
+#'
+#' In particular, this function sets
+#' entity_ids for every element so that
+#' one does not loose track of the relationships
+#' given the nested nature of GDC returns
+#' 
+.prepareResults <- function(res,idfield) {
+    for(i in names(res)) {
+        if(inherits(res[[i]],'data.frame'))
+            rownames(res[[i]]) = res[[idfield]]
+        else
+            names(res[[i]]) = res[[idfield]]}
+    return(res)
+}
 
 #' @rdname response
 #' 
 #' @importFrom magrittr %>%
-#' @importFrom magrittr extract
-#' @importFrom purrr map map_df
-#'
+#' @importFrom jsonlite fromJSON
 #' 
 #' @export
-response.GDCQuery = function(x,from=1,size=10,...) {
+response.GDCQuery = function(x, from = 1, size = 10, ...,
+                             response_handler = jsonlite::fromJSON) {
     body = Filter(function(z) !is.null(z),x)
     body[['facets']]=paste0(body[['facets']],collapse=",")
     body[['fields']]=paste0(body[['fields']],collapse=",")
+    body[['expand']]=paste0(body[['expand']],collapse=",")
     body[['from']]=from
     body[['size']]=size
     body[['format']]='JSON'
     body[['pretty']]='FALSE'
-    tmp = httr::content(.gdc_post(entity_name(x),body=body,archive=x$archive,token=NULL,...))
+    tmp = response_handler(httr::content(.gdc_post(entity_name(x),body=body,
+                                                    legacy=x$legacy,token=NULL,...),
+                                         as="text", encoding = "UTF-8"))
+    res = tmp$data$hits
+    idfield = paste0(sub('s$','',entity_name(x)),'_id')
+    ## the following code just sets names on the 
     structure(
-        list(results = tmp$data$hits,
+        list(results = .prepareResults(res,idfield),
              query   = x,
              pages   = tmp$data$pagination,
-             aggregations = lapply(tmp$data$aggregations,function(x) {x$buckets %>% purrr::map_df(extract,c('key','doc_count'))})
-             ),
+             aggregations = lapply(tmp$data$aggregations,function(x) {x$buckets})),
         class = c(paste0('GDC',entity_name(x),'Response'),'GDCResponse','list')
     )
 }
@@ -99,6 +132,16 @@ response_all = function(x,...) {
 #' aggregations
 #'
 #' @param x a \code{\link{GDCQuery}} object
+#'
+#' @return a \code{list} of \code{data.frame} with one
+#' member for each requested facet. The data frames
+#' each have two columns, key and doc_count.
+#' 
+#' @examples
+#' # Number of each file type
+#' res = files() %>% facet(c('type','data_type')) %>% aggregations()
+#' res$type
+#'
 #'
 #' 
 #' @export
@@ -129,16 +172,30 @@ aggregations.GDCResponse = function(x) {
 #' results
 #'
 #' @param x a \code{\link{GDCQuery}} object
-#'
+#' @param ... passed on to \code{\link{response}}
 #' 
+#' @return A (typically nested) \code{list} of GDC records
+#' 
+#' @examples
+#' qcases = cases() %>% results()
+#' length(qcases)
+#'
 #' @export
-results = function(x) {
+results = function(x,...) {
     UseMethod('results',x)
 }
 
 #' results_all
 #'
 #' @param x a \code{\link{GDCQuery}} object
+#'
+#' @return A (typically nested) \code{list} of GDC records
+#' 
+#' @examples
+#' # details of all available projects
+#' projResults = projects() %>% results_all()
+#' length(projResults)
+#' count(projects())
 #'
 #' 
 #' @export
@@ -151,8 +208,8 @@ results_all = function(x) {
 #'
 #'
 #' @export
-results.GDCQuery = function(x) {
-    results(response(x))
+results.GDCQuery = function(x,...) {
+    results(response(x,...))
 }
 
 #' @describeIn results_all
@@ -167,7 +224,7 @@ results_all.GDCQuery = function(x) {
 #'
 #'
 #' @export
-results.GDCResponse = function(x) {
+results.GDCResponse = function(x,...) {
     structure(
         x$results,
         class=c(sub('Response','Results',class(x)))

@@ -20,6 +20,10 @@ will be used for forming aggregations (facets).
 Default is to set facets for all default fields.
 See \code{\link{default_fields}} for details}
 }
+\value{
+returns a \code{\link{GDCQuery}} object,
+with facets field updated.
+}
 \description{
 Set facets for a \code{\link{GDCQuery}}
 

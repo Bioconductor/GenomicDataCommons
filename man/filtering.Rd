@@ -20,9 +20,14 @@ get_filter(x)
 \item{x}{the object on which to set the filter list
 member}
 
-\item{expr}{a filter expression, where bare names
+\item{expr}{a filter expression in the form of
+the right hand side of a formula, where bare names
 (without quotes) are allowed if they are available
-fields associated with the \code{x}}
+fields associated with the GDCQuery object, \code{x}}
+}
+\value{
+A \code{\link{GDCQuery}} object with the filter
+field replaced by specified filter expression
 }
 \description{
 Manipulating GDCQuery filters

@@ -15,6 +15,11 @@ aggregations(x)
 \arguments{
 \item{x}{a \code{\link{GDCQuery}} object}
 }
+\value{
+a \code{list} of \code{data.frame} with one
+member for each requested facet. The data frames
+each have two columns, key and doc_count.
+}
 \description{
 aggregations
 }
@@ -24,4 +29,12 @@ aggregations
 
 \item \code{GDCResponse}: 
 }}
+\examples{
+# Number of each file type
+res = files() \%>\% facet(c('type','data_type')) \%>\% aggregations()
+res$type
+
+
+
+}
 

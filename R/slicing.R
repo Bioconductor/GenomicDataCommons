@@ -28,22 +28,23 @@
 #'     usually required. See
 #'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
 #'
-#' @param archive character(1) label for either the "default" archive or the "legacy"
-#'     archive, containing older, non-harmonized data.
+#' @param legacy logical(1) whether or not to use the "legacy"
+#'     archive, containing older, non-harmonized data. 
 #' 
 #' @return character(1) destination to the downloaded BAM file
 #'
 #' @importFrom httr progress
+#' @importFrom jsonlite toJSON
 #' 
 #' @examples
 #' \donttest{
 #' slicing("df80679e-c4d3-487b-934c-fcc782e5d46e",
 #'         regions="chr17:75000000-76000000",
-#'         token=token)
+#'         token=gdc_token())
 #' }
 #' @export
 slicing <- function(uuid, regions, symbols, destination=tempfile(),
-                    overwrite=FALSE, progress=interactive(), token=NULL, archive = 'default')
+                    overwrite=FALSE, progress=interactive(), token=NULL, legacy = FALSE)
 {
     stopifnot(is.character(uuid), length(uuid) == 1L)
     stopifnot(missing(regions) || missing(symbols),
@@ -56,15 +57,14 @@ slicing <- function(uuid, regions, symbols, destination=tempfile(),
         body <- list(gencode=I(symbols))
     else
         ## FIXME: validate regions
-        body <- list(regions=I(regions))
-    print(toJSON(body))
+        body <- list(regions=unbox(regions))
 
     response <- .gdc_post(
-        endpoint=sprintf("slicing/view/%s", uuid),
+        endpoint=sprintf("legacy/slicing/view/%s", uuid),
         add_headers('Content-type'='application/json'),
         write_disk(destination, overwrite),
         if (progress) progress() else NULL,
-        body=toJSON(body), token=token, archive = archive)
+        body=toJSON(body), token=token, legacy = legacy)
     if (progress)
         cat("\n")
 

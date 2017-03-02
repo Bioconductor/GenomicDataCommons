@@ -9,7 +9,8 @@
 \usage{
 response(x, ...)
 
-\method{response}{GDCQuery}(x, from = 1, size = 10, ...)
+\method{response}{GDCQuery}(x, from = 1, size = 10, ...,
+  response_handler = jsonlite::fromJSON)
 
 response_all(x, ...)
 }
@@ -21,6 +22,9 @@ response_all(x, ...)
 \item{from}{integer index from which to start returning data}
 
 \item{size}{number of records to return}
+
+\item{response_handler}{a function that processes JSON (as text)
+and returns an R object.  Default is \code{\link[jsonlite]{fromJSON}}.}
 }
 \value{
 A \code{GDCResponse} object which is a list with the following

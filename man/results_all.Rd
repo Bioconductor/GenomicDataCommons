@@ -15,6 +15,9 @@ results_all(x)
 \arguments{
 \item{x}{a \code{\link{GDCQuery}} object}
 }
+\value{
+A (typically nested) \code{list} of GDC records
+}
 \description{
 results_all
 }
@@ -24,4 +27,12 @@ results_all
 
 \item \code{GDCResponse}: 
 }}
+\examples{
+# details of all available projects
+projResults = projects() \%>\% results_all()
+length(projResults)
+count(projects())
+
+
+}
 
