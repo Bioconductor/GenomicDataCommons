@@ -83,6 +83,21 @@ biocLite('Bioconductor/GenomicDataCommons')
 library(GenomicDataCommons)
 ```
 
+## Check basic functionality
+
+```{r statusQS}
+GenomicDataCommons::status()
+```
+
+If this statement results in an error such as `SSL connect error`, you may need to 
+tell `httr` to ignore ssl verification or update your system SSL library and then
+reinstall `RCurl` and `httr`. To disable SSL verification (not the preferred route, 
+but it is the quickest approach):
+
+```{r nosslsetQS,eval=FALSE}
+httr::set_config(httr::config(ssl_verifypeer=0L))
+```
+
 ## Find data
 
 The following code builds a `manifest` that can be used to guide the
