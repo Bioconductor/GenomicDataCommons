@@ -36,6 +36,6 @@ Suggests:
     Rsamtools
 biocViews: DataImport,
     Sequencing
-BugReport: https://github.com/Bioconductor/GenomicDataCommons/issues/new
+BugReports: https://github.com/Bioconductor/GenomicDataCommons/issues/new
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
