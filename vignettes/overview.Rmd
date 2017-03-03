@@ -68,6 +68,9 @@ of
 
 # Quickstart
 
+This software is in development and will *likely change in response to user feedback*. To report bugs or problems, either
+[submit a new issue](https://github.com/Bioconductor/GenomicDataCommons/issues) or submit a `bug.report(package='GenomicDataCommons')` from within R (which will redirect you to the new issue on GitHub).
+
 ## Installation
 
 Installation is available from GitHub as of now. 
