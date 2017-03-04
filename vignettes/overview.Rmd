@@ -92,14 +92,7 @@ library(GenomicDataCommons)
 GenomicDataCommons::status()
 ```
 
-If this statement results in an error such as `SSL connect error`, you may need to 
-tell `httr` to ignore ssl verification or update your system SSL library and then
-reinstall `RCurl` and `httr`. To disable SSL verification (not the preferred route, 
-but it is the quickest approach):
-
-```{r nosslsetQS,eval=FALSE}
-httr::set_config(httr::config(ssl_verifypeer=0L))
-```
+If this statement results in an error such as `SSL connect error`, see [the troubleshooting section below](#ssl-connection-errors).
 
 ## Find data
 
@@ -590,6 +583,21 @@ bamfile = slicing(file_ids[1],regions="chr12:6534405-6538375",token=gdc_token())
 library(GenomicAlignments)
 aligns = readGAlignments(bamfile)
 ```
+
+# Troubleshooting
+
+## SSL connection errors
+
+* Symptom: Trying to connect to the API results in:
+```
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+SSL connect error
+```
+* Solution: The [issue
+is that the GDC supports only recent security Transport Layer Security (TLS)](http://stackoverflow.com/a/42599546/459633),
+so the only known fix is to upgrade the system `openssl` to version
+1.0.1 or later. [[Mac OS]](http://stackoverflow.com/questions/15185661/update-openssl-on-os-x-with-homebrew), [[Ubuntu]](http://askubuntu.com/a/434245), and [[Centos/RHEL]](https://www.liquidweb.com/kb/update-and-patch-openssl-for-the-ccs-injection-vulnerability/).  After upgrading `openssl`, reinstall the R `curl` and `httr` packages.
+
 
 # sessionInfo()
 
