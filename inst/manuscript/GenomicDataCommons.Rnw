@@ -1,11 +1,18 @@
 \documentclass{article}
-\usepackage{hyperref}
+\usepackage{color}
+\definecolor{BiocBlue}{RGB}{24,129,194}
+\usepackage[
+  colorlinks, linkcolor=BiocBlue, citecolor=BiocBlue,
+  anchorcolor=BiocBlue, urlcolor=BiocBlue
+]{hyperref}
 \usepackage{todonotes}
 \usepackage[margin=1in]{geometry}
-\usepackage[maxbibnames=99,backend=biber,citestyle=authoryear,sorting=ydnt]{biblatex}
+\usepackage[
+  maxbibnames=99,backend=biber,citestyle=authoryear,sorting=ydnt
+]{biblatex}
 \def\Rpkg#1{\textit{#1}}
 \addbibresource{gdcCitations.bib}
-\title{\Rpkg{GenomicDataCommons}: a Bioconductor Interface to the NCI Genomic Data Commons}
+\title{\Biocpkg{GenomicDataCommons}: a Bioconductor Interface to the NCI Genomic Data Commons}
 \author{Martin T. Morgan\thanks{martin.morgan@roswellpark.org}\\
 	Roswell Park Cancer Institute \\
 	\and 
@@ -20,7 +27,12 @@
 
 \def\code#1{\texttt{#1}}
 
-
+\newcommand{\Bioconductor}{\emph{Bioconductor}}
+\newcommand{\R}{\emph{R}}
+\newcommand\Biocpkg[1]{
+  {\href{http://bioconductor.org/packages/#1}%
+  {\emph{#1}}}}
+\newcommand{\GDC}{\Biocpkg{GenomicDataCommons}}
 
 \begin{document}
 
@@ -28,26 +40,25 @@
 
 
 \begin{abstract}
-  The National Cancer Institute (NCI) has established the Genomic Data
-  Commons (\cite{Grossman2016}, \url{https://gdc.cancer.gov/}). The
-  GDC provides the cancer research community with an open and unified
-  repository for sharing and accessing data across numerous cancer
-  studies and projects via a high-performance data transfer and query
-  infrastructure.  The Bioconductor project \parencite{Huber2015} is
-  an open source and open development software project built on the R
-  statistical programming environment \parencite{RCoreTeam2016}.  A
-  major goal of the Bioconductor project is to facilitate the use,
-  analysis, and comprehension of genomic data.  The \Rpkg{GenomicDataCommons}
-  Bioconductor package provides basic infrastructure for querying,
+  The National Cancer Institute (NCI) Genomic Data Commons
+  (\cite{Grossman2016}, \url{https://gdc.cancer.gov/}) provides the
+  cancer research community with an open and unified repository for
+  sharing and accessing data across numerous cancer studies and
+  projects via a high-performance data transfer and query
+  infrastructure.  The \Bioconductor{} project \parencite{Huber2015}
+  is an open source and open development software project built on the
+  \R{} statistical programming environment \parencite{RCoreTeam2016}.
+  A major goal of the \Bioconductor{} project is to facilitate the
+  use, analysis, and comprehension of genomic data.  The \GDC{}
+  \Bioconductor{} package provides basic infrastructure for querying,
   accessing, and mining genomic datasets available from the GDC. We
-  expect that the Bioconductor developer and the larger bioinformatics
-  community will build on the \Rpkg{GenomicDataCommons} package to add
-  higher-level functionality and expose cancer genomics data to the
-  plethora of state-of-the-art bioinformatics methods available in
-  Bioconductor.
+  expect that \Bioconductor{} developer and bioinformatics community
+  will build on the \GDC{} package to add higher-level functionality
+  and expose cancer genomics data to many state-of-the-art
+  bioinformatics methods available in \Bioconductor{}.
   
   \textbf{Availability}:
-  \url{https://github.com/Bioconductor/GenomicDataCommons} (\& soon in Bioconductor).
+  \url{https://github.com/Bioconductor/GenomicDataCommons} (\& soon in \Bioconductor{}).
 
 \end{abstract}
 
@@ -56,86 +67,87 @@
 <<init,results='hide',echo=FALSE>>=
 library(knitr)
 opts_chunk$set(warning=FALSE,message=FALSE,results='hide')
+suppressPackageStartupMessages({
+    library(GenomicDataCommons)
+})
 @ 
 
-Basic and translational cancer research projects--from large,
-multicenter consortia to individual labs--now often produce vast
+Basic and translational cancer research projects -- from large,
+multicenter consortia to individual labs -- now produce vast
 quantities of genomic data. Such datasets are ideally accompanied by
 extensive phenotypic and clinical information and valuable
 experimental metadata. To address the needs of the cancer community to
 access, query, and utilize these cancer-related data resources, the
 NCI has developed the Genomic Data Commons (GDC,
-\cite{Grossman2016}). While similar in many respects to other
-large-scale genomics data repositories, the GDC differs in that data
-presented via the GDC have been ``harmonized'' using stardardized,
-publicly-available pipelines\footnote{See \url{https://docs.gdc.cancer.gov/Data/Introduction/} for details.}. An additional
-and unusual new feature of the GDC relative to most genomic data
-repositories is that users can deposit and then apply GDC standardized
-pipelines to their own genomic data, provided they agree to share
-their data broadly (subject to data use agreements and participant
-consents).
+\cite{Grossman2016}). The GDC is similar to other large-scale genomics
+data repositories, while in addtion providing data that have been
+`harmonized' using stardard, publicly-available pipelines\footnote{See
+  \url{https://docs.gdc.cancer.gov/Data/Introduction/} for
+  details.}. An additional and unusual feature of the GDC is that
+users can deposit and then apply standard GDC pipelines to their own
+genomic data.
 
-The Bioconductor project is an open source and open development
+The \Bioconductor{} project is an open source and open development
 software project for the analysis and comprehension of genomic and
 molecular biology data \parencite{Huber2015}. Based in the statistical
-programming language, R \parencite{RCoreTeam2016}, the project
+programming language, \R{} \parencite{RCoreTeam2016}, the project
 comprises 1296 interoperable software packages contributed by a
-diverse community of scientists. Bioconductor tools to access cancer
-genomics data, including RTCGA \parencite{Kosinski2016},
-TCGABiolinks \parencite{Colaprico2016},
-RTCGAToolbox \parencite{Samur2014} facilitate access to cancer
-genomics data, but they are focused, by-and-large on TCGA data and in
-some cases rely on legacy data sharing platforms. The
-\Rpkg{GenomicDataCommons} software package provides infrastructure for
-finding, accessing, and downloading cancer genomics data from the NCI
-GDC. Our expectation is that the \Rpkg{GenomicDataCommons} package will
-facilitate use of GDC data by the larger Bioconductor community and
-increase the effiency of drawing biologically important conclusions
-from published cancer genomic data.
+diverse community of scientists. Several \Bioconductor{} provide
+access to cancer genomics data (e.g., \Biocpkg{RTCGA}
+\parencite{Kosinski2016}, \Biocpkg{TCGABiolinks}
+\parencite{Colaprico2016}, \Biocpkg{RTCGAToolbox}
+\parencite{Samur2014}) but they are focused, primarily, on TCGA data
+and, in some cases, rely on legacy data sharing platforms. The \GDC{}
+software package provides infrastructure for finding, accessing, and
+downloading cancer genomics data from the NCI GDC. Our expectation is
+that the \GDC{} package will facilitate use of GDC data by the larger
+\Bioconductor{} community and increase the effiency of drawing
+biologically important conclusions from published cancer genomic data.
 
 \section{Design and Usage}
-The goal of the \Rpkg{GenomicDataCommons} Bioconductor package is to
-expose the GDC RESTful application programming interface
+
+The goal of the \GDC{} \Bioconductor{} package is to expose the GDC
+RESTful application programming interface
 (API\footnote{\url{https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/}})
-via an R client interface. The \Rpkg{GenomicDataCommons} package
-supports both the metadata query capabilities and data download
-capabilities of the GDC API. The \Rpkg{GenomicDataCommons} package is
-implemented as a set of S3 classes and methods with accompanying
-utility functions.
+to \Bioconductor{} users via an \R{} client interface. The \GDC{}
+package supports both the metadata query and data download
+capabilities of the GDC API. The \GDC{} package is implemented as a
+set of S3 classes and methods with accompanying utility functions.
 
 \subsection{Usage}
 
 Finding data in the GDC starts with constructing a query of available
-metadata. We model our R interface for querying GDC metadata on a
-now-common approach, using pipes to connect functional methods,
-similar in spirit to that used by packages such as
-dplyr \parencite{Wickham2016}. Querying the GDC API to get the unique
-file ids of all HTSeq quantified gene expression data from the
-TCGA-GBM project forms an illustrative example:
-
+metadata. We model our \R{} interface for querying GDC metadata on a
+common approach, using pipes to connect functional methods. This is
+similar to the approach used by popular packages such as \Rpkg{dplyr}
+\parencite{Wickham2016}. Querying the GDC API to get the unique file
+ids of all HTSeq-quantified gene expression data from the TCGA-GBM
+project forms an illustrative example:
+%%
 <<metaquery1,results='hide'>>=
 library(GenomicDataCommons)
 file_records = files() %>% 
     filter(~ cases.project.project_id == 'TCGA-GBM' &
-               data_type == 'Gene Expression Quantification' &
-               analysis.workflow_type == 'HTSeq - Counts') %>%
-    select(default_fields('files')) %>%
-    response_all()
+        data_type == 'Gene Expression Quantification' &
+        analysis.workflow_type == 'HTSeq - Counts'
+    ) %>% 
+        select(default_fields('files')) %>%
+        response_all()
 @ 
 
 The \code{files()} call creates a \code{GDCquery}. The \code{filter()}
-verb allows R-like syntax to generate filter criteria (that are then
-translated to an R list); note that field names like ``data\_type''
-can be used as R names by capitalizing on so-called non-standard
-evaluation. The \code{select()} verb then sets the return fields,
-which, in this case are limited to the GDC-specified
-\code{default\_fields}. Up to this point, no data have been retrieved
-from the GDC. The \code{response\_all()} call performs the actual
-metadata retrieval, returning a \code{GDCResponse} object.
+verb allows \R-like syntax to generate filter criteria (that are then
+translated to an \R{} list); note that field names like ``data\_type''
+can be used as \R{} names using `non-standard' evaluation. The
+\code{select()} verb then sets the return fields, which, in this case
+are limited to the GDC-specified \code{default\_fields}. Up to this
+point, no data have been retrieved from the GDC. The
+\code{response\_all()} call performs the actual metadata retrieval,
+returning a \code{GDCResponse} object.
 
 The GDC API also supports simple aggregation based on metadata fields,
 such as the number of cases summarized by GDC project.
-
+%%
 <<agg,results='hide'>>=
 cases_by_project = cases() %>% 
     facet('project.project_id') %>%
@@ -146,69 +158,69 @@ head(cases_by_project)
 \subsection{Downloading data}
 
 Downloading single files or multiple small files is supported directly
-from R.  For larger sets of files or single large files, we utilize
-the GDC data transfer tool and a ``manifest'' file. As an example, to
-create a manifest from the file records collected above, we
-simply apply the \code{manifest()} verb.
+from \R.  For larger sets of files or single large files, we use the
+GDC data transfer tool and a `manifest' file. As an example, to create
+a manifest from the file records collected above, we use the
+\code{manifest()} verb.
 
 <<createManifest,results='hide'>>=
-manifest_df = file_records %>%
-    manifest()
+manifest_df = file_records %>% manifest()
 @ 
 
-Once written to a file, the \code{transfer()} function will utilize
-the GDC transfer client (a separate command-line tool) to perform
-robust, performant download of the data.
+The \code{transfer()} function will use the GDC transfer client (a
+separate command-line tool) to perform robust, performant download of
+the data.
 
 \subsection{BAM file slicing}
 
-The BAM file is the current standard for storing aligned reads against
+The BAM file is the current standard for storing reads aligned against
 a reference. Many use cases for these alignments require only a
-particular genomic region rather than all alignments.  BAM ``slicing''
-is implemented as a very basic wrapper upon which developers can build
+particular genomic region rather than all alignments.  BAM `slicing'
+is implemented as a basic wrapper upon which developers can build
 functionality.
-
+%% 
 <<bamslice,results="hide">>=
 # get 10 RNA-seq BAM files
 file_ids = files() %>% 
-    filter(~ data_format=='BAM' & 
-           experimental_strategy=='RNA-Seq') %>% 
-    response() %>% 
-    ids()
+    filter(
+       ~ data_format=='BAM' & experimental_strategy=='RNA-Seq'
+    ) %>% response() %>% ids()
 @ 
-
+%%
 The file ids, all associated with aligned BAM files, can be used for
 region-based slicing.
-
+%%
 <<slicing,eval=FALSE>>=
 # An access token from the GDC is needed here
 # for the the controlled-access BAM files.
-bamfile = slicing(file_ids[1], regions = 'chr17:74000000-76000000', 
-        token=gdc_token())
+bamfile = slicing(
+    file_ids[1], regions = 'chr17:74000000-76000000', token=gdc_token()
+)
 @ 
-
+%%
 The resulting BAM file, with the file name \code{bamfile}, can be
-accessed using any of the standard Bioconductor tools for working with
-aligned reads in BAM format.
+accessed using any of the standard \Bioconductor{} tools for working with
+aligned reads in BAM format (see, e.g., \Biocpkg{GenomicAlignments}).
 
 \section{Conclusions}
 
 The GDC is the latest iteration of a genomic data repository from the
-NCI. While the GDC offers excellent web-based query interfaces and a
-growing number of web-based tools for interacting with data, many
-bioinformatics and genomic data scientists adhere to text-based
-analysis tools, version control, and principles of reproducible
-computational research \parencite{Sandve2013}. The Bioconductor
-project enjoys a large, innovative community of such researchers and
-software developers, many of whom focus on cancer research. The
-reproducibility, interoperability, usability, sustainability, and
-continuous integration that are intrinsic to Bioconductor, combined
-with a plethora of existing tools, have produced a multiplier effect
-for software contributed to the project, making it an excellent
-environment for cancer genomic data science. The \Rpkg{GenomicDataCommons}
-package forms the foundation to build and rapidly iterate on
-innovative tools for the analysis and comprehension of cancer genomics
-datasets available at the NCI GDC.
+NCI. The GDC offers excellent web-based query interfaces and a growing
+number of web-based tools for interacting with data. The \GDC{}
+package provides bioinformatics and genomic data scientists with
+programmatic tools that enable statistical analysis, version control,
+and principles of reproducible computational research
+\parencite{Sandve2013}. The availability of \GDC{} in \Bioconductor{}
+proides a large, innovative community of researchers and software
+developers, many of whom focus on cancer research, ready access to the
+rich data resources of the GDC. The reproducibility, interoperability,
+usability, sustainability, and continuous integration that are
+intrinsic to \Bioconductor{}, combined with a plethora of existing
+tools, have produced a multiplier effect for software contributed to
+the project, making it an excellent environment for cancer genomic
+data science. The \GDC{} package forms the foundation to build and
+rapidly iterate on innovative tools for the analysis and comprehension
+of cancer genomics datasets available at the NCI GDC.
 
 
 \printbibliography
