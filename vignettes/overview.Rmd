@@ -593,10 +593,14 @@ aligns = readGAlignments(bamfile)
 Error in curl::curl_fetch_memory(url, handle = handle) : 
 SSL connect error
 ```
-* Solution: The [issue
+* Possible solutions: The [issue
 is that the GDC supports only recent security Transport Layer Security (TLS)](http://stackoverflow.com/a/42599546/459633),
 so the only known fix is to upgrade the system `openssl` to version
-1.0.1 or later. [[Mac OS]](http://stackoverflow.com/questions/15185661/update-openssl-on-os-x-with-homebrew), [[Ubuntu]](http://askubuntu.com/a/434245), and [[Centos/RHEL]](https://www.liquidweb.com/kb/update-and-patch-openssl-for-the-ccs-injection-vulnerability/).  After upgrading `openssl`, reinstall the R `curl` and `httr` packages.
+1.0.1 or later. 
+    * [[Mac OS]](https://github.com/Bioconductor/GenomicDataCommons/issues/35#issuecomment-284233510), 
+    * [[Ubuntu]](http://askubuntu.com/a/434245)
+    * [[Centos/RHEL]](https://www.liquidweb.com/kb/update-and-patch-openssl-for-the-ccs-injection-vulnerability/).  
+    After upgrading `openssl`, reinstall the R `curl` and `httr` packages.
 
 
 # sessionInfo()
