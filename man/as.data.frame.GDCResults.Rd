@@ -4,7 +4,7 @@
 \alias{as.data.frame.GDCResults}
 \title{Convert GDC results to data.frame}
 \usage{
-\method{as.data.frame}{GDCResults}(x, row.names, optional, ...)
+as.data.frame.GDCResults(x, row.names, optional, ...)
 }
 \arguments{
 \item{x}{a \code{GDCResults} object to be converted to a 
@@ -41,4 +41,3 @@ expands = c("diagnoses","diagnoses.treatments","annotations",
 head(cases() \%>\% expand(expands) \%>\% results() \%>\% as.data.frame())
 
 }
-

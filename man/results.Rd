@@ -29,9 +29,9 @@ results
 
 \item \code{GDCResponse}: 
 }}
+
 \examples{
 qcases = cases() \%>\% results()
 length(qcases)
 
 }
-

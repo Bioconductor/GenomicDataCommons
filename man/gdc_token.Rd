@@ -46,4 +46,3 @@ token = try(gdc_token(),silent=TRUE)
 \references{
 \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Authentication/#gdc-authentication-tokens}
 }
-

@@ -2,10 +2,10 @@
 % Please edit documentation in R/manifest.R
 \name{manifest}
 \alias{manifest}
-\alias{manifest.GDCcasesResponse}
-\alias{manifest.GDCfilesResponse}
-\alias{manifest.gdc_cases}
 \alias{manifest.gdc_files}
+\alias{manifest.gdc_cases}
+\alias{manifest.GDCfilesResponse}
+\alias{manifest.GDCcasesResponse}
 \title{Prepare GDC manifest file for bulk download}
 \usage{
 manifest(x, from = 1, size = count(x), ...)
@@ -54,6 +54,7 @@ that contain file information ("cases" and "files" queries).
 
 \item \code{GDCcasesResponse}: 
 }}
+
 \examples{
 gFiles = files()
 shortManifest = gFiles \%>\% manifest(size=10)
@@ -65,4 +66,3 @@ manifestFromCases
 
 
 }
-

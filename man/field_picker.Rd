@@ -36,4 +36,3 @@ q = projects() \%>\% select(field_picker('projects'))
 head(q$fields)
 }
 }
-

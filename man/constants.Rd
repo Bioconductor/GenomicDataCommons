@@ -28,4 +28,3 @@ from (index of rist result), sort, filters, and facets. See
 endpoints()
 parameters()
 }
-

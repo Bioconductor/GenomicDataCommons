@@ -32,4 +32,3 @@ The following locations are checked:
 gdc_client = try(gdc_client(),silent=TRUE)
 
 }
-

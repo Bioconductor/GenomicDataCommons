@@ -30,4 +30,3 @@ fields for using \code{\link{grep}}
 grep_fields('files','analysis')
 
 }
-
