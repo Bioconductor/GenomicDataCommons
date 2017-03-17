@@ -93,6 +93,9 @@
     function(uri, destination, overwrite, progress, token=NULL, base=.gdc_base)
 {
     uri = sprintf('%s/%s',base,uri)
+    if(getOption('gdc.verbose',FALSE)) {
+      message("GET request uri:\n",uri)
+    }
     response <- GET(uri, write_disk(destination, overwrite),
                     if (progress) progress() else NULL,
                     add_headers(`X-Auth-Token`=token))
