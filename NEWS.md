@@ -11,6 +11,11 @@
 * `as.data.frame()` allows a robust if not entirely complete conversion
   of `GDCResults` to `data.frame`.
 
+## Other
+
+* `options('gdc.verbose'=TRUE)` now dumps URL for gdcdata
+* `ids.GDCQuery` now returns all entity ids and not just the first
+  page of results.
 
 ## Bug Fixes
 
