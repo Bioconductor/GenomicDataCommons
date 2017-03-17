@@ -23,7 +23,9 @@ Imports:
     readr,
     shiny,
     miniUI,
-    data.table
+    data.table,
+    GenomicRanges,
+    IRanges
 Suggests:
     BiocStyle,
     knitr,
