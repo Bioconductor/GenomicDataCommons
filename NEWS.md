@@ -10,16 +10,20 @@
 
 * `as.data.frame()` allows a robust if not entirely complete conversion
   of `GDCResults` to `data.frame`.
+* Added first of data helper functions, `readDNAcopy`, for dealing
+  with files returned from GDC.
 
 ## Other
 
 * `options('gdc.verbose'=TRUE)` now dumps URL for gdcdata
 * `ids.GDCQuery` now returns all entity ids and not just the first
   page of results.
+* test fix for change in return value of `status()` endpoint
 
 ## Bug Fixes
 
 * many--this is beta software
+
 
 # GenomicDataCommons 0.99.6
 
