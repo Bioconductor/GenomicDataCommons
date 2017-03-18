@@ -15,6 +15,8 @@
 #' class(dnac)
 #' seqnames(dnac)
 #' length(dnac)
+#'
+#' @export
 readDNAcopy <- function(fname,...) {
     stopifnot(file.exists(fname))
     res = read_tsv(fname,...)

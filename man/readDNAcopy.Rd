@@ -24,4 +24,5 @@ dnac = readDNAcopy(fname)
 class(dnac)
 seqnames(dnac)
 length(dnac)
+
 }
