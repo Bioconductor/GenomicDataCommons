@@ -22,7 +22,6 @@ fname = system.file(package='GenomicDataCommons',
                     'extdata/dnacopy.tsv.gz')
 dnac = readDNAcopy(fname)
 class(dnac)
-seqnames(dnac)
 length(dnac)
 
 }
