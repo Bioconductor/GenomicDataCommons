@@ -1,3 +1,8 @@
+# GenomicDataCommons 0.99.12
+
+* Added `readHTSeqFile` for rapid reading of HTSeq-counts output files
+
+
 # GenomicDataCommons 0.99.9
 
 ## API changes
