@@ -3,8 +3,8 @@ Type: Package
 Title: NIH / NCI Genomic Data Commons Access
 Description: Programmatically access the NIH / NCI Genomic Data
     Commons RESTful service.
-Version: 0.99.8
-Date: 2017-03-02
+Version: 0.99.9
+Date: 2017-03-17
 Authors@R: c(
     person("Martin", "Morgan", email="martin.morgan@roswellpark.org",
         role=c("aut")),
@@ -23,7 +23,9 @@ Imports:
     readr,
     shiny,
     miniUI,
-    data.table
+    data.table,
+    GenomicRanges,
+    IRanges
 Suggests:
     BiocStyle,
     knitr,

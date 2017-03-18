@@ -50,4 +50,3 @@ slicing("df80679e-c4d3-487b-934c-fcc782e5d46e",
         token=gdc_token())
 }
 }
-

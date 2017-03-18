@@ -28,4 +28,3 @@ input = list(list(a=1,b=2,d='only this row'),
 rbindlist2(input)
 
 }
-

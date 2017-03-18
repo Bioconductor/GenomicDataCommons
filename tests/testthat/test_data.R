@@ -2,9 +2,9 @@ library(GenomicDataCommons)
 context('data handling')
 
 test_that("manifest cases", {
-    q = cases()
-    m = manifest(q,size=10)
-    expect_equal(nrow(m),10)
+    q = cases() %>% filter(~ case_id %in% "51ae5536-f55c-4fd6-b990-5d3add98de5c")
+    m = manifest(q)
+    expect_gt(nrow(m),1)
     expect_equal(ncol(m),5)
 })
 
