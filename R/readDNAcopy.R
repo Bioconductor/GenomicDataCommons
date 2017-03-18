@@ -1,6 +1,7 @@
 #' Read DNAcopy results into GRanges object
 #'
 #' @param fname The path to a DNAcopy-like file.
+#' @param ... passed to \code{\link[readr]{read_tsv}}
 #' @return a \code{\link[GenomicRanges]{GRanges}} object
 #' 
 #' @importFrom data.table fread

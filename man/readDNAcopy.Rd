@@ -8,6 +8,8 @@ readDNAcopy(fname, ...)
 }
 \arguments{
 \item{fname}{The path to a DNAcopy-like file.}
+
+\item{...}{passed to \code{\link[readr]{read_tsv}}}
 }
 \value{
 a \code{\link[GenomicRanges]{GRanges}} object

@@ -10,9 +10,11 @@
 #'
 #' @examples
 #' # use with a GDC query, in this case for "cases"
-#' ids(cases())
+#' ids(cases() %>% filter(~ project.project_id == "TCGA-CHOL"))
 #' # also works for responses
 #' ids(response(files()))
+#' # and results
+#' ids(results(cases()))
 #'
 #' 
 #' @export
