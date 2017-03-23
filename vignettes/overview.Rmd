@@ -2,6 +2,7 @@
 title: "The GenomicDataCommons Package"
 author: "Sean Davis & Martin Morgan"
 date: "`r format(Sys.Date(), '%A, %B %d, %Y')`"
+always_allow_html: yes
 output:
   BiocStyle::html_document:
     df_print: paged
