@@ -24,6 +24,7 @@
 #'}
 #' 
 #' @examples
+#' library(magrittr)
 #' gFiles = files()
 #' shortManifest = gFiles %>% manifest(size=10)
 #' head(shortManifest,n=3)
@@ -109,7 +110,8 @@ manifest.GDCcasesResponse <- function(x,from=1,size=count(x),...) {
 #'
 #' @importFrom utils write.table
 #' 
-#' @examples 
+#' @examples
+#' library(magrittr)
 #' mf = files() %>% manifest(size=10)
 #' write_manifest(mf)
 #' 

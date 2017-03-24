@@ -31,6 +31,7 @@ results
 }}
 
 \examples{
+library(magrittr)
 qcases = cases() \%>\% results()
 length(qcases)
 

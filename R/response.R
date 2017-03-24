@@ -46,6 +46,7 @@ response = function(x,...) {
 #'  be returned by the current query
 #' 
 #' @examples
+#' library(magrittr)
 #' # total number of projects
 #' projects() %>% count()
 #'
@@ -138,6 +139,7 @@ response_all = function(x,...) {
 #' each have two columns, key and doc_count.
 #' 
 #' @examples
+#' library(magrittr)
 #' # Number of each file type
 #' res = files() %>% facet(c('type','data_type')) %>% aggregations()
 #' res$type
@@ -177,6 +179,7 @@ aggregations.GDCResponse = function(x) {
 #' @return A (typically nested) \code{list} of GDC records
 #' 
 #' @examples
+#' library(magrittr)
 #' qcases = cases() %>% results()
 #' length(qcases)
 #'
@@ -192,6 +195,7 @@ results = function(x,...) {
 #' @return A (typically nested) \code{list} of GDC records
 #' 
 #' @examples
+#' library(magrittr)
 #' # details of all available projects
 #' projResults = projects() %>% results_all()
 #' length(projResults)

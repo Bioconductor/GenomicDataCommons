@@ -1,4 +1,6 @@
 #' Extract header field element from httr response
+#'
+#' @keywords internal
 #' 
 #' @importFrom httr headers
 .gdc_header_elt <- function(response, field, element) {
@@ -17,6 +19,8 @@
 }
     
 #' Rename a file 'from' to 'to'
+#' @keywords internal
+#' 
 .gdc_file_rename <- function(from, to, overwrite) {
     if (overwrite && file.exists(to))
         unlink(to)
@@ -41,8 +45,10 @@
     to
 }
 
-#' (internal) GET endpoint / uri
+#' GET endpoint / uri
 #'
+#' @keywords internal
+#' 
 #' @importFrom httr GET add_headers stop_for_status
 .gdc_get <-
     function(endpoint, parameters=list(), legacy=FALSE, token=NULL, ..., base=.gdc_base)
@@ -62,8 +68,9 @@
     response
 }
 
-#' (internal) POST endpoint / uri
-#' 
+#' POST endpoint / uri
+#'
+#' @keywords internal
 #' @importFrom httr POST add_headers write_disk stop_for_status
 .gdc_post <-
     function(endpoint, body, legacy=FALSE, token=NULL, ..., base=.gdc_base)
@@ -87,6 +94,8 @@
 }
 
 #' Download one file from GDC, renaming to remote filename
+#'
+#' @keywords internal
 #' 
 #' @importFrom httr GET write_disk add_headers stop_for_status
 .gdc_download_one <-

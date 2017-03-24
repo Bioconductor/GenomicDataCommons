@@ -27,6 +27,7 @@ ids can be used for relationships, searching on the website, and as
 unique ids.  All
 }
 \examples{
+library(magrittr)
 # use with a GDC query, in this case for "cases"
 ids(cases() \%>\% filter(~ project.project_id == "TCGA-CHOL"))
 # also works for responses

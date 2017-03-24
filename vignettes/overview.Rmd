@@ -102,6 +102,7 @@ download of raw data. Here, filtering finds gene expression files
 quantified as raw counts using `HTSeq` from ovarian cancer patients.
 
 ```{r findQS}
+library(magrittr)
 ge_manifest = files() %>% 
     filter( ~ cases.project.project_id == 'TCGA-OV' &
                 type == 'gene_expression' &
