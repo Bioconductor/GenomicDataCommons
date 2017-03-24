@@ -10,9 +10,9 @@ Authors@R: c( person("Martin", "Morgan",
         person("Davis", "Sean", email="sdavis2@mail.nih.gov",
         role=c("aut", "cre")))
 License: Artistic-2.0
-Depends: magrittr
+Depends: R(>=3.4.0)
 Imports: stats, httr, xml2, jsonlite, utils, lazyeval, readr, shiny,
-        miniUI, data.table, GenomicRanges, IRanges
+        miniUI, data.table, GenomicRanges, IRanges, magrittr
 Suggests: BiocStyle, knitr, rmarkdown, DT, testthat, listviewer,
         ggplot2, GenomicAlignments, Rsamtools
 biocViews: DataImport, Sequencing
