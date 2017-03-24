@@ -1,4 +1,5 @@
 library(GenomicDataCommons)
+library(magrittr)
 context('API')
 
 test_that("status returns correctly", {

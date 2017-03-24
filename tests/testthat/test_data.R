@@ -1,4 +1,5 @@
 library(GenomicDataCommons)
+library(magrittr)
 context('data handling')
 
 test_that("manifest cases", {

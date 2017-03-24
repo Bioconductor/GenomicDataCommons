@@ -1,4 +1,5 @@
 library(GenomicDataCommons)
+library(magrittr)
 context('legacy endpoint')
 
 ## IDs here were selected interactively, just for testing.
