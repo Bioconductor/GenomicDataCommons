@@ -9,7 +9,6 @@
 #' @return a character vector of all the entity ids
 #'
 #' @examples
-#' library(magrittr)
 #' # use with a GDC query, in this case for "cases"
 #' ids(cases() %>% filter(~ project.project_id == "TCGA-CHOL"))
 #' # also works for responses

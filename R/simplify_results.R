@@ -50,7 +50,6 @@ rbindlist2 = function(x,...) {
 #'     present.
 #'
 #' @examples
-#' library(magrittr)
 #' expands = c("diagnoses","diagnoses.treatments","annotations",
 #'             "demographic","exposures")
 #' head(cases() %>% expand(expands) %>% results() %>% as.data.frame())

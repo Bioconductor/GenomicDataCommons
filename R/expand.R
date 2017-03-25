@@ -65,7 +65,6 @@ available_expand.GDCQuery <- function(entity) {
 #' head(available_fields(gProj))
 #' default_fields(gProj)
 #'
-#' library(magrittr)
 #' gProj %>%
 #'   select(default_fields(gProj)[1:2]) %>%
 #'   response() %>%

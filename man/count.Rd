@@ -32,7 +32,6 @@ provide count of records in a \code{\link{GDCQuery}}
 }}
 
 \examples{
-library(magrittr)
 # total number of projects
 projects() \%>\% count()
 

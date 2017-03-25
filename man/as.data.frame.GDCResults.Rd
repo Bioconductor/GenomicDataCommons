@@ -36,7 +36,6 @@ than one row per entity id. It is up to the user to determine
 how to make rows unique per entity, if that is desired.
 }
 \examples{
-library(magrittr)
 expands = c("diagnoses","diagnoses.treatments","annotations",
             "demographic","exposures")
 head(cases() \%>\% expand(expands) \%>\% results() \%>\% as.data.frame())
