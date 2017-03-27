@@ -37,8 +37,7 @@ available_expand.GDCQuery <- function(entity) {
     return(available_expand(entity_name(entity)))
 }
 
-#' check expand values
-#' 
+#" (internal) check expand values
 .gdcCheckExpands <- function(entity,expand) {
     if(is.null(expand)) return(TRUE)
     stopifnot(entity %in% .gdc_entities)
@@ -66,7 +65,6 @@ available_expand.GDCQuery <- function(entity) {
 #' head(available_fields(gProj))
 #' default_fields(gProj)
 #'
-#' library(magrittr)
 #' gProj %>%
 #'   select(default_fields(gProj)[1:2]) %>%
 #'   response() %>%

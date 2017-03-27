@@ -15,13 +15,9 @@
     }
 }
 
-#' return character(0) instead of NULL
-#'
-#' Always return a vector and not
-#' NULL.
-#'
-#' @param x an object
-#' 
+#" (internal) return character(0) instead of NULL
+#"
+#" Always return a vector and not NULL.
 .ifNullCharacterZero <- function(x) {
     if(is.null(x))
         return(character(0))

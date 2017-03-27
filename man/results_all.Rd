@@ -29,7 +29,6 @@ results_all
 }}
 
 \examples{
-library(magrittr)
 # details of all available projects
 projResults = projects() \%>\% results_all()
 length(projResults)

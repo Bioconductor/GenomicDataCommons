@@ -69,7 +69,7 @@ print.gdc_parameters <- function(x, ...) {
               if (is.null(x[[nm]])) "NULL" else x[[nm]], "\n")
 }
 
-#' @keywords internal
+#" (internal)
 .parameter_string <- function(parameters) {
     if (is.null(parameters))
         return("")

@@ -56,7 +56,6 @@ that contain file information ("cases" and "files" queries).
 }}
 
 \examples{
-library(magrittr)
 gFiles = files()
 shortManifest = gFiles \%>\% manifest(size=10)
 head(shortManifest,n=3)

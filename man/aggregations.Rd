@@ -36,6 +36,4 @@ library(magrittr)
 res = files() \%>\% facet(c('type','data_type')) \%>\% aggregations()
 res$type
 
-
-
 }

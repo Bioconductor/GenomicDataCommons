@@ -58,7 +58,6 @@ in the \code{\link{transfer}} command.
 
 \examples{
 \donttest{
-library(magrittr)
 file_manifest = files() \%>\% filter(~ access == "open") \%>\% manifest(size=10)
 manifest_file = tempfile()
 write.table(file_manifest,file=manifest_file,col.names=TRUE,row.names=FALSE,quote=FALSE)

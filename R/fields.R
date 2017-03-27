@@ -72,7 +72,6 @@ default_fields.GDCQuery = function(x) {
 #' head(available_fields(gProj))
 #' default_fields(gProj)
 #'
-#' library(magrittr)
 #' gProj %>%
 #'   select(default_fields(gProj)[1:2]) %>%
 #'   response() %>%
@@ -85,8 +84,7 @@ select <- function(x,fields) {
 
 
 
-#' rectify specified fields with available fields
-#'
+#" (internal) rectify specified fields with available fields
 .gdcRectifyFieldsForEntity <- function(entity,fields) {
     af = available_fields(entity)
     mismatches = fields[!(fields %in% af)]
