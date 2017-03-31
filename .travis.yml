@@ -1,0 +1,11 @@
+language: r
+cache: packages
+sudo: true
+r: bioc-devel
+r_github_packages:
+  - jimhester/covr
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install ca-certificates
+after_success:
+  - Rscript -e 'covr::codecov()'
