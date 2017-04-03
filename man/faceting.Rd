@@ -48,4 +48,3 @@ get_facets(gProjFacet)
 str(response(gProjFacet,size=2),max.level=2)
 
 }
-

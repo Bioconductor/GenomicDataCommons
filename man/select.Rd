@@ -25,17 +25,16 @@ S3 generic to set GDCQuery fields
 \itemize{
 \item \code{GDCQuery}: set fields on a GDCQuery object
 }}
+
 \examples{
 gProj = projects()
 gProj$fields
 head(available_fields(gProj))
 default_fields(gProj)
 
-library(magrittr)
 gProj \%>\%
   select(default_fields(gProj)[1:2]) \%>\%
   response() \%>\%
   str(max_level=2)
 
 }
-

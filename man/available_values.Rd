@@ -24,4 +24,3 @@ Find common values for a GDC field
 available_values('files','cases.project.project_id')[1:5]
 
 }
-

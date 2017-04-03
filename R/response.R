@@ -73,13 +73,12 @@ count.GDCResponse = function(x,...) {
 }
 
 
-#' prepare "results" for return
-#'
-#' In particular, this function sets
-#' entity_ids for every element so that
-#' one does not loose track of the relationships
-#' given the nested nature of GDC returns
-#' 
+#" (internal) prepare "results" for return
+#"
+#" In particular, this function sets
+#" entity_ids for every element so that
+#" one does not loose track of the relationships
+#" given the nested nature of GDC returns
 .prepareResults <- function(res,idfield) {
     for(i in names(res)) {
         if(inherits(res[[i]],'data.frame'))
@@ -91,7 +90,7 @@ count.GDCResponse = function(x,...) {
 
 #' @rdname response
 #' 
-#' @importFrom magrittr %>%
+#' @importFrom magrittr "%>%"
 #' @importFrom jsonlite fromJSON
 #' 
 #' @export
@@ -138,12 +137,12 @@ response_all = function(x,...) {
 #' each have two columns, key and doc_count.
 #' 
 #' @examples
+#' library(magrittr)
 #' # Number of each file type
 #' res = files() %>% facet(c('type','data_type')) %>% aggregations()
 #' res$type
 #'
-#'
-#' 
+#' @importFrom magrittr "%>%"
 #' @export
 aggregations = function(x) {
     UseMethod('aggregations',x)

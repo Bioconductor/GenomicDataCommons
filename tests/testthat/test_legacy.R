@@ -1,4 +1,5 @@
 library(GenomicDataCommons)
+library(magrittr)
 context('legacy endpoint')
 
 ## IDs here were selected interactively, just for testing.
@@ -79,10 +80,10 @@ test_that("legacy case ids in default archive, also", {
 
 ## Manifest functionality
 
-test_that("legacy cases manifest matches", {
+test_that("legacy cases file manifest contains supplied file_ids", {
     cquery = cases()
     cquery$legacy = TRUE
-    cres = cquery %>% filter( ~ files.file_id %in% files_legacy_ids) %>% manifest()
+    cres = cquery %>% filter( ~ files.file_id %in% files_legacy_ids) %>% select('files.file_id') %>% manifest()
     # note that this is not a one-to-one, so use gte rather than equal
     expect_gte(nrow(cres),length(files_legacy_ids))
     expect_true(all(files_legacy_ids %in% cres$id))

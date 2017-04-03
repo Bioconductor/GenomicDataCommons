@@ -1,5 +1,4 @@
-#' Extract header field element from httr response
-#' 
+#" (internal) Extract header field element from httr response
 #' @importFrom httr headers
 .gdc_header_elt <- function(response, field, element) {
     value <- headers(response)[[field]]
@@ -16,7 +15,7 @@
     value[[which(idx)]][[2]]
 }
     
-#' Rename a file 'from' to 'to'
+#" (internal) Rename a file 'from' to 'to'
 .gdc_file_rename <- function(from, to, overwrite) {
     if (overwrite && file.exists(to))
         unlink(to)
@@ -41,8 +40,7 @@
     to
 }
 
-#' (internal) GET endpoint / uri
-#'
+#" (internal) GET endpoint / uri
 #' @importFrom httr GET add_headers stop_for_status
 .gdc_get <-
     function(endpoint, parameters=list(), legacy=FALSE, token=NULL, ..., base=.gdc_base)
@@ -62,8 +60,7 @@
     response
 }
 
-#' (internal) POST endpoint / uri
-#' 
+#" (internal) POST endpoint / uri
 #' @importFrom httr POST add_headers write_disk stop_for_status
 .gdc_post <-
     function(endpoint, body, legacy=FALSE, token=NULL, ..., base=.gdc_base)
@@ -86,13 +83,15 @@
     stop_for_status(response)
 }
 
-#' Download one file from GDC, renaming to remote filename
-#' 
+#" (internal) Download one file from GDC, renaming to remote filename
 #' @importFrom httr GET write_disk add_headers stop_for_status
 .gdc_download_one <-
     function(uri, destination, overwrite, progress, token=NULL, base=.gdc_base)
 {
     uri = sprintf('%s/%s',base,uri)
+    if(getOption('gdc.verbose',FALSE)) {
+      message("GET request uri:\n",uri)
+    }
     response <- GET(uri, write_disk(destination, overwrite),
                     if (progress) progress() else NULL,
                     add_headers(`X-Auth-Token`=token))

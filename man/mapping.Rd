@@ -30,4 +30,3 @@ subset(map,defaults)
 subset(map,defaults)$field
 
 }
-

@@ -51,12 +51,11 @@ manifest.gdc_files <- function(x,from=1,size=count(x),...) {
 #' 
 #' @export
 manifest.gdc_cases <- function(x,from=1,size=count(x),...) {
-    fids = rbindlist((x %>%
+    fids = rbindlist2((x %>%
         select('files.file_id') %>%
-        response(from=from,size=size) %>%
-        results())$files)$file_id
-    q = files() %>% filter(~ file_id %in% fids)
-    .manifestCall(x=q,from=from,size=size,...)
+        results(from=from,size=size))$files)[[1]]
+    q = files(legacy = x$legacy) %>% filter(~ file_id %in% fids)
+    .manifestCall(x=q,from=from,size=count(q),...)
 }
 
 #' @describeIn manifest
@@ -110,7 +109,7 @@ manifest.GDCcasesResponse <- function(x,from=1,size=count(x),...) {
 #'
 #' @importFrom utils write.table
 #' 
-#' @examples 
+#' @examples
 #' mf = files() %>% manifest(size=10)
 #' write_manifest(mf)
 #' 

@@ -2,6 +2,7 @@
 title: "The GenomicDataCommons Package"
 author: "Sean Davis & Martin Morgan"
 date: "`r format(Sys.Date(), '%A, %B %d, %Y')`"
+always_allow_html: yes
 output:
   BiocStyle::html_document:
     df_print: paged
@@ -68,6 +69,9 @@ of
 
 # Quickstart
 
+This software is in development and will *likely change in response to user feedback*. To report bugs or problems, either
+[submit a new issue](https://github.com/Bioconductor/GenomicDataCommons/issues) or submit a `bug.report(package='GenomicDataCommons')` from within R (which will redirect you to the new issue on GitHub).
+
 ## Installation
 
 Installation is available from GitHub as of now. 
@@ -83,6 +87,14 @@ biocLite('Bioconductor/GenomicDataCommons')
 library(GenomicDataCommons)
 ```
 
+## Check basic functionality
+
+```{r statusQS}
+GenomicDataCommons::status()
+```
+
+If this statement results in an error such as `SSL connect error`, see [the troubleshooting section below](#ssl-connection-errors).
+
 ## Find data
 
 The following code builds a `manifest` that can be used to guide the
@@ -90,6 +102,7 @@ download of raw data. Here, filtering finds gene expression files
 quantified as raw counts using `HTSeq` from ovarian cancer patients.
 
 ```{r findQS}
+library(magrittr)
 ge_manifest = files() %>% 
     filter( ~ cases.project.project_id == 'TCGA-OV' &
                 type == 'gene_expression' &
@@ -106,9 +119,11 @@ library(BiocParallel)
 register(MulticoreParam())
 destdir = tempdir()
 fnames = bplapply(ge_manifest$id,gdcdata,
-                  token=gdc_token(),destination_dir=destdir,
+                  destination_dir=destdir,
                   BPPARAM = MulticoreParam(progressbar=TRUE))
 ```
+
+If the download had included controlled-access data, the download above would have needed to include a `token`.  Details are available in [the authentication section below](#authentication).
 
 ## Metadata queries
 
@@ -572,6 +587,25 @@ bamfile = slicing(file_ids[1],regions="chr12:6534405-6538375",token=gdc_token())
 library(GenomicAlignments)
 aligns = readGAlignments(bamfile)
 ```
+
+# Troubleshooting
+
+## SSL connection errors
+
+* Symptom: Trying to connect to the API results in:
+```
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+SSL connect error
+```
+* Possible solutions: The [issue
+is that the GDC supports only recent security Transport Layer Security (TLS)](http://stackoverflow.com/a/42599546/459633),
+so the only known fix is to upgrade the system `openssl` to version
+1.0.1 or later. 
+    * [[Mac OS]](https://github.com/Bioconductor/GenomicDataCommons/issues/35#issuecomment-284233510), 
+    * [[Ubuntu]](http://askubuntu.com/a/434245)
+    * [[Centos/RHEL]](https://www.liquidweb.com/kb/update-and-patch-openssl-for-the-ccs-injection-vulnerability/).  
+    After upgrading `openssl`, reinstall the R `curl` and `httr` packages.
+
 
 # sessionInfo()
 

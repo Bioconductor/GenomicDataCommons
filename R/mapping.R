@@ -4,8 +4,7 @@
 }
 
 
-#' utility for returning _mapping json
-#'
+#" (internal) utility for returning _mapping json
 #' @importFrom httr content
 .get_mapping_json <- function(endpoint) {
     valid <- .gdc_entities

@@ -3,8 +3,8 @@
 \name{ids}
 \alias{ids}
 \alias{ids.GDCQuery}
-\alias{ids.GDCResponse}
 \alias{ids.GDCResults}
+\alias{ids.GDCResponse}
 \title{Get the ids associated with a GDC query or response}
 \usage{
 ids(x)
@@ -28,10 +28,11 @@ unique ids.  All
 }
 \examples{
 # use with a GDC query, in this case for "cases"
-ids(cases())
+ids(cases() \%>\% filter(~ project.project_id == "TCGA-CHOL"))
 # also works for responses
 ids(response(files()))
+# and results
+ids(results(cases()))
 
 
 }
-

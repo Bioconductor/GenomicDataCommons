@@ -32,8 +32,8 @@ This generic simply returns that name from a given object.
 
 \item \code{GDCResults}: GDCResults method
 }}
+
 \examples{
 id_field(cases())
 
 }
-

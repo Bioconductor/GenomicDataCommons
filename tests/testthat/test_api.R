@@ -1,9 +1,11 @@
 library(GenomicDataCommons)
+library(magrittr)
 context('API')
 
 test_that("status returns correctly", {
     res = status()
-    expect_equal(length(res), 4)
+    expect_equal(length(res), 5)
+    expect_equal(res$status,"OK")
 })
 
 test_that('query', {

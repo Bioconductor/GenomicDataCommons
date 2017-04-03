@@ -10,9 +10,11 @@
 #'
 #' @examples
 #' # use with a GDC query, in this case for "cases"
-#' ids(cases())
+#' ids(cases() %>% filter(~ project.project_id == "TCGA-CHOL"))
 #' # also works for responses
 #' ids(response(files()))
+#' # and results
+#' ids(results(cases()))
 #'
 #' 
 #' @export
@@ -26,16 +28,17 @@ ids = function(x) {
 #' @rdname ids
 #' @export
 ids.GDCQuery = function(x) {
-    fieldname = paste0(sub('s$','',entity_name(x)),'_id')
-    res = results(x)[[fieldname]]
-    return(.ifNullCharacterZero(res))
+    fieldname = .id_field(x)
+    res = x %>% GenomicDataCommons::select(fieldname) %>%
+        results_all()
+    return(.ifNullCharacterZero(res[[fieldname]]))
 }
 
 
 #' @rdname ids
 #' @export
 ids.GDCResults = function(x) {
-    fieldname = paste0(sub('s$','',entity_name(x)),'_id')
+    fieldname = .id_field(x)
     res = x[[fieldname]]
     return(.ifNullCharacterZero(res))
 }

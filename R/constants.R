@@ -52,6 +52,7 @@ print.gdc_endpoints <- function(x, ...)
 #'
 #' @return \code{parameters()} returns a list of possible parameters
 #'     and their default values.
+#' @keywords internal
 #' 
 #' @rdname constants
 #' @examples
@@ -68,6 +69,7 @@ print.gdc_parameters <- function(x, ...) {
               if (is.null(x[[nm]])) "NULL" else x[[nm]], "\n")
 }
 
+#" (internal)
 .parameter_string <- function(parameters) {
     if (is.null(parameters))
         return("")

@@ -27,6 +27,7 @@ results_all
 
 \item \code{GDCResponse}: 
 }}
+
 \examples{
 # details of all available projects
 projResults = projects() \%>\% results_all()
@@ -35,4 +36,3 @@ count(projects())
 
 
 }
-
