@@ -58,7 +58,7 @@
   bioinformatics methods available in \Bioconductor{}.
   
   \textbf{Availability}:
-  \url{https://github.com/Bioconductor/GenomicDataCommons} (\& soon in \Bioconductor{}).
+  \url{https://bioconductor.org/packages/GenomicDataCommons} \& \url{https://github.com/seandavi/GenomicDataCommons}.
 
 \end{abstract}
 
