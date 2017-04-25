@@ -78,7 +78,7 @@ Installation is available from GitHub as of now.
 
 ```{r install_github, eval=FALSE}
 source('https://bioconductor.org/biocLite.R')
-biocLite('Bioconductor/GenomicDataCommons')
+biocLite('GenomicDataCommons')
 ```
 
 
