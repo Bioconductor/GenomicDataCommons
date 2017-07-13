@@ -4,12 +4,6 @@ context('data handling')
 
 case_ids = cases() %>% results(size=10) %>% ids()
 
-test_that("manifest cases", {
-    q = cases() %>% filter(~ case_id %in% case_ids)
-    m = manifest(q)
-    expect_gt(nrow(m),1)
-    expect_equal(ncol(m),5)
-})
 
 test_that("manifest files", {
     q = files()
