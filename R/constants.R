@@ -7,7 +7,7 @@
 
 .gdc_parameters <-
     structure(
-        list(format="JSON", pretty=FALSE, fields=NULL, size=10L, from=1L,
+        list(format="JSON", pretty=FALSE, fields=NULL, size=10L, from=0L,
              sort=NULL, filters=NULL, facets=NULL),
         class="gdc_parameters")
 
