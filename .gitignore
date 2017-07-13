@@ -5,9 +5,9 @@
 /vignettes/overview.html
 *#
 .*
-
 docs/articles/*cache
 vignettes/*cache
 scratch
 inst/doc/*
 docs/articles/*cache
+git_svn_notes.txt
