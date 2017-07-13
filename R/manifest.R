@@ -34,14 +34,14 @@
 #'
 #' 
 #' @export
-manifest <- function(x,from=1,size=count(x),...) {
+manifest <- function(x,from=0,size=count(x),...) {
     UseMethod('manifest',x)
 }
 
 #' @describeIn manifest
 #'
 #' @export
-manifest.gdc_files <- function(x,from=1,size=count(x),...) {
+manifest.gdc_files <- function(x,from=0,size=count(x),...) {
     .manifestCall(x=x,from=from,size=size,...)
 }
 
@@ -50,7 +50,7 @@ manifest.gdc_files <- function(x,from=1,size=count(x),...) {
 #' @importFrom data.table rbindlist
 #' 
 #' @export
-manifest.gdc_cases <- function(x,from=1,size=count(x),...) {
+manifest.gdc_cases <- function(x,from=0,size=count(x),...) {
     fids = rbindlist2((x %>%
         select('files.file_id') %>%
         results(from=from,size=size))$files)[[1]]
@@ -61,21 +61,21 @@ manifest.gdc_cases <- function(x,from=1,size=count(x),...) {
 #' @describeIn manifest
 #'
 #' @export
-manifest.GDCfilesResponse <- function(x,from=1,size=count(x),...) {
+manifest.GDCfilesResponse <- function(x,from=0,size=count(x),...) {
     .manifestCall(x=x$query,from=from,size=size,...)
 }
 
 #' @describeIn manifest
 #'
 #' @export
-manifest.GDCcasesResponse <- function(x,from=1,size=count(x),...) {
+manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
     manifest(x=x$query,from=from,size=size,...)
 }
 
 
 
 #' @importFrom readr read_tsv 
-.manifestCall <- function(x,from=1,size=count(x),...) {
+.manifestCall <- function(x,from=0,size=count(x),...) {
     body = Filter(function(z) !is.null(z),x)
     body[['facets']]=NULL
     body[['fields']]=paste0(default_fields(x),collapse=",")
