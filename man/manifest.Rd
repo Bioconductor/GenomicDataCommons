@@ -55,9 +55,5 @@ gFiles = files()
 shortManifest = gFiles \%>\% manifest(size=10)
 head(shortManifest,n=3)
 
-gCases = cases()
-manifestFromCases = manifest(gCases,size=10)
-manifestFromCases
-
 
 }
