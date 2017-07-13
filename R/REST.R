@@ -72,6 +72,7 @@
         uri <- sprintf("%s/legacy/%s", base, endpoint)
     if(getOption('gdc.verbose',FALSE)) {
       message("POST request uri:\n",uri)
+      message("POST body: ",jsonlite::toJSON(body))
     }
     if('fields' %in% names(body)) 
         body[['fields']] = paste0(body[['fields']],collapse=',')
