@@ -3,20 +3,17 @@
 \name{manifest}
 \alias{manifest}
 \alias{manifest.gdc_files}
-\alias{manifest.gdc_cases}
 \alias{manifest.GDCfilesResponse}
 \alias{manifest.GDCcasesResponse}
 \title{Prepare GDC manifest file for bulk download}
 \usage{
-manifest(x, from = 1, size = count(x), ...)
+manifest(x, from = 0, size = count(x), ...)
 
-\method{manifest}{gdc_files}(x, from = 1, size = count(x), ...)
+\method{manifest}{gdc_files}(x, from = 0, size = count(x), ...)
 
-\method{manifest}{gdc_cases}(x, from = 1, size = count(x), ...)
+\method{manifest}{GDCfilesResponse}(x, from = 0, size = count(x), ...)
 
-\method{manifest}{GDCfilesResponse}(x, from = 1, size = count(x), ...)
-
-\method{manifest}{GDCcasesResponse}(x, from = 1, size = count(x), ...)
+\method{manifest}{GDCcasesResponse}(x, from = 0, size = count(x), ...)
 }
 \arguments{
 \item{x}{An \code{\link{GDCQuery}} object of subclass "gdc_files" or "gdc_cases".}
@@ -47,8 +44,6 @@ that contain file information ("cases" and "files" queries).
 \section{Methods (by class)}{
 \itemize{
 \item \code{gdc_files}: 
-
-\item \code{gdc_cases}: 
 
 \item \code{GDCfilesResponse}: 
 
