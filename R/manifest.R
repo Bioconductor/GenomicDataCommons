@@ -47,19 +47,6 @@ manifest.gdc_files <- function(x,from=0,size=count(x),...) {
 
 #' @describeIn manifest
 #'
-#' @importFrom data.table rbindlist
-#' 
-#' @export
-manifest.gdc_cases <- function(x,from=0,size=count(x),...) {
-    fids = rbindlist2((x %>%
-        select('files.file_id') %>%
-        results(from=from,size=size))$files)[[1]]
-    q = files(legacy = x$legacy) %>% filter(~ file_id %in% fids)
-    .manifestCall(x=q,from=from,size=count(q),...)
-}
-
-#' @describeIn manifest
-#'
 #' @export
 manifest.GDCfilesResponse <- function(x,from=0,size=count(x),...) {
     .manifestCall(x=x$query,from=from,size=size,...)
