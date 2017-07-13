@@ -94,7 +94,7 @@ count.GDCResponse = function(x,...) {
 #' @importFrom jsonlite fromJSON
 #' 
 #' @export
-response.GDCQuery = function(x, from = 1, size = 10, ...,
+response.GDCQuery = function(x, from = 0, size = 10, ...,
                              response_handler = jsonlite::fromJSON) {
     body = Filter(function(z) !is.null(z),x)
     body[['facets']]=paste0(body[['facets']],collapse=",")
@@ -124,7 +124,7 @@ response.GDCQuery = function(x, from = 1, size = 10, ...,
 #' @export
 response_all = function(x,...) {
     count = count(x)
-    return(response(x=x,size=count,from=1,...))
+    return(response(x=x,size=count,from=0,...))
 }
 
 
