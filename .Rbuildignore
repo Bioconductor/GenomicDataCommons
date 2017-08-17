@@ -6,3 +6,4 @@
 .httr-oauth
 ^DevNotes\.md$
 scratch/*
+^docs$
