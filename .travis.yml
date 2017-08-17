@@ -12,7 +12,7 @@ addons:
     - libxml2-dev
 r_github_packages:
   - jimhester/covr
-  - hadley/pkgdown
+  - hadley/pkgdown@b305b79
 script:
   - Rscript -e 'pkgdown::build_site()'
 before_install:
