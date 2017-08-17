@@ -112,6 +112,7 @@ ge_manifest = files() %>%
 
 ## Download data
 
+<<<<<<< HEAD
 This code block downloads the `r nrow(ge_manifest)` gene expression files specified in the query above. Using multiple processes to do the download very significantly speeds up the transfer in many cases.  On a standard 1Gb connection, the following completes in about 30 seconds.
 
 ```{r downloadQS}
@@ -119,6 +120,17 @@ destdir = tempdir()
 fnames = lapply(ge_manifest$id[1:20],gdcdata,
                 destination_dir=destdir,overwrite=TRUE,
                 progress=FALSE)
+=======
+This code block downloads the `r nrow(ge_manifest)` gene expression files specified in the query above. Using multiple processes to do the download very significantly speeds up the transfer in many cases.  On a standard 1Gb connection using 10 processes, the following completes in about 15 seconds.
+
+```{r downloadQS, eval=FALSE}
+library(BiocParallel)
+register(MulticoreParam())
+destdir = tempdir()
+fnames = bplapply(ge_manifest$id,gdcdata,
+                  destination_dir=destdir,
+                  BPPARAM = MulticoreParam(progressbar=TRUE))
+>>>>>>> bioc/master
 ```
 
 If the download had included controlled-access data, the download above would have needed to include a `token`.  Details are available in [the authentication section below](#authentication).

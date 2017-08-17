@@ -5,9 +5,16 @@
 /vignettes/overview.html
 *#
 .*
+<<<<<<< HEAD
+=======
+
+>>>>>>> bioc/master
 docs/articles/*cache
 vignettes/*cache
 scratch
 inst/doc/*
 docs/articles/*cache
+<<<<<<< HEAD
 git_svn_notes.txt
+=======
+>>>>>>> bioc/master

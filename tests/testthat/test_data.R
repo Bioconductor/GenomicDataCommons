@@ -2,8 +2,8 @@ library(GenomicDataCommons)
 library(magrittr)
 context('data handling')
 
+<<<<<<< HEAD
 case_ids = cases() %>% results(size=10) %>% ids()
-
 
 test_that("manifest files", {
     q = files()
