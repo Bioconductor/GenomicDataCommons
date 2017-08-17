@@ -1,7 +1,15 @@
 language: r
-cache: packages
+cache:
+  packages: true
+  directories:
+  - docs
+pandoc_version: 1.19.2.1
 sudo: true
 r: bioc-devel
+addons:
+  apt:
+    packages:
+    - libxml2-dev
 r_github_packages:
   - jimhester/covr
 before_install:
@@ -9,3 +17,10 @@ before_install:
   - sudo apt-get install ca-certificates
 after_success:
   - Rscript -e 'covr::codecov()'
+  - Rscript -e 'bookdown::render_book("index.Rmd")'
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token:
+    secure: JfEXPWk6ghMm4vRD0cDs62q3n957JqBeXH6NKUHSjeZWTs4xPajnG/m/BOFr5Mb5zLgVAcrnPCdsrkhW7YUpcyYdPrarXcvxA8RmBGNYBDNOVe+nSabB/dpg8jucfxJw5jWXvJdwlBxx5NUHyRledwDQ3ow3VoWoWhsnb8fm8W3mqqDxcdv626Rs7NPqtROUaZXAJ1o6kolefeydJf6pYXSivD6NotU3o0TOeCZY8WHMOG7BhvFSUyq3RXaCYIr7y0kxPckI47sulzrZnvV+0hu0yOt2y3T3AGd9lHZLjPXsS+1kX3gHp5mEJC3xe2Xa8c/mPhIOKua53nwr1bUD10a6c8qSh8AKI/wf4lY1ILkL4U81kKLWTyJ/WzxIRn2nF1uGqsos83van+CespXWb+/SIZVOzffZAUwHszwnDsbzN/Fc2f5pbi1pNU9mIaoSD3Ym0dE/l+wtl4CBPJG8a/rNrBdNUVaaI91VnxU9ka/7ioRQ1veqpQt9vWoljladrzj8o7hPLHUzxPecF3mG28Vggqb98Sd5ESFdYLUHoIZlHyjR2pORqt6eaA9UrQAcASAY5gFLgaA+1sB3KFWmhclIMpyXHrIJRT9TA+h3KwiXLeYzcHtIZ+zZSQrR9/mPp8+wX0KT+M+uXh3j1sqaVhWI+kcDjxBUPEdzSsAYuKM=
+  local-dir: docs
