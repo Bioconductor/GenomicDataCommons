@@ -12,12 +12,13 @@ addons:
     - libxml2-dev
 r_github_packages:
   - jimhester/covr
+  - hadley/pkgdown
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install ca-certificates
 after_success:
   - Rscript -e 'covr::codecov()'
-  - Rscript -e 'bookdown::render_book("index.Rmd")'
+  - Rscript -e 'pkgdown::build_site()'
 deploy:
   provider: pages
   skip_cleanup: true
