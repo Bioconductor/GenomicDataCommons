@@ -16,6 +16,7 @@ r_github_packages:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install ca-certificates
+  - openssl aes-256-cbc -K $encrypted_2d5d0a4590d6_key -iv $encrypted_2d5d0a4590d6_iv -in gdc_github_deploy_key.enc -out ~\/.ssh/gdc_github_deploy_key -d
 after_success:
   - Rscript -e 'covr::codecov()'
   - Rscript -e 'pkgdown::build_site()'
