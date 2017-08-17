@@ -13,12 +13,13 @@ addons:
 r_github_packages:
   - jimhester/covr
   - hadley/pkgdown
+script:
+  - Rscript -e 'pkgdown::build_site()'
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install ca-certificates
 after_success:
   - Rscript -e 'covr::codecov()'
-  - Rscript -e 'pkgdown::build_site()'
 deploy:
   provider: pages
   skip_cleanup: true
