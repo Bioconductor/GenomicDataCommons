@@ -530,15 +530,6 @@ head(ids(resp))
 
 ### How many of each type of file are available?
 
-```{r filesTypeCount}
-res = files() %>% facet(c('type','data_type')) %>% aggregations()
-res$type
-ggplot(res$type,aes(x = key,y = doc_count)) + geom_bar(stat='identity') +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))     
-```
-
-### How many of each type of file are available?
-
 ```{r filesVCFCount}
 res = files() %>% facet('type') %>% aggregations()
 res$type
