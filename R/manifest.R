@@ -132,11 +132,12 @@ write_manifest <- function(manifest,destfile=tempfile()) {
 #' @export
 gdc_client <- function() {
     client = Sys.which('gdc-client')
-    if(client['gdc-client']=="gdc-client") 
+    if(basename(client['gdc-client'])=="gdc-client") 
         return(client)
     client=dir('.',pattern='^gdc-client$',full.names=TRUE)
-    if(client=='./gdc-client')
-        return(client)
+    if(length(client)==1) 
+        if(client=='./gdc-client')
+            return(client)
     if(file.exists(Sys.getenv('GDC_CLIENT')))
         return(Sys.getenv('GDC_CLIENT'))
     stop('gdc-client not found')
