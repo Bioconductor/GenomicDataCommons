@@ -9,7 +9,7 @@
               nzchar(destination_dir))
     if (!dir.exists(destination_dir)) {
         if (!file.exists(destination_dir))
-            dir.create(destination_dir)
+            dir.create(destination_dir, recursive = TRUE)
         else
             stop("'destination_dir' exists but is not a directory")
     }
