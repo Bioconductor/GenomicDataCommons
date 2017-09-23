@@ -6,7 +6,6 @@ cache:
 pandoc_version: 1.19.2.1
 sudo: true
 r: 
-  - bioc-devel
   - bioc-release
 addons:
   apt:
