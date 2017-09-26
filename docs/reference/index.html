@@ -108,64 +108,30 @@
       <tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+            <h2 id="section-creating-a-query" class="hasAnchor"><a href="#section-creating-a-query" class="anchor"></a>Creating a query</h2>
             <p class="section-desc"></p>
           </th>
         </tr>
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="aggregations.html">aggregations</a></code> <code><a href="aggregations.html">aggregations.GDCQuery</a></code> <code><a href="aggregations.html">aggregations.GDCResponse</a></code> </p>
+            <p><code><a href="query.html">query</a></code> <code><a href="query.html">GDCQuery</a></code> <code><a href="query.html">cases</a></code> <code><a href="query.html">files</a></code> <code><a href="query.html">projects</a></code> <code><a href="query.html">annotations</a></code> </p>
           </td>
-          <td><p>aggregations</p></td>
-        </tr><tr>
+          <td><p>Start a query of GDC metadata</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-manipulating-a-query" class="hasAnchor"><a href="#section-manipulating-a-query" class="anchor"></a>Manipulating a query</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
           <!--  -->
           <td>
-            <p><code><a href="as.data.frame.GDCResults.html">as.data.frame.GDCResults</a></code> </p>
+            <p><code><a href="filtering.html">filtering</a></code> <code><a href="filtering.html">filter</a></code> <code><a href="filtering.html">filter.GDCQuery</a></code> <code><a href="filtering.html">get_filter</a></code> <code><a href="filtering.html">get_filter.GDCQuery</a></code> </p>
           </td>
-          <td><p>Convert GDC results to data.frame</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="available_expand.html">available_expand</a></code> <code><a href="available_expand.html">available_expand.character</a></code> <code><a href="available_expand.html">available_expand.GDCQuery</a></code> </p>
-          </td>
-          <td><p>Return valid values for "expand"</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="available_fields.html">available_fields</a></code> <code><a href="available_fields.html">available_fields.GDCQuery</a></code> <code><a href="available_fields.html">available_fields.character</a></code> </p>
-          </td>
-          <td><p>S3 Generic to return all GDC fields</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="available_values.html">available_values</a></code> </p>
-          </td>
-          <td><p>Find common values for a GDC field</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="count.html">count</a></code> <code><a href="count.html">count.GDCQuery</a></code> <code><a href="count.html">count.GDCResponse</a></code> </p>
-          </td>
-          <td><p>provide count of records in a <code>GDCQuery</code></p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="default_fields.html">default_fields</a></code> <code><a href="default_fields.html">default_fields.character</a></code> <code><a href="default_fields.html">default_fields.GDCQuery</a></code> </p>
-          </td>
-          <td><p>S3 Generic to return default GDC fields</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="entity_name.html">entity_name</a></code> <code><a href="entity_name.html">entity_name.GDCQuery</a></code> <code><a href="entity_name.html">entity_name.GDCResults</a></code> </p>
-          </td>
-          <td><p>Get the entity name from a GDCQuery object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="expand.html">expand</a></code> <code><a href="expand.html">expand.GDCQuery</a></code> </p>
-          </td>
-          <td><p>Set the <code>expand</code> parameter</p></td>
+          <td><p>Manipulating GDCQuery filters</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -175,33 +141,35 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="filtering.html">filtering</a></code> <code><a href="filtering.html">filter</a></code> <code><a href="filtering.html">filter.GDCQuery</a></code> <code><a href="filtering.html">get_filter</a></code> <code><a href="filtering.html">get_filter.GDCQuery</a></code> </p>
+            <p><code><a href="select.html">select</a></code> <code><a href="select.html">select.GDCQuery</a></code> </p>
           </td>
-          <td><p>Manipulating GDCQuery filters</p></td>
+          <td><p>S3 generic to set GDCQuery fields</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-introspection-on-the-gdc-api-fields" class="hasAnchor"><a href="#section-introspection-on-the-gdc-api-fields" class="anchor"></a>Introspection on the GDC API fields</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="mapping.html">mapping</a></code> </p>
+          </td>
+          <td><p>Query GDC for available endpoint fields</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="gdc_client.html">gdc_client</a></code> </p>
+            <p><code><a href="available_fields.html">available_fields</a></code> <code><a href="available_fields.html">available_fields.GDCQuery</a></code> <code><a href="available_fields.html">available_fields.character</a></code> </p>
           </td>
-          <td><p>return gdc-client executable path</p></td>
+          <td><p>S3 Generic to return all GDC fields</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="gdc_token.html">gdc_token</a></code> </p>
+            <p><code><a href="default_fields.html">default_fields</a></code> <code><a href="default_fields.html">default_fields.character</a></code> <code><a href="default_fields.html">default_fields.GDCQuery</a></code> </p>
           </td>
-          <td><p>return a gdc token from file or environment</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="gdcdata.html">gdcdata</a></code> </p>
-          </td>
-          <td><p>Download GDC files</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="GenomicDataCommons.html">GenomicDataCommons</a></code> <code><a href="GenomicDataCommons.html">GenomicDataCommons-package</a></code> </p>
-          </td>
-          <td><p>ncigdc: A package for computating the notorious bar statistic.</p></td>
+          <td><p>S3 Generic to return default GDC fields</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -211,70 +179,24 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="id_field.html">id_field</a></code> <code><a href="id_field.html">id_field.GDCQuery</a></code> <code><a href="id_field.html">id_field.GDCResults</a></code> </p>
+            <p><code><a href="available_values.html">available_values</a></code> </p>
           </td>
-          <td><p>get the name of the id field</p></td>
+          <td><p>Find common values for a GDC field</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="ids.html">ids</a></code> <code><a href="ids.html">ids.GDCQuery</a></code> <code><a href="ids.html">ids.GDCResults</a></code> <code><a href="ids.html">ids.GDCResponse</a></code> </p>
+            <p><code><a href="available_expand.html">available_expand</a></code> <code><a href="available_expand.html">available_expand.character</a></code> <code><a href="available_expand.html">available_expand.GDCQuery</a></code> </p>
           </td>
-          <td><p>Get the ids associated with a GDC query or response</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="make_filter.html">make_filter</a></code> </p>
-          </td>
-          <td><p>Create NCI GDC filters for limiting GDC query results</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="manifest.html">manifest</a></code> <code><a href="manifest.html">manifest.gdc_files</a></code> <code><a href="manifest.html">manifest.GDCfilesResponse</a></code> <code><a href="manifest.html">manifest.GDCcasesResponse</a></code> </p>
-          </td>
-          <td><p>Prepare GDC manifest file for bulk download</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="mapping.html">mapping</a></code> </p>
-          </td>
-          <td><p>Query GDC for available endpoint fields</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="query.html">query</a></code> <code><a href="query.html">GDCQuery</a></code> <code><a href="query.html">cases</a></code> <code><a href="query.html">files</a></code> <code><a href="query.html">projects</a></code> <code><a href="query.html">annotations</a></code> </p>
-          </td>
-          <td><p>Start a query of GDC metadata</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rbindlist2.html">rbindlist2</a></code> </p>
-          </td>
-          <td><p>rbindlist that deals with <code>NULL</code> rows</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="readDNAcopy.html">readDNAcopy</a></code> </p>
-          </td>
-          <td><p>Read DNAcopy results into GRanges object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="readHTSeqFile.html">readHTSeqFile</a></code> </p>
-          </td>
-          <td><p>Read a single htseq-counts result file.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="response.html">response</a></code> <code><a href="response.html">GDCResponse</a></code> <code><a href="response.html">response.GDCQuery</a></code> <code><a href="response.html">response_all</a></code> </p>
-          </td>
-          <td><p>Fetch <code>GDCQuery</code> metadata from GDC</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="results_all.html">results_all</a></code> <code><a href="results_all.html">results_all.GDCQuery</a></code> <code><a href="results_all.html">results_all.GDCResponse</a></code> </p>
-          </td>
-          <td><p>results_all</p></td>
-        </tr><tr>
+          <td><p>Return valid values for "expand"</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-executing-an-api-call-to-retrieve-query-results" class="hasAnchor"><a href="#section-executing-an-api-call-to-retrieve-query-results" class="anchor"></a>Executing an API call to retrieve query results</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
           <!--  -->
           <td>
             <p><code><a href="results.html">results</a></code> <code><a href="results.html">results.GDCQuery</a></code> <code><a href="results.html">results.GDCResponse</a></code> </p>
@@ -283,21 +205,29 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="select.html">select</a></code> <code><a href="select.html">select.GDCQuery</a></code> </p>
+            <p><code><a href="count.html">count</a></code> <code><a href="count.html">count.GDCQuery</a></code> <code><a href="count.html">count.GDCResponse</a></code> </p>
           </td>
-          <td><p>S3 generic to set GDCQuery fields</p></td>
+          <td><p>provide count of records in a <code>GDCQuery</code></p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="slicing.html">slicing</a></code> </p>
+            <p><code><a href="response.html">response</a></code> <code><a href="response.html">GDCResponse</a></code> <code><a href="response.html">response.GDCQuery</a></code> <code><a href="response.html">response_all</a></code> </p>
           </td>
-          <td><p>Query GDC for data slices</p></td>
-        </tr><tr>
+          <td><p>Fetch <code>GDCQuery</code> metadata from GDC</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-raw-data-file-downloads" class="hasAnchor"><a href="#section-raw-data-file-downloads" class="anchor"></a>Raw data file downloads</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
           <!--  -->
           <td>
-            <p><code><a href="status.html">status</a></code> </p>
+            <p><code><a href="gdcdata.html">gdcdata</a></code> </p>
           </td>
-          <td><p>Query the GDC for current status</p></td>
+          <td><p>Download GDC files</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -307,9 +237,51 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="write_manifest.html">write_manifest</a></code> </p>
+            <p><code><a href="gdc_client.html">gdc_client</a></code> </p>
           </td>
-          <td><p>write a manifest data.frame to disk</p></td>
+          <td><p>return gdc-client executable path</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-summarizing-and-aggregating-field-values-faceting-" class="hasAnchor"><a href="#section-summarizing-and-aggregating-field-values-faceting-" class="anchor"></a>Summarizing and aggregating field values (faceting)</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="aggregations.html">aggregations</a></code> <code><a href="aggregations.html">aggregations.GDCQuery</a></code> <code><a href="aggregations.html">aggregations.GDCResponse</a></code> </p>
+          </td>
+          <td><p>aggregations</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-authentication" class="hasAnchor"><a href="#section-authentication" class="anchor"></a>Authentication</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="gdc_token.html">gdc_token</a></code> </p>
+          </td>
+          <td><p>return a gdc token from file or environment</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-bam-file-slicing" class="hasAnchor"><a href="#section-bam-file-slicing" class="anchor"></a>BAM file slicing</h2>
+            <p class="section-desc"></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="slicing.html">slicing</a></code> </p>
+          </td>
+          <td><p>Query GDC for data slices</p></td>
         </tr>
       </tbody>
       </table>
@@ -319,7 +291,14 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-creating-a-query">Creating a query</a></li>
+      <li><a href="#section-manipulating-a-query">Manipulating a query</a></li>
+      <li><a href="#section-introspection-on-the-gdc-api-fields">Introspection on the GDC API fields</a></li>
+      <li><a href="#section-executing-an-api-call-to-retrieve-query-results">Executing an API call to retrieve query results</a></li>
+      <li><a href="#section-raw-data-file-downloads">Raw data file downloads</a></li>
+      <li><a href="#section-summarizing-and-aggregating-field-values-faceting-">Summarizing and aggregating field values (faceting)</a></li>
+      <li><a href="#section-authentication">Authentication</a></li>
+      <li><a href="#section-bam-file-slicing">BAM file slicing</a></li>
     </ul>
   </div>
 </div>
