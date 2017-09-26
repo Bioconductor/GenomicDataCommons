@@ -153,10 +153,10 @@ the GDC Data Transfer Tool.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>uuids</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"e3228020-1c54-4521-9182-1ea14c5dc0f7"</span>,
            <span class='st'>"18e1e38e-0f0a-4a0e-918f-08e6201ea140"</span>)
-(<span class='no'>files</span> <span class='kw'>&lt;-</span> <span class='fu'>gdcdata</span>(<span class='no'>uuids</span>, <span class='kw'>overwrite</span><span class='kw'>=</span><span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;                                                                                       e3228020-1c54-4521-9182-1ea14c5dc0f7 
-#&gt; "/var/folders/21/b_rp6qyj1_b1j5cp8qby0tnr0000gn/T//RtmpPeg4cX/filefd946c331a54/5500014026072032607011.A07.level3.data.txt" 
-#&gt;                                                                                       18e1e38e-0f0a-4a0e-918f-08e6201ea140 
-#&gt; "/var/folders/21/b_rp6qyj1_b1j5cp8qby0tnr0000gn/T//RtmpPeg4cX/filefd946c331a54/5500024024987031607949.A10.level3.data.txt" </div><div class='input'><span class='fu'>setNames</span>(<span class='fu'>file.size</span>(<span class='no'>files</span>), <span class='fu'>names</span>(<span class='no'>files</span>))</div><div class='output co'>#&gt; e3228020-1c54-4521-9182-1ea14c5dc0f7 18e1e38e-0f0a-4a0e-918f-08e6201ea140 
+(<span class='no'>files</span> <span class='kw'>&lt;-</span> <span class='fu'>gdcdata</span>(<span class='no'>uuids</span>, <span class='kw'>overwrite</span><span class='kw'>=</span><span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;                                                                                        e3228020-1c54-4521-9182-1ea14c5dc0f7 
+#&gt; "/var/folders/21/b_rp6qyj1_b1j5cp8qby0tnr0000gn/T//Rtmpc6Uop9/file11e653fe71081/5500014026072032607011.A07.level3.data.txt" 
+#&gt;                                                                                        18e1e38e-0f0a-4a0e-918f-08e6201ea140 
+#&gt; "/var/folders/21/b_rp6qyj1_b1j5cp8qby0tnr0000gn/T//Rtmpc6Uop9/file11e653fe71081/5500024024987031607949.A10.level3.data.txt" </div><div class='input'><span class='fu'>setNames</span>(<span class='fu'>file.size</span>(<span class='no'>files</span>), <span class='fu'>names</span>(<span class='no'>files</span>))</div><div class='output co'>#&gt; e3228020-1c54-4521-9182-1ea14c5dc0f7 18e1e38e-0f0a-4a0e-918f-08e6201ea140 
 #&gt;                               279440                               279535 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
