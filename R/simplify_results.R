@@ -10,7 +10,7 @@
 #'
 #' @param ... passed directly to \code{\link[data.table]{rbindlist}}.
 #'
-#' @importFrom data.table rbindlist
+#' @importFrom dplyr bind_rows
 #' 
 #' @return a \code{data.table,data.frame} object.
 #'
@@ -22,7 +22,7 @@
 #' 
 #' @export
 rbindlist2 = function(x,...) {
-    rbindlist(Filter(Negate(is.null),x),...,fill=TRUE)
+    bind_rows(Filter(Negate(is.null),x),...,fill=TRUE)
 }
 
 #' Convert GDC results to data.frame

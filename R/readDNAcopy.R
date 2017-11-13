@@ -4,7 +4,7 @@
 #' @param ... passed to \code{\link[readr]{read_tsv}}
 #' @return a \code{\link[GenomicRanges]{GRanges}} object
 #' 
-#' @importFrom data.table fread
+#' @importFrom readr read_tsv
 #' @import GenomicRanges
 #' @importFrom IRanges IRanges
 #'
