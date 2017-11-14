@@ -132,14 +132,7 @@ clinResults = cases() %>%
     GenomicDataCommons::select(NULL) %>%
     GenomicDataCommons::expand(expands) %>% 
     results(size=50)
-clinDF = as.data.frame(clinResults)
-library(DT)
-datatable(clinDF, extensions = 'Scroller', options = list(
-  deferRender = TRUE,
-  scrollY = 200,
-  scrollX = TRUE,
-  scroller = TRUE
-))
+str(clinResults,list.len=10)
 ```
 # Basic design
 
@@ -277,10 +270,10 @@ the
 and [data.tree](https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html) packages
 are all potentially of interest for manipulating complex, nested list structures. For viewing the results in an interactive viewer, consider the [listviewer](https://github.com/timelyportfolio/listviewer) package.
 
-In the case of the `projects` entity, the default results (using default fields, that is) can be simplified easily with `as.data.frame`.
+In the case of the `projects` entity, the default results can be viewed as a `data.frame`.
 
 ```{r simplifyProjects}
-head(as.data.frame(presults))
+head(data.frame(presults))
 ```
 
 
