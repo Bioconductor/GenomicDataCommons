@@ -270,12 +270,6 @@ the
 and [data.tree](https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html) packages
 are all potentially of interest for manipulating complex, nested list structures. For viewing the results in an interactive viewer, consider the [listviewer](https://github.com/timelyportfolio/listviewer) package.
 
-In the case of the `projects` entity, the default results can be viewed as a `data.frame`.
-
-```{r simplifyProjects}
-head(data.frame(presults))
-```
-
 
 ### Fields and Values
 
