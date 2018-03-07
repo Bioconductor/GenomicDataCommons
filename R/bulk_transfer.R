@@ -1,13 +1,13 @@
 #' Bulk data download
-#' 
-#' The GDC maintains a special tool, 
+#'
+#' The GDC maintains a special tool,
 #' \href{the GDC Data Transfer Tool}{https://docs.gdc.cancer.gov/Data_Transfer_Tool/Users_Guide/Getting_Started/},
-#' that enables high-performance, potentially parallel, and 
+#' that enables high-performance, potentially parallel, and
 #' resumable downloads. The Data Transfer Tool is an external
-#' program that requires separate download. 
+#' program that requires separate download.
 #'
 #' @param manifest character(1) file path to manifest created by
-#'     \code{manifest()}. See \code{\link{write_manifest}} for 
+#'     \code{manifest()}. See \code{\link{write_manifest}} for
 #'     a simple way to create a manifest file from a data.frame
 #'     created with \code{\link{manifest}}.
 #'
@@ -30,11 +30,12 @@
 #'     executable. On Windows, use \code{/} or \code{\\\\} as the file
 #'     separator.
 #'
-#' @param destination_dir The path into which to place the transfered files.
+#' @param overwrite logical(1) default FALSE indicating whether
+#'     existing files with identical name should be over-written.
 #'
 #' @return character(1) directory path to which the files were
 #'     downloaded.
-#' 
+#'
 #' @examples
 #' \donttest{
 #' file_manifest = files() %>% filter(~ access == "open") %>% manifest(size=10)
@@ -45,16 +46,35 @@
 #' # and with authenication
 #' destination <- transfer(manifest_file,token=gdc_token)
 #' }
-#' 
+#'
+#' @importFrom utils read.table
 #' @export
 transfer <-
-    function(manifest, destination_dir=tempfile(), args=character(),
-             token=NULL, gdc_client="gdc-client")
+    function(manifest, args=character(), token=NULL,
+             gdc_client="gdc-client", overwrite=FALSE)
     {
         stopifnot(is.character(manifest), length(manifest) == 1L,
                   file.exists(manifest))
-        .dir_validate_or_create(destination_dir)
+        bfc <- .get_cache()
+        destination_dir <- bfccache(bfc)
         
+        if (!overwrite){
+            temptbl <- read.table(manifest, header=TRUE)
+            uuids <- as.character(temptbl[,1])
+            notfnd <- vapply(uuids, find_help, logical(1), bfc=bfc)
+            
+            if (all(!notfnd)){
+                return(bfccache(bfc))
+            }else if (all(notfnd)) {
+                manifest <- manifest
+            }else{                
+                newman <- temptbl[notfnd,]
+                write.table(newman, file=manifest,
+                            col.names=TRUE,row.names=FALSE,quote=FALSE, sep="\t")
+            }            
+        }
+        
+        df <- manifest
         dir <- sprintf("--dir %s", destination_dir)
         manifest <- sprintf("--manifest %s", manifest)
         token_file = tempfile()
@@ -66,20 +86,31 @@ transfer <-
         }
         args <- paste(c("download", dir, manifest, args, token), collapse=" ")
         system2(gdc_client, args)
-        
+
         if(!is.null(token))
             unlink(token_file)
-        
-        destination_dir
+
+        temptbl <- read.table(df, header=TRUE)
+        uuids <- as.character(temptbl[,1])
+        filepaths <- file.path(bfccache(bfc), uuids,
+                               as.character(temptbl[,2]))
+        rid <- bfcadd(bfc, rname=uuids, fpath=filepaths, action="move")
+        unlink(dirname(filepaths), recursive=TRUE)
+        bfccache(bfc)
     }
 
 #' \code{transfer_help()} queries the the command line GDC Data
 #' Transfer Tool, \code{gdc-client}, for available options to be used
 #' in the \code{\link{transfer}} command.
-#' 
+#'
 #' @describeIn transfer
-#' 
+#'
 #' @export
 transfer_help <- function(gdc_client="gdc-client") {
     system2(gdc_client, "download -h")
+}
+
+find_help <- function(id, bfc){
+    temp <- bfcquery(bfc, id, field="rname")
+    return((nrow(temp) == 0))
 }

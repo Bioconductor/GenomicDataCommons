@@ -12,9 +12,9 @@ Authors@R: c( person("Martin", "Morgan",
 License: Artistic-2.0
 Depends: R (>= 3.4.0), magrittr
 Imports: stats, httr, xml2, jsonlite, utils, lazyeval, readr,
-        GenomicRanges, IRanges, dplyr, rappdirs, BiocFileCache
+        GenomicRanges, IRanges, rappdirs, BiocFileCache
 Suggests: BiocStyle, knitr, rmarkdown, DT, testthat, listviewer,
-        ggplot2, GenomicAlignments, Rsamtools
+        ggplot2, GenomicAlignments, Rsamtools, dplyr
 biocViews: DataImport, Sequencing
 URL: https://bioconductor.org/packages/GenomicDataCommons, http://github.com/Bioconductor/GenomicDataCommons
 BugReports:
