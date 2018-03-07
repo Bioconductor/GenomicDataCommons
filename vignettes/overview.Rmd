@@ -122,10 +122,8 @@ significantly speeds up the transfer in many cases.  On a standard 1Gb
 connection, the following completes in about 30 seconds.
 
 ```{r downloadQS}
-destdir = tempdir()
 fnames = lapply(ge_manifest$id[1:20],gdcdata,
-                destination_dir=destdir,overwrite=TRUE,
-                progress=FALSE)
+                overwrite=TRUE, progress=FALSE)
 ```
 
 If the download had included controlled-access data, the download above would

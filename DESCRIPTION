@@ -3,16 +3,16 @@ Type: Package
 Title: NIH / NCI Genomic Data Commons Access
 Description: Programmatically access the NIH / NCI Genomic Data Commons
         RESTful service.
-Version: 1.3.2
+Version: 1.3.3
 Date: 2017-11-13
 Authors@R: c( person("Martin", "Morgan",
         email="martin.morgan@roswellpark.org", role=c("aut")),
         person("Davis", "Sean", email="sdavis2@mail.nih.gov",
-        role=c("aut", "cre")))
+        role=c("aut", "cre")), person("Lori", "Shepherd", role="ctb"))
 License: Artistic-2.0
 Depends: R (>= 3.4.0), magrittr
 Imports: stats, httr, xml2, jsonlite, utils, lazyeval, readr,
-        GenomicRanges, IRanges, dplyr, rappdirs
+        GenomicRanges, IRanges, dplyr, rappdirs, BiocFileCache
 Suggests: BiocStyle, knitr, rmarkdown, DT, testthat, listviewer,
         ggplot2, GenomicAlignments, Rsamtools
 biocViews: DataImport, Sequencing

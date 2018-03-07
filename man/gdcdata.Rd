@@ -4,14 +4,10 @@
 \alias{gdcdata}
 \title{Download GDC files}
 \usage{
-gdcdata(uuids, destination_dir = tempfile(), overwrite = FALSE,
-  progress = interactive(), token = NULL)
+gdcdata(uuids, overwrite = FALSE, progress = interactive(), token = NULL)
 }
 \arguments{
 \item{uuids}{character() of GDC file UUIDs.}
-
-\item{destination_dir}{character(1) file path to a directory for
-downloading files.}
 
 \item{overwrite}{logical(1) default FALSE indicating whether
 existing files with identical name should be over-written.}

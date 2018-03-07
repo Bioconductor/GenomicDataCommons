@@ -23,3 +23,9 @@
         return(character(0))
     return(x)
 }
+
+#' @import BiocFileCache
+.get_cache <- function() {
+    cache <- rappdirs::user_cache_dir(appname="GenomicDataCommons")
+    x = BiocFileCache::BiocFileCache(cache)
+}

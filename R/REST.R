@@ -14,7 +14,7 @@
 
     value[[which(idx)]][[2]]
 }
-    
+
 #" (internal) Rename a file 'from' to 'to'
 .gdc_file_rename <- function(from, to, overwrite) {
     if (overwrite && file.exists(to))
@@ -66,7 +66,7 @@
     function(endpoint, body, legacy=FALSE, token=NULL, ..., base=.gdc_base)
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
-    
+
     uri <- sprintf("%s/%s", base, endpoint)
     if(legacy)
         uri <- sprintf("%s/legacy/%s", base, endpoint)
@@ -74,7 +74,7 @@
       message("POST request uri:\n",uri)
       message("POST body: ",jsonlite::toJSON(body))
     }
-    if('fields' %in% names(body)) 
+    if('fields' %in% names(body))
         body[['fields']] = paste0(body[['fields']],collapse=',')
     response <- POST(
         uri, add_headers(`X-Auth-Token`=token),
@@ -87,19 +87,28 @@
 #" (internal) Download one file from GDC, renaming to remote filename
 #' @importFrom httr GET write_disk add_headers stop_for_status
 .gdc_download_one <-
-    function(uri, destination, overwrite, progress, token=NULL, base=.gdc_base)
+    function(uri, destination, overwrite, progress, token=NULL,
+             base=.gdc_base, bfc=bfc)
 {
     uri = sprintf('%s/%s',base,uri)
     if(getOption('gdc.verbose',FALSE)) {
       message("GET request uri:\n",uri)
+    }
+
+    res <- bfcquery(bfc, basename(uri), field="rname")
+
+    if ((nrow(res) != 0) && !overwrite){
+        return(res$rpath)
     }
     response <- GET(uri, write_disk(destination, overwrite),
                     if (progress) progress() else NULL,
                     add_headers(`X-Auth-Token`=token))
     stop_for_status(response)
     if (progress) cat("\n")
-
     filename <- .gdc_header_elt(response, "content-disposition", "filename")
-    to <- file.path(dirname(destination), filename)
-    .gdc_file_rename(destination, to, overwrite)
+    to <- file.path(bfccache(bfc),filename)
+    cache_path <- .gdc_file_rename(destination, to, overwrite)
+
+    rid <- bfcadd(bfc, rname=basename(uri), fpath=cache_path, action="move")
+    return(unname(rid))
 }
