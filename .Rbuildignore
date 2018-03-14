@@ -2,7 +2,7 @@
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^appveyor\.yml$
-.*cache
+.*cache$
 .httr-oauth
 ^DevNotes\.md$
 scratch/*

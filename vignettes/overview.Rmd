@@ -123,9 +123,7 @@ connection, the following completes in about 30 seconds.
 
 ```{r downloadQS}
 destdir = tempdir()
-fnames = lapply(ge_manifest$id[1:20],gdcdata,
-                destination_dir=destdir,overwrite=TRUE,
-                progress=FALSE)
+fnames = lapply(ge_manifest$id[1:20],gdcdata)
 ```
 
 If the download had included controlled-access data, the download above would
@@ -545,10 +543,7 @@ example. Otherwise, consider using the approach shown above, perhaps
 in parallel.
 
 ```{r bulkDL}
-mfile = tempfile()
-write.table(manifest_df[1:50,],mfile,
-            col.names=TRUE, row.names=FALSE, quote=FALSE,sep="\t")
-transfer(mfile,gdc_client='gdc-client')
+fnames = gdcdata(manifest_df$id[3:10], access_method = 'client')
 ```
 
 

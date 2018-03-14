@@ -2,12 +2,15 @@
 % Please edit documentation in R/ids.R
 \name{ids}
 \alias{ids}
+\alias{ids.GDCManifest}
 \alias{ids.GDCQuery}
 \alias{ids.GDCResults}
 \alias{ids.GDCResponse}
 \title{Get the ids associated with a GDC query or response}
 \usage{
 ids(x)
+
+\method{ids}{GDCManifest}(x)
 
 \method{ids}{GDCQuery}(x)
 

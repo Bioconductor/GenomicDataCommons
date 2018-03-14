@@ -5,18 +5,12 @@
 \alias{transfer_help}
 \title{Bulk data download}
 \usage{
-transfer(manifest, destination_dir = tempfile(), args = character(),
-  token = NULL, gdc_client = "gdc-client")
+transfer(uuids, args = character(), token = NULL, overwrite = FALSE)
 
-transfer_help(gdc_client = "gdc-client")
+transfer_help()
 }
 \arguments{
-\item{manifest}{character(1) file path to manifest created by
-\code{manifest()}. See \code{\link{write_manifest}} for 
-a simple way to create a manifest file from a data.frame
-created with \code{\link{manifest}}.}
-
-\item{destination_dir}{The path into which to place the transfered files.}
+\item{uuids}{character() vector of GDC file UUIDs}
 
 \item{args}{character() vector specifying command-line arguments to
 be passed to \code{gdc-client}. See \code{\link{transfer_help}} for
@@ -32,20 +26,22 @@ Note that the GDC transfer tool requires a file for data
 transfer. Therefore, this token will be written to a temporary
 file (with appropriate permissions set).}
 
-\item{gdc_client}{character(1) name or path to \code{gdc-client}
-executable. On Windows, use \code{/} or \code{\\\\} as the file
-separator.}
+\item{overwrite}{logical(1) default FALSE indicating whether
+existing files with identical name should be over-written.}
 }
 \value{
 character(1) directory path to which the files were
     downloaded.
 }
 \description{
-The GDC maintains a special tool, 
+The GDC maintains a special tool,
 \href{the GDC Data Transfer Tool}{https://docs.gdc.cancer.gov/Data_Transfer_Tool/Users_Guide/Getting_Started/},
-that enables high-performance, potentially parallel, and 
+that enables high-performance, potentially parallel, and
 resumable downloads. The Data Transfer Tool is an external
-program that requires separate download.
+program that requires separate download. #' @param gdc_client character(1) name or path to \code{gdc-client}
+    executable.  The executable that is used is found through the
+    \code{\link{gdc_client}}. See \code{\link{gdc_client}}
+    for details on how to set the executable path.
 
 \code{transfer_help()} queries the the command line GDC Data
 Transfer Tool, \code{gdc-client}, for available options to be used

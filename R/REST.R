@@ -93,13 +93,19 @@
     if(getOption('gdc.verbose',FALSE)) {
       message("GET request uri:\n",uri)
     }
-    response <- GET(uri, write_disk(destination, overwrite),
+
+    if(!dir.exists(destination)) {
+        dir.create(destination)
+    }
+    destfile = file.path(destination, '.partial_download')
+    
+    response <- GET(uri, write_disk(destfile, overwrite = TRUE),
                     if (progress) progress() else NULL,
                     add_headers(`X-Auth-Token`=token))
     stop_for_status(response)
     if (progress) cat("\n")
-
+    
     filename <- .gdc_header_elt(response, "content-disposition", "filename")
-    to <- file.path(dirname(destination), filename)
-    .gdc_file_rename(destination, to, overwrite)
+    to <- file.path(destination, filename)
+    .gdc_file_rename(destfile, to, overwrite)
 }

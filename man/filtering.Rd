@@ -60,7 +60,9 @@ default_fields(fQuery)
 fQuery = filter(fQuery,~ data_format == 'VCF')
 get_filter(fQuery)
 
-fQuery = filter(fQuery,~ data_format == 'VCF' & experimental_strategy == 'WXS' & type == 'simple_somatic_mutation')
+fQuery = filter(fQuery,~ data_format == 'VCF'
+                & experimental_strategy == 'WXS'
+                & type == 'simple_somatic_mutation')
 
 # Use str() to get a cleaner picture
 str(get_filter(fQuery))
