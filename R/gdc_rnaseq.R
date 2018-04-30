@@ -34,8 +34,24 @@ available_rnaseq_workflows = function() {
 }
 
 
-#' Get RNA-seq from the NCI GDC
+#' Get RNA-seq quantification from the NCI GDC.
 #' 
+#' \code{gdc_rnaseq} is a high-level function for accessing the NCI GDC 
+#' RNA-seq data and summarizing as a
+#' \code{\link[SummarizedExperiment]{SummarizedExperiment}}. 
+#' 
+#' @details The RNA-seq data are downloaded using \code{\link{gdcdata}} 
+#'     with caching used as available. The resulting files are read and combined
+#'     without any transformation. It us up to the user to perform further 
+#'     normalization or transformation if needed.
+#'     
+#'     Clinical information for each file (see \code{\link{gdc_clinical}} for 
+#'     details) is loaded into the \code{colData} slot. Quality control mapping 
+#'     information is also stored in the \code{colData} with column names beginning
+#'     with "qc__". 
+#' 
+#' @references See \url{https://docs.gdc.cancer.gov/Data/Bioinformatics_Pipelines/Expression_mRNA_Pipeline/} 
+#'     for details of data processing that occurs at the GDC.
 #' 
 #' @param project_id character() vector with one or more project ids. Available 
 #'     project_ids can be found using \code{ids(projects())}. Note that 
@@ -48,13 +64,6 @@ available_rnaseq_workflows = function() {
 #'     values, the gene ids in the \code{rowData}, and the clinical data associated 
 #'     with each sample in the \code{colData}.
 #' 
-#' @details The RNA-seq data are downloaded using \code{\link{gdcdata}} 
-#'     with caching used as available. The resulting files are read and combined
-#'     without any transformation. It us up to the user to perform further 
-#'     normalization or transformation if needed. 
-#'     
-#'     Clinical information for each file (see \code{\link{gdc_clinical}} for 
-#'     details) is loaded into the \code{colData} slot.
 #' 
 #' 
 #' @importFrom SummarizedExperiment SummarizedExperiment
@@ -121,7 +130,6 @@ gdc_rnaseq = function(project_id, workflow_type) {
         colnames(df) = df_colnames
         return(df)
     })
-    browser()
     names(clin_data_list_renamed) = names(clin_data_list)
     for(i in names(clin_data_list_renamed)) {
         case_df = case_df %>% dplyr::left_join(clin_data_list_renamed[[i]], 
@@ -134,9 +142,15 @@ gdc_rnaseq = function(project_id, workflow_type) {
     # vector to match up columns in the assays matrix
     coldata = coldata[match(names(fnames), coldata$file_id),]
     mat = .htseq_importer(fnames)
+    qc_idx = grepl("^__",mat[[1]])
+    mat_qc = data.frame(t(mat[qc_idx, -1]))
+    colnames(mat_qc) = paste0('qc',mat[qc_idx,1])
+    coldata = dplyr::bind_cols(coldata,mat_qc)
+    mat = mat[!qc_idx, ]
     rowdata = S4Vectors::DataFrame(gene_id = mat[[1]])
-    se = SummarizedExperiment::SummarizedExperiment(as.matrix(mat[,-1]), 
+    se = SummarizedExperiment::SummarizedExperiment(list(exprs=as.matrix(mat[,-1])), 
                                                     rowData = rowdata, colData = coldata)
+    rownames(se) = rowdata[['gene_id']]
     colnames(se) = names(fnames)
     return(se)
 }

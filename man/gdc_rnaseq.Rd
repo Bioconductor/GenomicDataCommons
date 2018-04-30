@@ -3,7 +3,7 @@
 \name{available_rnaseq_workflows}
 \alias{available_rnaseq_workflows}
 \alias{gdc_rnaseq}
-\title{Get RNA-seq from the NCI GDC}
+\title{Get RNA-seq quantification from the NCI GDC.}
 \usage{
 available_rnaseq_workflows()
 
@@ -23,16 +23,20 @@ a \code{SummarizedExperiment} object, populated with the expression
     with each sample in the \code{colData}.
 }
 \description{
-Get RNA-seq from the NCI GDC
+\code{gdc_rnaseq} is a high-level function for accessing the NCI GDC 
+RNA-seq data and summarizing as a
+\code{\link[SummarizedExperiment]{SummarizedExperiment}}.
 }
 \details{
 The RNA-seq data are downloaded using \code{\link{gdcdata}} 
     with caching used as available. The resulting files are read and combined
     without any transformation. It us up to the user to perform further 
-    normalization or transformation if needed. 
+    normalization or transformation if needed.
     
     Clinical information for each file (see \code{\link{gdc_clinical}} for 
-    details) is loaded into the \code{colData} slot.
+    details) is loaded into the \code{colData} slot. Quality control mapping 
+    information is also stored in the \code{colData} with column names beginning
+    with "qc__".
 }
 \section{Functions}{
 \itemize{
@@ -47,4 +51,8 @@ tcga_se = gdc_rnaseq('TCGA-ACC', 'HTSeq - Counts')
 tcga_se
 }
 
+}
+\references{
+See \url{https://docs.gdc.cancer.gov/Data/Bioinformatics_Pipelines/Expression_mRNA_Pipeline/} 
+    for details of data processing that occurs at the GDC.
 }
