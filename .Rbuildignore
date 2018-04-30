@@ -7,3 +7,4 @@
 ^DevNotes\.md$
 scratch/*
 ^docs$
+_pkgdown.yml
