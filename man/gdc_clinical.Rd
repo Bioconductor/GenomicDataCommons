@@ -58,6 +58,4 @@ head(clinical_data$demographic)
 head(clinical_data$diagnoses)
 head(clinical_data$exposures)
 
-
-
 }
