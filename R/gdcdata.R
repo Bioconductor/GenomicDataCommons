@@ -75,7 +75,7 @@ gdcdata <-
     missing_uuids = to_do_manifest[[1]]
 
     # And these are the cache hits
-    names(fs) = manifest[[1]][file.exists(fs)]
+    names(fs) = manifest[[1]]
 
     # Using API download to fetch missing uuids
     endpoint <- "data"
@@ -101,6 +101,5 @@ gdcdata <-
     # combine cache hits with cache misses
     #
     # Return vector of file file path, name=uuid
-    value = c(value, fs)
-    value
+    fs
 }
