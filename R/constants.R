@@ -1,4 +1,4 @@
-.gdc_base <- "https://gdc-api.nci.nih.gov"
+.gdc_base <- "https://api.gdc.cancer.gov"
 .gdc_endpoint <-
     structure(
         c("status", "projects", "cases", "files", "annotations", "data",
