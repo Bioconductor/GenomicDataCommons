@@ -28,6 +28,8 @@ vignette: >
 
 ```{r init, results='hide', echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
+opts_chunk$set(warning=FALSE, message=FALSE)
+BiocStyle::markdown()
 ```
 
 
@@ -35,20 +37,18 @@ library(knitr)
 
 From the [Genomic Data Commons (GDC) website](https://gdc.nci.nih.gov/about-gdc):
 
-The National Cancer Institute's (NCI's) Genomic Data Commons (GDC) is
+> The National Cancer Institute's (NCI's) Genomic Data Commons (GDC) is
 a data sharing platform that promotes precision medicine in
 oncology. It is not just a database or a tool; it is an expandable
 knowledge network supporting the import and standardization of genomic
 and clinical data from cancer research programs.
-
-The GDC contains NCI-generated data from some of the largest and most
+> The GDC contains NCI-generated data from some of the largest and most
 comprehensive cancer genomic datasets, including The Cancer Genome
 Atlas (TCGA) and Therapeutically Applicable Research to Generate
 Effective Therapies (TARGET). For the first time, these datasets have
 been harmonized using a common set of bioinformatics pipelines, so
 that the data can be directly compared.
-
-As a growing knowledge system for cancer, the GDC also enables
+> As a growing knowledge system for cancer, the GDC also enables
 researchers to submit data, and harmonizes these data for import into
 the GDC. As more researchers add clinical and genomic data to the GDC,
 it will become an even more powerful tool for making discoveries about
@@ -57,47 +57,57 @@ patients.
 
 The
 [data model for the GDC is complex](https://gdc.cancer.gov/developers/gdc-data-model/gdc-data-model-components),
-but it worth a quick overview. The data model is encoded as a
+but it worth a quick overview and a graphical representation is included here. 
+
+![The data model is encoded as a
 so-called property graph. Nodes represent entities such as Projects,
 Cases, Diagnoses, Files (various kinds), and Annotations. The
 relationships between these entities are maintained as edges.  Both
-nodes and edges may have Properties that supply instance details.  The
+nodes and edges may have Properties that supply instance details. ](all_nodes_040318.png)
+
+ The
 GDC API exposes these nodes and edges in a somewhat simplified set
 of
 [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) endpoints.
 
-
 # Quickstart
 
-This software is in development and will *likely change in response to user
-feedback*. To report bugs or problems, either
+This quickstart section is just meant to show basic
+functionality. More details of functionality are included further on
+in this vignette and in function-specific help.
+
+To report bugs or problems, either
 [submit a new issue](https://github.com/Bioconductor/GenomicDataCommons/issues)
 or submit a `bug.report(package='GenomicDataCommons')` from within R (which will
 redirect you to the new issue on GitHub).
 
 ## Installation
 
-Installation is available from GitHub as of now.
+Installation of the `r Biocpkg("GenomicDataCommons")` package is
+identical to installation of other Bioconductor packages.
 
-```{r install_github, eval=FALSE}
+
+```{r install, eval=FALSE}
 source('https://bioconductor.org/biocLite.R')
 biocLite('GenomicDataCommons')
 ```
 
-
+After installation, load the library in order to use it.
 
 ```{r libraries, message=FALSE}
 library(GenomicDataCommons)
 ```
 
-## Check basic functionality
+## Check connectivity and status
+
+The `r Biocpkg("GenomicDataCommons")` package relies on having network
+connectivity. In addition, the NCI GDC API must also be operational
+and not under maintenance. Checking `status` can be used to check this
+connectivity and functionality.
 
 ```{r statusQS}
 GenomicDataCommons::status()
 ```
-
-If this statement results in an error such as `SSL connect error`, see
-[the troubleshooting section below](#ssl-connection-errors).
 
 ## Find data
 
@@ -105,8 +115,7 @@ The following code builds a `manifest` that can be used to guide the
 download of raw data. Here, filtering finds gene expression files
 quantified as raw counts using `HTSeq` from ovarian cancer patients.
 
-```{r findQS}
-library(magrittr)
+```{r manifest}
 ge_manifest = files() %>%
     filter( ~ cases.project.project_id == 'TCGA-OV' &
                 type == 'gene_expression' &
@@ -116,13 +125,16 @@ ge_manifest = files() %>%
 
 ## Download data
 
-This code block downloads the `r nrow(ge_manifest)` gene expression files
+After  the `r nrow(ge_manifest)` gene expression files
 specified in the query above. Using multiple processes to do the download very
 significantly speeds up the transfer in many cases.  On a standard 1Gb
-connection, the following completes in about 30 seconds.
+connection, the following completes in about 30 seconds. The first time the 
+data are downloaded, R will ask to create a cache directory (see `?gdc_cache`
+for details of setting and interacting with the cache). Resulting
+downloaded files will be stored in the cache directory. Future access to 
+the same files will be directly from the cache, alleviating multiple downloads.
 
 ```{r downloadQS}
-destdir = tempdir()
 fnames = lapply(ge_manifest$id[1:20],gdcdata)
 ```
 
@@ -132,6 +144,8 @@ have needed to include a `token`.  Details are available in
 
 ## Metadata queries
 
+The `r Biocpkg("GenomicDataCommons")` can access the significant clinical, demographic, biospecimen, and annotation information contained in the NCI GDC. 
+
 ```{r metadataQS}
 expands = c("diagnoses","annotations",
              "demographic","exposures")
@@ -139,7 +153,8 @@ clinResults = cases() %>%
     GenomicDataCommons::select(NULL) %>%
     GenomicDataCommons::expand(expands) %>%
     results(size=50)
-str(clinResults,list.len=10)
+str(clinResults[[1]],list.len=10)
+# or listviewer::jsonedit(clinResults)
 ```
 
 # Basic design
