@@ -4,8 +4,9 @@
 \alias{slicing}
 \title{Query GDC for data slices}
 \usage{
-slicing(uuid, regions, symbols, destination = tempfile(), overwrite = FALSE,
-  progress = interactive(), token = NULL, legacy = FALSE)
+slicing(uuid, regions, symbols, destination = tempfile(),
+  overwrite = FALSE, progress = interactive(), token = NULL,
+  legacy = FALSE)
 }
 \arguments{
 \item{uuid}{character(1) identifying the BAM file resource}

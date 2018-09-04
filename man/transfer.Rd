@@ -42,10 +42,6 @@ program that requires separate download. #' @param gdc_client character(1) name 
     executable.  The executable that is used is found through the
     \code{\link{gdc_client}}. See \code{\link{gdc_client}}
     for details on how to set the executable path.
-
-\code{transfer_help()} queries the the command line GDC Data
-Transfer Tool, \code{gdc-client}, for available options to be used
-in the \code{\link{transfer}} command.
 }
 \section{Functions}{
 \itemize{
