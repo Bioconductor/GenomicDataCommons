@@ -21,4 +21,4 @@ URL: https://bioconductor.org/packages/GenomicDataCommons, http://github.com/Bio
 BugReports:
         https://github.com/Bioconductor/GenomicDataCommons/issues/new
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
