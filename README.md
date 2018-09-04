@@ -33,19 +33,24 @@ GDC API exposes these nodes and edges in a somewhat simplified set
 of
 [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) endpoints.
 
-
 # Quickstart
 
-This software is in development and will *likely change in response to user feedback*. To report bugs or problems, either
-[submit a new issue](https://github.com/Bioconductor/GenomicDataCommons/issues) or submit a `bug.report(package='GenomicDataCommons')` from within R (which will redirect you to the new issue on GitHub).
+This software is available at Bioconductor.org and can be downloaded via
+`BiocManager::install`.
+
+To report bugs or problems, either
+[submit a new issue](https://github.com/Bioconductor/GenomicDataCommons/issues)
+or submit a `bug.report(package='GenomicDataCommons')` from within R (which
+will redirect you to the new issue on GitHub).
 
 ## Installation
 
-Installation is available from GitHub as of now. 
+Installation can be achieved via Bioconductor's `BiocManager` package.
 
 ```r
-source('https://bioconductor.org/biocLite.R')
-biocLite('Bioconductor/GenomicDataCommons')
+if (!require("BiocManager"))
+    install.packages("BiocManager")
+BiocManager::install('GenomicDataCommons')
 ```
 
 ```r

@@ -76,23 +76,23 @@ This quickstart section is just meant to show basic
 functionality. More details of functionality are included further on
 in this vignette and in function-specific help.
 
+This software is available at Bioconductor.org and can be downloaded via
+`BiocManager::install`.
+
 To report bugs or problems, either
 [submit a new issue](https://github.com/Bioconductor/GenomicDataCommons/issues)
-or submit a `bug.report(package='GenomicDataCommons')` from within R (which will
-redirect you to the new issue on GitHub).
+or submit a `bug.report(package='GenomicDataCommons')` from within R (which
+will redirect you to the new issue on GitHub).
 
 ## Installation
 
-Installation of the `r Biocpkg("GenomicDataCommons")` package is
-identical to installation of other Bioconductor packages.
+Installation can be achieved via Bioconductor's `BiocManager` package.
 
-
-```{r install, eval=FALSE}
-source('https://bioconductor.org/biocLite.R')
-biocLite('GenomicDataCommons')
+```{r install_bioc, eval=FALSE}
+if (!require("BiocManager"))
+    install.packages("BiocManager")
+BiocManager::install('GenomicDataCommons')
 ```
-
-After installation, load the library in order to use it.
 
 ```{r libraries, message=FALSE}
 library(GenomicDataCommons)
