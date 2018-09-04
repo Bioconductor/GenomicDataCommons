@@ -65,7 +65,11 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
     body[['from']]=from
     body[['size']]=size
     body[['return_type']]='manifest'
-    tmp = httr::content(.gdc_post(entity_name(x), body=body, archive=x$archive, token=NULL, ...))
+    legacy = x$legacy
+    tmp = httr::content(.gdc_post(entity_name(x),
+                                  body=body,
+                                  token=NULL,
+                                  legacy = legacy, ...))
     tmp = readr::read_tsv(tmp)
     structure(
         tmp,

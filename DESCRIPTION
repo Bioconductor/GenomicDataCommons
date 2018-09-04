@@ -3,8 +3,8 @@ Type: Package
 Title: NIH / NCI Genomic Data Commons Access
 Description: Programmatically access the NIH / NCI Genomic Data Commons
         RESTful service.
-Version: 1.4.1
-Date: 2018-05-25
+Version: 1.4.2
+Date: 2018-09-04
 Authors@R: c( person("Martin", "Morgan",
         email="martin.morgan@roswellpark.org", role=c("aut")),
         person("Davis", "Sean", email="sdavis2@mail.nih.gov",
@@ -21,4 +21,4 @@ URL: https://bioconductor.org/packages/GenomicDataCommons, http://github.com/Bio
 BugReports:
         https://github.com/Bioconductor/GenomicDataCommons/issues/new
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

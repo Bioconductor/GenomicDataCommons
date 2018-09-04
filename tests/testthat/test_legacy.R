@@ -17,8 +17,8 @@ cases_legacy_ids = cases(legacy = TRUE) %>% results(size = 10) %>% ids()
 
 ## ID functionality
 
-test_that("legacy file ids in regular archive, also", {
-    fquery = files(legacy = FALSE) %>% filter( ~ file_id %in% files_legacy_ids) 
+test_that("legacy file ids NOT in regular archive", {
+    fquery = files(legacy = TRUE) %>% filter( ~ file_id %in% files_legacy_ids) 
     fres = fquery %>% ids()
     expect_length(fres,10)
 })
@@ -59,9 +59,9 @@ test_that("legacy case ids found", {
 })
 
 # Note that case ids may be in both legacy and default archives
-test_that("legacy case ids in default archive, also", {
+test_that("legacy case ids NOT in default archive", {
     cquery = cases()
-    cquery$legacy = FALSE
+    cquery$legacy = TRUE
     cres = cquery %>% filter( ~ case_id %in% cases_legacy_ids) %>% ids()
     expect_equal(length(cres),10)
 })
