@@ -17,3 +17,17 @@ test_that("write_manifest", {
     write_manifest(m, tf)
     expect_true(file.exists(tf))
 })
+
+d = tempdir()
+gdc_set_cache(d)
+
+few_file_ids = files() %>%
+    filter( ~ cases.project.project_id == 'TCGA-SARC' &
+                data_type == 'Copy Number Segment' &
+                analysis.workflow_type == 'DNAcopy') %>% results(size=2) %>% ids()
+
+test_that("gdcdata", {
+    res = gdcdata(few_file_ids)
+    expect_length(res, 2)
+    expect_named(res)
+})
