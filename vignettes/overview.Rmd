@@ -35,7 +35,7 @@ BiocStyle::markdown()
 
 # What is the GDC?
 
-From the [Genomic Data Commons (GDC) website](https://gdc.nci.nih.gov/about-gdc):
+From the [Genomic Data Commons (GDC) website](https://gdc.cancer.gov/about-gdc):
 
 > The National Cancer Institute's (NCI's) Genomic Data Commons (GDC) is
 a data sharing platform that promotes precision medicine in
@@ -108,6 +108,13 @@ connectivity and functionality.
 ```{r statusQS}
 GenomicDataCommons::status()
 ```
+
+And to check the status in code:
+
+```{r statusCheck}
+stopifnot(GenomicDataCommons::status()$status=="OK")
+```
+
 
 ## Find data
 
