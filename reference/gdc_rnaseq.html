@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ncigdc: A package for computating the notorious bar statistic. — GenomicDataCommons • GenomicDataCommons</title>
+<title>Get RNA-seq quantification from the NCI GDC. — available_rnaseq_workflows • GenomicDataCommons</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
 
 
-<meta property="og:title" content="ncigdc: A package for computating the notorious bar statistic. — GenomicDataCommons" />
+<meta property="og:title" content="Get RNA-seq quantification from the NCI GDC. — available_rnaseq_workflows" />
 
-<meta property="og:description" content="Cool package for interfacing with NCI GDC" />
+<meta property="og:description" content="gdc_rnaseq is a high-level function for accessing the NCI GDC 
+RNA-seq data and summarizing as a
+SummarizedExperiment." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -119,45 +121,91 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ncigdc: A package for computating the notorious bar statistic.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Bioconductor/GenomicDataCommons/blob/master/R/gdc-package.R'><code>R/gdc-package.R</code></a></small>
-    <div class="hidden name"><code>GenomicDataCommons.Rd</code></div>
+    <h1>Get RNA-seq quantification from the NCI GDC.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Bioconductor/GenomicDataCommons/blob/master/R/gdc_rnaseq.R'><code>R/gdc_rnaseq.R</code></a></small>
+    <div class="hidden name"><code>gdc_rnaseq.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Cool package for interfacing with NCI GDC</p>
+    <p><code>gdc_rnaseq</code> is a high-level function for accessing the NCI GDC 
+RNA-seq data and summarizing as a
+<code><a href='http://www.rdocumentation.org/packages/SummarizedExperiment/topics/RangedSummarizedExperiment-class'>SummarizedExperiment</a></code>.</p>
     
     </div>
 
-        
-    <h2 class="hasAnchor" id="finding-data"><a class="anchor" href="#finding-data"></a>finding data</h2>
+    <pre class="usage"><span class='fu'>available_rnaseq_workflows</span>()
 
+<span class='fu'>gdc_rnaseq</span>(<span class='no'>project_id</span>, <span class='no'>workflow_type</span>)</pre>
     
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>project_id</th>
+      <td><p>character() vector with one or more project ids. Available 
+project_ids can be found using <code><a href='ids.html'>ids(projects())</a></code>. Note that 
+not all projects contain RNA-seq data.</p></td>
+    </tr>
+    <tr>
+      <th>workflow_type</th>
+      <td><p>character(1) with the workflow type. Possible values
+can be accessed using <code>available_rnaseq_workflows</code></p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a <code>SummarizedExperiment</code> object, populated with the expression
+    values, the gene ids in the <code>rowData</code>, and the clinical data associated 
+    with each sample in the <code>colData</code>.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The RNA-seq data are downloaded using <code><a href='gdcdata.html'>gdcdata</a></code> 
+    with caching used as available. The resulting files are read and combined
+    without any transformation. It us up to the user to perform further 
+    normalization or transformation if needed.</p>    
+<p>Clinical information for each file (see <code><a href='gdc_clinical.html'>gdc_clinical</a></code> for 
+    details) is loaded into the <code>colData</code> slot. Quality control mapping 
+    information is also stored in the <code>colData</code> with column names beginning
+    with "qc__".</p>
+    
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
     <ul>
-<li><p><code><a href='query.html'>query</a></code></p></li>
-<li><p><code><a href='query.html'>cases</a></code></p></li>
-<li><p><code><a href='query.html'>projects</a></code></p></li>
-<li><p><code><a href='query.html'>files</a></code></p></li>
-<li><p><code><a href='query.html'>annotations</a></code></p></li>
-<li><p><code><a href='mapping.html'>mapping</a></code></p></li>
+<li><p><code>available_rnaseq_workflows</code>: Show possible RNA-seq workflow types</p></li>
 </ul>
     
-    <h2 class="hasAnchor" id="downloading-data"><a class="anchor" href="#downloading-data"></a>downloading data</h2>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    
-    <p>data</p>
+    <p>See <a href='https://docs.gdc.cancer.gov/Data/Bioinformatics_Pipelines/Expression_mRNA_Pipeline/'>https://docs.gdc.cancer.gov/Data/Bioinformatics_Pipelines/Expression_mRNA_Pipeline/</a> 
+    for details of data processing that occurs at the GDC.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>available_rnaseq_workflows</span>()</div><div class='output co'>#&gt; NULL</div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>tcga_se</span> <span class='kw'>=</span> <span class='fu'>gdc_rnaseq</span>(<span class='st'>'TCGA-ACC'</span>, <span class='st'>'HTSeq - Counts'</span>)
+<span class='no'>tcga_se</span>
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#finding-data">finding data</a></li>
+      <li><a href="#value">Value</a></li>
 
-      <li><a href="#downloading-data">downloading data</a></li>
-          </ul>
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#functions">Functions</a></li>
+
+      <li><a href="#references">References</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

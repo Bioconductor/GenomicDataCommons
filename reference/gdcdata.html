@@ -18,14 +18,29 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
+
+
+<meta property="og:title" content="Download GDC files — gdcdata" />
+
+<meta property="og:description" content="Download one or more files from GDC. Files are downloaded using the
+UUID and renamed to the file name on the remote system. By default,
+neither the uuid nor the file name on the remote system can exist." />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -33,16 +48,14 @@
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-93043521-1"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-93043521-1', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-93043521-1');
 </script>
 
   </head>
@@ -58,29 +71,46 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">GenomicDataCommons</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">GenomicDataCommons</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.5</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../articles/index.html">Articles</a>
-</li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/overview.html">The GenomicDataCommons Package</a>
+    </li>
+  </ul>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="http://github.com/Bioconductor/GenomicDataCommons">
+  <a href="https://github.com/Bioconductor/GenomicDataCommons">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -88,22 +118,26 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Download GDC files</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Bioconductor/GenomicDataCommons/blob/master/R/gdcdata.R'><code>R/gdcdata.R</code></a></small>
+    <div class="hidden name"><code>gdcdata.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Download one or more files from GDC. Files are downloaded using the
 UUID and renamed to the file name on the remote system. By default,
 neither the uuid nor the file name on the remote system can exist.</p>
     
+    </div>
 
-    <pre><span class='fu'>gdcdata</span>(<span class='no'>uuids</span>, <span class='kw'>destination_dir</span> <span class='kw'>=</span> <span class='fu'>tempfile</span>(), <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>interactive</span>(), <span class='kw'>token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>gdcdata</span>(<span class='no'>uuids</span>, <span class='kw'>use_cached</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fu'>interactive</span>(),
+  <span class='kw'>token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>access_method</span> <span class='kw'>=</span> <span class='st'>"api"</span>, <span class='kw'>transfer_args</span> <span class='kw'>=</span> <span class='fu'>character</span>())</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -111,14 +145,10 @@ neither the uuid nor the file name on the remote system can exist.</p>
       <td><p>character() of GDC file UUIDs.</p></td>
     </tr>
     <tr>
-      <th>destination_dir</th>
-      <td><p>character(1) file path to a directory for
-downloading files.</p></td>
-    </tr>
-    <tr>
-      <th>overwrite</th>
-      <td><p>logical(1) default FALSE indicating whether
-existing files with identical name should be over-written.</p></td>
+      <th>use_cached</th>
+      <td><p>logical(1) default TRUE indicating that,
+if found in the cache, the file will not be downloaded
+again. If FALSE, all supplied uuids will be re-downloaded.</p></td>
     </tr>
     <tr>
       <th>progress</th>
@@ -130,7 +160,17 @@ produced for each file download.</p></td>
       <th>token</th>
       <td><p>(optional) character(1) security token allowing access
 to restricted data. See
-<a href = 'https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/'>https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/</a>.</p></td>
+<a href='https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/'>https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/</a>.</p></td>
+    </tr>
+    <tr>
+      <th>access_method</th>
+      <td><p>character(1), either 'api' or 'client'. See details.</p></td>
+    </tr>
+    <tr>
+      <th>transfer_args</th>
+      <td><p>character(1), additional arguments to pass to
+the gdc-client command line. See <code><a href='gdc_client.html'>gdc_client</a></code> and
+<code><a href='transfer.html'>transfer_help</a></code> for details.</p></td>
     </tr>
     </table>
     
@@ -144,20 +184,34 @@ the value</p>
     <p>This function is appropriate for one or several files; for large
 downloads use <code><a href='manifest.html'>manifest</a></code> to create a manifest for and
 the GDC Data Transfer Tool.</p>
+<p>When access_method is "api", the GDC "data" endpoint is the
+    transfer mechanism used. The alternative access_method, "client", will
+    utilize the <code>gdc-client</code> transfer tool, which must be
+    downloaded separately and available. See
+    <code><a href='gdc_client.html'>gdc_client</a></code> for details on specifying the location
+    of the gdc-client executable.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='manifest.html'>manifest</a></code> for downloading large data.</p>
+    <div class='dont-index'><p><code><a href='manifest.html'>manifest</a></code> for downloading large data.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>uuids</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"e3228020-1c54-4521-9182-1ea14c5dc0f7"</span>,
-           <span class='st'>"18e1e38e-0f0a-4a0e-918f-08e6201ea140"</span>)
-(<span class='no'>files</span> <span class='kw'>&lt;-</span> <span class='fu'>gdcdata</span>(<span class='no'>uuids</span>, <span class='kw'>overwrite</span><span class='kw'>=</span><span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;                                                                                        e3228020-1c54-4521-9182-1ea14c5dc0f7 
-#&gt; "/var/folders/21/b_rp6qyj1_b1j5cp8qby0tnr0000gn/T//Rtmpc6Uop9/file11e653fe71081/5500014026072032607011.A07.level3.data.txt" 
-#&gt;                                                                                        18e1e38e-0f0a-4a0e-918f-08e6201ea140 
-#&gt; "/var/folders/21/b_rp6qyj1_b1j5cp8qby0tnr0000gn/T//Rtmpc6Uop9/file11e653fe71081/5500024024987031607949.A10.level3.data.txt" </div><div class='input'><span class='fu'>setNames</span>(<span class='fu'>file.size</span>(<span class='no'>files</span>), <span class='fu'>names</span>(<span class='no'>files</span>))</div><div class='output co'>#&gt; e3228020-1c54-4521-9182-1ea14c5dc0f7 18e1e38e-0f0a-4a0e-918f-08e6201ea140 
-#&gt;                               279440                               279535 </div></pre>
+    <pre class="examples"><div class='input'><span class='co'># get some example file uuids</span>
+<span class='no'>uuids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='query.html'>files</a></span>() <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='filtering.html'>filter</a></span>(~ <span class='no'>access</span> <span class='kw'>==</span> <span class='st'>'open'</span> <span class='kw'>&amp;</span> <span class='no'>file_size</span> <span class='kw'>&lt;</span> <span class='fl'>100000</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='results.html'>results</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='ids.html'>ids</a></span>()
+
+<span class='co'># and get the data, placing it into the gdc_cache() directory</span>
+<span class='no'>fpaths</span> <span class='kw'>&lt;-</span> <span class='fu'>gdcdata</span>(<span class='no'>uuids</span>, <span class='kw'>use_cached</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+
+<span class='no'>fpaths</span></div><div class='output co'>#&gt;                                                                                                                               6f88847b-5643-4f79-96f0-79bec5e1ed33 
+#&gt; "/Users/sdavis2/Library/Caches/GenomicDataCommons/6f88847b-5643-4f79-96f0-79bec5e1ed33/RIELS_p_TCGA_268_269_N_GenomeWideSNP_6_E12_1306390.nocnv_grch38.seg.v2.txt" 
+#&gt;                                                                                                                               b8ab150a-a778-47eb-9c7a-cb6e2225d6c8 
+#&gt;   "/Users/sdavis2/Library/Caches/GenomicDataCommons/b8ab150a-a778-47eb-9c7a-cb6e2225d6c8/REEDY_p_TCGAb65_SNP_N_GenomeWideSNP_6_D11_697596.nocnv_grch38.seg.v2.txt" 
+#&gt;                                                                                                                               a12bbc40-fe3f-4baf-9d22-029b01c04a34 
+#&gt;   "/Users/sdavis2/Library/Caches/GenomicDataCommons/a12bbc40-fe3f-4baf-9d22-029b01c04a34/AMISS_p_TCGAb24_SNP_N_GenomeWideSNP_6_H06_542442.nocnv_grch38.seg.v2.txt" </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -182,11 +236,14 @@ the GDC Data Transfer Tool.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return valid values for "expand" — available_expand • GenomicDataCommons</title>
+<title>Work with gdc cache directory — gdc_cache • GenomicDataCommons</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,12 +30,17 @@
 
 
 
-<meta property="og:title" content="Return valid values for "expand" — available_expand" />
+<meta property="og:title" content="Work with gdc cache directory — gdc_cache" />
 
-<meta property="og:description" content="The GDC allows a shorthand for specifying groups
-of fields to be returned by the metadata queries.
-These can be specified in a select
-method call to easily supply groups of fields." />
+<meta property="og:description" content="The GenomicDataCommons package will cache downloaded
+files to minimize network and allow for
+offline work. These functions are used to create a cache directory
+if one does not exist, set a global option, and query that
+option. The cache directory will default to the user &quot;cache&quot;
+directory according to specifications in
+app_dir. However, the user may want to set
+this to another direcotory with more or higher performance
+storage." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,53 +127,79 @@ method call to easily supply groups of fields." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return valid values for "expand"</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Bioconductor/GenomicDataCommons/blob/master/R/expand.R'><code>R/expand.R</code></a></small>
-    <div class="hidden name"><code>available_expand.Rd</code></div>
+    <h1>Work with gdc cache directory</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Bioconductor/GenomicDataCommons/blob/master/R/caching.R'><code>R/caching.R</code></a></small>
+    <div class="hidden name"><code>gdc_cache.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>The GDC allows a shorthand for specifying groups
-of fields to be returned by the metadata queries.
-These can be specified in a <code><a href='select.html'>select</a></code>
-method call to easily supply groups of fields.</p>
+    <p>The GenomicDataCommons package will cache downloaded
+files to minimize network and allow for
+offline work. These functions are used to create a cache directory
+if one does not exist, set a global option, and query that
+option. The cache directory will default to the user "cache"
+directory according to specifications in
+<code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/app_dir'>app_dir</a></code>. However, the user may want to set
+this to another direcotory with more or higher performance
+storage.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>available_expand</span>(<span class='no'>entity</span>)
+    <pre class="usage"><span class='fu'>gdc_cache</span>()
 
-<span class='co'># S3 method for character</span>
-<span class='fu'>available_expand</span>(<span class='no'>entity</span>)
-
-<span class='co'># S3 method for GDCQuery</span>
-<span class='fu'>available_expand</span>(<span class='no'>entity</span>)</pre>
+<span class='fu'>gdc_set_cache</span>(<span class='kw'>directory</span> <span class='kw'>=</span> <span class='kw pkg'>rappdirs</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rappdirs/topics/app_dir'>app_dir</a></span>(<span class='kw'>appname</span> <span class='kw'>=</span>
+  <span class='st'>"GenomicDataCommons"</span>)$<span class='fu'>cache</span>(), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>create_without_asking</span> <span class='kw'>=</span> !<span class='fu'>interactive</span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>entity</th>
-      <td><p>Either a <code><a href='query.html'>GDCQuery</a></code> object
-or a character(1) specifying a GDC entity ('cases', 'files',
-'annotations', 'projects')</p></td>
+      <th>directory</th>
+      <td><p>character(1) directory path, will be created
+recursively if not present.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>logical(1) whether or not to message the location of
+the cache directory after creation.</p></td>
+    </tr>
+    <tr>
+      <th>create_without_asking</th>
+      <td><p>logical(1) specifying whether to allow
+the function to create the cache directory without asking the
+user first. In an interactive session, if the cache directory
+does not exist, the user will be prompted before creation.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A character vector</p>
+    <p>character(1) directory path that serves as
+the base directory for GenomicDataCommons downloads.</p>
+<p>the created directory (invisibly)</p>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class='dont-index'><p>See <a href='https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#expand'>https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#expand</a>
-for details</p></div>
+    <p>The cache structure is currently just a directory with each file
+    being represented by a path constructed as:
+    CACHEDIR/UUID/FILENAME. The cached files can be manipulated
+    using standard file system commands (removing, finding,
+    etc.). In this sense, the cache sytem is minimalist in design.</p>
+    
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    <ul>
+<li><p><code>gdc_set_cache</code>: (Re)set the GenomicDataCommons cache
+directory</p></li>
+</ul>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='fu'>available_expand</span>(<span class='st'>'files'</span>))</div><div class='output co'>#&gt; [1] "index_files"                      "downstream_analyses"             
-#&gt; [3] "downstream_analyses.output_files" "archive"                         
-#&gt; [5] "metadata_files"                   "annotations"                     </div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>gdc_cache</span>()</div><div class='output co'>#&gt; [1] "/Users/sdavis2/Library/Caches/GenomicDataCommons"</div><span class='co'># NOT RUN {</span>
+<span class='fu'>gdc_set_cache</span>(<span class='fu'>getwd</span>())
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -178,7 +209,9 @@ for details</p></div>
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#functions">Functions</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
