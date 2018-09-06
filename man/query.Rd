@@ -62,9 +62,9 @@ is required for accessing certain datasets.
 \itemize{
 \item \code{cases}: convenience contructor for a GDCQuery for cases
 
-\item \code{files}: convenience contructor for a GDCQuery for cases
+\item \code{files}: convenience contructor for a GDCQuery for files
 
-\item \code{projects}: convenience contructor for a GDCQuery for cases
+\item \code{projects}: convenience contructor for a GDCQuery for projects
 
 \item \code{annotations}: convenience contructor for a GDCQuery for annotations
 }}
