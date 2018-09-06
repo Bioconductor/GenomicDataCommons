@@ -63,11 +63,11 @@ query = function(entity,
 #' @export
 cases = function(...) {return(query('cases',...))}
 
-#' @describeIn query convenience contructor for a GDCQuery for cases
+#' @describeIn query convenience contructor for a GDCQuery for files
 #' @export
 files = function(...) {return(query('files',...))}
 
-#' @describeIn query convenience contructor for a GDCQuery for cases
+#' @describeIn query convenience contructor for a GDCQuery for projects
 #' @export
 projects = function(...) {return(query('projects',...))}
 
