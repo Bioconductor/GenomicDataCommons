@@ -2,6 +2,14 @@ library(GenomicDataCommons)
 library(magrittr)
 context('legacy endpoint')
 
+## This fixes a problem whereby the testthat
+## errors out with a 404 error unless this
+## sleep is here. A sleep of 3 does not work;
+## 5 seconds is the shortest time that I could
+## find to be reproducibly fixing the problem.
+Sys.sleep(5) 
+             
+
 ## IDs here were selected interactively, just for testing.
 ## If GDC removes these IDs, expect tests to fail.
 
