@@ -110,6 +110,10 @@ make_filter = function(expr,available_fields) {
 #'                    & experimental_strategy=='WXS'
 #'                    & type == 'simple_somatic_mutation') %>% count()
 #'
+#' # Filters may be chained
+#' # 
+#' # When chained, filters are combined with logical AND
+#' 
 #' files() %>%
 #'   filter(~ data_format == 'VCF') %>%
 #'   filter(~ experimental_strategy == 'WXS') %>%
