@@ -1,0 +1,5 @@
+1.5.8
+======
+
+* filters are now chainable with pipes
+

@@ -105,6 +105,17 @@ make_filter = function(expr,available_fields) {
 #' fQuery = filter(fQuery,~ data_format == 'VCF'
 #'                 & experimental_strategy == 'WXS'
 #'                 & type == 'simple_somatic_mutation')
+#'
+#' files() %>% filter(~ data_format == 'VCF'
+#'                    & experimental_strategy=='WXS'
+#'                    & type == 'simple_somatic_mutation') %>% count()
+#'
+#' files() %>%
+#'   filter(~ data_format == 'VCF') %>%
+#'   filter(~ experimental_strategy == 'WXS') %>%
+#'   filter(~ type == 'simple_somatic_mutation') %>%
+#'   count()
+#'       
 #' 
 #' # Use str() to get a cleaner picture
 #' str(get_filter(fQuery))
@@ -132,7 +143,10 @@ filter = function(x,expr) {
 #' @export
 filter.GDCQuery = function(x,expr) {
     filt = make_filter(expr,available_fields(x))
-    x$filters = filt
+    if(!is.null(x$filters))
+        x$filters=list(op="and", content=list(x$filters,filt))
+    else
+        x$filters = filt
     return(x)
 }
 
