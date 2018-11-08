@@ -72,23 +72,21 @@ quantified as raw counts using `HTSeq` from ovarian cancer patients.
 ```r
 library(magrittr)
 ge_manifest = files() %>% 
-    filter( ~ cases.project.project_id == 'TCGA-OV' &
-                type == 'gene_expression' &
-                analysis.workflow_type == 'HTSeq - Counts') %>%
+    filter( cases.project.project_id == 'TCGA-OV') %>%
+    filter( type == 'gene_expression' ) %>%
+    filter( analysis.workflow_type == 'HTSeq - Counts') %>%
     manifest()
 ```
 
 ## Download data
 
-This code block downloads the `r nrow(ge_manifest)` gene expression files specified in the query above. Using multiple processes to do the download very significantly speeds up the transfer in many cases.  On a standard 1Gb connection using 10 processes, the following completes in about 15 seconds.
+This code block downloads the `r nrow(ge_manifest)` gene expression files specified in the query above. Using multiple processes to do the download very significantly speeds up the transfer in many cases.  The following completes in about 15 seconds.
 
 ```r
 library(BiocParallel)
 register(MulticoreParam())
 destdir = tempdir()
-fnames = bplapply(ge_manifest$id,gdcdata,
-                  destination_dir=destdir,
-                  BPPARAM = MulticoreParam(progressbar=TRUE))
+fnames = lapply(ge_manifest$id,gdcdata)
 ```
 
 If the download had included controlled-access data, the download above would have needed to include a `token`.  Details are available in [the authentication section below](#authentication).
