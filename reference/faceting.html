@@ -72,7 +72,7 @@ Get facets for a GDCQuery" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">GenomicDataCommons</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.7.1</span>
       </span>
     </div>
 
@@ -180,15 +180,15 @@ with facets field updated.</p>
 <span class='co'># tibbles for each facet</span>
 <span class='fu'>str</span>(<span class='fu'><a href='response.html'>response</a></span>(<span class='no'>gProjFacet</span>,<span class='kw'>size</span><span class='kw'>=</span><span class='fl'>2</span>),<span class='kw'>max.level</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; List of 4
 #&gt;  $ results     :'data.frame':	2 obs. of  9 variables:
-#&gt;   ..$ dbgap_accession_number: chr [1:2] "phs000467" NA
+#&gt;   ..$ dbgap_accession_number: logi [1:2] NA NA
 #&gt;   ..$ disease_type          :List of 2
 #&gt;   ..$ releasable            : logi [1:2] FALSE FALSE
 #&gt;   ..$ released              : logi [1:2] TRUE TRUE
 #&gt;   ..$ state                 : chr [1:2] "open" "open"
 #&gt;   ..$ primary_site          :List of 2
-#&gt;   ..$ project_id            : chr [1:2] "TARGET-NBL" "TCGA-SARC"
-#&gt;   ..$ id                    : chr [1:2] "TARGET-NBL" "TCGA-SARC"
-#&gt;   ..$ name                  : chr [1:2] "Neuroblastoma" "Sarcoma"
+#&gt;   ..$ project_id            : chr [1:2] "TCGA-SARC" "TCGA-ACC"
+#&gt;   ..$ id                    : chr [1:2] "TCGA-SARC" "TCGA-ACC"
+#&gt;   ..$ name                  : chr [1:2] "Sarcoma" "Adrenocortical Carcinoma"
 #&gt;  $ query       :List of 5
 #&gt;   ..$ fields : chr [1:10] "dbgap_accession_number" "disease_type" "intended_release_date" "name" ...
 #&gt;   ..$ filters: NULL
@@ -201,20 +201,20 @@ with facets field updated.</p>
 #&gt;   ..$ sort : chr ""
 #&gt;   ..$ from : int 0
 #&gt;   ..$ page : int 1
-#&gt;   ..$ total: int 40
-#&gt;   ..$ pages: int 20
+#&gt;   ..$ total: int 43
+#&gt;   ..$ pages: int 22
 #&gt;   ..$ size : int 2
 #&gt;  $ aggregations:List of 10
-#&gt;   ..$ project_id            :'data.frame':	40 obs. of  2 variables:
-#&gt;   ..$ name                  :'data.frame':	39 obs. of  2 variables:
+#&gt;   ..$ project_id            :'data.frame':	43 obs. of  2 variables:
+#&gt;   ..$ name                  :'data.frame':	42 obs. of  2 variables:
 #&gt;   ..$ intended_release_date :'data.frame':	1 obs. of  2 variables:
-#&gt;   ..$ releasable            :'data.frame':	1 obs. of  2 variables:
+#&gt;   ..$ releasable            :'data.frame':	2 obs. of  2 variables:
 #&gt;   ..$ released              :'data.frame':	1 obs. of  2 variables:
 #&gt;   ..$ state                 :'data.frame':	1 obs. of  2 variables:
-#&gt;   ..$ primary_site          :'data.frame':	61 obs. of  2 variables:
-#&gt;   ..$ dbgap_accession_number:'data.frame':	8 obs. of  2 variables:
+#&gt;   ..$ primary_site          :'data.frame':	69 obs. of  2 variables:
+#&gt;   ..$ dbgap_accession_number:'data.frame':	11 obs. of  2 variables:
 #&gt;   ..$ project_autocomplete  :'data.frame':	100 obs. of  2 variables:
-#&gt;   ..$ disease_type          :'data.frame':	61 obs. of  2 variables:
+#&gt;   ..$ disease_type          :'data.frame':	39 obs. of  2 variables:
 #&gt;  - attr(*, "class")= chr [1:3] "GDCprojectsResponse" "GDCResponse" "list"</div><div class='input'>
 </div></pre>
   </div>
@@ -233,7 +233,7 @@ with facets field updated.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Martin Morgan, Davis Sean.</p>
+  <p>Developed by Martin Morgan, Sean Davis.</p>
 </div>
 
 <div class="pkgdown">

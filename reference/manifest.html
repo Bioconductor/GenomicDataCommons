@@ -74,7 +74,7 @@ that contain file information (&quot;cases&quot; and &quot;files&quot; queries).
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">GenomicDataCommons</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.7.1</span>
       </span>
     </div>
 
@@ -193,11 +193,11 @@ will return the usually desirable full set of records.</p></td>
     <pre class="examples"><div class='input'><span class='no'>gFiles</span> <span class='kw'>=</span> <span class='fu'><a href='query.html'>files</a></span>()
 <span class='no'>shortManifest</span> <span class='kw'>=</span> <span class='no'>gFiles</span> <span class='kw'>%&gt;%</span> <span class='fu'>manifest</span>(<span class='kw'>size</span><span class='kw'>=</span><span class='fl'>10</span>)
 <span class='fu'>head</span>(<span class='no'>shortManifest</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 5
-#&gt;   id                filename                      md5               size state 
-#&gt;   &lt;chr&gt;             &lt;chr&gt;                         &lt;chr&gt;            &lt;int&gt; &lt;chr&gt; 
-#&gt; 1 cd7d8995-42ac-43… cd7d8995-42ac-43af-b228-fd24… 2c6f685750d16…  1.24e5 live  
-#&gt; 2 9ac9d314-5c0e-4f… TCGA-IG-A51D-01A-01-TSA.0D6F… 919ca00d650de…  2.43e8 relea…
-#&gt; 3 d0a0a885-412f-4a… d0a0a885-412f-4add-a69c-ec24… c0ee823f288f0…  1.88e5 live  </div><div class='input'>
+#&gt;   id                  filename                   md5                size state 
+#&gt;   &lt;chr&gt;               &lt;chr&gt;                      &lt;chr&gt;             &lt;int&gt; &lt;chr&gt; 
+#&gt; 1 d86ea2f8-93bb-42f3… d86ea2f8-93bb-42f3-a195-1… 6e81b8989f11a81d…  7290 relea…
+#&gt; 2 79e05e92-e616-4690… 79e05e92-e616-4690-b507-3… a8472ff9773d8511…  1140 relea…
+#&gt; 3 a39afa84-fbfb-4f0f… a39afa84-fbfb-4f0f-8176-5… edb5fb4f80141747…  3593 relea…</div><div class='input'>
 
 </div></pre>
   </div>
@@ -218,7 +218,7 @@ will return the usually desirable full set of records.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Martin Morgan, Davis Sean.</p>
+  <p>Developed by Martin Morgan, Sean Davis.</p>
 </div>
 
 <div class="pkgdown">

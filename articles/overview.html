@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">GenomicDataCommons</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.7.1</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <h1>The GenomicDataCommons Package</h1>
                         <h4 class="author">Sean Davis &amp; Martin Morgan</h4>
             
-            <h4 class="date">Tuesday, September 04, 2018</h4>
+            <h4 class="date">Thursday, November 08, 2018</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Bioconductor/GenomicDataCommons/blob/master/vignettes/overview.Rmd"><code>vignettes/overview.Rmd</code></a></small>
       <div class="hidden name"><code>overview.Rmd</code></div>
@@ -132,16 +132,16 @@
 <p>The <em><a href="http://bioconductor.org/packages/GenomicDataCommons">GenomicDataCommons</a></em> package relies on having network connectivity. In addition, the NCI GDC API must also be operational and not under maintenance. Checking <code>status</code> can be used to check this connectivity and functionality.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/status">status</a></span>()</a></code></pre></div>
 <pre><code>## $commit
-## [1] "8acb9697bd3e944def954f8d1c0b5c22a0fbc8fa"
+## [1] "acaf65369f6cea8337c6b59f0888761c9ed34654"
 ## 
 ## $data_release
-## [1] "Data Release 12.0 - August 23, 2018"
+## [1] "Data Release 13.0 - September 27, 2018"
 ## 
 ## $status
 ## [1] "OK"
 ## 
 ## $tag
-## [1] "1.15.1"
+## [1] "1.17.1"
 ## 
 ## $version
 ## [1] 1</code></pre>
@@ -153,152 +153,138 @@
 <a href="#find-data" class="anchor"></a>Find data</h2>
 <p>The following code builds a <code>manifest</code> that can be used to guide the download of raw data. Here, filtering finds gene expression files quantified as raw counts using <code>HTSeq</code> from ovarian cancer patients.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">ge_manifest =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>( <span class="op">~</span><span class="st"> </span>cases.project.project_id <span class="op">==</span><span class="st"> 'TCGA-OV'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">                </span>type <span class="op">==</span><span class="st"> 'gene_expression'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">                </span>analysis.workflow_type <span class="op">==</span><span class="st"> 'HTSeq - Counts'</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="../reference/manifest.html">manifest</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>( cases.project.project_id <span class="op">==</span><span class="st"> 'TCGA-OV'</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>( type <span class="op">==</span><span class="st"> 'gene_expression'</span> ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>( analysis.workflow_type <span class="op">==</span><span class="st"> 'HTSeq - Counts'</span>)  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="../reference/manifest.html">manifest</a></span>()</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="kw">head</span>(ge_manifest)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 5
+##   id                filename                 md5               size state 
+##   &lt;chr&gt;             &lt;chr&gt;                    &lt;chr&gt;            &lt;int&gt; &lt;chr&gt; 
+## 1 1c710ed8-4e82-48… 85fe5749-1fef-49a2-bbac… c89b3cb3cfea61… 260506 relea…
+## 2 66099894-b6d2-42… b4f37e7b-e458-4395-a204… 16aa831b655c07… 262493 relea…
+## 3 23bebeda-8b5f-49… 98e7898a-bd2e-4c49-9f76… bcdca52c835a42… 252465 relea…
+## 4 67270205-5ba8-41… df06bca2-4481-455f-98b2… 878aed6fb06164… 257505 relea…
+## 5 1c07df73-e470-47… 538a1fe4-8e69-4a29-a789… fde6a9c9c4b140… 250971 relea…
+## 6 a522b6f3-0869-45… 61b6a3de-8bb2-4fc1-85d9… 0c6b86b8e0e8c4… 260840 relea…</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">fnames =<span class="st"> </span><span class="kw">lapply</span>(ge_manifest<span class="op">$</span>id[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>],gdcdata)</a></code></pre></div>
 </div>
 <div id="download-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#download-data" class="anchor"></a>Download data</h2>
 <p>After the 379 gene expression files specified in the query above. Using multiple processes to do the download very significantly speeds up the transfer in many cases. On a standard 1Gb connection, the following completes in about 30 seconds. The first time the data are downloaded, R will ask to create a cache directory (see <code><a href="../reference/gdc_cache.html">?gdc_cache</a></code> for details of setting and interacting with the cache). Resulting downloaded files will be stored in the cache directory. Future access to the same files will be directly from the cache, alleviating multiple downloads.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">fnames =<span class="st"> </span><span class="kw">lapply</span>(ge_manifest<span class="op">$</span>id[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>],gdcdata)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">fnames =<span class="st"> </span><span class="kw">lapply</span>(ge_manifest<span class="op">$</span>id[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>],gdcdata)</a></code></pre></div>
 <p>If the download had included controlled-access data, the download above would have needed to include a <code>token</code>. Details are available in <a href="#authentication">the authentication section below</a>.</p>
 </div>
 <div id="metadata-queries" class="section level2">
 <h2 class="hasAnchor">
 <a href="#metadata-queries" class="anchor"></a>Metadata queries</h2>
-<p>The <em><a href="http://bioconductor.org/packages/GenomicDataCommons">GenomicDataCommons</a></em> can access the significant clinical, demographic, biospecimen, and annotation information contained in the NCI GDC.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">expands =<span class="st"> </span><span class="kw">c</span>(<span class="st">"diagnoses"</span>,<span class="st">"annotations"</span>,</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">             <span class="st">"demographic"</span>,<span class="st">"exposures"</span>)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">clinResults =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">    </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/select">select</a></span>(<span class="ot">NULL</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">    </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/expand">expand</a></span>(expands) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/results.html">results</a></span>(<span class="dt">size=</span><span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="kw">str</span>(clinResults[[<span class="dv">1</span>]],<span class="dt">list.len=</span><span class="dv">10</span>)</a></code></pre></div>
+<div id="clinical-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#clinical-data" class="anchor"></a>Clinical data</h3>
+<p>Accessing clinical data is a very common task. Given a set of <code>case_ids</code>, the <code><a href="../reference/gdc_clinical.html">gdc_clinical()</a></code> function will return a list of four <code>tibble</code>s.</p>
+<ul>
+<li>demographic</li>
+<li>diagnoses</li>
+<li>exposures</li>
+<li>main</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">case_ids =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/results.html">results</a></span>(<span class="dt">size=</span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/ids.html">ids</a></span>()</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">clindat =<span class="st"> </span><span class="kw"><a href="../reference/gdc_clinical.html">gdc_clinical</a></span>(case_ids)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">names</span>(clindat)</a></code></pre></div>
+<pre><code>## [1] "demographic" "diagnoses"   "exposures"   "main"</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">head</span>(clindat[[<span class="st">"main"</span>]])</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 8
+##   updated_datetime submitter_id id    disease_type created_datetime state
+##   &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;
+## 1 2018-08-07T05:0… AD3978       4033… Adenomas an… 2017-06-01T09:3… rele…
+## 2 2018-08-07T05:0… AD14467      c8a4… Not Reported 2017-06-01T08:5… rele…
+## 3 2018-08-07T05:0… AD17381      0b55… Squamous Ce… 2017-06-01T09:1… rele…
+## 4 2018-08-07T05:0… AD11339      bcd7… Adenomas an… 2017-06-01T08:4… rele…
+## 5 2018-08-07T05:0… AD3547       4304… Adenomas an… 2017-06-01T09:3… rele…
+## 6 2018-08-07T05:0… AD15350      0946… Complex Mix… 2017-06-01T09:0… rele…
+## # ... with 2 more variables: case_id &lt;chr&gt;, primary_site &lt;chr&gt;</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">head</span>(clindat[[<span class="st">"diagnoses"</span>]])</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 20
+##   case_id progression_or_… classification_… last_known_dise… tumor_grade
+##   &lt;chr&gt;   &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;      
+## 1 403380… not reported     primary          not reported     not report…
+## 2 c8a4f0… not reported     metastasis       not reported     not report…
+## 3 0b5511… not reported     Unknown          not reported     not report…
+## 4 bcd702… not reported     primary          not reported     not report…
+## 5 4304fe… not reported     primary          not reported     not report…
+## 6 0946a9… not reported     metastasis       not reported     not report…
+## # ... with 15 more variables: tissue_or_organ_of_origin &lt;chr&gt;,
+## #   created_datetime &lt;chr&gt;, updated_datetime &lt;chr&gt;,
+## #   primary_diagnosis &lt;chr&gt;, submitter_id &lt;chr&gt;,
+## #   site_of_resection_or_biopsy &lt;chr&gt;, tumor_stage &lt;chr&gt;, state &lt;chr&gt;,
+## #   age_at_diagnosis &lt;int&gt;, vital_status &lt;chr&gt;, morphology &lt;chr&gt;,
+## #   days_to_last_known_disease_status &lt;lgl&gt;, days_to_last_follow_up &lt;lgl&gt;,
+## #   days_to_recurrence &lt;lgl&gt;, diagnosis_id &lt;chr&gt;</code></pre>
+</div>
+<div id="general-metadata-queries" class="section level3">
+<h3 class="hasAnchor">
+<a href="#general-metadata-queries" class="anchor"></a>General metadata queries</h3>
+<p>The <em><a href="http://bioconductor.org/packages/GenomicDataCommons">GenomicDataCommons</a></em> package can access the significant clinical, demographic, biospecimen, and annotation information contained in the NCI GDC. The <code><a href="../reference/gdc_clinical.html">gdc_clinical()</a></code> function will often be all that is needed, but the API and <em><a href="http://bioconductor.org/packages/GenomicDataCommons">GenomicDataCommons</a></em> package make much flexibility if fine-tuning is required.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">expands =<span class="st"> </span><span class="kw">c</span>(<span class="st">"diagnoses"</span>,<span class="st">"annotations"</span>,</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">             <span class="st">"demographic"</span>,<span class="st">"exposures"</span>)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">clinResults =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">    </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/select">select</a></span>(<span class="ot">NULL</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="st">    </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/expand">expand</a></span>(expands) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/results.html">results</a></span>(<span class="dt">size=</span><span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="kw">str</span>(clinResults[[<span class="dv">1</span>]],<span class="dt">list.len=</span><span class="dv">6</span>)</a></code></pre></div>
 <pre><code>## List of 50
-##  $ 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf:'data.frame':    1 obs. of  19 variables:
-##   ..$ progression_or_recurrence        : chr "not reported"
-##   ..$ classification_of_tumor          : chr "primary"
-##   ..$ last_known_disease_status        : chr "not reported"
-##   ..$ tumor_grade                      : chr "not reported"
-##   ..$ tissue_or_organ_of_origin        : chr "Breast, NOS"
-##   ..$ created_datetime                 : chr "2017-06-16T15:41:54.034178-05:00"
-##   ..$ updated_datetime                 : chr "2018-08-07T05:08:25.415044+00:00"
-##   ..$ primary_diagnosis                : chr "Infiltrating duct carcinoma, NOS"
-##   ..$ submitter_id                     : chr "AD11218_diagnosis"
-##   ..$ site_of_resection_or_biopsy      : chr "Breast, NOS"
-##   .. [list output truncated]
-##  $ 4060f92b-ab42-4233-8609-6e9baa11631d:'data.frame':    1 obs. of  19 variables:
-##   ..$ progression_or_recurrence        : chr "not reported"
-##   ..$ classification_of_tumor          : chr "metastasis"
-##   ..$ last_known_disease_status        : chr "not reported"
-##   ..$ tumor_grade                      : chr "not reported"
-##   ..$ tissue_or_organ_of_origin        : chr "Nervous system, NOS"
-##   ..$ created_datetime                 : chr "2017-06-19T09:23:29.064224-05:00"
-##   ..$ updated_datetime                 : chr "2018-08-07T05:08:25.415044+00:00"
-##   ..$ primary_diagnosis                : chr "Oligodendroglioma, NOS"
-##   ..$ submitter_id                     : chr "AD8623_diagnosis"
-##   ..$ site_of_resection_or_biopsy      : chr "Brain, NOS"
-##   .. [list output truncated]
-##  $ 90f4b65c-cfd4-4066-a5b9-842885c172e2:'data.frame':    1 obs. of  22 variables:
-##   ..$ classification_of_tumor          : chr "not reported"
-##   ..$ last_known_disease_status        : chr "not reported"
-##   ..$ updated_datetime                 : chr "2018-03-09T16:42:15.753583-06:00"
-##   ..$ primary_diagnosis                : chr "C56.9"
-##   ..$ submitter_id                     : chr "TCGA-13-0727_diagnosis"
-##   ..$ tumor_stage                      : chr "not reported"
-##   ..$ age_at_diagnosis                 : int 26185
-##   ..$ vital_status                     : chr "dead"
-##   ..$ morphology                       : chr "8441/3"
-##   ..$ days_to_death                    : num 462
-##   .. [list output truncated]
-##  $ a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10:'data.frame':    1 obs. of  19 variables:
-##   ..$ progression_or_recurrence        : chr "not reported"
-##   ..$ classification_of_tumor          : chr "primary"
-##   ..$ last_known_disease_status        : chr "not reported"
-##   ..$ tumor_grade                      : chr "not reported"
-##   ..$ tissue_or_organ_of_origin        : chr "Breast, NOS"
-##   ..$ created_datetime                 : chr "2017-06-19T09:29:52.147488-05:00"
-##   ..$ updated_datetime                 : chr "2018-08-07T05:08:25.415044+00:00"
-##   ..$ primary_diagnosis                : chr "Infiltrating duct carcinoma, NOS"
-##   ..$ submitter_id                     : chr "AD1214_diagnosis"
-##   ..$ site_of_resection_or_biopsy      : chr "Breast, NOS"
-##   .. [list output truncated]
-##  $ 6e534dd3-81ac-4575-ab1e-02c21e10916d:'data.frame':    1 obs. of  22 variables:
-##   ..$ classification_of_tumor          : chr "not reported"
-##   ..$ last_known_disease_status        : chr "not reported"
-##   ..$ updated_datetime                 : chr "2018-03-08T19:30:04.867636-06:00"
-##   ..$ primary_diagnosis                : chr "C24.0"
-##   ..$ submitter_id                     : chr "TCGA-W5-AA2X_diagnosis"
-##   ..$ tumor_stage                      : chr "stage ivb"
-##   ..$ age_at_diagnosis                 : int 24797
-##   ..$ vital_status                     : chr "dead"
-##   ..$ morphology                       : chr "8160/3"
-##   ..$ days_to_death                    : num 271
-##   .. [list output truncated]
-##  $ dfd8aaad-cf31-5260-8882-b471ddbcc8fd:'data.frame':    1 obs. of  17 variables:
-##   ..$ progression_or_recurrence  : chr "not reported"
-##   ..$ last_known_disease_status  : chr "not reported"
-##   ..$ tumor_grade                : chr "Not Reported"
-##   ..$ tissue_or_organ_of_origin  : chr "Not Reported"
-##   ..$ created_datetime           : chr "2017-02-24T20:54:45.808091-06:00"
-##   ..$ updated_datetime           : chr "2018-01-19T13:39:21.801433-06:00"
-##   ..$ primary_diagnosis          : chr "not reported"
-##   ..$ submitter_id               : chr "TARGET-50-PADXJZ_diagnosis"
-##   ..$ site_of_resection_or_biopsy: chr "C649"
-##   ..$ tumor_stage                : chr "iii"
-##   .. [list output truncated]
-##  $ 72636f64-ba2c-512e-b76f-72ff91f7f0f7:'data.frame':    1 obs. of  17 variables:
-##   ..$ progression_or_recurrence  : chr "not reported"
-##   ..$ last_known_disease_status  : chr "not reported"
-##   ..$ tumor_grade                : chr "Not Reported"
-##   ..$ tissue_or_organ_of_origin  : chr "Not Reported"
-##   ..$ created_datetime           : chr "2017-02-24T21:09:16.860616-06:00"
-##   ..$ updated_datetime           : chr "2018-03-08T09:11:04.174187-06:00"
-##   ..$ primary_diagnosis          : chr "not reported"
-##   ..$ submitter_id               : chr "TARGET-20-PARPEK_diagnosis"
-##   ..$ site_of_resection_or_biopsy: chr "not reported"
-##   ..$ tumor_stage                : chr "not reported"
-##   .. [list output truncated]
-##  $ 2fb5e38a-6b65-43ae-945c-9fa8109b2de5:'data.frame':    1 obs. of  19 variables:
+##  $ 403380bf-88f2-431b-b433-4161b6f47146:'data.frame':    1 obs. of  19 variables:
 ##   ..$ progression_or_recurrence        : chr "not reported"
 ##   ..$ classification_of_tumor          : chr "primary"
 ##   ..$ last_known_disease_status        : chr "not reported"
 ##   ..$ tumor_grade                      : chr "not reported"
 ##   ..$ tissue_or_organ_of_origin        : chr "Rectum, NOS"
-##   ..$ created_datetime                 : chr "2017-06-19T09:11:37.838594-05:00"
-##   ..$ updated_datetime                 : chr "2018-08-07T05:08:25.415044+00:00"
-##   ..$ primary_diagnosis                : chr "Squamous cell carcinoma, NOS"
-##   ..$ submitter_id                     : chr "AD6701_diagnosis"
-##   ..$ site_of_resection_or_biopsy      : chr "Rectum, NOS"
+##   ..$ created_datetime                 : chr "2017-06-16T15:51:29.940710-05:00"
 ##   .. [list output truncated]
-##  $ c34c0e02-2285-448f-bf8a-433e4caf5379:'data.frame':    1 obs. of  19 variables:
+##  $ c8a4f03a-bf88-4c05-8b0b-ee4370f7be5b:'data.frame':    1 obs. of  19 variables:
+##   ..$ progression_or_recurrence        : chr "not reported"
+##   ..$ classification_of_tumor          : chr "metastasis"
+##   ..$ last_known_disease_status        : chr "not reported"
+##   ..$ tumor_grade                      : chr "not reported"
+##   ..$ tissue_or_organ_of_origin        : chr "Not Reported"
+##   ..$ created_datetime                 : chr "2017-06-16T16:09:18.137246-05:00"
+##   .. [list output truncated]
+##  $ 0b55114d-f497-44c9-ab44-d671d4fc8217:'data.frame':    1 obs. of  19 variables:
+##   ..$ progression_or_recurrence        : chr "not reported"
+##   ..$ classification_of_tumor          : chr "Unknown"
+##   ..$ last_known_disease_status        : chr "not reported"
+##   ..$ tumor_grade                      : chr "not reported"
+##   ..$ tissue_or_organ_of_origin        : chr "Unknown"
+##   ..$ created_datetime                 : chr "2017-06-16T16:32:11.670330-05:00"
+##   .. [list output truncated]
+##  $ bcd70212-0f01-4c3a-bb8d-4b054e6d4f5e:'data.frame':    1 obs. of  19 variables:
 ##   ..$ progression_or_recurrence        : chr "not reported"
 ##   ..$ classification_of_tumor          : chr "primary"
 ##   ..$ last_known_disease_status        : chr "not reported"
 ##   ..$ tumor_grade                      : chr "not reported"
-##   ..$ tissue_or_organ_of_origin        : chr "Lung, NOS"
-##   ..$ created_datetime                 : chr "2017-06-16T16:06:02.946257-05:00"
-##   ..$ updated_datetime                 : chr "2018-08-07T05:08:25.415044+00:00"
-##   ..$ primary_diagnosis                : chr "Adenocarcinoma, NOS"
-##   ..$ submitter_id                     : chr "AD4438_diagnosis"
-##   ..$ site_of_resection_or_biopsy      : chr "Lung, NOS"
+##   ..$ tissue_or_organ_of_origin        : chr "Esophagus, NOS"
+##   ..$ created_datetime                 : chr "2017-06-16T15:50:50.640983-05:00"
 ##   .. [list output truncated]
-##  $ ee3fa9cd-2d82-4bc1-b71a-87818045dd70:'data.frame':    1 obs. of  19 variables:
+##  $ 4304fe79-a1b4-4b5e-95d8-a340372f9cbd:'data.frame':    1 obs. of  19 variables:
 ##   ..$ progression_or_recurrence        : chr "not reported"
 ##   ..$ classification_of_tumor          : chr "primary"
 ##   ..$ last_known_disease_status        : chr "not reported"
 ##   ..$ tumor_grade                      : chr "not reported"
-##   ..$ tissue_or_organ_of_origin        : chr "Lung, NOS"
-##   ..$ created_datetime                 : chr "2017-06-16T15:39:04.464841-05:00"
-##   ..$ updated_datetime                 : chr "2018-08-07T05:08:25.415044+00:00"
-##   ..$ primary_diagnosis                : chr "Squamous cell carcinoma, NOS"
-##   ..$ submitter_id                     : chr "AD9891_diagnosis"
-##   ..$ site_of_resection_or_biopsy      : chr "Lung, NOS"
+##   ..$ tissue_or_organ_of_origin        : chr "Esophagus, NOS"
+##   ..$ created_datetime                 : chr "2017-06-16T15:53:20.454258-05:00"
+##   .. [list output truncated]
+##  $ 0946a9c1-d7a8-4e85-89a9-8ba47fde4f1b:'data.frame':    1 obs. of  19 variables:
+##   ..$ progression_or_recurrence        : chr "not reported"
+##   ..$ classification_of_tumor          : chr "metastasis"
+##   ..$ last_known_disease_status        : chr "not reported"
+##   ..$ tumor_grade                      : chr "not reported"
+##   ..$ tissue_or_organ_of_origin        : chr "Gastrointestinal tract, NOS"
+##   ..$ created_datetime                 : chr "2017-06-16T16:21:20.304647-05:00"
 ##   .. [list output truncated]
 ##   [list output truncated]</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># or listviewer::jsonedit(clinResults)</span></a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># or listviewer::jsonedit(clinResults)</span></a></code></pre></div>
+</div>
 </div>
 </div>
 <div id="basic-design" class="section level1">
@@ -396,7 +382,7 @@
 <li><code><a href="../reference/query.html">files()</a></code></li>
 <li><code><a href="../reference/query.html">annotations()</a></code></li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">pquery =<span class="st"> </span><span class="kw"><a href="../reference/query.html">projects</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">pquery =<span class="st"> </span><span class="kw"><a href="../reference/query.html">projects</a></span>()</a></code></pre></div>
 <p>The <code>pquery</code> object is now an object of (S3) class, <code>GDCQuery</code> (and <code>gdc_projects</code> and <code>list</code>). The object contains the following elements:</p>
 <ul>
 <li>fields: This is a character vector of the fields that will be returned when we <a href="#retrieving-results">retrieve data</a>. If no fields are specified to, for example, the <code><a href="../reference/query.html">projects()</a></code> function, the default fields from the GDC are used (see <code><a href="../reference/default_fields.html">default_fields()</a></code>)</li>
@@ -406,7 +392,7 @@
 <li>token: A character(1) token from the GDC. See <a href="#authentication">the authentication section</a> for details, but note that, in general, the token is not necessary for metadata query and retrieval, only for actual data download.</li>
 </ul>
 <p>Looking at the actual object (get used to using <code>str()</code>!), note that the query contains no results.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">str</span>(pquery)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">str</span>(pquery)</a></code></pre></div>
 <pre><code>## List of 5
 ##  $ fields : chr [1:10] "dbgap_accession_number" "disease_type" "intended_release_date" "name" ...
 ##  $ filters: NULL
@@ -421,55 +407,55 @@
 <p><a href="https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#size-and-from">[ GDC pagination documentation ]</a></p>
 <p><a href="https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#sort">[ GDC sorting documentation ]</a></p>
 <p>With a query object available, the next step is to retrieve results from the GDC. The GenomicDataCommons package. The most basic type of results we can get is a simple <code><a href="../reference/count.html">count()</a></code> of records available that satisfy the filter criteria. Note that we have not set any filters, so a <code><a href="../reference/count.html">count()</a></code> here will represent all the project records publicly available at the GDC in the “default” archive"</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">pcount =<span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>(pquery)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co"># or</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">pcount =<span class="st"> </span>pquery <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>()</a>
-<a class="sourceLine" id="cb14-4" data-line-number="4">pcount</a></code></pre></div>
-<pre><code>## [1] 40</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">pcount =<span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>(pquery)</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="co"># or</span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">pcount =<span class="st"> </span>pquery <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>()</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">pcount</a></code></pre></div>
+<pre><code>## [1] 43</code></pre>
 <p>The <code><a href="../reference/results.html">results()</a></code> method will fetch actual results.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">presults =<span class="st"> </span>pquery <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/results.html">results</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">presults =<span class="st"> </span>pquery <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/results.html">results</a></span>()</a></code></pre></div>
 <p>These results are returned from the GDC in <a href="http://www.json.org/">JSON</a> format and converted into a (potentially nested) list in R. The <code>str()</code> method is useful for taking a quick glimpse of the data.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">str</span>(presults)</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">str</span>(presults)</a></code></pre></div>
 <pre><code>## List of 9
-##  $ dbgap_accession_number: chr [1:10] "phs000467" NA "phs000466" "phs000465" ...
+##  $ dbgap_accession_number: chr [1:10] NA NA NA NA ...
 ##  $ disease_type          :List of 10
-##   ..$ TARGET-NBL : chr "Neuroblastoma"
-##   ..$ TCGA-SARC  : chr "Sarcoma"
+##   ..$ TCGA-SARC  : chr [1:6] "Myomatous Neoplasms" "Soft Tissue Tumors and Sarcomas, NOS" "Fibromatous Neoplasms" "Lipomatous Neoplasms" ...
+##   ..$ TCGA-ACC   : chr "Adenomas and Adenocarcinomas"
+##   ..$ TCGA-MESO  : chr "Mesothelial Neoplasms"
+##   ..$ TCGA-READ  : chr [1:2] "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas"
 ##   ..$ TARGET-CCSK: chr "Clear Cell Sarcoma of the Kidney"
 ##   ..$ TARGET-AML : chr "Acute Myeloid Leukemia"
-##   ..$ TCGA-ACC   : chr "Adrenocortical Carcinoma"
-##   ..$ TCGA-LGG   : chr "Brain Lower Grade Glioma"
-##   ..$ TCGA-THCA  : chr "Thyroid Carcinoma"
-##   ..$ TCGA-MESO  : chr "Mesothelioma"
-##   ..$ TCGA-READ  : chr "Rectum Adenocarcinoma"
-##   ..$ TCGA-KIRC  : chr "Kidney Renal Clear Cell Carcinoma"
+##   ..$ TARGET-NBL : chr "Neuroblastoma"
+##   ..$ TCGA-LGG   : chr "Gliomas"
+##   ..$ TCGA-STAD  : chr [1:2] "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas"
+##   ..$ TCGA-THCA  : chr [1:2] "Epithelial Neoplasms, NOS" "Adenomas and Adenocarcinomas"
 ##  $ releasable            : logi [1:10] FALSE FALSE FALSE FALSE FALSE FALSE ...
 ##  $ released              : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
 ##  $ state                 : chr [1:10] "open" "open" "open" "open" ...
 ##  $ primary_site          :List of 10
-##   ..$ TARGET-NBL : chr "Nervous System"
-##   ..$ TCGA-SARC  : chr "Soft Tissue"
+##   ..$ TCGA-SARC  : chr [1:13] "Corpus uteri" "Stomach" "Other and unspecified parts of tongue" "Other and unspecified male genital organs" ...
+##   ..$ TCGA-ACC   : chr "Adrenal gland"
+##   ..$ TCGA-MESO  : chr [1:2] "Heart, mediastinum, and pleura" "Bronchus and lung"
+##   ..$ TCGA-READ  : chr [1:5] "Rectosigmoid junction" "Rectum" "Colon" "Unknown primary site" ...
 ##   ..$ TARGET-CCSK: chr "Kidney"
 ##   ..$ TARGET-AML : chr "Blood"
-##   ..$ TCGA-ACC   : chr "Adrenal Gland"
+##   ..$ TARGET-NBL : chr "Nervous System"
 ##   ..$ TCGA-LGG   : chr "Brain"
-##   ..$ TCGA-THCA  : chr "Thyroid"
-##   ..$ TCGA-MESO  : chr "Pleura"
-##   ..$ TCGA-READ  : chr "Colorectal"
-##   ..$ TCGA-KIRC  : chr "Kidney"
-##  $ project_id            : chr [1:10] "TARGET-NBL" "TCGA-SARC" "TARGET-CCSK" "TARGET-AML" ...
-##  $ id                    : chr [1:10] "TARGET-NBL" "TCGA-SARC" "TARGET-CCSK" "TARGET-AML" ...
-##  $ name                  : chr [1:10] "Neuroblastoma" "Sarcoma" "Clear Cell Sarcoma of the Kidney" "Acute Myeloid Leukemia" ...
+##   ..$ TCGA-STAD  : chr "Stomach"
+##   ..$ TCGA-THCA  : chr "Thyroid gland"
+##  $ project_id            : chr [1:10] "TCGA-SARC" "TCGA-ACC" "TCGA-MESO" "TCGA-READ" ...
+##  $ id                    : chr [1:10] "TCGA-SARC" "TCGA-ACC" "TCGA-MESO" "TCGA-READ" ...
+##  $ name                  : chr [1:10] "Sarcoma" "Adrenocortical Carcinoma" "Mesothelioma" "Rectum Adenocarcinoma" ...
 ##  - attr(*, "row.names")= int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  - attr(*, "class")= chr [1:3] "GDCprojectsResults" "GDCResults" "list"</code></pre>
 <p>A default of only 10 records are returned. We can use the <code>size</code> and <code>from</code> arguments to <code><a href="../reference/results.html">results()</a></code> to either page through results or to change the number of results. Finally, there is a convenience method, <code><a href="../reference/results_all.html">results_all()</a></code> that will simply fetch all the available results given a query. Note that <code><a href="../reference/results_all.html">results_all()</a></code> may take a long time and return HUGE result sets if not used carefully. Use of a combination of <code><a href="../reference/count.html">count()</a></code> and <code><a href="../reference/results.html">results()</a></code> to get a sense of the expected data size is probably warranted before calling <code><a href="../reference/results_all.html">results_all()</a></code></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">length</span>(<span class="kw"><a href="../reference/ids.html">ids</a></span>(presults))</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">length</span>(<span class="kw"><a href="../reference/ids.html">ids</a></span>(presults))</a></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">presults =<span class="st"> </span>pquery <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/results_all.html">results_all</a></span>()</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">length</span>(<span class="kw"><a href="../reference/ids.html">ids</a></span>(presults))</a></code></pre></div>
-<pre><code>## [1] 40</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co"># includes all records</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">length</span>(<span class="kw"><a href="../reference/ids.html">ids</a></span>(presults)) <span class="op">==</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>(pquery)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">presults =<span class="st"> </span>pquery <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/results_all.html">results_all</a></span>()</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">length</span>(<span class="kw"><a href="../reference/ids.html">ids</a></span>(presults))</a></code></pre></div>
+<pre><code>## [1] 43</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># includes all records</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">length</span>(<span class="kw"><a href="../reference/ids.html">ids</a></span>(presults)) <span class="op">==</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>(pquery)</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Extracting subsets of results or manipulating the results into a more conventional R data structure is not easily generalizable. However, the <a href="https://github.com/hadley/purrr">purrr</a>, <a href="https://renkun.me/rlist/">rlist</a>, and <a href="https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html">data.tree</a> packages are all potentially of interest for manipulating complex, nested list structures. For viewing the results in an interactive viewer, consider the <a href="https://github.com/timelyportfolio/listviewer">listviewer</a> package.</p>
 </div>
@@ -478,32 +464,38 @@
 <a href="#fields-and-values" class="anchor"></a>Fields and Values</h3>
 <p><a href="https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#fields">[ GDC <code>fields</code> documentation ]</a></p>
 <p>Central to querying and retrieving data from the GDC is the ability to specify which fields to return, filtering by fields and values, and faceting or aggregating. The GenomicDataCommons package includes two simple functions, <code><a href="../reference/available_fields.html">available_fields()</a></code> and <code><a href="../reference/default_fields.html">default_fields()</a></code>. Each can operate on a character(1) endpoint name (“cases”, “files”, “annotations”, or “projects”) or a <code>GDCQuery</code> object.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw"><a href="../reference/default_fields.html">default_fields</a></span>(<span class="st">'files'</span>)</a></code></pre></div>
-<pre><code>##  [1] "access"                "acl"                  
-##  [3] "created_datetime"      "data_category"        
-##  [5] "data_format"           "data_type"            
-##  [7] "error_type"            "experimental_strategy"
-##  [9] "file_autocomplete"     "file_id"              
-## [11] "file_name"             "file_size"            
-## [13] "imaging_date"          "magnification"        
-## [15] "md5sum"                "origin"               
-## [17] "platform"              "read_pair_number"     
-## [19] "revision"              "state"                
-## [21] "state_comment"         "submitter_id"         
-## [23] "tags"                  "type"                 
-## [25] "updated_datetime"</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># The number of fields available for files endpoint</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">length</span>(<span class="kw"><a href="../reference/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>))</a></code></pre></div>
-<pre><code>## [1] 651</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># The first few fields available for files endpoint</span></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">head</span>(<span class="kw"><a href="../reference/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw"><a href="../reference/default_fields.html">default_fields</a></span>(<span class="st">'files'</span>)</a></code></pre></div>
+<pre><code>##  [1] "access"                         "acl"                           
+##  [3] "average_base_quality"           "average_insert_size"           
+##  [5] "average_read_length"            "created_datetime"              
+##  [7] "data_category"                  "data_format"                   
+##  [9] "data_type"                      "error_type"                    
+## [11] "experimental_strategy"          "file_autocomplete"             
+## [13] "file_id"                        "file_name"                     
+## [15] "file_size"                      "imaging_date"                  
+## [17] "magnification"                  "md5sum"                        
+## [19] "mean_coverage"                  "origin"                        
+## [21] "pairs_on_diff_chr"              "platform"                      
+## [23] "proportion_base_mismatch"       "proportion_coverage_10X"       
+## [25] "proportion_coverage_30X"        "proportion_reads_duplicated"   
+## [27] "proportion_reads_mapped"        "proportion_targets_no_coverage"
+## [29] "read_pair_number"               "revision"                      
+## [31] "state"                          "state_comment"                 
+## [33] "submitter_id"                   "tags"                          
+## [35] "total_reads"                    "type"                          
+## [37] "updated_datetime"</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># The number of fields available for files endpoint</span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="kw">length</span>(<span class="kw"><a href="../reference/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>))</a></code></pre></div>
+<pre><code>## [1] 700</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># The first few fields available for files endpoint</span></a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">head</span>(<span class="kw"><a href="../reference/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>))</a></code></pre></div>
 <pre><code>## [1] "access"                      "acl"                        
 ## [3] "analysis.analysis_id"        "analysis.analysis_type"     
 ## [5] "analysis.created_datetime"   "analysis.input_files.access"</code></pre>
 <p>The fields to be returned by a query can be specified following a similar paradigm to that of the dplyr package. The <code><a href="../reference/select.html">select()</a></code> function is a verb that resets the fields slot of a <code>GDCQuery</code>; note that this is not quite analogous to the dplyr <code><a href="../reference/select.html">select()</a></code> verb that limits from already-present fields. We <em>completely replace</em> the fields when using <code><a href="../reference/select.html">select()</a></code> on a <code>GDCQuery</code>.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># Default fields here</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">qcases =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>()</a>
-<a class="sourceLine" id="cb31-3" data-line-number="3">qcases<span class="op">$</span>fields</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co"># Default fields here</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">qcases =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>()</a>
+<a class="sourceLine" id="cb39-3" data-line-number="3">qcases<span class="op">$</span>fields</a></code></pre></div>
 <pre><code>##  [1] "aliquot_ids"              "analyte_ids"             
 ##  [3] "case_autocomplete"        "case_id"                 
 ##  [5] "created_datetime"         "days_to_index"           
@@ -515,10 +507,10 @@
 ## [17] "submitter_analyte_ids"    "submitter_id"            
 ## [19] "submitter_portion_ids"    "submitter_sample_ids"    
 ## [21] "submitter_slide_ids"      "updated_datetime"</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># set up query to use ALL available fields</span></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="co"># Note that checking of fields is done by select()</span></a>
-<a class="sourceLine" id="cb33-3" data-line-number="3">qcases =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/select">select</a></span>(<span class="kw"><a href="../reference/available_fields.html">available_fields</a></span>(<span class="st">'cases'</span>))</a>
-<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="kw">head</span>(qcases<span class="op">$</span>fields)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co"># set up query to use ALL available fields</span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="co"># Note that checking of fields is done by select()</span></a>
+<a class="sourceLine" id="cb41-3" data-line-number="3">qcases =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/select">select</a></span>(<span class="kw"><a href="../reference/available_fields.html">available_fields</a></span>(<span class="st">'cases'</span>))</a>
+<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="kw">head</span>(qcases<span class="op">$</span>fields)</a></code></pre></div>
 <pre><code>## [1] "case_id"                       "aliquot_ids"                  
 ## [3] "analyte_ids"                   "annotations.annotation_id"    
 ## [5] "annotations.case_id"           "annotations.case_submitter_id"</code></pre>
@@ -529,18 +521,18 @@
 <a href="#facets-and-aggregation" class="anchor"></a>Facets and aggregation</h3>
 <p><a href="https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/#facets">[ GDC <code>facet</code> documentation ]</a></p>
 <p>The GDC API offers a feature known as aggregation or faceting. By specifying one or more fields (of appropriate type), the GDC can return to us a count of the number of records matching each potential value. This is similar to the R <code>table</code> method. Multiple fields can be returned at once, but the GDC API does not have a cross-tabulation feature; all aggregations are only on one field at a time. Results of <code>aggregation()</code> calls come back as a list of data.frames (actually, tibbles).</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># total number of files of a specific type</span></a>
-<a class="sourceLine" id="cb35-2" data-line-number="2">res =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/faceting.html">facet</a></span>(<span class="kw">c</span>(<span class="st">'type'</span>,<span class="st">'data_type'</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/aggregations.html">aggregations</a></span>()</a>
-<a class="sourceLine" id="cb35-3" data-line-number="3">res<span class="op">$</span>type</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># total number of files of a specific type</span></a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">res =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/faceting.html">facet</a></span>(<span class="kw">c</span>(<span class="st">'type'</span>,<span class="st">'data_type'</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/aggregations.html">aggregations</a></span>()</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3">res<span class="op">$</span>type</a></code></pre></div>
 <pre><code>##                            key doc_count
-## 1      simple_somatic_mutation     64015
-## 2   annotated_somatic_mutation     63580
-## 3                aligned_reads     45985
-## 4          copy_number_segment     44752
+## 1      simple_somatic_mutation     63971
+## 2   annotated_somatic_mutation     63536
+## 3                aligned_reads     47248
+## 4          copy_number_segment     45256
 ## 5              gene_expression     34713
-## 6                  slide_image     30036
+## 6                  slide_image     30072
 ## 7       biospecimen_supplement     25151
-## 8             mirna_expression     22976
+## 8             mirna_expression     22972
 ## 9          clinical_supplement     12496
 ## 10      methylation_beta_value     12359
 ## 11 aggregated_somatic_mutation       186
@@ -556,87 +548,81 @@
 <p>It’s best to use a formula because a formula captures both the expression to evaluate and the environment where the evaluation occurs. This is important if the expression is a mixture of variables in a data frame and objects in the local environment [for example].</p>
 </blockquote>
 <p>For the user, these details will not be too important except to note that a filter expression must begin with a “~”.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">qfiles =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>()</a>
-<a class="sourceLine" id="cb37-2" data-line-number="2">qfiles <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>() <span class="co"># all files</span></a></code></pre></div>
-<pre><code>## [1] 356381</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">qfiles =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>()</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">qfiles <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>() <span class="co"># all files</span></a></code></pre></div>
+<pre><code>## [1] 358092</code></pre>
 <p>To limit the file type, we can refer back to the <a href="#facets-and-aggregation">section on faceting</a> to see the possible values for the file field “type”. For example, to filter file results to only “gene_expression” files, we simply specify a filter.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">qfiles =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>type <span class="op">==</span><span class="st"> 'gene_expression'</span>)</a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="co"># here is what the filter looks like after translation</span></a>
-<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="kw">str</span>(<span class="kw"><a href="../reference/filtering.html">get_filter</a></span>(qfiles))</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">qfiles =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>( type <span class="op">==</span><span class="st"> 'gene_expression'</span>)</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="co"># here is what the filter looks like after translation</span></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3"><span class="kw">str</span>(<span class="kw"><a href="../reference/filtering.html">get_filter</a></span>(qfiles))</a></code></pre></div>
 <pre><code>## List of 2
 ##  $ op     : 'scalar' chr "="
 ##  $ content:List of 2
 ##   ..$ field: chr "type"
 ##   ..$ value: chr "gene_expression"</code></pre>
 <p>What if we want to create a filter based on the project (‘TCGA-OVCA’, for example)? Well, we have a couple of possible ways to discover available fields. The first is based on base R functionality and some intuition.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">grep</span>(<span class="st">'pro'</span>,<span class="kw"><a href="../reference/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>),<span class="dt">value=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<pre><code>##  [1] "cases.diagnoses.progression_free_survival"               
-##  [2] "cases.diagnoses.progression_free_survival_event"         
-##  [3] "cases.diagnoses.progression_or_recurrence"               
-##  [4] "cases.project.dbgap_accession_number"                    
-##  [5] "cases.project.disease_type"                              
-##  [6] "cases.project.intended_release_date"                     
-##  [7] "cases.project.name"                                      
-##  [8] "cases.project.primary_site"                              
-##  [9] "cases.project.program.dbgap_accession_number"            
-## [10] "cases.project.program.name"                              
-## [11] "cases.project.program.program_id"                        
-## [12] "cases.project.project_id"                                
-## [13] "cases.project.releasable"                                
-## [14] "cases.project.released"                                  
-## [15] "cases.project.state"                                     
-## [16] "cases.samples.days_to_sample_procurement"                
-## [17] "cases.samples.method_of_sample_procurement"              
-## [18] "cases.samples.portions.slides.number_proliferating_cells"
-## [19] "cases.tissue_source_site.project"</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">grep</span>(<span class="st">'pro'</span>,<span class="kw"><a href="../reference/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>),<span class="dt">value=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="st">    </span><span class="kw">head</span>()</a></code></pre></div>
+<pre><code>## [1] "analysis.input_files.proportion_base_mismatch"      
+## [2] "analysis.input_files.proportion_coverage_10X"       
+## [3] "analysis.input_files.proportion_coverage_30X"       
+## [4] "analysis.input_files.proportion_reads_duplicated"   
+## [5] "analysis.input_files.proportion_reads_mapped"       
+## [6] "analysis.input_files.proportion_targets_no_coverage"</code></pre>
 <p>Interestingly, the project information is “nested” inside the case. We don’t need to know that detail other than to know that we now have a few potential guesses for where our information might be in the files records. We need to know where because we need to construct the appropriate filter.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/faceting.html">facet</a></span>(<span class="st">'cases.project.project_id'</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/aggregations.html">aggregations</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/faceting.html">facet</a></span>(<span class="st">'cases.project.project_id'</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb51-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/aggregations.html">aggregations</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="st">    </span><span class="kw">head</span>()</a></code></pre></div>
 <pre><code>## $cases.project.project_id
-##            key doc_count
-## 1        FM-AD     36134
-## 2    TCGA-BRCA     31511
-## 3    TCGA-LUAD     17051
-## 4    TCGA-UCEC     16130
-## 5    TCGA-HNSC     15266
-## 6      TCGA-OV     15057
-## 7    TCGA-THCA     14420
-## 8    TCGA-LUSC     15323
-## 9     TCGA-LGG     14723
-## 10   TCGA-KIRC     15082
-## 11   TCGA-PRAD     14287
-## 12   TCGA-COAD     14270
-## 13    TCGA-GBM     11973
-## 14   TCGA-SKCM     12724
-## 15   TCGA-STAD     12845
-## 16   TCGA-BLCA     11710
-## 17   TCGA-LIHC     10814
-## 18   TCGA-CESC      8593
-## 19   TCGA-KIRP      8506
-## 20   TCGA-SARC      7493
-## 21   TCGA-PAAD      5306
-## 22   TCGA-ESCA      5270
-## 23   TCGA-PCPG      5032
-## 24   TCGA-READ      4918
-## 25   TCGA-TGCT      4217
-## 26   TCGA-THYM      3444
-## 27   TCGA-LAML      3960
-## 28  TARGET-NBL      2795
-## 29    TCGA-ACC      2546
-## 30   TCGA-KICH      2324
-## 31   TCGA-MESO      2330
-## 32  TARGET-AML      2170
-## 33    TCGA-UVM      2179
-## 34    TCGA-UCS      1658
-## 35   TARGET-WT      1406
-## 36   TCGA-DLBC      1330
-## 37   TCGA-CHOL      1348
-## 38   TARGET-OS        47
-## 39   TARGET-RT       174
-## 40 TARGET-CCSK        15</code></pre>
+##               key doc_count
+## 1           FM-AD     36134
+## 2       TCGA-BRCA     31523
+## 3       TCGA-LUAD     17051
+## 4       TCGA-UCEC     16173
+## 5       TCGA-HNSC     15288
+## 6         TCGA-OV     15165
+## 7       TCGA-THCA     14420
+## 8       TCGA-LUSC     15323
+## 9        TCGA-LGG     14727
+## 10      TCGA-KIRC     15090
+## 11      TCGA-PRAD     14287
+## 12      TCGA-COAD     14278
+## 13       TCGA-GBM     11995
+## 14      TCGA-SKCM     12724
+## 15      TCGA-STAD     12845
+## 16      TCGA-BLCA     11710
+## 17      TCGA-LIHC     10814
+## 18      TCGA-CESC      8594
+## 19      TCGA-KIRP      8506
+## 20      TCGA-SARC      7493
+## 21      TCGA-PAAD      5306
+## 22      TCGA-ESCA      5270
+## 23      TCGA-PCPG      5034
+## 24      TCGA-READ      4924
+## 25      TCGA-TGCT      4281
+## 26      TCGA-LAML      4178
+## 27      TCGA-THYM      3444
+## 28     TARGET-NBL      2805
+## 29       TCGA-ACC      2546
+## 30      TCGA-KICH      2324
+## 31      TCGA-MESO      2338
+## 32     TARGET-AML      2253
+## 33       TCGA-UVM      2179
+## 34       TCGA-UCS      1658
+## 35      TARGET-WT      1406
+## 36      TCGA-CHOL      1348
+## 37      TCGA-DLBC      1228
+## 38   NCICCR-DLBCL       957
+## 39      TARGET-OS        65
+## 40      TARGET-RT       297
+## 41    CTSP-DLBCL1        89
+## 42    TARGET-CCSK        15
+## 43 VAREPOP-APOLLO         7</code></pre>
 <p>We note that <code>cases.project.project_id</code> looks like it is a good fit. We also note that <code>TCGA-OV</code> is the correct project_id, not <code>TCGA-OVCA</code>. Note that <em>unlike with dplyr and friends, the <code><a href="../reference/filtering.html">filter()</a></code> method here <strong>replaces</strong> the filter and does not build on any previous filters</em>.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">qfiles =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>( <span class="op">~</span><span class="st"> </span>cases.project.project_id <span class="op">==</span><span class="st"> 'TCGA-OV'</span> <span class="op">&amp;</span><span class="st"> </span>type <span class="op">==</span><span class="st"> 'gene_expression'</span>)</a>
-<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="kw">str</span>(<span class="kw"><a href="../reference/filtering.html">get_filter</a></span>(qfiles))</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">qfiles =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>( cases.project.project_id <span class="op">==</span><span class="st"> 'TCGA-OV'</span> <span class="op">&amp;</span><span class="st"> </span>type <span class="op">==</span><span class="st"> 'gene_expression'</span>)</a>
+<a class="sourceLine" id="cb53-3" data-line-number="3"><span class="kw">str</span>(<span class="kw"><a href="../reference/filtering.html">get_filter</a></span>(qfiles))</a></code></pre></div>
 <pre><code>## List of 2
 ##  $ op     : 'scalar' chr "and"
 ##  $ content:List of 2
@@ -650,26 +636,34 @@
 ##   .. ..$ content:List of 2
 ##   .. .. ..$ field: chr "type"
 ##   .. .. ..$ value: chr "gene_expression"</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">qfiles <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">qfiles <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>()</a></code></pre></div>
 <pre><code>## [1] 1137</code></pre>
-<p>Asking for a <code><a href="../reference/count.html">count()</a></code> of results given these new filter criteria gives <code>r qfiles %&gt;% count()</code> results. Generating a manifest for bulk downloads is as simple as asking for the manifest from the current query.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">manifest_df =<span class="st"> </span>qfiles <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/manifest.html">manifest</a></span>()</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">head</span>(manifest_df)</a></code></pre></div>
+<p>Asking for a <code><a href="../reference/count.html">count()</a></code> of results given these new filter criteria gives <code>r qfiles %&gt;% count()</code> results. Filters can be chained (or nested) to accomplish the same effect as multiple <code>&amp;</code> conditionals. The <code><a href="../reference/count.html">count()</a></code> below is equivalent to the <code>&amp;</code> filtering done above.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">qfiles2 =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>( cases.project.project_id <span class="op">==</span><span class="st"> 'TCGA-OV'</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>( type <span class="op">==</span><span class="st"> 'gene_expression'</span>) </a>
+<a class="sourceLine" id="cb57-4" data-line-number="4">qfiles2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>()</a></code></pre></div>
+<pre><code>## [1] 1137</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">(qfiles <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>()) <span class="op">==</span><span class="st"> </span>(qfiles2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>()) <span class="co">#TRUE</span></a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Generating a manifest for bulk downloads is as simple as asking for the manifest from the current query.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">manifest_df =<span class="st"> </span>qfiles <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/manifest.html">manifest</a></span>()</a>
+<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="kw">head</span>(manifest_df)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 5
-##   id                filename                  md5               size state
-##   &lt;chr&gt;             &lt;chr&gt;                     &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;
-## 1 e0e2ad9d-357f-4f… 67bee95c-2a85-443b-b662-… 56cf43078ba1e2… 262733 live 
-## 2 b84b9118-3a5a-41… 94823ae2-8fb8-4be7-b2ca-… 47cb1de12d28c9… 256377 live 
-## 3 1af12665-932f-41… 0ffb5d54-6522-4074-9c41-… c26f786d701401… 557285 live 
-## 4 04a40917-633c-48… 97d62176-1e34-4508-886b-… 9be069378aed12… 255779 live 
-## 5 b7c1da28-59e1-48… ab8603dd-2f94-4c83-9927-… 4b5a4698c099a7… 249380 live 
-## 6 560d56bc-35ee-43… 30b1f3cd-604d-4a13-a196-… b58bbd636b6938… 261497 live</code></pre>
+##   id                filename                 md5               size state 
+##   &lt;chr&gt;             &lt;chr&gt;                    &lt;chr&gt;            &lt;int&gt; &lt;chr&gt; 
+## 1 cfed68d7-e813-40… 39ae7d32-a9c6-4599-a860… 55acea1942d79e… 538202 relea…
+## 2 8722050f-1538-4f… 60fdab7c-849a-440f-815a… 1e978e798adff3… 536021 relea…
+## 3 583884ff-56f7-4f… 654acb8d-c1bb-42b1-91af… 30f00d467863fb… 577306 relea…
+## 4 6ffe0d92-d1a4-48… 871da002-8649-42bc-8ce4… 917262f0abfaa2… 552115 relea…
+## 5 9d39fdc2-6e24-41… 517d7f3f-2ea0-4452-a743… 657839aa0fdc23… 529572 relea…
+## 6 d4d79084-9758-4f… 01770ca7-0c13-4078-b956… 9f6107df34f7db… 513662 relea…</code></pre>
 <p>Note that we might still not be quite there. Looking at filenames, there are suspiciously named files that might include “FPKM”, “FPKM-UQ”, or “counts”. Another round of <code>grep</code> and <code>available_fields</code>, looking for “type” turned up that the field “analysis.workflow_type” has the appropriate filter criteria.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">qfiles =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>( <span class="op">~</span><span class="st"> </span>cases.project.project_id <span class="op">==</span><span class="st"> 'TCGA-OV'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="st">                            </span>type <span class="op">==</span><span class="st"> 'gene_expression'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb51-3" data-line-number="3"><span class="st">                            </span>analysis.workflow_type <span class="op">==</span><span class="st"> 'HTSeq - Counts'</span>)</a>
-<a class="sourceLine" id="cb51-4" data-line-number="4">manifest_df =<span class="st"> </span>qfiles <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/manifest.html">manifest</a></span>()</a>
-<a class="sourceLine" id="cb51-5" data-line-number="5"><span class="kw">nrow</span>(manifest_df)</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">qfiles =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>( <span class="op">~</span><span class="st"> </span>cases.project.project_id <span class="op">==</span><span class="st"> 'TCGA-OV'</span> <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="st">                            </span>type <span class="op">==</span><span class="st"> 'gene_expression'</span> <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="st">                            </span>analysis.workflow_type <span class="op">==</span><span class="st"> 'HTSeq - Counts'</span>)</a>
+<a class="sourceLine" id="cb63-4" data-line-number="4">manifest_df =<span class="st"> </span>qfiles <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/manifest.html">manifest</a></span>()</a>
+<a class="sourceLine" id="cb63-5" data-line-number="5"><span class="kw">nrow</span>(manifest_df)</a></code></pre></div>
 <pre><code>## [1] 379</code></pre>
 <p>The GDC Data Transfer Tool can be used (from R, <code><a href="../reference/transfer.html">transfer()</a></code> or from the command-line) to orchestrate high-performance, restartable transfers of all the files in the manifest. See <a href="bulk-downloads">the bulk downloads section</a> for details.</p>
 </div>
@@ -690,10 +684,10 @@
 </li>
 </ol>
 <p>As a concrete example:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">token =<span class="st"> </span><span class="kw"><a href="../reference/gdc_token.html">gdc_token</a></span>()</a>
-<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="kw"><a href="../reference/transfer.html">transfer</a></span>(...,<span class="dt">token=</span>token)</a>
-<a class="sourceLine" id="cb53-3" data-line-number="3"><span class="co"># or</span></a>
-<a class="sourceLine" id="cb53-4" data-line-number="4"><span class="kw"><a href="../reference/transfer.html">transfer</a></span>(...,<span class="dt">token=</span><span class="kw">get_token</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">token =<span class="st"> </span><span class="kw"><a href="../reference/gdc_token.html">gdc_token</a></span>()</a>
+<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="kw"><a href="../reference/transfer.html">transfer</a></span>(...,<span class="dt">token=</span>token)</a>
+<a class="sourceLine" id="cb65-3" data-line-number="3"><span class="co"># or</span></a>
+<a class="sourceLine" id="cb65-4" data-line-number="4"><span class="kw"><a href="../reference/transfer.html">transfer</a></span>(...,<span class="dt">token=</span><span class="kw">get_token</span>())</a></code></pre></div>
 </div>
 <div id="datafile-access-and-download" class="section level2">
 <h2 class="hasAnchor">
@@ -702,14 +696,14 @@
 <h3 class="hasAnchor">
 <a href="#data-downloads-via-the-gdc-api" class="anchor"></a>Data downloads via the GDC API</h3>
 <p>The <code>gdcdata</code> function takes a character vector of one or more file ids. A simple way of producing such a vector is to produce a <code>manifest</code> data frame and then pass in the first column, which will contain file ids.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">fnames =<span class="st"> </span><span class="kw"><a href="../reference/gdcdata.html">gdcdata</a></span>(manifest_df<span class="op">$</span>id[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],<span class="dt">progress=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">fnames =<span class="st"> </span><span class="kw"><a href="../reference/gdcdata.html">gdcdata</a></span>(manifest_df<span class="op">$</span>id[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],<span class="dt">progress=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Note that for controlled-access data, a GDC <a href="#authentication">authentication token</a> is required. Using the <code>BiocParallel</code> package may be useful for downloading in parallel, particularly for large numbers of smallish files.</p>
 </div>
 <div id="bulk-downloads" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bulk-downloads" class="anchor"></a>Bulk downloads</h3>
 <p>The bulk download functionality is only efficient (as of v1.2.0 of the GDC Data Transfer Tool) for relatively large files, so use this approach only when transferring BAM files or larger VCF files, for example. Otherwise, consider using the approach shown above, perhaps in parallel.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">fnames =<span class="st"> </span><span class="kw"><a href="../reference/gdcdata.html">gdcdata</a></span>(manifest_df<span class="op">$</span>id[<span class="dv">3</span><span class="op">:</span><span class="dv">10</span>], <span class="dt">access_method =</span> <span class="st">'client'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">fnames =<span class="st"> </span><span class="kw"><a href="../reference/gdcdata.html">gdcdata</a></span>(manifest_df<span class="op">$</span>id[<span class="dv">3</span><span class="op">:</span><span class="dv">10</span>], <span class="dt">access_method =</span> <span class="st">'client'</span>)</a></code></pre></div>
 </div>
 <div id="bam-slicing" class="section level3">
 <h3 class="hasAnchor">
@@ -726,78 +720,81 @@
 <div id="how-many-cases-are-there-per-project_id" class="section level3">
 <h3 class="hasAnchor">
 <a href="#how-many-cases-are-there-per-project_id" class="anchor"></a>How many cases are there per project_id?</h3>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">res =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/faceting.html">facet</a></span>(<span class="st">"project.project_id"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/aggregations.html">aggregations</a></span>()</a>
-<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="kw">head</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">res =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/faceting.html">facet</a></span>(<span class="st">"project.project_id"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/aggregations.html">aggregations</a></span>()</a>
+<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="kw">head</span>(res)</a></code></pre></div>
 <pre><code>## $project.project_id
-##            key doc_count
-## 1        FM-AD     18004
-## 2   TARGET-NBL      1127
-## 3    TCGA-BRCA      1098
-## 4   TARGET-AML       988
-## 5    TARGET-WT       652
-## 6     TCGA-GBM       617
-## 7      TCGA-OV       608
-## 8    TCGA-LUAD       585
-## 9    TCGA-UCEC       560
-## 10   TCGA-KIRC       537
-## 11   TCGA-HNSC       528
-## 12    TCGA-LGG       516
-## 13   TCGA-THCA       507
-## 14   TCGA-LUSC       504
-## 15   TCGA-PRAD       500
-## 16   TCGA-SKCM       470
-## 17   TCGA-COAD       461
-## 18   TCGA-STAD       443
-## 19   TCGA-BLCA       412
-## 20   TARGET-OS       381
-## 21   TCGA-LIHC       377
-## 22   TCGA-CESC       307
-## 23   TCGA-KIRP       291
-## 24   TCGA-SARC       261
-## 25   TCGA-LAML       200
-## 26   TCGA-ESCA       185
-## 27   TCGA-PAAD       185
-## 28   TCGA-PCPG       179
-## 29   TCGA-READ       172
-## 30   TCGA-TGCT       150
-## 31   TCGA-THYM       124
-## 32   TCGA-KICH       113
-## 33    TCGA-ACC        92
-## 34   TCGA-MESO        87
-## 35    TCGA-UVM        80
-## 36   TARGET-RT        75
-## 37   TCGA-DLBC        58
-## 38    TCGA-UCS        57
-## 39   TCGA-CHOL        51
-## 40 TARGET-CCSK        13</code></pre>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(res<span class="op">$</span>project.project_id,<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> key, <span class="dt">y =</span> doc_count)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_bar">geom_bar</a></span>(<span class="dt">stat=</span><span class="st">'identity'</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb58-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</a></code></pre></div>
+##               key doc_count
+## 1           FM-AD     18004
+## 2      TARGET-NBL      1127
+## 3       TCGA-BRCA      1098
+## 4      TARGET-AML       988
+## 5       TARGET-WT       652
+## 6        TCGA-GBM       617
+## 7         TCGA-OV       608
+## 8       TCGA-LUAD       585
+## 9       TCGA-UCEC       560
+## 10      TCGA-KIRC       537
+## 11      TCGA-HNSC       528
+## 12       TCGA-LGG       516
+## 13      TCGA-THCA       507
+## 14      TCGA-LUSC       504
+## 15      TCGA-PRAD       500
+## 16   NCICCR-DLBCL       489
+## 17      TCGA-SKCM       470
+## 18      TCGA-COAD       461
+## 19      TCGA-STAD       443
+## 20      TCGA-BLCA       412
+## 21      TARGET-OS       381
+## 22      TCGA-LIHC       377
+## 23      TCGA-CESC       307
+## 24      TCGA-KIRP       291
+## 25      TCGA-SARC       261
+## 26      TCGA-LAML       200
+## 27      TCGA-ESCA       185
+## 28      TCGA-PAAD       185
+## 29      TCGA-PCPG       179
+## 30      TCGA-READ       172
+## 31      TCGA-TGCT       150
+## 32      TCGA-THYM       124
+## 33      TCGA-KICH       113
+## 34       TCGA-ACC        92
+## 35      TCGA-MESO        87
+## 36       TCGA-UVM        80
+## 37      TARGET-RT        75
+## 38      TCGA-DLBC        58
+## 39       TCGA-UCS        57
+## 40      TCGA-CHOL        51
+## 41    CTSP-DLBCL1        45
+## 42    TARGET-CCSK        13
+## 43 VAREPOP-APOLLO         7</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="kw"><a href="ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(res<span class="op">$</span>project.project_id,<span class="kw"><a href="ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> key, <span class="dt">y =</span> doc_count)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb70-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span>(<span class="dt">stat=</span><span class="st">'identity'</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb70-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</a></code></pre></div>
 <p><img src="overview_files/figure-html/casesPerProject-1.png" width="700"></p>
 </div>
 <div id="how-many-cases-are-included-in-all-target-projects" class="section level3">
 <h3 class="hasAnchor">
 <a href="#how-many-cases-are-included-in-all-target-projects" class="anchor"></a>How many cases are included in all TARGET projects?</h3>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>project.program.name<span class="op">==</span><span class="st">'TARGET'</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>project.program.name<span class="op">==</span><span class="st">'TARGET'</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>()</a></code></pre></div>
 <pre><code>## [1] 3236</code></pre>
 </div>
 <div id="how-many-cases-are-included-in-all-tcga-projects" class="section level3">
 <h3 class="hasAnchor">
 <a href="#how-many-cases-are-included-in-all-tcga-projects" class="anchor"></a>How many cases are included in all TCGA projects?</h3>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>project.program.name<span class="op">==</span><span class="st">'TCGA'</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>project.program.name<span class="op">==</span><span class="st">'TCGA'</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/count.html">count</a></span>()</a></code></pre></div>
 <pre><code>## [1] 11315</code></pre>
 </div>
 <div id="what-is-the-breakdown-of-sample-types-in-tcga-brca" class="section level3">
 <h3 class="hasAnchor">
 <a href="#what-is-the-breakdown-of-sample-types-in-tcga-brca" class="anchor"></a>What is the breakdown of sample types in TCGA-BRCA?</h3>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="co"># The need to do the "&amp;" here is a requirement of the</span></a>
-<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="co"># current version of the GDC API. I have filed a feature</span></a>
-<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="co"># request to remove this requirement.</span></a>
-<a class="sourceLine" id="cb63-4" data-line-number="4">resp =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>project.project_id<span class="op">==</span><span class="st">'TCGA-BRCA'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb63-5" data-line-number="5"><span class="st">                              </span>project.project_id<span class="op">==</span><span class="st">'TCGA-BRCA'</span> ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb63-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/faceting.html">facet</a></span>(<span class="st">'samples.sample_type'</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/aggregations.html">aggregations</a></span>()</a>
-<a class="sourceLine" id="cb63-7" data-line-number="7">resp<span class="op">$</span>samples.sample_type</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1"><span class="co"># The need to do the "&amp;" here is a requirement of the</span></a>
+<a class="sourceLine" id="cb75-2" data-line-number="2"><span class="co"># current version of the GDC API. I have filed a feature</span></a>
+<a class="sourceLine" id="cb75-3" data-line-number="3"><span class="co"># request to remove this requirement.</span></a>
+<a class="sourceLine" id="cb75-4" data-line-number="4">resp =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>project.project_id<span class="op">==</span><span class="st">'TCGA-BRCA'</span> <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb75-5" data-line-number="5"><span class="st">                              </span>project.project_id<span class="op">==</span><span class="st">'TCGA-BRCA'</span> ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb75-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/faceting.html">facet</a></span>(<span class="st">'samples.sample_type'</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/aggregations.html">aggregations</a></span>()</a>
+<a class="sourceLine" id="cb75-7" data-line-number="7">resp<span class="op">$</span>samples.sample_type</a></code></pre></div>
 <pre><code>##                    key doc_count
 ## 1        Primary Tumor      1098
 ## 2 Blood Derived Normal      1011
@@ -807,26 +804,26 @@
 <div id="fetch-all-samples-in-tcga-brca-that-use-solid-tissue-as-a-normal-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fetch-all-samples-in-tcga-brca-that-use-solid-tissue-as-a-normal-" class="anchor"></a>Fetch all samples in TCGA-BRCA that use “Solid Tissue” as a normal.</h3>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="co"># The need to do the "&amp;" here is a requirement of the</span></a>
-<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="co"># current version of the GDC API. I have filed a feature</span></a>
-<a class="sourceLine" id="cb65-3" data-line-number="3"><span class="co"># request to remove this requirement.</span></a>
-<a class="sourceLine" id="cb65-4" data-line-number="4">resp =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>project.project_id<span class="op">==</span><span class="st">'TCGA-BRCA'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb65-5" data-line-number="5"><span class="st">                              </span>samples.sample_type<span class="op">==</span><span class="st">'Solid Tissue Normal'</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb65-6" data-line-number="6"><span class="st">    </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/select">select</a></span>(<span class="kw">c</span>(<span class="kw"><a href="../reference/default_fields.html">default_fields</a></span>(<span class="kw"><a href="../reference/query.html">cases</a></span>()),<span class="st">'samples.sample_type'</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb65-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="../reference/response.html">response_all</a></span>()</a>
-<a class="sourceLine" id="cb65-8" data-line-number="8"><span class="kw"><a href="../reference/count.html">count</a></span>(resp)</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="co"># The need to do the "&amp;" here is a requirement of the</span></a>
+<a class="sourceLine" id="cb77-2" data-line-number="2"><span class="co"># current version of the GDC API. I have filed a feature</span></a>
+<a class="sourceLine" id="cb77-3" data-line-number="3"><span class="co"># request to remove this requirement.</span></a>
+<a class="sourceLine" id="cb77-4" data-line-number="4">resp =<span class="st"> </span><span class="kw"><a href="../reference/query.html">cases</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>project.project_id<span class="op">==</span><span class="st">'TCGA-BRCA'</span> <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb77-5" data-line-number="5"><span class="st">                              </span>samples.sample_type<span class="op">==</span><span class="st">'Solid Tissue Normal'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb77-6" data-line-number="6"><span class="st">    </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/select">select</a></span>(<span class="kw">c</span>(<span class="kw"><a href="../reference/default_fields.html">default_fields</a></span>(<span class="kw"><a href="../reference/query.html">cases</a></span>()),<span class="st">'samples.sample_type'</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb77-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="../reference/response.html">response_all</a></span>()</a>
+<a class="sourceLine" id="cb77-8" data-line-number="8"><span class="kw"><a href="../reference/count.html">count</a></span>(resp)</a></code></pre></div>
 <pre><code>## [1] 162</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">res =<span class="st"> </span>resp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/results.html">results</a></span>()</a>
-<a class="sourceLine" id="cb67-2" data-line-number="2"><span class="kw">str</span>(res[<span class="dv">1</span>],<span class="dt">list.len=</span><span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1">res =<span class="st"> </span>resp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/results.html">results</a></span>()</a>
+<a class="sourceLine" id="cb79-2" data-line-number="2"><span class="kw">str</span>(res[<span class="dv">1</span>],<span class="dt">list.len=</span><span class="dv">6</span>)</a></code></pre></div>
 <pre><code>## List of 1
-##  $ updated_datetime: chr [1:162] "2018-05-21T16:07:40.645885-05:00" "2018-05-21T16:07:40.645885-05:00" "2018-05-21T16:07:40.645885-05:00" "2018-05-21T16:07:40.645885-05:00" ...</code></pre>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">head</span>(<span class="kw"><a href="../reference/ids.html">ids</a></span>(resp))</a></code></pre></div>
-<pre><code>## [1] "bfd49783-1767-469b-9d79-7822301c5efc"
+##  $ updated_datetime: chr [1:162] "2018-09-06T13:49:20.245333-05:00" "2018-09-06T13:49:20.245333-05:00" "2018-09-06T13:49:20.245333-05:00" "2018-09-06T13:49:20.245333-05:00" ...</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="kw">head</span>(<span class="kw"><a href="../reference/ids.html">ids</a></span>(resp))</a></code></pre></div>
+<pre><code>## [1] "8c7e74e0-71ef-49b8-9217-94b8ef740ef9"
 ## [2] "a0576d44-9add-429b-9eeb-f7b234b7385f"
-## [3] "955d4263-61f7-42e8-8a6e-772a0d6c209d"
-## [4] "3d676bba-154b-4d22-ab59-d4d4da051b94"
-## [5] "e666081b-caaf-4e8b-9446-807be71201a5"
-## [6] "5fe3c51f-65e2-4da6-8924-a6fae17c022d"</code></pre>
+## [3] "8986a141-eae7-4157-b695-02cc6fc3b071"
+## [4] "f2bbfa9d-9a9d-4f46-9fde-378e4c44e2ad"
+## [5] "94b95984-b2fb-4e42-8887-45e7086c3179"
+## [6] "3d676bba-154b-4d22-ab59-d4d4da051b94"</code></pre>
 </div>
 </div>
 <div id="files" class="section level2">
@@ -835,45 +832,45 @@
 <div id="how-many-of-each-type-of-file-are-available" class="section level3">
 <h3 class="hasAnchor">
 <a href="#how-many-of-each-type-of-file-are-available" class="anchor"></a>How many of each type of file are available?</h3>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">res =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/faceting.html">facet</a></span>(<span class="st">'type'</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/aggregations.html">aggregations</a></span>()</a>
-<a class="sourceLine" id="cb71-2" data-line-number="2">res<span class="op">$</span>type</a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">res =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/faceting.html">facet</a></span>(<span class="st">'type'</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/aggregations.html">aggregations</a></span>()</a>
+<a class="sourceLine" id="cb83-2" data-line-number="2">res<span class="op">$</span>type</a></code></pre></div>
 <pre><code>##                            key doc_count
-## 1      simple_somatic_mutation     64015
-## 2   annotated_somatic_mutation     63580
-## 3                aligned_reads     45985
-## 4          copy_number_segment     44752
+## 1      simple_somatic_mutation     63971
+## 2   annotated_somatic_mutation     63536
+## 3                aligned_reads     47248
+## 4          copy_number_segment     45256
 ## 5              gene_expression     34713
-## 6                  slide_image     30036
+## 6                  slide_image     30072
 ## 7       biospecimen_supplement     25151
-## 8             mirna_expression     22976
+## 8             mirna_expression     22972
 ## 9          clinical_supplement     12496
 ## 10      methylation_beta_value     12359
 ## 11 aggregated_somatic_mutation       186
 ## 12     masked_somatic_mutation       132</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(res<span class="op">$</span>type,<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> key,<span class="dt">y =</span> doc_count)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_bar">geom_bar</a></span>(<span class="dt">stat=</span><span class="st">'identity'</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb73-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw"><a href="ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(res<span class="op">$</span>type,<span class="kw"><a href="ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> key,<span class="dt">y =</span> doc_count)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span>(<span class="dt">stat=</span><span class="st">'identity'</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb85-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</a></code></pre></div>
 <p><img src="overview_files/figure-html/filesVCFCount-1.png" width="700"></p>
 </div>
 <div id="find-gene-level-rna-seq-quantification-files-for-gbm" class="section level3">
 <h3 class="hasAnchor">
 <a href="#find-gene-level-rna-seq-quantification-files-for-gbm" class="anchor"></a>Find gene-level RNA-seq quantification files for GBM</h3>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">q =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="st">    </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/select">select</a></span>(<span class="kw"><a href="../reference/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb74-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>cases.project.project_id<span class="op">==</span><span class="st">'TCGA-GBM'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb74-4" data-line-number="4"><span class="st">               </span>data_type<span class="op">==</span><span class="st">'Gene Expression Quantification'</span>)</a>
-<a class="sourceLine" id="cb74-5" data-line-number="5">q <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/faceting.html">facet</a></span>(<span class="st">'analysis.workflow_type'</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/aggregations.html">aggregations</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1">q =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb86-2" data-line-number="2"><span class="st">    </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/select">select</a></span>(<span class="kw"><a href="../reference/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb86-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>cases.project.project_id<span class="op">==</span><span class="st">'TCGA-GBM'</span> <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb86-4" data-line-number="4"><span class="st">               </span>data_type<span class="op">==</span><span class="st">'Gene Expression Quantification'</span>)</a>
+<a class="sourceLine" id="cb86-5" data-line-number="5">q <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/faceting.html">facet</a></span>(<span class="st">'analysis.workflow_type'</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/aggregations.html">aggregations</a></span>()</a></code></pre></div>
 <pre><code>## $analysis.workflow_type
 ##               key doc_count
 ## 1  HTSeq - Counts       174
 ## 2    HTSeq - FPKM       174
 ## 3 HTSeq - FPKM-UQ       174</code></pre>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="co"># so need to add another filter</span></a>
-<a class="sourceLine" id="cb76-2" data-line-number="2">file_ids =<span class="st"> </span>q <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>cases.project.project_id<span class="op">==</span><span class="st">'TCGA-GBM'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb76-3" data-line-number="3"><span class="st">                            </span>data_type<span class="op">==</span><span class="st">'Gene Expression Quantification'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb76-4" data-line-number="4"><span class="st">                            </span>analysis.workflow_type <span class="op">==</span><span class="st"> 'HTSeq - Counts'</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb76-5" data-line-number="5"><span class="st">    </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/select">select</a></span>(<span class="st">'file_id'</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb76-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/response.html">response_all</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb76-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="../reference/ids.html">ids</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="co"># so need to add another filter</span></a>
+<a class="sourceLine" id="cb88-2" data-line-number="2">file_ids =<span class="st"> </span>q <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>cases.project.project_id<span class="op">==</span><span class="st">'TCGA-GBM'</span> <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb88-3" data-line-number="3"><span class="st">                            </span>data_type<span class="op">==</span><span class="st">'Gene Expression Quantification'</span> <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb88-4" data-line-number="4"><span class="st">                            </span>analysis.workflow_type <span class="op">==</span><span class="st"> 'HTSeq - Counts'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb88-5" data-line-number="5"><span class="st">    </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/select">select</a></span>(<span class="st">'file_id'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb88-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="../reference/response.html">response_all</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb88-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="../reference/ids.html">ids</a></span>()</a></code></pre></div>
 </div>
 </div>
 <div id="slicing" class="section level2">
@@ -883,16 +880,16 @@
 <h3 class="hasAnchor">
 <a href="#get-all-bam-file-ids-from-tcga-gbm" class="anchor"></a>Get all BAM file ids from TCGA-GBM</h3>
 <p><strong>I need to figure out how to do slicing reproducibly in a testing environment and for vignette building</strong>.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">q =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb77-2" data-line-number="2"><span class="st">    </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/select">select</a></span>(<span class="kw"><a href="../reference/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb77-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>cases.project.project_id <span class="op">==</span><span class="st"> 'TCGA-GBM'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb77-4" data-line-number="4"><span class="st">               </span>data_type <span class="op">==</span><span class="st"> 'Aligned Reads'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb77-5" data-line-number="5"><span class="st">               </span>experimental_strategy <span class="op">==</span><span class="st"> 'RNA-Seq'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb77-6" data-line-number="6"><span class="st">               </span>data_format <span class="op">==</span><span class="st"> 'BAM'</span>)</a>
-<a class="sourceLine" id="cb77-7" data-line-number="7">file_ids =<span class="st"> </span>q <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/response.html">response_all</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/ids.html">ids</a></span>()</a></code></pre></div>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1">bamfile =<span class="st"> </span><span class="kw"><a href="../reference/slicing.html">slicing</a></span>(file_ids[<span class="dv">1</span>],<span class="dt">regions=</span><span class="st">"chr12:6534405-6538375"</span>,<span class="dt">token=</span><span class="kw"><a href="../reference/gdc_token.html">gdc_token</a></span>())</a>
-<a class="sourceLine" id="cb78-2" data-line-number="2"><span class="kw">library</span>(GenomicAlignments)</a>
-<a class="sourceLine" id="cb78-3" data-line-number="3">aligns =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicAlignments/topics/readGAlignments">readGAlignments</a></span>(bamfile)</a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">q =<span class="st"> </span><span class="kw"><a href="../reference/query.html">files</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="st">    </span>GenomicDataCommons<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicDataCommons/topics/select">select</a></span>(<span class="kw"><a href="../reference/available_fields.html">available_fields</a></span>(<span class="st">'files'</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb89-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/filtering.html">filter</a></span>(<span class="op">~</span><span class="st"> </span>cases.project.project_id <span class="op">==</span><span class="st"> 'TCGA-GBM'</span> <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb89-4" data-line-number="4"><span class="st">               </span>data_type <span class="op">==</span><span class="st"> 'Aligned Reads'</span> <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb89-5" data-line-number="5"><span class="st">               </span>experimental_strategy <span class="op">==</span><span class="st"> 'RNA-Seq'</span> <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb89-6" data-line-number="6"><span class="st">               </span>data_format <span class="op">==</span><span class="st"> 'BAM'</span>)</a>
+<a class="sourceLine" id="cb89-7" data-line-number="7">file_ids =<span class="st"> </span>q <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/response.html">response_all</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/ids.html">ids</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1">bamfile =<span class="st"> </span><span class="kw"><a href="../reference/slicing.html">slicing</a></span>(file_ids[<span class="dv">1</span>],<span class="dt">regions=</span><span class="st">"chr12:6534405-6538375"</span>,<span class="dt">token=</span><span class="kw"><a href="../reference/gdc_token.html">gdc_token</a></span>())</a>
+<a class="sourceLine" id="cb90-2" data-line-number="2"><span class="kw">library</span>(GenomicAlignments)</a>
+<a class="sourceLine" id="cb90-3" data-line-number="3">aligns =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicAlignments/topics/readGAlignments">readGAlignments</a></span>(bamfile)</a></code></pre></div>
 </div>
 </div>
 </div>
@@ -923,7 +920,7 @@ SSL connect error</code></pre>
 <div id="sessioninfo" class="section level1">
 <h1 class="hasAnchor">
 <a href="#sessioninfo" class="anchor"></a>sessionInfo()</h1>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.5.1 (2018-07-02)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
 ## Running under: macOS Sierra 10.12.6
@@ -939,46 +936,46 @@ SSL connect error</code></pre>
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ggplot2_3.0.0            GenomicDataCommons_1.4.1
+## [1] ggplot2_3.1.0            GenomicDataCommons_1.7.1
 ## [3] magrittr_1.5             knitr_1.20              
 ## [5] BiocStyle_2.8.2         
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.18                lattice_0.20-35            
+##  [1] Rcpp_0.12.19                lattice_0.20-35            
 ##  [3] assertthat_0.2.0            rprojroot_1.3-2            
-##  [5] digest_0.6.16               utf8_1.1.4                 
-##  [7] plyr_1.8.4                  R6_2.2.2                   
+##  [5] digest_0.6.18               utf8_1.1.4                 
+##  [7] plyr_1.8.4                  R6_2.3.0                   
 ##  [9] GenomeInfoDb_1.16.0         backports_1.1.2            
-## [11] stats4_3.5.1                evaluate_0.11              
+## [11] stats4_3.5.1                evaluate_0.12              
 ## [13] httr_1.3.1                  pillar_1.3.0               
-## [15] zlibbioc_1.26.0             rlang_0.2.2                
+## [15] zlibbioc_1.26.0             rlang_0.3.0.1              
 ## [17] lazyeval_0.2.1              curl_3.2                   
 ## [19] S4Vectors_0.18.3            Matrix_1.2-14              
 ## [21] rmarkdown_1.10              pkgdown_1.1.0.9000         
 ## [23] labeling_0.3                desc_1.2.0                 
 ## [25] BiocParallel_1.14.2         readr_1.1.1                
 ## [27] stringr_1.3.1               munsell_0.5.0              
-## [29] RCurl_1.95-4.11             DelayedArray_0.6.5         
+## [29] RCurl_1.95-4.11             DelayedArray_0.6.6         
 ## [31] compiler_3.5.1              xfun_0.3                   
 ## [33] pkgconfig_2.0.2             BiocGenerics_0.26.0        
-## [35] htmltools_0.3.6             tidyselect_0.2.4           
+## [35] htmltools_0.3.6             tidyselect_0.2.5           
 ## [37] SummarizedExperiment_1.10.1 tibble_1.4.2               
 ## [39] GenomeInfoDbData_1.1.0      roxygen2_6.1.0             
-## [41] bookdown_0.7                IRanges_2.14.11            
-## [43] matrixStats_0.54.0          fansi_0.3.0                
+## [41] bookdown_0.7                IRanges_2.14.12            
+## [43] matrixStats_0.54.0          fansi_0.4.0                
 ## [45] withr_2.1.2                 crayon_1.3.4               
-## [47] dplyr_0.7.6                 MASS_7.3-50                
+## [47] dplyr_0.7.7                 MASS_7.3-50                
 ## [49] bitops_1.0-6                commonmark_1.5             
 ## [51] rappdirs_0.3.1              grid_3.5.1                 
 ## [53] jsonlite_1.5                gtable_0.2.0               
-## [55] scales_1.0.0                cli_1.0.0                  
+## [55] scales_1.0.0                cli_1.0.1                  
 ## [57] stringi_1.2.4               XVector_0.20.0             
 ## [59] fs_1.2.6                    bindrcpp_0.2.2             
 ## [61] xml2_1.2.0                  tools_3.5.1                
 ## [63] Biobase_2.40.0              glue_1.3.0                 
 ## [65] purrr_0.2.5                 hms_0.4.2                  
 ## [67] parallel_3.5.1              yaml_2.2.0                 
-## [69] colorspace_1.3-2            GenomicRanges_1.32.6       
+## [69] colorspace_1.3-2            GenomicRanges_1.32.7       
 ## [71] memoise_1.1.0               bindr_0.1.1</code></pre>
 </div>
 <div id="developer-notes" class="section level1">
@@ -1043,7 +1040,7 @@ SSL connect error</code></pre>
 
 
       <footer><div class="copyright">
-  <p>Developed by Martin Morgan, Davis Sean.</p>
+  <p>Developed by Martin Morgan, Sean Davis.</p>
 </div>
 
 <div class="pkgdown">

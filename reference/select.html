@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">GenomicDataCommons</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.7.1</span>
       </span>
     </div>
 
@@ -176,20 +176,20 @@ member altered.</p>
   <span class='fu'><a href='response.html'>response</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'>str</span>(<span class='kw'>max_level</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; List of 4
 #&gt;  $ results     :'data.frame':	10 obs. of  4 variables:
-#&gt;   ..$ project_id            : chr [1:10] "TARGET-NBL" "TCGA-SARC" "TARGET-CCSK" "TARGET-AML" ...
-#&gt;   ..$ dbgap_accession_number: chr [1:10] "phs000467" NA "phs000466" "phs000465" ...
+#&gt;   ..$ project_id            : chr [1:10] "TCGA-SARC" "TCGA-ACC" "TCGA-MESO" "TCGA-READ" ...
+#&gt;   ..$ dbgap_accession_number: chr [1:10] NA NA NA NA ...
 #&gt;   ..$ disease_type          :List of 10
-#&gt;   .. ..$ TARGET-NBL : chr "Neuroblastoma"
-#&gt;   .. ..$ TCGA-SARC  : chr "Sarcoma"
+#&gt;   .. ..$ TCGA-SARC  : chr [1:6] "Myomatous Neoplasms" "Soft Tissue Tumors and Sarcomas, NOS" "Fibromatous Neoplasms" "Lipomatous Neoplasms" ...
+#&gt;   .. ..$ TCGA-ACC   : chr "Adenomas and Adenocarcinomas"
+#&gt;   .. ..$ TCGA-MESO  : chr "Mesothelial Neoplasms"
+#&gt;   .. ..$ TCGA-READ  : chr [1:2] "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas"
 #&gt;   .. ..$ TARGET-CCSK: chr "Clear Cell Sarcoma of the Kidney"
 #&gt;   .. ..$ TARGET-AML : chr "Acute Myeloid Leukemia"
-#&gt;   .. ..$ TCGA-ACC   : chr "Adrenocortical Carcinoma"
-#&gt;   .. ..$ TCGA-LGG   : chr "Brain Lower Grade Glioma"
-#&gt;   .. ..$ TCGA-THCA  : chr "Thyroid Carcinoma"
-#&gt;   .. ..$ TCGA-MESO  : chr "Mesothelioma"
-#&gt;   .. ..$ TCGA-READ  : chr "Rectum Adenocarcinoma"
-#&gt;   .. ..$ TCGA-KIRC  : chr "Kidney Renal Clear Cell Carcinoma"
-#&gt;   ..$ id                    : chr [1:10] "TARGET-NBL" "TCGA-SARC" "TARGET-CCSK" "TARGET-AML" ...
+#&gt;   .. ..$ TARGET-NBL : chr "Neuroblastoma"
+#&gt;   .. ..$ TCGA-LGG   : chr "Gliomas"
+#&gt;   .. ..$ TCGA-STAD  : chr [1:2] "Cystic, Mucinous and Serous Neoplasms" "Adenomas and Adenocarcinomas"
+#&gt;   .. ..$ TCGA-THCA  : chr [1:2] "Epithelial Neoplasms, NOS" "Adenomas and Adenocarcinomas"
+#&gt;   ..$ id                    : chr [1:10] "TCGA-SARC" "TCGA-ACC" "TCGA-MESO" "TCGA-READ" ...
 #&gt;  $ query       :List of 5
 #&gt;   ..$ fields : chr [1:3] "project_id" "dbgap_accession_number" "disease_type"
 #&gt;   ..$ filters: NULL
@@ -202,8 +202,8 @@ member altered.</p>
 #&gt;   ..$ sort : chr ""
 #&gt;   ..$ from : int 0
 #&gt;   ..$ page : int 1
-#&gt;   ..$ total: int 40
-#&gt;   ..$ pages: int 4
+#&gt;   ..$ total: int 43
+#&gt;   ..$ pages: int 5
 #&gt;   ..$ size : int 10
 #&gt;  $ aggregations: list()
 #&gt;  - attr(*, "class")= chr [1:3] "GDCprojectsResponse" "GDCResponse" "list"</div><div class='input'>
@@ -226,7 +226,7 @@ member altered.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Martin Morgan, Davis Sean.</p>
+  <p>Developed by Martin Morgan, Sean Davis.</p>
 </div>
 
 <div class="pkgdown">

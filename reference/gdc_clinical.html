@@ -75,7 +75,7 @@ with case_ids from the GDC." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">GenomicDataCommons</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.7.1</span>
       </span>
     </div>
 
@@ -185,173 +185,47 @@ approach is for any given dataset.</p>
 <span class='no'>clinical_data</span> <span class='kw'>=</span> <span class='fu'>gdc_clinical</span>(<span class='no'>case_ids</span>)
 
 <span class='co'># overview of clinical results</span>
-<span class='fu'>class</span>(<span class='no'>clinical_data</span>)</div><div class='output co'>#&gt; [1] "list"</div><div class='input'><span class='fu'>names</span>(<span class='no'>clinical_data</span>)</div><div class='output co'>#&gt; [1] "demographic" "diagnoses"   "exposures"   "main"       </div><div class='input'><span class='fu'>sapply</span>(<span class='no'>clinical_data</span>, <span class='no'>class</span>)</div><div class='output co'>#&gt;  demographic    diagnoses    exposures         main 
-#&gt; "data.frame" "data.frame" "data.frame" "data.frame" </div><div class='input'><span class='fu'>sapply</span>(<span class='no'>clinical_data</span>, <span class='no'>nrow</span>)</div><div class='output co'>#&gt; demographic   diagnoses   exposures        main 
-#&gt;          10          10           2          10 </div><div class='input'>
+<span class='fu'>class</span>(<span class='no'>clinical_data</span>)</div><div class='output co'>#&gt; [1] "GDCClinicalList" "list"           </div><div class='input'><span class='fu'>names</span>(<span class='no'>clinical_data</span>)</div><div class='output co'>#&gt; [1] "demographic" "diagnoses"   "exposures"   "main"       </div><div class='input'><span class='fu'>sapply</span>(<span class='no'>clinical_data</span>, <span class='no'>class</span>)</div><div class='output co'>#&gt;      demographic  diagnoses    exposures    main        
+#&gt; [1,] "tbl_df"     "tbl_df"     "tbl_df"     "tbl_df"    
+#&gt; [2,] "tbl"        "tbl"        "tbl"        "tbl"       
+#&gt; [3,] "data.frame" "data.frame" "data.frame" "data.frame"</div><div class='input'><span class='fu'>sapply</span>(<span class='no'>clinical_data</span>, <span class='no'>nrow</span>)</div><div class='output co'>#&gt; demographic   diagnoses   exposures        main 
+#&gt;          10          10           0          10 </div><div class='input'>
 <span class='co'># available data</span>
-<span class='fu'>head</span>(<span class='no'>clinical_data</span>$<span class='no'>main</span>)</div><div class='output co'>#&gt;                   updated_datetime     submitter_id
-#&gt; 1 2018-08-07T05:08:25.415044+00:00          AD11218
-#&gt; 2 2018-08-07T05:08:25.415044+00:00           AD8623
-#&gt; 3 2018-05-22T01:01:29.874989-05:00     TCGA-13-0727
-#&gt; 4 2018-08-07T05:08:25.415044+00:00           AD1214
-#&gt; 5 2018-05-21T18:18:57.804483-05:00     TCGA-W5-AA2X
-#&gt; 6 2017-12-15T21:14:49.455236-06:00 TARGET-50-PADXJZ
-#&gt;                                     id                      disease_type
-#&gt; 1 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf      Ductal and Lobular Neoplasms
-#&gt; 2 4060f92b-ab42-4233-8609-6e9baa11631d                           Gliomas
-#&gt; 3 90f4b65c-cfd4-4066-a5b9-842885c172e2 Ovarian Serous Cystadenocarcinoma
-#&gt; 4 a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10      Ductal and Lobular Neoplasms
-#&gt; 5 6e534dd3-81ac-4575-ab1e-02c21e10916d                Cholangiocarcinoma
-#&gt; 6 dfd8aaad-cf31-5260-8882-b471ddbcc8fd             High-Risk Wilms Tumor
-#&gt;                   created_datetime    state
-#&gt; 1 2017-06-01T08:35:27.577245-05:00 released
-#&gt; 2 2017-06-01T09:06:24.248479-05:00 released
-#&gt; 3                             &lt;NA&gt;     live
-#&gt; 4 2017-06-01T09:13:35.077867-05:00 released
-#&gt; 5                             &lt;NA&gt;     live
-#&gt; 6                             &lt;NA&gt;     live
-#&gt;                                case_id
-#&gt; 1 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf
-#&gt; 2 4060f92b-ab42-4233-8609-6e9baa11631d
-#&gt; 3 90f4b65c-cfd4-4066-a5b9-842885c172e2
-#&gt; 4 a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10
-#&gt; 5 6e534dd3-81ac-4575-ab1e-02c21e10916d
-#&gt; 6 dfd8aaad-cf31-5260-8882-b471ddbcc8fd
-#&gt;                                                             primary_site
-#&gt; 1                                                                 Breast
-#&gt; 2 Spinal cord, cranial nerves, and other parts of central nervous system
-#&gt; 3                                                                  Ovary
-#&gt; 4                                                                 Breast
-#&gt; 5                                                              Bile Duct
-#&gt; 6                                                                 Kidney</div><div class='input'><span class='fu'>head</span>(<span class='no'>clinical_data</span>$<span class='no'>demographic</span>)</div><div class='output co'>#&gt;                                                      updated_datetime
-#&gt; 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf 2018-08-07T05:08:25.415044+00:00
-#&gt; 4060f92b-ab42-4233-8609-6e9baa11631d 2018-08-07T05:08:25.415044+00:00
-#&gt; 90f4b65c-cfd4-4066-a5b9-842885c172e2 2018-03-09T08:04:27.510418-06:00
-#&gt; a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10 2018-08-07T05:08:25.415044+00:00
-#&gt; 6e534dd3-81ac-4575-ab1e-02c21e10916d 2018-03-06T09:56:05.842739-06:00
-#&gt; dfd8aaad-cf31-5260-8882-b471ddbcc8fd 2017-12-11T08:30:41.387981-06:00
-#&gt;                                                      created_datetime gender
-#&gt; 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf 2017-06-19T11:23:58.646681-05:00 female
-#&gt; 4060f92b-ab42-4233-8609-6e9baa11631d 2017-06-19T11:44:35.217289-05:00   male
-#&gt; 90f4b65c-cfd4-4066-a5b9-842885c172e2                             &lt;NA&gt; female
-#&gt; a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10 2017-06-19T11:48:22.177979-05:00 female
-#&gt; 6e534dd3-81ac-4575-ab1e-02c21e10916d                             &lt;NA&gt;   male
-#&gt; dfd8aaad-cf31-5260-8882-b471ddbcc8fd 2017-02-24T20:54:45.808091-06:00   male
-#&gt;                                                      submitter_id    state
-#&gt; 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf          AD11218_demographic released
-#&gt; 4060f92b-ab42-4233-8609-6e9baa11631d           AD8623_demographic released
-#&gt; 90f4b65c-cfd4-4066-a5b9-842885c172e2     TCGA-13-0727_demographic     live
-#&gt; a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10           AD1214_demographic released
-#&gt; 6e534dd3-81ac-4575-ab1e-02c21e10916d     TCGA-W5-AA2X_demographic     live
-#&gt; dfd8aaad-cf31-5260-8882-b471ddbcc8fd TARGET-50-PADXJZ_demographic     live
-#&gt;                                              race
-#&gt; 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf not reported
-#&gt; 4060f92b-ab42-4233-8609-6e9baa11631d not reported
-#&gt; 90f4b65c-cfd4-4066-a5b9-842885c172e2        white
-#&gt; a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10 not reported
-#&gt; 6e534dd3-81ac-4575-ab1e-02c21e10916d        white
-#&gt; dfd8aaad-cf31-5260-8882-b471ddbcc8fd        white
-#&gt;                                                            demographic_id
-#&gt; 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf bdb16ed7-17c8-427b-8bf6-0c0102a7db83
-#&gt; 4060f92b-ab42-4233-8609-6e9baa11631d d03eda99-4387-408d-88fa-1bc5ce303024
-#&gt; 90f4b65c-cfd4-4066-a5b9-842885c172e2 c607c1f9-1240-5281-9ad1-0481bf7a2684
-#&gt; a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10 c60c3464-416d-4294-bd2d-def66d2874ab
-#&gt; 6e534dd3-81ac-4575-ab1e-02c21e10916d 16df8d49-14b4-57b9-bb70-f288356797ce
-#&gt; dfd8aaad-cf31-5260-8882-b471ddbcc8fd 3d277971-599f-5fe5-94fe-a534c80ce743
-#&gt;                                                   ethnicity year_of_birth
-#&gt; 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf           not reported            NA
-#&gt; 4060f92b-ab42-4233-8609-6e9baa11631d           not reported            NA
-#&gt; 90f4b65c-cfd4-4066-a5b9-842885c172e2 not hispanic or latino          1932
-#&gt; a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10           not reported            NA
-#&gt; 6e534dd3-81ac-4575-ab1e-02c21e10916d not hispanic or latino          1943
-#&gt; dfd8aaad-cf31-5260-8882-b471ddbcc8fd not hispanic or latino            NA
-#&gt;                                      year_of_death
-#&gt; 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf            NA
-#&gt; 4060f92b-ab42-4233-8609-6e9baa11631d            NA
-#&gt; 90f4b65c-cfd4-4066-a5b9-842885c172e2          2004
-#&gt; a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10            NA
-#&gt; 6e534dd3-81ac-4575-ab1e-02c21e10916d          2010
-#&gt; dfd8aaad-cf31-5260-8882-b471ddbcc8fd            NA
-#&gt;                                                                   case_id
-#&gt; 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf
-#&gt; 4060f92b-ab42-4233-8609-6e9baa11631d 4060f92b-ab42-4233-8609-6e9baa11631d
-#&gt; 90f4b65c-cfd4-4066-a5b9-842885c172e2 90f4b65c-cfd4-4066-a5b9-842885c172e2
-#&gt; a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10 a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10
-#&gt; 6e534dd3-81ac-4575-ab1e-02c21e10916d 6e534dd3-81ac-4575-ab1e-02c21e10916d
-#&gt; dfd8aaad-cf31-5260-8882-b471ddbcc8fd dfd8aaad-cf31-5260-8882-b471ddbcc8fd</div><div class='input'><span class='fu'>head</span>(<span class='no'>clinical_data</span>$<span class='no'>diagnoses</span>)</div><div class='output co'>#&gt;                                case_id progression_or_recurrence
-#&gt; 1 1f95a9f1-0327-4c89-a6fe-69809d0d8ebf              not reported
-#&gt; 2 4060f92b-ab42-4233-8609-6e9baa11631d              not reported
-#&gt; 3 90f4b65c-cfd4-4066-a5b9-842885c172e2              not reported
-#&gt; 4 a4ec8b0b-0b53-43e6-90b4-e88a8a3cbc10              not reported
-#&gt; 5 6e534dd3-81ac-4575-ab1e-02c21e10916d              not reported
-#&gt; 6 dfd8aaad-cf31-5260-8882-b471ddbcc8fd              not reported
-#&gt;   classification_of_tumor last_known_disease_status  tumor_grade
-#&gt; 1                 primary              not reported not reported
-#&gt; 2              metastasis              not reported not reported
-#&gt; 3            not reported              not reported not reported
-#&gt; 4                 primary              not reported not reported
-#&gt; 5            not reported              not reported not reported
-#&gt; 6                    &lt;NA&gt;              not reported Not Reported
-#&gt;   tissue_or_organ_of_origin                 created_datetime
-#&gt; 1               Breast, NOS 2017-06-16T15:41:54.034178-05:00
-#&gt; 2       Nervous system, NOS 2017-06-19T09:23:29.064224-05:00
-#&gt; 3                     C56.9                             &lt;NA&gt;
-#&gt; 4               Breast, NOS 2017-06-19T09:29:52.147488-05:00
-#&gt; 5                     C24.0                             &lt;NA&gt;
-#&gt; 6              Not Reported 2017-02-24T20:54:45.808091-06:00
-#&gt;                   updated_datetime                primary_diagnosis
-#&gt; 1 2018-08-07T05:08:25.415044+00:00 Infiltrating duct carcinoma, NOS
-#&gt; 2 2018-08-07T05:08:25.415044+00:00           Oligodendroglioma, NOS
-#&gt; 3 2018-03-09T16:42:15.753583-06:00                            C56.9
-#&gt; 4 2018-08-07T05:08:25.415044+00:00 Infiltrating duct carcinoma, NOS
-#&gt; 5 2018-03-08T19:30:04.867636-06:00                            C24.0
-#&gt; 6 2018-01-19T13:39:21.801433-06:00                     not reported
-#&gt;                 submitter_id site_of_resection_or_biopsy  tumor_stage    state
-#&gt; 1          AD11218_diagnosis                 Breast, NOS not reported released
-#&gt; 2           AD8623_diagnosis                  Brain, NOS not reported released
-#&gt; 3     TCGA-13-0727_diagnosis                       C56.9 not reported     live
-#&gt; 4           AD1214_diagnosis                 Breast, NOS not reported released
-#&gt; 5     TCGA-W5-AA2X_diagnosis                       C24.0    stage ivb     live
-#&gt; 6 TARGET-50-PADXJZ_diagnosis                        C649          iii     live
-#&gt;   age_at_diagnosis vital_status morphology days_to_last_known_disease_status
-#&gt; 1            24657 not reported     8500/3                                NA
-#&gt; 2            10112 not reported     9450/3                                NA
-#&gt; 3            26185         dead     8441/3                                NA
-#&gt; 4            21113 not reported     8500/3                                NA
-#&gt; 5            24797         dead     8160/3                                NA
-#&gt; 6              838        alive     8960/3                                NA
-#&gt;   days_to_last_follow_up days_to_recurrence
-#&gt; 1                     NA                 NA
-#&gt; 2                     NA                 NA
-#&gt; 3                    462                 NA
-#&gt; 4                     NA                 NA
-#&gt; 5                     NA                 NA
-#&gt; 6                   4311                 NA
-#&gt;                           diagnosis_id days_to_death days_to_birth
-#&gt; 1 a9bdec94-8c84-466b-9d32-17239313c0cd            NA            NA
-#&gt; 2 e94992aa-e877-43cc-9c57-414348b264f5            NA            NA
-#&gt; 3 b8106532-5977-55ab-8efb-28955ed4a91a           462        -26185
-#&gt; 4 705df2cb-7ad0-42da-bc69-8526bb6cfa08            NA            NA
-#&gt; 5 1f12809f-8b6d-57f7-b45b-91392aa7b2cd           271        -24797
-#&gt; 6 ca2ff673-3653-5f13-af7e-7ec8e1e0cb91            NA            NA
-#&gt;   prior_malignancy
-#&gt; 1             &lt;NA&gt;
-#&gt; 2             &lt;NA&gt;
-#&gt; 3     not reported
-#&gt; 4             &lt;NA&gt;
-#&gt; 5     not reported
-#&gt; 6             &lt;NA&gt;</div><div class='input'><span class='fu'>head</span>(<span class='no'>clinical_data</span>$<span class='no'>exposures</span>)</div><div class='output co'>#&gt;                                case_id cigarettes_per_day weight
-#&gt; 1 90f4b65c-cfd4-4066-a5b9-842885c172e2                 NA     NA
-#&gt; 2 6e534dd3-81ac-4575-ab1e-02c21e10916d                 NA     88
-#&gt;                   updated_datetime alcohol_history alcohol_intensity      bmi
-#&gt; 1 2018-03-09T08:04:27.510418-06:00              NA                NA       NA
-#&gt; 2 2018-03-06T09:56:05.842739-06:00              NA                NA 31.55366
-#&gt;   years_smoked          submitter_id created_datetime state
-#&gt; 1           NA TCGA-13-0727_exposure               NA  live
-#&gt; 2           NA TCGA-W5-AA2X_exposure               NA  live
-#&gt;                            exposure_id height
-#&gt; 1 f820881b-3240-54d4-83e2-9fb8a687da8d     NA
-#&gt; 2 247910d0-5a86-552d-b096-22b59ba24032    167</div><div class='input'>
+<span class='fu'>head</span>(<span class='no'>clinical_data</span>$<span class='no'>main</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 8
+#&gt;   updated_datetime submitter_id id    disease_type created_datetime state
+#&gt;   &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;
+#&gt; 1 2018-08-07T05:0… AD3978       4033… Adenomas an… 2017-06-01T09:3… rele…
+#&gt; 2 2018-08-07T05:0… AD14467      c8a4… Not Reported 2017-06-01T08:5… rele…
+#&gt; 3 2018-08-07T05:0… AD17381      0b55… Squamous Ce… 2017-06-01T09:1… rele…
+#&gt; 4 2018-08-07T05:0… AD11339      bcd7… Adenomas an… 2017-06-01T08:4… rele…
+#&gt; 5 2018-08-07T05:0… AD3547       4304… Adenomas an… 2017-06-01T09:3… rele…
+#&gt; 6 2018-08-07T05:0… AD15350      0946… Complex Mix… 2017-06-01T09:0… rele…
+#&gt; # ... with 2 more variables: case_id &lt;chr&gt;, primary_site &lt;chr&gt;</div><div class='input'><span class='fu'>head</span>(<span class='no'>clinical_data</span>$<span class='no'>demographic</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 9
+#&gt;   updated_datetime created_datetime gender submitter_id state race 
+#&gt;   &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;
+#&gt; 1 2018-08-07T05:0… 2017-06-19T11:2… female AD3978_demo… rele… not …
+#&gt; 2 2018-08-07T05:0… 2017-06-19T11:3… male   AD14467_dem… rele… not …
+#&gt; 3 2018-08-07T05:0… 2017-06-19T11:4… male   AD17381_dem… rele… not …
+#&gt; 4 2018-08-07T05:0… 2017-06-19T11:2… male   AD11339_dem… rele… not …
+#&gt; 5 2018-08-07T05:0… 2017-06-19T11:2… male   AD3547_demo… rele… not …
+#&gt; 6 2018-08-07T05:0… 2017-06-19T11:4… female AD15350_dem… rele… not …
+#&gt; # ... with 3 more variables: demographic_id &lt;chr&gt;, ethnicity &lt;chr&gt;,
+#&gt; #   case_id &lt;chr&gt;</div><div class='input'><span class='fu'>head</span>(<span class='no'>clinical_data</span>$<span class='no'>diagnoses</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 20
+#&gt;   case_id progression_or_… classification_… last_known_dise… tumor_grade
+#&gt;   &lt;chr&gt;   &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;      
+#&gt; 1 403380… not reported     primary          not reported     not report…
+#&gt; 2 c8a4f0… not reported     metastasis       not reported     not report…
+#&gt; 3 0b5511… not reported     Unknown          not reported     not report…
+#&gt; 4 bcd702… not reported     primary          not reported     not report…
+#&gt; 5 4304fe… not reported     primary          not reported     not report…
+#&gt; 6 0946a9… not reported     metastasis       not reported     not report…
+#&gt; # ... with 15 more variables: tissue_or_organ_of_origin &lt;chr&gt;,
+#&gt; #   created_datetime &lt;chr&gt;, updated_datetime &lt;chr&gt;, primary_diagnosis &lt;chr&gt;,
+#&gt; #   submitter_id &lt;chr&gt;, site_of_resection_or_biopsy &lt;chr&gt;, tumor_stage &lt;chr&gt;,
+#&gt; #   state &lt;chr&gt;, age_at_diagnosis &lt;int&gt;, vital_status &lt;chr&gt;, morphology &lt;chr&gt;,
+#&gt; #   days_to_last_known_disease_status &lt;lgl&gt;, days_to_last_follow_up &lt;lgl&gt;,
+#&gt; #   days_to_recurrence &lt;lgl&gt;, diagnosis_id &lt;chr&gt;</div><div class='input'><span class='fu'>head</span>(<span class='no'>clinical_data</span>$<span class='no'>exposures</span>)</div><div class='output co'>#&gt; # A tibble: 0 x 1
+#&gt; # ... with 1 variable: case_id &lt;chr&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -371,7 +245,7 @@ approach is for any given dataset.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Martin Morgan, Davis Sean.</p>
+  <p>Developed by Martin Morgan, Sean Davis.</p>
 </div>
 
 <div class="pkgdown">

@@ -75,7 +75,7 @@ the filter element in GDCQuery objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">GenomicDataCommons</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.7.1</span>
       </span>
     </div>
 
@@ -199,37 +199,96 @@ field replaced by specified filter expression</p>
 <span class='co'># Files</span>
 <span class='co'>#</span>
 <span class='no'>fQuery</span> <span class='kw'>=</span> <span class='fu'><a href='query.html'>files</a></span>()
-<span class='fu'><a href='default_fields.html'>default_fields</a></span>(<span class='no'>fQuery</span>)</div><div class='output co'>#&gt;  [1] "access"                "acl"                   "created_datetime"     
-#&gt;  [4] "data_category"         "data_format"           "data_type"            
-#&gt;  [7] "error_type"            "experimental_strategy" "file_autocomplete"    
-#&gt; [10] "file_id"               "file_name"             "file_size"            
-#&gt; [13] "imaging_date"          "magnification"         "md5sum"               
-#&gt; [16] "origin"                "platform"              "read_pair_number"     
-#&gt; [19] "revision"              "state"                 "state_comment"        
-#&gt; [22] "submitter_id"          "tags"                  "type"                 
-#&gt; [25] "updated_datetime"     </div><div class='input'>
+<span class='fu'><a href='default_fields.html'>default_fields</a></span>(<span class='no'>fQuery</span>)</div><div class='output co'>#&gt;  [1] "access"                         "acl"                           
+#&gt;  [3] "average_base_quality"           "average_insert_size"           
+#&gt;  [5] "average_read_length"            "created_datetime"              
+#&gt;  [7] "data_category"                  "data_format"                   
+#&gt;  [9] "data_type"                      "error_type"                    
+#&gt; [11] "experimental_strategy"          "file_autocomplete"             
+#&gt; [13] "file_id"                        "file_name"                     
+#&gt; [15] "file_size"                      "imaging_date"                  
+#&gt; [17] "magnification"                  "md5sum"                        
+#&gt; [19] "mean_coverage"                  "origin"                        
+#&gt; [21] "pairs_on_diff_chr"              "platform"                      
+#&gt; [23] "proportion_base_mismatch"       "proportion_coverage_10X"       
+#&gt; [25] "proportion_coverage_30X"        "proportion_reads_duplicated"   
+#&gt; [27] "proportion_reads_mapped"        "proportion_targets_no_coverage"
+#&gt; [29] "read_pair_number"               "revision"                      
+#&gt; [31] "state"                          "state_comment"                 
+#&gt; [33] "submitter_id"                   "tags"                          
+#&gt; [35] "total_reads"                    "type"                          
+#&gt; [37] "updated_datetime"              </div><div class='input'>
 <span class='no'>fQuery</span> <span class='kw'>=</span> <span class='fu'>filter</span>(<span class='no'>fQuery</span>,~ <span class='no'>data_format</span> <span class='kw'>==</span> <span class='st'>'VCF'</span>)
+<span class='co'># OR</span>
+<span class='co'># with recent GenomicDataCommons versions:</span>
+<span class='co'>#   no "~" needed</span>
+<span class='no'>fQuery</span> <span class='kw'>=</span> <span class='fu'>filter</span>(<span class='no'>fQuery</span>, <span class='no'>data_format</span> <span class='kw'>==</span> <span class='st'>'VCF'</span>)
+
 <span class='fu'>get_filter</span>(<span class='no'>fQuery</span>)</div><div class='output co'>#&gt; $op
-#&gt; [x] "="
+#&gt; [1] "and"
 #&gt; 
 #&gt; $content
-#&gt; $content$field
+#&gt; $content[[1]]
+#&gt; $content[[1]]$op
+#&gt; [x] "="
+#&gt; 
+#&gt; $content[[1]]$content
+#&gt; $content[[1]]$content$field
 #&gt; [1] "data_format"
 #&gt; 
-#&gt; $content$value
+#&gt; $content[[1]]$content$value
 #&gt; [1] "VCF"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $content[[2]]
+#&gt; $content[[2]]$op
+#&gt; [x] "="
+#&gt; 
+#&gt; $content[[2]]$content
+#&gt; $content[[2]]$content$field
+#&gt; [1] "data_format"
+#&gt; 
+#&gt; $content[[2]]$content$value
+#&gt; [1] "VCF"
+#&gt; 
+#&gt; 
 #&gt; 
 #&gt; </div><div class='input'>
 <span class='no'>fQuery</span> <span class='kw'>=</span> <span class='fu'>filter</span>(<span class='no'>fQuery</span>,~ <span class='no'>data_format</span> <span class='kw'>==</span> <span class='st'>'VCF'</span>
                 <span class='kw'>&amp;</span> <span class='no'>experimental_strategy</span> <span class='kw'>==</span> <span class='st'>'WXS'</span>
                 <span class='kw'>&amp;</span> <span class='no'>type</span> <span class='kw'>==</span> <span class='st'>'simple_somatic_mutation'</span>)
 
+<span class='fu'><a href='query.html'>files</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>filter</span>(~ <span class='no'>data_format</span> <span class='kw'>==</span> <span class='st'>'VCF'</span>
+                   <span class='kw'>&amp;</span> <span class='no'>experimental_strategy</span><span class='kw'>==</span><span class='st'>'WXS'</span>
+                   <span class='kw'>&amp;</span> <span class='no'>type</span> <span class='kw'>==</span> <span class='st'>'simple_somatic_mutation'</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='count.html'>count</a></span>()</div><div class='output co'>#&gt; [1] 45532</div><div class='input'>
+
+<span class='fu'><a href='query.html'>files</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>filter</span>( <span class='no'>data_format</span> <span class='kw'>==</span> <span class='st'>'VCF'</span>
+                   <span class='kw'>&amp;</span> <span class='no'>experimental_strategy</span><span class='kw'>==</span><span class='st'>'WXS'</span>
+                   <span class='kw'>&amp;</span> <span class='no'>type</span> <span class='kw'>==</span> <span class='st'>'simple_somatic_mutation'</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='count.html'>count</a></span>()</div><div class='output co'>#&gt; [1] 45532</div><div class='input'>
+<span class='co'># Filters may be chained for the </span>
+<span class='co'># equivalent query</span>
+<span class='co'># </span>
+<span class='co'># When chained, filters are combined with logical AND</span>
+
+<span class='fu'><a href='query.html'>files</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>filter</span>(~ <span class='no'>data_format</span> <span class='kw'>==</span> <span class='st'>'VCF'</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>filter</span>(~ <span class='no'>experimental_strategy</span> <span class='kw'>==</span> <span class='st'>'WXS'</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>filter</span>(~ <span class='no'>type</span> <span class='kw'>==</span> <span class='st'>'simple_somatic_mutation'</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='count.html'>count</a></span>()</div><div class='output co'>#&gt; [1] 45532</div><div class='input'>
+<span class='co'># OR</span>
+
+<span class='fu'><a href='query.html'>files</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>filter</span>( <span class='no'>data_format</span> <span class='kw'>==</span> <span class='st'>'VCF'</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>filter</span>( <span class='no'>experimental_strategy</span> <span class='kw'>==</span> <span class='st'>'WXS'</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>filter</span>( <span class='no'>type</span> <span class='kw'>==</span> <span class='st'>'simple_somatic_mutation'</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='count.html'>count</a></span>()</div><div class='output co'>#&gt; [1] 45532</div><div class='input'>
 <span class='co'># Use str() to get a cleaner picture</span>
 <span class='fu'>str</span>(<span class='fu'>get_filter</span>(<span class='no'>fQuery</span>))</div><div class='output co'>#&gt; List of 2
-#&gt;  $ op     : 'scalar' chr "and"
+#&gt;  $ op     : chr "and"
 #&gt;  $ content:List of 2
 #&gt;   ..$ :List of 2
-#&gt;   .. ..$ op     : 'scalar' chr "and"
+#&gt;   .. ..$ op     : chr "and"
 #&gt;   .. ..$ content:List of 2
 #&gt;   .. .. ..$ :List of 2
 #&gt;   .. .. .. ..$ op     : 'scalar' chr "="
@@ -239,13 +298,29 @@ field replaced by specified filter expression</p>
 #&gt;   .. .. ..$ :List of 2
 #&gt;   .. .. .. ..$ op     : 'scalar' chr "="
 #&gt;   .. .. .. ..$ content:List of 2
-#&gt;   .. .. .. .. ..$ field: chr "experimental_strategy"
-#&gt;   .. .. .. .. ..$ value: chr "WXS"
+#&gt;   .. .. .. .. ..$ field: chr "data_format"
+#&gt;   .. .. .. .. ..$ value: chr "VCF"
 #&gt;   ..$ :List of 2
-#&gt;   .. ..$ op     : 'scalar' chr "="
+#&gt;   .. ..$ op     : 'scalar' chr "and"
 #&gt;   .. ..$ content:List of 2
-#&gt;   .. .. ..$ field: chr "type"
-#&gt;   .. .. ..$ value: chr "simple_somatic_mutation"</div></pre>
+#&gt;   .. .. ..$ :List of 2
+#&gt;   .. .. .. ..$ op     : 'scalar' chr "and"
+#&gt;   .. .. .. ..$ content:List of 2
+#&gt;   .. .. .. .. ..$ :List of 2
+#&gt;   .. .. .. .. .. ..$ op     : 'scalar' chr "="
+#&gt;   .. .. .. .. .. ..$ content:List of 2
+#&gt;   .. .. .. .. .. .. ..$ field: chr "data_format"
+#&gt;   .. .. .. .. .. .. ..$ value: chr "VCF"
+#&gt;   .. .. .. .. ..$ :List of 2
+#&gt;   .. .. .. .. .. ..$ op     : 'scalar' chr "="
+#&gt;   .. .. .. .. .. ..$ content:List of 2
+#&gt;   .. .. .. .. .. .. ..$ field: chr "experimental_strategy"
+#&gt;   .. .. .. .. .. .. ..$ value: chr "WXS"
+#&gt;   .. .. ..$ :List of 2
+#&gt;   .. .. .. ..$ op     : 'scalar' chr "="
+#&gt;   .. .. .. ..$ content:List of 2
+#&gt;   .. .. .. .. ..$ field: chr "type"
+#&gt;   .. .. .. .. ..$ value: chr "simple_somatic_mutation"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -262,7 +337,7 @@ field replaced by specified filter expression</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Martin Morgan, Davis Sean.</p>
+  <p>Developed by Martin Morgan, Sean Davis.</p>
 </div>
 
 <div class="pkgdown">
