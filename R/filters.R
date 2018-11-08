@@ -162,12 +162,12 @@ filter = function(x,expr) {
 
 #' @rdname filtering
 #'
-#' @importFrom lazyeval lazy
+#' @importFrom lazyeval lazy is_formula
 #'
 #' @export
 filter.GDCQuery = function(x,expr) {
     filt = try({
-        is_formula(expr)
+        lazyeval::is_formula(expr)
         make_filter(expr,available_fields(x))
     }, silent=TRUE)
     if(inherits(filt, "try-error")) 
