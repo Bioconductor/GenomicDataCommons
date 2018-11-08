@@ -17,6 +17,7 @@
 #' 
 #' @importFrom jsonlite fromJSON
 #' @importFrom dplyr bind_rows
+#' @importFrom tibble as_tibble
 #'
 #' @details
 #' Note that these data.frames can, in general, have different numbers
@@ -81,9 +82,10 @@ gdc_clinical = function(case_ids, include_list_cols = FALSE) {
         main = main[, non_list_cols]
     }
     
-    y = list(demographic = demographic,
-             diagnoses = diagnoses,
-             exposures = exposures,
-             main = main)
+    y = list(demographic = as_tibble(demographic),
+             diagnoses = as_tibble(diagnoses),
+             exposures = as_tibble(exposures),
+             main = as_tibble(main))
+    class(y) = c('GDCClinicalList', class(y))
     return(y)
 }
