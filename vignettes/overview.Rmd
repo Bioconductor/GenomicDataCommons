@@ -6,6 +6,7 @@ always_allow_html: yes
 output:
   BiocStyle::html_document:
     df_print: paged
+    toc_float: true
 abstract: >
   The National Cancer Institute (NCI) has established
   the [Genomic Data Commons](https://gdc.nci.nih.gov/) (GDC). The GDC
