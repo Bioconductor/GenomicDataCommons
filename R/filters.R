@@ -61,14 +61,18 @@
 #' of the JSON that will ultimately be used in an
 #' NCI GDC search or other query.
 #' 
-#' @importFrom lazyeval lazy_eval
+#' @importFrom rlang eval_tidy f_rhs f_env
 #' 
 #' @export
 make_filter = function(expr,available_fields) {
     available_fields=as.list(available_fields)
     names(available_fields)=available_fields
     filt_env = c(as.list(.f_env),available_fields)
-    lazyeval::lazy_eval(expr,data=filt_env)
+    if(is_formula(expr)) {
+        return(rlang::eval_tidy(rlang::f_rhs(expr), data=filt_env, env = rlang::f_env(expr)))
+    } else {
+        return(rlang::eval_tidy(expr,data=filt_env))
+    }
 }
 
 
@@ -162,16 +166,16 @@ filter = function(x,expr) {
 
 #' @rdname filtering
 #'
-#' @importFrom lazyeval lazy is_formula
+#' @importFrom rlang enquo is_formula
 #'
 #' @export
 filter.GDCQuery = function(x,expr) {
     filt = try({
-        lazyeval::is_formula(expr)
-        make_filter(expr,available_fields(x))
+        if(rlang::is_formula(expr))
+            make_filter(expr,available_fields(x))
     }, silent=TRUE)
     if(inherits(filt, "try-error")) 
-        filt = make_filter(lazy(expr), available_fields(x))
+        filt = make_filter(enquo(expr), available_fields(x))
     if(!is.null(x$filters))
         x$filters=list(op="and", content=list(x$filters,filt))
     else
