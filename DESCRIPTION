@@ -13,7 +13,7 @@ License: Artistic-2.0
 Depends: R (>= 3.4.0), magrittr
 Imports: stats, httr, xml2, jsonlite, utils, lazyeval, readr,
         GenomicRanges, IRanges, dplyr, rappdirs, 
-        SummarizedExperiment, S4Vectors
+        SummarizedExperiment, S4Vectors, tibble
 Suggests: BiocStyle, knitr, rmarkdown, DT, testthat, listviewer,
         ggplot2, GenomicAlignments, Rsamtools
 biocViews: DataImport, Sequencing
