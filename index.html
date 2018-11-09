@@ -117,21 +117,19 @@
 <p>The following code builds a <code>manifest</code> that can be used to guide the download of raw data. Here, filtering finds gene expression files quantified as raw counts using <code>HTSeq</code> from ovarian cancer patients.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(magrittr)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">ge_manifest =<span class="st"> </span><span class="kw"><a href="reference/query.html">files</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="reference/filtering.html">filter</a></span>( <span class="op">~</span><span class="st"> </span>cases.project.project_id <span class="op">==</span><span class="st"> 'TCGA-OV'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">                </span>type <span class="op">==</span><span class="st"> 'gene_expression'</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">                </span>analysis.workflow_type <span class="op">==</span><span class="st"> 'HTSeq - Counts'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="reference/filtering.html">filter</a></span>( cases.project.project_id <span class="op">==</span><span class="st"> 'TCGA-OV'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="reference/filtering.html">filter</a></span>( type <span class="op">==</span><span class="st"> 'gene_expression'</span> ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="reference/filtering.html">filter</a></span>( analysis.workflow_type <span class="op">==</span><span class="st"> 'HTSeq - Counts'</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="reference/manifest.html">manifest</a></span>()</a></code></pre></div>
 </div>
 <div id="download-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#download-data" class="anchor"></a>Download data</h2>
-<p>This code block downloads the <code>r nrow(ge_manifest)</code> gene expression files specified in the query above. Using multiple processes to do the download very significantly speeds up the transfer in many cases. On a standard 1Gb connection using 10 processes, the following completes in about 15 seconds.</p>
+<p>This code block downloads the <code>r nrow(ge_manifest)</code> gene expression files specified in the query above. Using multiple processes to do the download very significantly speeds up the transfer in many cases. The following completes in about 15 seconds.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(BiocParallel)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocParallel/topics/register">register</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/BiocParallel/topics/MulticoreParam-class">MulticoreParam</a></span>())</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">destdir =<span class="st"> </span><span class="kw">tempdir</span>()</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">fnames =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocParallel/topics/bplapply">bplapply</a></span>(ge_manifest<span class="op">$</span>id,gdcdata,</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">                  <span class="dt">destination_dir=</span>destdir,</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">                  <span class="dt">BPPARAM =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/BiocParallel/topics/MulticoreParam-class">MulticoreParam</a></span>(<span class="dt">progressbar=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb5-4" data-line-number="4">fnames =<span class="st"> </span><span class="kw">lapply</span>(ge_manifest<span class="op">$</span>id,gdcdata)</a></code></pre></div>
 <p>If the download had included controlled-access data, the download above would have needed to include a <code>token</code>. Details are available in <a href="#authentication">the authentication section below</a>.</p>
 </div>
 <div id="metadata-queries" class="section level2">
