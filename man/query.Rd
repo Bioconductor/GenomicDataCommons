@@ -7,6 +7,11 @@
 \alias{files}
 \alias{projects}
 \alias{annotations}
+\alias{ssms}
+\alias{ssm_occurrences}
+\alias{cnvs}
+\alias{cnv_occurrences}
+\alias{genes}
 \title{Start a query of GDC metadata}
 \usage{
 query(entity, filters = NULL, facets = NULL, legacy = FALSE,
@@ -19,23 +24,36 @@ files(...)
 projects(...)
 
 annotations(...)
+
+ssms(...)
+
+ssm_occurrences(...)
+
+cnvs(...)
+
+cnv_occurrences(...)
+
+genes(...)
 }
 \arguments{
-\item{entity}{character vector of 'cases','files','annotations',
-or 'projects'}
+\item{entity}{character vector, including one of the entities in .gdc_entities}
 
 \item{filters}{a filter list, typically created using \code{\link{make_filter}}, or added
 to an existing \code{GDCQuery} object using \code{\link{filter}}.}
 
-\item{facets}{a character vector of}
+\item{facets}{a character vector of facets for counting common values. 
+See \code{\link{available_fields}}. In general, one will not specify this parameter
+but will use \code{\link{facets}} instead.}
 
 \item{legacy}{logical(1) whether to use the "legacy" archive or not. 
 See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} 
 and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.}
 
-\item{expand}{a character vector of "expands" to include in returned data}
+\item{expand}{a character vector of "expands" to include in returned data. See 
+\code{\link{available_expands}}}
 
-\item{fields}{a character vector of fields to return}
+\item{fields}{a character vector of fields to return. See \code{\link{available_fields}}.
+In general, one will not specify fields directly, but instead use \code{\link{select}}}
 
 \item{...}{passed through to \code{\link{query}}}
 }
@@ -67,6 +85,16 @@ is required for accessing certain datasets.
 \item \code{projects}: convenience contructor for a GDCQuery for projects
 
 \item \code{annotations}: convenience contructor for a GDCQuery for annotations
+
+\item \code{ssms}: convenience contructor for a GDCQuery for ssms
+
+\item \code{ssm_occurrences}: convenience contructor for a GDCQuery for ssm_occurrences
+
+\item \code{cnvs}: convenience contructor for a GDCQuery for cnvs
+
+\item \code{cnv_occurrences}: convenience contructor for a GDCQuery for cnv_occurrences
+
+\item \code{genes}: convenience contructor for a GDCQuery for genes
 }}
 
 \examples{

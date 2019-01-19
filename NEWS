@@ -1,3 +1,13 @@
+1.7.4
+=====
+
+* slicing available for multiple regions
+* added significant new query capabilities
+  * Simple Somatic Mutations (see ssms and ssm_occurrences)
+  * Copy Number Variations (see cnvs and cnv_occurrences)
+  * Gene details (see genes)
+
+
 1.5.8
 ======
 

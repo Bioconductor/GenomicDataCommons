@@ -18,7 +18,9 @@
 
 .gdc_entities =
     structure(
-        c('projects','cases',"files","annotations"),
+        c('projects','cases',"files","annotations", 
+          "ssms", "cnvs", "ssm_occurrences", "cnv_occurrences",
+          "genes"),
         class = "gdc_entities")
 
 .gdc_manifest_colnames = 
