@@ -30,6 +30,11 @@
 #'
 #' @param legacy logical(1) whether or not to use the "legacy"
 #'     archive, containing older, non-harmonized data. 
+#'     
+#'     
+#' @details This function uses the Genomic Data Commons "slicing" API
+#'     to get portions of a BAM file specified either using "regions"
+#'     or using HGNC gene symbols. 
 #' 
 #' @return character(1) destination to the downloaded BAM file
 #'
@@ -38,26 +43,56 @@
 #' 
 #' @examples
 #' \donttest{
-#' slicing("df80679e-c4d3-487b-934c-fcc782e5d46e",
+#' ' slicing("df80679e-c4d3-487b-934c-fcc782e5d46e",
 #'         regions="chr17:75000000-76000000",
 #'         token=gdc_token())
+#' 
+#' # Get 10 BAM files.
+#' bamfiles = files() %>% 
+#'            filter(data_format=='BAM') %>%
+#'            results(size=10) %>% ids()
+#' 
+#' # Current alignments at the GDC are to GRCh38
+#' library('TxDb.Hsapiens.UCSC.hg38.knownGene')
+#' all_genes = genes(TxDb.Hsapiens.UCSC.hg38.knownGene)
+#' 
+#' first3genes = all_genes[1:3]
+#' # remove strand info
+#' strand(first3genes) = '*'
+#' 
+#' # We can get our regions easily now
+#' as.character(first3genes)
+#' 
+#' # Use parallel downloads to speed processing
+#' library(BiocParallel)
+#' register(MulticoreParam())
+#' 
+#' fnames = bplapply(bamfiles, slicing, overwrite = TRUE,
+#'                 regions=as.character(first3genes))
+#' 
+#' # 10 BAM files
+#' fnames
+#' 
+#' library(GenomicAlignments)
+#' lapply(unlist(fnames), readGAlignments)
+#' 
 #' }
 #' @export
-slicing <- function(uuid, regions, symbols, destination=tempfile(),
-                    overwrite=FALSE, progress=interactive(), token=NULL, legacy = FALSE)
+slicing <- function(uuid, regions, symbols, destination=file.path(tempdir(), paste0(uuid, '.bam')),
+                    overwrite=FALSE, progress=interactive(), token=gdc_token(), legacy = FALSE)
 {
     stopifnot(is.character(uuid), length(uuid) == 1L)
     stopifnot(missing(regions) || missing(symbols),
               !(missing(regions) && missing(symbols)))
     stopifnot(is.character(destination), length(destination) == 1L,
-              !overwrite && !file.exists(destination))
-    stopifnot(!missing(token))
+              (overwrite && file.exists(destination)) || !file.exists(destination))
+    stopifnot(missing(token))
 
     if (!missing(symbols))
         body <- list(gencode=I(symbols))
     else
         ## FIXME: validate regions
-        body <- list(regions=unbox(regions))
+        body <- list(regions=regions)
 
     response <- .gdc_post(
         endpoint=sprintf("legacy/slicing/view/%s", uuid),
