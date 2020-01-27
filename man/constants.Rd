@@ -18,11 +18,6 @@ parameters()
 }
 \description{
 \code{endpoints()} returns available endpoints.
-
-\code{parameters()} include format (internal use only), pretty
-(internal use only), fields, size (number of results returned),
-from (index of rist result), sort, filters, and facets. See
-\url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Search_and_Retrieval/#query-parameters}
 }
 \examples{
 endpoints()

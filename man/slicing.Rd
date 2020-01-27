@@ -4,8 +4,9 @@
 \alias{slicing}
 \title{Query GDC for data slices}
 \usage{
-slicing(uuid, regions, symbols, destination = tempfile(), overwrite = FALSE,
-  progress = interactive(), token = NULL, legacy = FALSE)
+slicing(uuid, regions, symbols, destination = file.path(tempdir(),
+  paste0(uuid, ".bam")), overwrite = FALSE, progress = interactive(),
+  token = gdc_token(), legacy = FALSE)
 }
 \arguments{
 \item{uuid}{character(1) identifying the BAM file resource}
@@ -43,10 +44,8 @@ This function returns a BAM file representing reads overlapping
 regions specified either as chromosomal regions or as gencode gene
 symbols.
 }
-\examples{
-\donttest{
-slicing("df80679e-c4d3-487b-934c-fcc782e5d46e",
-        regions="chr17:75000000-76000000",
-        token=gdc_token())
-}
+\details{
+This function uses the Genomic Data Commons "slicing" API
+    to get portions of a BAM file specified either using "regions"
+    or using HGNC gene symbols.
 }

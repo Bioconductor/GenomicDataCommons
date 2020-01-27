@@ -1,11 +1,15 @@
 language: r
+r:
+  - bioc-release
+  - bioc-devel
 cache: packages
-sudo: true
-r: bioc-devel
-r_github_packages:
-  - jimhester/covr
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install ca-certificates
+warnings_are_errors: false
+
 after_success:
   - Rscript -e 'covr::codecov()'
+
+notifications:
+  email:
+    on_success: seandavi@gmail.com
+    on_failure: seandavi@gmail.com
+

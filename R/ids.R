@@ -22,7 +22,11 @@ ids = function(x) {
     UseMethod('ids',x)
 }
 
-
+#' @rdname ids
+#' @export
+ids.GDCManifest = function(x) {
+    return(x[['id']])
+}
 
 
 #' @rdname ids

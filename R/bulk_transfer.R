@@ -1,16 +1,16 @@
 #' Bulk data download
-#' 
-#' The GDC maintains a special tool, 
+#'
+#' The GDC maintains a special tool,
 #' \href{the GDC Data Transfer Tool}{https://docs.gdc.cancer.gov/Data_Transfer_Tool/Users_Guide/Getting_Started/},
-#' that enables high-performance, potentially parallel, and 
+#' that enables high-performance, potentially parallel, and
 #' resumable downloads. The Data Transfer Tool is an external
-#' program that requires separate download. 
+#' program that requires separate download. #' @param gdc_client character(1) name or path to \code{gdc-client}
+#'     executable.  The executable that is used is found through the
+#'     \code{\link{gdc_client}}. See \code{\link{gdc_client}}
+#'     for details on how to set the executable path.
+
 #'
-#' @param manifest character(1) file path to manifest created by
-#'     \code{manifest()}. See \code{\link{write_manifest}} for 
-#'     a simple way to create a manifest file from a data.frame
-#'     created with \code{\link{manifest}}.
-#'
+#' @param uuids character() vector of GDC file UUIDs
 #'
 #' @param args character() vector specifying command-line arguments to
 #'     be passed to \code{gdc-client}. See \code{\link{transfer_help}} for
@@ -26,15 +26,14 @@
 #'     transfer. Therefore, this token will be written to a temporary
 #'     file (with appropriate permissions set).
 #'
-#' @param gdc_client character(1) name or path to \code{gdc-client}
-#'     executable. On Windows, use \code{/} or \code{\\\\} as the file
-#'     separator.
 #'
-#' @param destination_dir The path into which to place the transfered files.
+#' @param overwrite logical(1) default FALSE indicating whether
+#'     existing files with identical name should be over-written.
+#'
 #'
 #' @return character(1) directory path to which the files were
 #'     downloaded.
-#' 
+#'
 #' @examples
 #' \donttest{
 #' file_manifest = files() %>% filter(~ access == "open") %>% manifest(size=10)
@@ -45,18 +44,23 @@
 #' # and with authenication
 #' destination <- transfer(manifest_file,token=gdc_token)
 #' }
-#' 
+#'
+#' @importFrom utils read.table
 #' @export
 transfer <-
-    function(manifest, destination_dir=tempfile(), args=character(),
-             token=NULL, gdc_client="gdc-client")
+    function(uuids, args=character(), token=NULL, overwrite=FALSE)
     {
-        stopifnot(is.character(manifest), length(manifest) == 1L,
-                  file.exists(manifest))
-        .dir_validate_or_create(destination_dir)
+        stopifnot(is.character(uuids))
+        destination_dir <- gdc_cache()
+
+        manifest = files() %>%
+            GenomicDataCommons::filter( ~ file_id %in% uuids ) %>%
+            GenomicDataCommons::manifest()
+        manifest_file = write_manifest(manifest)
         
-        dir <- sprintf("--dir %s", destination_dir)
-        manifest <- sprintf("--manifest %s", manifest)
+
+        dir_arg <- sprintf("--dir %s", destination_dir)
+        manifest_arg <- sprintf("--manifest %s", manifest_file)
         token_file = tempfile()
         if (!is.null(token)) {
             writeLines(token,con=token_file)
@@ -64,22 +68,68 @@ transfer <-
             Sys.chmod(token_file,mode="600")
             token <- sprintf("--token-file %s", token_file)
         }
-        args <- paste(c("download", dir, manifest, args, token), collapse=" ")
-        system2(gdc_client, args)
-        
+        args <- paste(c("download", dir_arg, manifest_arg, args, token), collapse=" ")
+        system2(gdc_client(), args)
+
         if(!is.null(token))
             unlink(token_file)
-        
-        destination_dir
+
+        filepaths <- file.path(gdc_cache(), uuids,
+                               as.character(manifest[[2]]))
+        names(filepaths) = uuids
+        return(filepaths)
     }
+
+#' return gdc-client executable path
+#' 
+#' This function is a convenience function to 
+#' find and return the path to the GDC Data Transfer
+#' Tool executable assumed to be named 'gdc-client'. 
+#' The assumption is that the appropriate version of the
+#' GDC Data Transfer Tool is a separate download available
+#' from \href{the GDC website}{https://gdc.cancer.gov/access-data/gdc-data-transfer-tool}
+#' and as a backup from \href{on github}{https://github.com/NCI-GDC/gdc-client}.
+#'
+#' @details
+#' The path is checked in the following order:
+#' \enumerate{
+#' \item an R option("gdc_client")
+#' \item an environment variable GDC_CLIENT
+#' \item from the search PATH
+#' \item in the current working directory
+#' }
+#'
+#' @return character(1) the path to the gdc-client executable.
+#'
+#' @examples
+#' # this cannot run without first
+#' # downloading the GDC Data Transfer Tool
+#' gdc_client = try(gdc_client(),silent=TRUE)
+#' 
+#' @export
+gdc_client = function() {
+    if(!is.null(getOption('gdc_client')))
+        if(file.exists(getOption('gdc_client')))
+            return(getOption('gdc_client'))
+    if(file.exists(Sys.getenv("GDC_CLIENT")))
+        return(Sys.getenv("GDC_CLIENT"))
+    if(!(Sys.which("gdc-client")==''))
+        return(Sys.which("gdc-client"))
+    client=dir('.',pattern='^gdc-client$',full.names=TRUE)
+    if(length(client)==1)
+        if(client=='./gdc-client')
+            return(client)
+    stop('gdc_client not found')
+}
+
 
 #' \code{transfer_help()} queries the the command line GDC Data
 #' Transfer Tool, \code{gdc-client}, for available options to be used
 #' in the \code{\link{transfer}} command.
-#' 
+#'
 #' @describeIn transfer
-#' 
+#'
 #' @export
-transfer_help <- function(gdc_client="gdc-client") {
-    system2(gdc_client, "download -h")
+transfer_help <- function() {
+    system2(gdc_client(), "download -h")
 }

@@ -1,8 +1,12 @@
+^_pkgdown\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^appveyor\.yml$
-.*cache
+.*cache$
 .httr-oauth
 ^DevNotes\.md$
 scratch/*
+^docs$
+_pkgdown.yml
+^\.httr-oauth$

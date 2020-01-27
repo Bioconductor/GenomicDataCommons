@@ -1,0 +1,43 @@
+template:
+  params:
+    ganalytics: UA-93043521-1
+    bootswatch: cosmo
+reference:
+  - title: "Creating a query"
+    contents:
+      - projects
+      - cases
+      - files
+      - annotations
+  - title: "Manipulating a query"
+    contents:
+      - filter
+      - facet
+      - select
+  - title: "Introspection on the GDC API fields"
+    contents:
+      - mapping
+      - available_fields
+      - default_fields
+      - grep_fields
+      - available_values
+      - available_expand
+  - title: "Executing an API call to retrieve query results"
+    contents:
+      - results
+      - count
+      - response
+  - title: "Raw data file downloads"
+    contents:
+      - gdcdata
+      - transfer
+      - gdc_client
+  - title: "Summarizing and aggregating field values (faceting)"
+    contents:
+      - aggregations
+  - title: Authentication
+    contents:
+      - gdc_token
+  - title: "BAM file slicing"
+    contents:
+      - slicing

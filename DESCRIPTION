@@ -3,20 +3,22 @@ Type: Package
 Title: NIH / NCI Genomic Data Commons Access
 Description: Programmatically access the NIH / NCI Genomic Data Commons
         RESTful service.
-Version: 0.99.20
-Date: 2017-03-24
+Version: 1.7.4
+Date: 2019-01-18
 Authors@R: c( person("Martin", "Morgan",
         email="martin.morgan@roswellpark.org", role=c("aut")),
-        person("Davis", "Sean", email="sdavis2@mail.nih.gov",
+        person("Sean", "Davis", email="seandavi@gmail.com",
         role=c("aut", "cre")))
 License: Artistic-2.0
 Depends: R (>= 3.4.0), magrittr
-Imports: stats, httr, xml2, jsonlite, utils, lazyeval, readr, shiny,
-        miniUI, data.table, GenomicRanges, IRanges
+Imports: stats, httr, xml2, jsonlite, utils, rlang, readr,
+        GenomicRanges, IRanges, dplyr, rappdirs, 
+        SummarizedExperiment, S4Vectors, tibble
 Suggests: BiocStyle, knitr, rmarkdown, DT, testthat, listviewer,
         ggplot2, GenomicAlignments, Rsamtools
 biocViews: DataImport, Sequencing
+URL: https://bioconductor.org/packages/GenomicDataCommons, http://github.com/Bioconductor/GenomicDataCommons
 BugReports:
         https://github.com/Bioconductor/GenomicDataCommons/issues/new
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

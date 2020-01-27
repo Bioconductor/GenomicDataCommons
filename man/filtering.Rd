@@ -58,9 +58,44 @@ fQuery = files()
 default_fields(fQuery)
 
 fQuery = filter(fQuery,~ data_format == 'VCF')
+# OR
+# with recent GenomicDataCommons versions:
+#   no "~" needed
+fQuery = filter(fQuery, data_format == 'VCF')
+
 get_filter(fQuery)
 
-fQuery = filter(fQuery,~ data_format == 'VCF' & experimental_strategy == 'WXS' & type == 'simple_somatic_mutation')
+fQuery = filter(fQuery,~ data_format == 'VCF'
+                & experimental_strategy == 'WXS'
+                & type == 'simple_somatic_mutation')
+
+files() \%>\% filter(~ data_format == 'VCF'
+                   & experimental_strategy=='WXS'
+                   & type == 'simple_somatic_mutation') \%>\% count()
+                   
+                   
+files() \%>\% filter( data_format == 'VCF'
+                   & experimental_strategy=='WXS'
+                   & type == 'simple_somatic_mutation') \%>\% count()
+
+# Filters may be chained for the 
+# equivalent query
+# 
+# When chained, filters are combined with logical AND
+
+files() \%>\%
+  filter(~ data_format == 'VCF') \%>\%
+  filter(~ experimental_strategy == 'WXS') \%>\%
+  filter(~ type == 'simple_somatic_mutation') \%>\%
+  count()
+
+# OR
+
+files() \%>\%
+  filter( data_format == 'VCF') \%>\%
+  filter( experimental_strategy == 'WXS') \%>\%
+  filter( type == 'simple_somatic_mutation') \%>\%
+  count()
 
 # Use str() to get a cleaner picture
 str(get_filter(fQuery))

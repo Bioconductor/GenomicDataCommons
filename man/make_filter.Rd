@@ -7,7 +7,7 @@
 make_filter(expr, available_fields)
 }
 \arguments{
-\item{expr}{a filter expression}
+\item{expr}{a lazy-wrapped expression or a formula RHS equivalent}
 
 \item{available_fields}{a character vector of the
 additional names that will be injected into the

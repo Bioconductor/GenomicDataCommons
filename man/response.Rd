@@ -9,7 +9,7 @@
 \usage{
 response(x, ...)
 
-\method{response}{GDCQuery}(x, from = 1, size = 10, ...,
+\method{response}{GDCQuery}(x, from = 0, size = 10, ...,
   response_handler = jsonlite::fromJSON)
 
 response_all(x, ...)

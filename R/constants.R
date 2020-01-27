@@ -1,4 +1,4 @@
-.gdc_base <- "https://gdc-api.nci.nih.gov"
+.gdc_base <- "https://api.gdc.cancer.gov"
 .gdc_endpoint <-
     structure(
         c("status", "projects", "cases", "files", "annotations", "data",
@@ -7,7 +7,7 @@
 
 .gdc_parameters <-
     structure(
-        list(format="JSON", pretty=FALSE, fields=NULL, size=10L, from=1L,
+        list(format="JSON", pretty=FALSE, fields=NULL, size=10L, from=0L,
              sort=NULL, filters=NULL, facets=NULL),
         class="gdc_parameters")
 
@@ -18,7 +18,9 @@
 
 .gdc_entities =
     structure(
-        c('projects','cases',"files","annotations"),
+        c('projects','cases',"files","annotations", 
+          "ssms", "cnvs", "ssm_occurrences", "cnv_occurrences",
+          "genes"),
         class = "gdc_entities")
 
 .gdc_manifest_colnames = 

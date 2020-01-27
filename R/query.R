@@ -8,16 +8,19 @@
 #'
 #' @aliases GDCQuery
 #' 
-#' @param entity character vector of 'cases','files','annotations',
-#' or 'projects'
+#' @param entity character vector, including one of the entities in .gdc_entities
 #' @param filters a filter list, typically created using \code{\link{make_filter}}, or added
 #'     to an existing \code{GDCQuery} object using \code{\link{filter}}.
-#' @param facets a character vector of 
+#' @param facets a character vector of facets for counting common values. 
+#'     See \code{\link{available_fields}}. In general, one will not specify this parameter
+#'     but will use \code{\link{facets}} instead.
 #' @param legacy logical(1) whether to use the "legacy" archive or not. 
 #'     See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} 
 #'     and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.
-#' @param fields a character vector of fields to return
-#' @param expand a character vector of "expands" to include in returned data
+#' @param fields a character vector of fields to return. See \code{\link{available_fields}}.
+#'     In general, one will not specify fields directly, but instead use \code{\link{select}}
+#' @param expand a character vector of "expands" to include in returned data. See 
+#'     \code{\link{available_expands}}
 #' 
 #' @return An S3 object, the GDCQuery object. This is a list
 #' with the following members.
@@ -63,11 +66,11 @@ query = function(entity,
 #' @export
 cases = function(...) {return(query('cases',...))}
 
-#' @describeIn query convenience contructor for a GDCQuery for cases
+#' @describeIn query convenience contructor for a GDCQuery for files
 #' @export
 files = function(...) {return(query('files',...))}
 
-#' @describeIn query convenience contructor for a GDCQuery for cases
+#' @describeIn query convenience contructor for a GDCQuery for projects
 #' @export
 projects = function(...) {return(query('projects',...))}
 
@@ -76,3 +79,22 @@ projects = function(...) {return(query('projects',...))}
 annotations = function(...) {return(query('annotations',...))}
 
 
+#' @describeIn query convenience contructor for a GDCQuery for ssms
+#' @export
+ssms = function(...) {return(query("ssms", ...))}
+
+#' @describeIn query convenience contructor for a GDCQuery for ssm_occurrences
+#' @export
+ssm_occurrences = function(...) {return(query("ssm_occurrences", ...))}
+
+#' @describeIn query convenience contructor for a GDCQuery for cnvs
+#' @export
+cnvs = function(...) {return(query("cnvs", ...))}
+
+#' @describeIn query convenience contructor for a GDCQuery for cnv_occurrences
+#' @export
+cnv_occurrences = function(...) {return(query("cnv_occurrences", ...))}
+
+#' @describeIn query convenience contructor for a GDCQuery for genes
+#' @export
+genes = function(...) {return(query("genes", ...))}

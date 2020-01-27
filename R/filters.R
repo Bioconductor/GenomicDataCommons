@@ -51,7 +51,7 @@
 #' named in the available_fields character vector can be used
 #' in the filter expression without quotes.
 #'
-#' @param expr a filter expression
+#' @param expr a lazy-wrapped expression or a formula RHS equivalent
 #'
 #' @param available_fields a character vector of the
 #' additional names that will be injected into the
@@ -61,14 +61,18 @@
 #' of the JSON that will ultimately be used in an
 #' NCI GDC search or other query.
 #' 
-#' @importFrom lazyeval f_eval
+#' @importFrom rlang eval_tidy f_rhs f_env
 #' 
 #' @export
 make_filter = function(expr,available_fields) {
     available_fields=as.list(available_fields)
     names(available_fields)=available_fields
     filt_env = c(as.list(.f_env),available_fields)
-    f_eval(expr,data=filt_env)
+    if(is_formula(expr)) {
+        return(rlang::eval_tidy(rlang::f_rhs(expr), data=filt_env, env = rlang::f_env(expr)))
+    } else {
+        return(rlang::eval_tidy(expr,data=filt_env))
+    }
 }
 
 
@@ -100,9 +104,44 @@ make_filter = function(expr,available_fields) {
 #' default_fields(fQuery)
 #'
 #' fQuery = filter(fQuery,~ data_format == 'VCF')
+#' # OR
+#' # with recent GenomicDataCommons versions:
+#' #   no "~" needed
+#' fQuery = filter(fQuery, data_format == 'VCF')
+#' 
 #' get_filter(fQuery)
 #'
-#' fQuery = filter(fQuery,~ data_format == 'VCF' & experimental_strategy == 'WXS' & type == 'simple_somatic_mutation')
+#' fQuery = filter(fQuery,~ data_format == 'VCF'
+#'                 & experimental_strategy == 'WXS'
+#'                 & type == 'simple_somatic_mutation')
+#'
+#' files() %>% filter(~ data_format == 'VCF'
+#'                    & experimental_strategy=='WXS'
+#'                    & type == 'simple_somatic_mutation') %>% count()
+#'                    
+#'                    
+#' files() %>% filter( data_format == 'VCF'
+#'                    & experimental_strategy=='WXS'
+#'                    & type == 'simple_somatic_mutation') %>% count()
+#'
+#' # Filters may be chained for the 
+#' # equivalent query
+#' # 
+#' # When chained, filters are combined with logical AND
+#' 
+#' files() %>%
+#'   filter(~ data_format == 'VCF') %>%
+#'   filter(~ experimental_strategy == 'WXS') %>%
+#'   filter(~ type == 'simple_somatic_mutation') %>%
+#'   count()
+#' 
+#' # OR
+#' 
+#' files() %>%
+#'   filter( data_format == 'VCF') %>%
+#'   filter( experimental_strategy == 'WXS') %>%
+#'   filter( type == 'simple_somatic_mutation') %>%
+#'   count()
 #' 
 #' # Use str() to get a cleaner picture
 #' str(get_filter(fQuery))
@@ -127,10 +166,20 @@ filter = function(x,expr) {
 
 #' @rdname filtering
 #'
+#' @importFrom rlang enquo is_formula
+#'
 #' @export
 filter.GDCQuery = function(x,expr) {
-    filt = make_filter(expr,available_fields(x))
-    x$filters = filt
+    filt = try({
+        if(rlang::is_formula(expr))
+            make_filter(expr,available_fields(x))
+    }, silent=TRUE)
+    if(inherits(filt, "try-error")) 
+        filt = make_filter(enquo(expr), available_fields(x))
+    if(!is.null(x$filters))
+        x$filters=list(op="and", content=list(x$filters,filt))
+    else
+        x$filters = filt
     return(x)
 }
 
