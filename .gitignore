@@ -11,3 +11,4 @@ scratch
 inst/doc/*
 docs/articles/*cache
 docs
+.httr-oauth

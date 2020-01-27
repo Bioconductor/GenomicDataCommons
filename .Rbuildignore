@@ -9,3 +9,4 @@
 scratch/*
 ^docs$
 _pkgdown.yml
+^\.httr-oauth$
