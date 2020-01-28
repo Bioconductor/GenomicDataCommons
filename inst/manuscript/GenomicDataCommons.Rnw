@@ -6,6 +6,7 @@
   anchorcolor=BiocBlue, urlcolor=BiocBlue
 ]{hyperref}
 \usepackage{todonotes}
+\usepackage{booktabs}
 \usepackage[margin=1in]{geometry}
 \usepackage[
   maxbibnames=99,backend=biber,citestyle=authoryear,sorting=ydnt
@@ -38,21 +39,33 @@
 
 \maketitle
 
+<<init,results='hide',echo=FALSE>>=
+library(knitr)
+opts_chunk$set(warning=FALSE,message=FALSE,results='hide', cache=FALSE)
+suppressPackageStartupMessages({
+    library(GenomicDataCommons)
+    library(BiocPkgTools)
+    pkglist = BiocPkgTools::biocPkgList()
+})
+@ 
+
+
+\Sexpr{ files() %>% count() }
 
 \begin{abstract}
   The National Cancer Institute (NCI) Genomic Data Commons
   (\cite{Grossman2016}, \url{https://gdc.cancer.gov/}) provides the
   cancer research community with an open and unified repository for
-  sharing and accessing data across numerous cancer studies and
-  projects via a high-performance data transfer and query
-  infrastructure.  The \Bioconductor{} project \parencite{Huber2015}
+  sharing and accessing data from \Sexpr{ projects() %>% count() }
+  projects and contributed by \Sexpr{ cases() %>% count()} research
+  participants. The \Bioconductor{} project \parencite{Huber2015}
   is an open source and open development software project built on the
   \R{} statistical programming environment \parencite{RCoreTeam2016}.
   A major goal of the \Bioconductor{} project is to facilitate the
   use, analysis, and comprehension of genomic data.  The \GDC{}
   \Bioconductor{} package provides basic infrastructure for querying,
   accessing, and mining genomic datasets available from the GDC. We
-  expect that \Bioconductor{} developer and bioinformatics community
+  expect that the \Bioconductor{} developer and user communities
   will build on the \GDC{} package to add higher-level functionality
   and expose cancer genomics data to many state-of-the-art
   bioinformatics methods available in \Bioconductor{}.
@@ -64,13 +77,6 @@
 
 \section{Introduction}
 
-<<init,results='hide',echo=FALSE>>=
-library(knitr)
-opts_chunk$set(warning=FALSE,message=FALSE,results='hide')
-suppressPackageStartupMessages({
-    library(GenomicDataCommons)
-})
-@ 
 
 Basic and translational cancer research projects -- from large,
 multicenter consortia to individual labs -- now produce vast
@@ -80,18 +86,16 @@ experimental metadata. To address the needs of the cancer community to
 access, query, and utilize these cancer-related data resources, the
 NCI has developed the Genomic Data Commons (GDC,
 \cite{Grossman2016}). The GDC is similar to other large-scale genomics
-data repositories, while in addtion providing data that have been
+data repositories, while in addition providing data that have been
 `harmonized' using stardard, publicly-available pipelines\footnote{See
   \url{https://docs.gdc.cancer.gov/Data/Introduction/} for
-  details.}. An additional and unusual feature of the GDC is that
-users can deposit and then apply standard GDC pipelines to their own
-genomic data.
+  details.}.
 
 The \Bioconductor{} project is an open source and open development
 software project for the analysis and comprehension of genomic and
 molecular biology data \parencite{Huber2015}. Based in the statistical
 programming language, \R{} \parencite{RCoreTeam2016}, the project
-comprises 1296 interoperable software packages contributed by a
+comprises \Sexpr{ nrow(pkglist) } interoperable software packages contributed by a
 diverse community of scientists. Several \Bioconductor{} provide
 access to cancer genomics data (e.g., \Biocpkg{RTCGA}
 \parencite{Kosinski2016}, \Biocpkg{TCGABiolinks}
@@ -113,6 +117,18 @@ to \Bioconductor{} users via an \R{} client interface. The \GDC{}
 package supports both the metadata query and data download
 capabilities of the GDC API. The \GDC{} package is implemented as a
 set of S3 classes and methods with accompanying utility functions.
+
+
+<<tab,echo=FALSE,results='asis'>>=
+ent = as.character(GenomicDataCommons:::.gdc_entities)
+res = tibble::tibble(Collection=as.character(ent),
+                 `Data Categories Available`=sapply(ent, function(x) length(available_expand(x))),
+                 `Total Field Count`=sapply(ent, function(x) length(available_fields(x))),
+                 )
+knitr::kable(res, caption="The Genomic Data Commons API includes separate collections for each of the rows listed. The number of data types and available fields are given in columns two and three, respectively.", label = "tab:avail", row.names=FALSE, booktabs=TRUE)
+@ 
+
+\Sexpr{nrow(res)}
 
 \subsection{Usage}
 
