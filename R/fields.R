@@ -106,7 +106,7 @@ select.GDCQuery <- function(x,fields) {
 #' This utility function allows quick text-based search of available
 #' fields for using \code{\link{grep}}
 #' 
-#' @param entity one of "files", "cases", "annotations", "projects"
+#' @param entity one of \code{\link{.gdc_entities}}
 #'     against which to gather available fields for matching
 #' 
 #' @param pattern A regular expression that will be used
@@ -150,3 +150,41 @@ available_values <- function(entity,field,legacy=FALSE) {
     agg[[field]]$key
 }
 
+#' S3 Generic that returns the field description text, if available
+#'
+#' @param entity character(1) string ('cases','files','projects',
+#' 'annotations', etc.) or an subclass of \code{\link{GDCQuery}}.
+#'
+#' @param field character(1), the name of the field that will be used to look
+#' up the description.
+#' 
+#' @return character(1) descriptive text or character(0) if no description
+#' is available.
+#'
+#' @examples
+#' field_description('cases', 'annotations.category')
+#' casesQuery = query('cases')
+#' field_description(casesQuery, 'annotations.category')
+#' field_description(cases(), 'annotations.category')
+#' 
+#' @export
+field_description = function(entity, field) {
+    UseMethod('field_description',entity)
+}
+
+#' @describeIn available_fields GDCQuery method
+#' @export
+field_description.GDCQuery = function(entity, field) {
+    stopifnot(length(field)==1)
+    m = mapping(entity_name(entity))
+    return(m$description[m$field==field])
+}
+
+#' @describeIn available_fields character method
+#' @export
+field_description.character = function(entity, field) {
+    stopifnot(length(entity)==1,entity %in% .gdc_entities)
+    stopifnot(length(field)==1)
+    m = mapping(entity)
+    return(m$description[m$field==field])
+}
