@@ -183,6 +183,12 @@ filter.GDCQuery = function(x,expr) {
     return(x)
 }
 
+#' @export
+filter.default <- function(x, ...) {
+  dplyr::filter(x, ...)
+}
+
+
 #' The \code{get_filter} is simply a safe accessor for
 #' the filter element in \code{\link{GDCQuery}} objects.
 #'

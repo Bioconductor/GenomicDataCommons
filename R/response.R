@@ -72,6 +72,10 @@ count.GDCResponse = function(x,...) {
     x$pages$total
 }
 
+#' @export
+count.default <- function(x, ...) {
+    dplyr::count(x, ...)
+}
 
 #" (internal) prepare "results" for return
 #"

@@ -7,9 +7,11 @@
 \usage{
 gdc_cache()
 
-gdc_set_cache(directory = rappdirs::app_dir(appname =
-  "GenomicDataCommons")$cache(), verbose = TRUE,
-  create_without_asking = !interactive())
+gdc_set_cache(
+  directory = rappdirs::app_dir(appname = "GenomicDataCommons")$cache(),
+  verbose = TRUE,
+  create_without_asking = !interactive()
+)
 }
 \arguments{
 \item{directory}{character(1) directory path, will be created

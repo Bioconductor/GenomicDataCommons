@@ -101,6 +101,11 @@ select.GDCQuery <- function(x,fields) {
     return(x)
 }
 
+#' @export
+select.default <- function(x, ...) {
+    dplyr::select(x, ...)
+}
+
 #' Find matching field names
 #' 
 #' This utility function allows quick text-based search of available

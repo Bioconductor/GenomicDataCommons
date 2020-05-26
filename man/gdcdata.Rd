@@ -4,8 +4,14 @@
 \alias{gdcdata}
 \title{Download GDC files}
 \usage{
-gdcdata(uuids, use_cached = TRUE, progress = interactive(),
-  token = NULL, access_method = "api", transfer_args = character())
+gdcdata(
+  uuids,
+  use_cached = TRUE,
+  progress = interactive(),
+  token = NULL,
+  access_method = "api",
+  transfer_args = character()
+)
 }
 \arguments{
 \item{uuids}{character() of GDC file UUIDs.}

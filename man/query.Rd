@@ -14,8 +14,14 @@
 \alias{genes}
 \title{Start a query of GDC metadata}
 \usage{
-query(entity, filters = NULL, facets = NULL, legacy = FALSE,
-  expand = NULL, fields = default_fields(entity))
+query(
+  entity,
+  filters = NULL,
+  facets = NULL,
+  legacy = FALSE,
+  expand = NULL,
+  fields = default_fields(entity)
+)
 
 cases(...)
 
