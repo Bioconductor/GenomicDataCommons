@@ -85,4 +85,7 @@ expand.GDCQuery <- function(x,expand) {
     return(x)
 }
 
-
+#' @export
+expand.default <- function(x, ...) {
+    tidyr::expand(x, ...)
+}
