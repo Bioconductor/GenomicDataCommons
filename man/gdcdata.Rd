@@ -27,6 +27,9 @@ to restricted data. See
 \item{transfer_args}{character(1), additional arguments to pass to
 the gdc-client command line. See \code{\link{gdc_client}} and
 \code{\link{transfer_help}} for details.}
+
+\item{...}{further arguments passed to files, particulary useful when
+requesting \code{legacy=TRUE}}
 }
 \value{
 a named vector with file uuids as the names and paths as
@@ -57,9 +60,17 @@ uuids <- files() \%>\%
     ids()
 
 # and get the data, placing it into the gdc_cache() directory
-fpaths <- gdcdata(uuids, use_cached=TRUE)
+gdcdata(uuids, use_cached=TRUE)
 
-fpaths
+# legacy data
+exon <- files(legacy = TRUE) \%>\%
+    filter( ~ cases.project.project_id == "TCGA-COAD" &
+        data_category == "Gene expression" &
+        data_type == "Exon quantification") \%>\%
+    results(size = 1) \%>\% ids()
+
+gdcdata(exon, legacy = TRUE)
+
 }
 \seealso{
 \code{\link{manifest}} for downloading large data.
