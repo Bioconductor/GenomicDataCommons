@@ -28,6 +28,9 @@
 #'     to restricted data. See
 #'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
 #'
+#' @param ... further arguments passed to files, particulary useful when
+#'     requesting \code{legacy=TRUE}
+#'
 #' @seealso \code{\link{manifest}} for downloading large data.
 #'
 #' @return a named vector with file uuids as the names and paths as
@@ -49,19 +52,27 @@
 #'     ids()
 #'
 #' # and get the data, placing it into the gdc_cache() directory
-#' fpaths <- gdcdata(uuids, use_cached=TRUE)
-#' 
-#' fpaths
+#' gdcdata(uuids, use_cached=TRUE)
+#'
+#' # legacy data
+#' exon <- files(legacy = TRUE) %>%
+#'     filter( ~ cases.project.project_id == "TCGA-COAD" &
+#'         data_category == "Gene expression" &
+#'         data_type == "Exon quantification") %>%
+#'     results(size = 1) %>% ids()
+#'
+#' gdcdata(exon, legacy = TRUE)
+#'
 #' @export
 gdcdata <-
     function(uuids, use_cached=TRUE,
              progress=interactive(), token=NULL, access_method='api',
-             transfer_args = character())
+             transfer_args = character(), ...)
 {
     stopifnot(is.character(uuids))
 
     uuids = trimws(uuids)
-    manifest = files() %>%
+    manifest = files(...) %>%
             GenomicDataCommons::filter( ~ file_id %in% uuids ) %>%
             GenomicDataCommons::manifest()
     # files from previous downloads should have the following
