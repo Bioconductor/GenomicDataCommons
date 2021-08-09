@@ -4,8 +4,6 @@
 \alias{available_fields}
 \alias{available_fields.GDCQuery}
 \alias{available_fields.character}
-\alias{field_description.GDCQuery}
-\alias{field_description.character}
 \title{S3 Generic to return all GDC fields}
 \usage{
 available_fields(x)
@@ -13,10 +11,6 @@ available_fields(x)
 \method{available_fields}{GDCQuery}(x)
 
 \method{available_fields}{character}(x)
-
-\method{field_description}{GDCQuery}(entity, field)
-
-\method{field_description}{character}(entity, field)
 }
 \arguments{
 \item{x}{A character(1) string ('cases','files','projects',
@@ -30,10 +24,6 @@ S3 Generic to return all GDC fields
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{GDCQuery}: GDCQuery method
-
-\item \code{character}: character method
-
 \item \code{GDCQuery}: GDCQuery method
 
 \item \code{character}: character method

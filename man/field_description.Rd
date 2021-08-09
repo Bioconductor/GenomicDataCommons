@@ -2,9 +2,15 @@
 % Please edit documentation in R/fields.R
 \name{field_description}
 \alias{field_description}
+\alias{field_description.GDCQuery}
+\alias{field_description.character}
 \title{S3 Generic that returns the field description text, if available}
 \usage{
 field_description(entity, field)
+
+\method{field_description}{GDCQuery}(entity, field)
+
+\method{field_description}{character}(entity, field)
 }
 \arguments{
 \item{entity}{character(1) string ('cases','files','projects',
@@ -20,6 +26,13 @@ is available.
 \description{
 S3 Generic that returns the field description text, if available
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{GDCQuery}: GDCQuery method
+
+\item \code{character}: character method
+}}
+
 \examples{
 field_description('cases', 'annotations.category')
 casesQuery = query('cases')

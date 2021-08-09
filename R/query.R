@@ -13,14 +13,14 @@
 #'     to an existing \code{GDCQuery} object using \code{\link{filter}}.
 #' @param facets a character vector of facets for counting common values. 
 #'     See \code{\link{available_fields}}. In general, one will not specify this parameter
-#'     but will use \code{\link{facets}} instead.
+#'     but will use \code{\link{facet}} instead.
 #' @param legacy logical(1) whether to use the "legacy" archive or not. 
 #'     See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} 
 #'     and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.
 #' @param fields a character vector of fields to return. See \code{\link{available_fields}}.
 #'     In general, one will not specify fields directly, but instead use \code{\link{select}}
 #' @param expand a character vector of "expands" to include in returned data. See 
-#'     \code{\link{available_expands}}
+#'     \code{\link{available_expand}}
 #' 
 #' @return An S3 object, the GDCQuery object. This is a list
 #' with the following members.

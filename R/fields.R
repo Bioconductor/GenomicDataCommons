@@ -107,7 +107,7 @@ select.GDCQuery <- function(x,fields) {
 #' This utility function allows quick text-based search of available
 #' fields for using \code{\link{grep}}
 #' 
-#' @param entity one of \code{\link{.gdc_entities}}
+#' @param entity one of the available gdc entities ('files','cases',...)
 #'     against which to gather available fields for matching
 #' 
 #' @param pattern A regular expression that will be used
@@ -173,7 +173,7 @@ field_description = function(entity, field) {
     UseMethod('field_description',entity)
 }
 
-#' @describeIn available_fields GDCQuery method
+#' @describeIn field_description GDCQuery method
 #' @export
 field_description.GDCQuery = function(entity, field) {
     stopifnot(length(field)==1)
@@ -181,7 +181,7 @@ field_description.GDCQuery = function(entity, field) {
     return(m$description[m$field==field])
 }
 
-#' @describeIn available_fields character method
+#' @describeIn field_description character method
 #' @export
 field_description.character = function(entity, field) {
     stopifnot(length(entity)==1,entity %in% .gdc_entities)
