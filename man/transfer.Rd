@@ -49,14 +49,17 @@ program that requires separate download. #' @param gdc_client character(1) name 
 }}
 
 \examples{
-\donttest{
-file_manifest = files() \%>\% filter(~ access == "open") \%>\% manifest(size=10)
-manifest_file = tempfile()
-write.table(file_manifest,file=manifest_file,col.names=TRUE,row.names=FALSE,quote=FALSE)
-destination <- transfer(manifest_file)
-dir(destination)
+\dontrun{
+uuids = files() \%>\% 
+  filter(access == "open") \%>\% 
+  results() \%>\%
+  ids()
+file_paths <- transfer(uuids)
+file_paths
+names(file_paths)
 # and with authenication
-destination <- transfer(manifest_file,token=gdc_token)
+# REQUIRES gdc_token 
+# destination <- transfer(uuids,token=gdc_token())
 }
 
 }
