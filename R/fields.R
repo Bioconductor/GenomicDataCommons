@@ -47,6 +47,7 @@ default_fields = function(x) {
 #' @describeIn default_fields character method
 #' @export
 default_fields.character = function(x) {
+    defaults=NA # just to avoid no visible binding note
     stopifnot(length(x)==1,x %in% .gdc_entities)
     return(subset(mapping(x),defaults)$field)
 }
