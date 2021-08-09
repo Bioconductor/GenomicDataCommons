@@ -22,5 +22,6 @@ biocViews: DataImport, Sequencing
 URL: https://bioconductor.org/packages/GenomicDataCommons, http://github.com/Bioconductor/GenomicDataCommons
 BugReports:
         https://github.com/Bioconductor/GenomicDataCommons/issues/new
+Encoding: UTF-8
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
