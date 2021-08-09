@@ -4,9 +4,16 @@
 \alias{slicing}
 \title{Query GDC for data slices}
 \usage{
-slicing(uuid, regions, symbols, destination = file.path(tempdir(),
-  paste0(uuid, ".bam")), overwrite = FALSE, progress = interactive(),
-  token = gdc_token(), legacy = FALSE)
+slicing(
+  uuid,
+  regions,
+  symbols,
+  destination = file.path(tempdir(), paste0(uuid, ".bam")),
+  overwrite = FALSE,
+  progress = interactive(),
+  token = gdc_token(),
+  legacy = FALSE
+)
 }
 \arguments{
 \item{uuid}{character(1) identifying the BAM file resource}
@@ -48,4 +55,41 @@ symbols.
 This function uses the Genomic Data Commons "slicing" API
     to get portions of a BAM file specified either using "regions"
     or using HGNC gene symbols.
+}
+\examples{
+\dontrun{
+ slicing("df80679e-c4d3-487b-934c-fcc782e5d46e",
+        regions="chr17:75000000-76000000",
+        token=gdc_token())
+
+# Get 10 BAM files.
+bamfiles = files() \%>\% 
+           filter(data_format=='BAM') \%>\%
+           results(size=10) \%>\% ids()
+
+# Current alignments at the GDC are to GRCh38
+library('TxDb.Hsapiens.UCSC.hg38.knownGene')
+all_genes = genes(TxDb.Hsapiens.UCSC.hg38.knownGene)
+
+first3genes = all_genes[1:3]
+# remove strand info
+strand(first3genes) = '*'
+
+# We can get our regions easily now
+as.character(first3genes)
+
+# Use parallel downloads to speed processing
+library(BiocParallel)
+register(MulticoreParam())
+
+fnames = bplapply(bamfiles, slicing, overwrite = TRUE,
+                regions=as.character(first3genes))
+
+# 10 BAM files
+fnames
+
+library(GenomicAlignments)
+lapply(unlist(fnames), readGAlignments)
+
+}
 }

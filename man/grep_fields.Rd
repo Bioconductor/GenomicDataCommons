@@ -7,7 +7,7 @@
 grep_fields(entity, pattern, ..., value = TRUE)
 }
 \arguments{
-\item{entity}{one of "files", "cases", "annotations", "projects"
+\item{entity}{one of the available gdc entities ('files','cases',...)
 against which to gather available fields for matching}
 
 \item{pattern}{A regular expression that will be used

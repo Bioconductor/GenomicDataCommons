@@ -1,0 +1,102 @@
+---
+title: "Working with simple somatic mutations"
+author: "Sean Davis"
+date: "`r format(Sys.Date(), '%A, %B %d, %Y')`"
+always_allow_html: yes
+output:
+  BiocStyle::html_document:
+    df_print: paged
+    toc_float: true
+abstract: >
+
+vignette: >
+  %\VignetteIndexEntry{Somatic Mutation Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Background
+
+
+
+# Workflow
+
+```{r warning=FALSE,message=FALSE}
+library(GenomicDataCommons)
+library(tibble)
+```
+
+## Genes and gene details
+
+```{r}
+grep_fields('genes', 'symbol')
+```
+```{r}
+head(available_values('genes','symbol'))
+```
+
+
+
+```{r}
+tp53 = genes() %>% 
+  GenomicDataCommons::filter(symbol=='TP53') %>% 
+  results(size=10000) %>% 
+  as_tibble()
+```
+
+
+## ssms
+
+```{r}
+ssms() %>% 
+    GenomicDataCommons::filter(
+      chromosome==paste0('chr',tp53$gene_chromosome[1]) &
+        start_position > tp53$gene_start[1] & 
+        end_position < tp53$gene_end[1]) %>% 
+    GenomicDataCommons::count()
+```
+
+```{r}
+ssms() %>% 
+    GenomicDataCommons::filter(
+      consequence.transcript.gene.symbol %in% c('TP53')) %>% 
+    GenomicDataCommons::count()
+```
+
+## convert to VRanges
+
+```{r warning=FALSE,message=FALSE}
+library(VariantAnnotation)
+vars = ssms() %>% 
+    GenomicDataCommons::filter(
+      consequence.transcript.gene.symbol %in% c('TP53')) %>% 
+    GenomicDataCommons::results_all() %>%
+    as_tibble()
+```
+
+```{r}
+vr = VRanges(seqnames = vars$chromosome,
+             ranges = IRanges(start=vars$start_position, width=1),
+             ref = vars$reference_allele,
+             alt = vars$tumor_allele)
+```
+
+```{r}
+ssm_occurrences() %>% 
+    GenomicDataCommons::filter(
+      ssm.consequence.transcript.gene.symbol %in% c('TP53')) %>% 
+    GenomicDataCommons::count()
+```
+
+```{r}
+var_samples = ssm_occurrences() %>% 
+    GenomicDataCommons::filter(
+      ssm.consequence.transcript.gene.symbol %in% c('TP53')) %>% 
+    GenomicDataCommons::expand(c('case', 'ssm', 'case.project')) %>%
+    GenomicDataCommons::results_all() %>% 
+    as_tibble()
+```
+
+```{r}
+table(var_samples$case$disease_type)
+```

@@ -42,8 +42,8 @@
 #' @importFrom jsonlite toJSON
 #' 
 #' @examples
-#' \donttest{
-#' ' slicing("df80679e-c4d3-487b-934c-fcc782e5d46e",
+#' \dontrun{
+#'  slicing("df80679e-c4d3-487b-934c-fcc782e5d46e",
 #'         regions="chr17:75000000-76000000",
 #'         token=gdc_token())
 #' 
