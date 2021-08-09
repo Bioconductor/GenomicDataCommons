@@ -1,0 +1,100 @@
+---
+title: "Questions and answers from over the years"
+author: "Sean Davis"
+date: "`r format(Sys.Date(), '%A, %B %d, %Y')`"
+always_allow_html: yes
+output:
+  BiocStyle::html_document:
+    df_print: paged
+    toc_float: true
+    keep_md: true
+abstract: >
+
+vignette: >
+  %\VignetteIndexEntry{Questions and answers from over the years}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# How could I generate a manifest file with filtering of Race and Ethnicity?
+
+From https://support.bioconductor.org/p/9138939/.
+
+```{r}
+library(GenomicDataCommons,quietly = TRUE)
+```
+
+I made a small change to the filtering expression approach based on 
+changes to lazy evaluation best practices. There is now no need to 
+include the `~` in the filter expression. So:
+
+```{r}
+q = files() %>%
+  GenomicDataCommons::filter(
+    cases.project.project_id == 'TCGA-COAD' &
+      data_type == 'Aligned Reads' &
+      experimental_strategy == 'RNA-Seq' &
+      data_format == 'BAM')
+```
+And get a count of the results:
+
+```{r}
+count(q)
+```
+
+And the manifest.
+
+```{r}
+manifest(q)
+```
+
+Your question about race and ethnicity is a good one. 
+
+```{r}
+all_fields = available_fields(files())
+```
+
+And we can grep for `race` or `ethnic` to get potential matching fields
+to look at.
+
+```{r}
+grep('race|ethnic',all_fields,value=TRUE)
+```
+
+Now, we can check available values for each field to determine how to complete
+our filter expressions.
+
+```{r}
+available_values('files',"cases.demographic.ethnicity")
+available_values('files',"cases.demographic.race")
+```
+
+We can complete our filter expression now to limit to `white` race only.
+
+```{r}
+q_white_only = q %>%
+  GenomicDataCommons::filter(cases.demographic.race=='white')
+count(q_white_only)
+manifest(q_white_only)
+```
+
+# How can I get the number of cases with RNA-Seq data added by date to TCGA project with `GenomicDataCommons`?
+
+- From https://support.bioconductor.org/p/9135791/
+
+I would like to get the number of cases added (created, any logical datetime would suffice here) to the TCGA project by experiment type. I attempted to get this data via GenomicDataCommons package, but it is giving me I believe the number of files for a given experiment type rather than number cases. How can I get the number of cases for which there is RNA-Seq data?
+
+```{r}
+library(tibble)
+library(dplyr)
+library(GenomicDataCommons)
+
+cases() %>% 
+  GenomicDataCommons::filter(~ project.program.name=='TCGA' & 
+                               files.experimental_strategy=='RNA-Seq') %>% 
+  facet(c("files.created_datetime")) %>% 
+  aggregations() %>% 
+  .[[1]] %>% 
+  as_tibble() %>%
+  dplyr::arrange(dplyr::desc(key))
+```

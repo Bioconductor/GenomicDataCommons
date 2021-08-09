@@ -15,13 +15,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-## Background
+# Background
 
 
 
-## Getting started
+# Workflow
 
-```{r}
+```{r warning=FALSE,message=FALSE}
 library(GenomicDataCommons)
 library(tibble)
 ```
@@ -38,7 +38,10 @@ head(available_values('genes','symbol'))
 
 
 ```{r}
-tp53 = genes() %>% filter(symbol=='TP53') %>% results(size=10000) %>% as_tibble()
+tp53 = genes() %>% 
+  GenomicDataCommons::filter(symbol=='TP53') %>% 
+  results(size=10000) %>% 
+  as_tibble()
 ```
 
 
@@ -46,24 +49,27 @@ tp53 = genes() %>% filter(symbol=='TP53') %>% results(size=10000) %>% as_tibble(
 
 ```{r}
 ssms() %>% 
-    GenomicDataCommons::filter(chromosome==paste0('chr',tp53$gene_chromosome[1]) &
-                                   start_position > tp53$gene_start[1] & 
-                                   end_position < tp53$gene_end[1]) %>% 
+    GenomicDataCommons::filter(
+      chromosome==paste0('chr',tp53$gene_chromosome[1]) &
+        start_position > tp53$gene_start[1] & 
+        end_position < tp53$gene_end[1]) %>% 
     count()
 ```
 
 ```{r}
 ssms() %>% 
-    GenomicDataCommons::filter(consequence.transcript.gene.symbol %in% c('TP53')) %>% 
+    GenomicDataCommons::filter(
+      consequence.transcript.gene.symbol %in% c('TP53')) %>% 
     GenomicDataCommons::count()
 ```
 
 ## convert to VRanges
 
-```{r}
+```{r warning=FALSE,message=FALSE}
 library(VariantAnnotation)
 vars = ssms() %>% 
-    GenomicDataCommons::filter(consequence.transcript.gene.symbol %in% c('TP53')) %>% 
+    GenomicDataCommons::filter(
+      consequence.transcript.gene.symbol %in% c('TP53')) %>% 
     GenomicDataCommons::results_all() %>%
     as_tibble()
 ```
@@ -77,13 +83,15 @@ vr = VRanges(seqnames = vars$chromosome,
 
 ```{r}
 ssm_occurrences() %>% 
-    GenomicDataCommons::filter(ssm.consequence.transcript.gene.symbol %in% c('TP53')) %>% 
+    GenomicDataCommons::filter(
+      ssm.consequence.transcript.gene.symbol %in% c('TP53')) %>% 
     GenomicDataCommons::count()
 ```
 
 ```{r}
 var_samples = ssm_occurrences() %>% 
-    GenomicDataCommons::filter(ssm.consequence.transcript.gene.symbol %in% c('TP53')) %>% 
+    GenomicDataCommons::filter(
+      ssm.consequence.transcript.gene.symbol %in% c('TP53')) %>% 
     GenomicDataCommons::expand(c('case', 'ssm', 'case.project')) %>%
     GenomicDataCommons::results_all() %>% 
     as_tibble()
