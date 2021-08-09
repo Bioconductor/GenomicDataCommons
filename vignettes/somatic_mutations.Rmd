@@ -53,7 +53,7 @@ ssms() %>%
       chromosome==paste0('chr',tp53$gene_chromosome[1]) &
         start_position > tp53$gene_start[1] & 
         end_position < tp53$gene_end[1]) %>% 
-    count()
+    GenomicDataCommons::count()
 ```
 
 ```{r}
