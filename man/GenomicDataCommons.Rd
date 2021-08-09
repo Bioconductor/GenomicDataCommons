@@ -3,7 +3,6 @@
 \docType{package}
 \name{GenomicDataCommons}
 \alias{GenomicDataCommons}
-\alias{GenomicDataCommons-package}
 \title{ncigdc: A package for computating the notorious bar statistic.}
 \description{
 Cool package for interfacing with NCI GDC
