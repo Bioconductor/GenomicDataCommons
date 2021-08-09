@@ -28,6 +28,8 @@
 
 \def\code#1{\texttt{#1}}
 
+\include{header.tex}
+
 \newcommand{\Bioconductor}{\emph{Bioconductor}}
 \newcommand{\R}{\emph{R}}
 \newcommand\Biocpkg[1]{
@@ -46,6 +48,7 @@ suppressPackageStartupMessages({
     library(GenomicDataCommons)
     library(BiocPkgTools)
     pkglist = BiocPkgTools::biocPkgList()
+    dlstats = BiocPkgTools::biocDownloadStats()
 })
 @ 
 
@@ -121,11 +124,22 @@ set of S3 classes and methods with accompanying utility functions.
 
 <<tab,echo=FALSE,results='asis'>>=
 ent = as.character(GenomicDataCommons:::.gdc_entities)
-res = tibble::tibble(Collection=as.character(ent),
-                 `Data Categories Available`=sapply(ent, function(x) length(available_expand(x))),
-                 `Total Field Count`=sapply(ent, function(x) length(available_fields(x))),
+short_desc = c(projects="Projects",
+               cases="Cases and samples",
+               files="Data files",
+               annotations="Additional metadata annotations",
+               ssms="Simple somatic mutations",
+               cnvs="Copy number variations",
+               ssm_occurrences="Mapping between somatic mutation mappings",
+               cnv_occurrences="Mapping between samples and CNVs",
+               genes="Gene models used throughout the GDC")
+res = tibble::tibble(
+    Collection=as.character(ent),
+    Description=short_desc[as.character(ent)],
+    `Categories of Data`=sapply(ent, function(x) length(available_expand(x))),
+    `Total Fields`=sapply(ent, function(x) length(available_fields(x))),
                  )
-knitr::kable(res, caption="The Genomic Data Commons API includes separate collections for each of the rows listed. The number of data types and available fields are given in columns two and three, respectively.", label = "tab:avail", row.names=FALSE, booktabs=TRUE)
+knitr::kable(res, caption="The Genomic Data Commons API includes separate collections for each of several data types. Each collection offers logically grouped categories of related data that can limit or expand on returned results. Fields ", label = "tab:avail", row.names=FALSE, booktabs=TRUE)
 @ 
 
 \Sexpr{nrow(res)}
@@ -143,7 +157,8 @@ project forms an illustrative example:
 <<metaquery1,results='hide'>>=
 library(GenomicDataCommons)
 file_records = files() %>% 
-    filter(~ cases.project.project_id == 'TCGA-GBM' &
+    filter(
+        cases.project.project_id == 'TCGA-GBM' &
         data_type == 'Gene Expression Quantification' &
         analysis.workflow_type == 'HTSeq - Counts'
     ) %>% 
@@ -183,9 +198,10 @@ a manifest from the file records collected above, we use the
 manifest_df = file_records %>% manifest()
 @ 
 
-The \code{transfer()} function will use the GDC transfer client (a
-separate command-line tool) to perform robust, performant download of
-the data.
+The \code{transfer()} function can use the GDC transfer client (a
+separate command-line tool) to perform robust, performant download of data.
+The resulting files are then available for processing in R or another 
+preferred analysis environment.
 
 \subsection{BAM file slicing}
 
@@ -220,14 +236,14 @@ aligned reads in BAM format (see, e.g., \Biocpkg{GenomicAlignments}).
 
 \section{Conclusions}
 
-The GDC is the latest iteration of a genomic data repository from the
+The GDC is a robust and modern iteration of a genomic data repository from the
 NCI. The GDC offers excellent web-based query interfaces and a growing
 number of web-based tools for interacting with data. The \GDC{}
 package provides bioinformatics and genomic data scientists with
 programmatic tools that enable statistical analysis, version control,
 and principles of reproducible computational research
 \parencite{Sandve2013}. The availability of \GDC{} in \Bioconductor{}
-proides a large, innovative community of researchers and software
+provides a large, innovative community of researchers and software
 developers, many of whom focus on cancer research, ready access to the
 rich data resources of the GDC. The reproducibility, interoperability,
 usability, sustainability, and continuous integration that are
@@ -238,7 +254,30 @@ data science. The \GDC{} package forms the foundation to build and
 rapidly iterate on innovative tools for the analysis and comprehension
 of cancer genomics datasets available at the NCI GDC.
 
-
 \printbibliography
+
+\section*{Supplementary Material}
+\beginsupplement
+
+<<downloadstats,echo=FALSE,fig.height=4.5,fig.cap=sprintf("This plot displays the number of distinct downloads per month from the Bioconductor website (based on IP address uniqueness). Download data retrieved %s.",Sys.Date())>>=
+library(ggplot2)
+x = subset(dlstats,Package=='GenomicDataCommons' & Month!='all')
+ggplot(x,aes(x=Date,y=Nb_of_distinct_IPs)) + geom_bar(stat='identity') + ylab('Downloads') + ggtitle('Distinct user downloads per month') + theme_bw()
+
+@
+\begin{table}
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ cell1 & cell2 & cell3 \\ 
+ cell4 & cell5 & cell6 \\ 
+ cell7 & cell8 & cell9 \\ 
+ \hline
+\end{tabular}
+\caption{Table to test captions and labels.}
+\label{table:1}
+\end{center}
+\end{table}
+
 
 \end{document}
