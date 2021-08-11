@@ -100,3 +100,22 @@ var_samples = ssm_occurrences() %>%
 ```{r}
 table(var_samples$case$disease_type)
 ```
+
+## OncoPrint
+
+```{r}
+fnames = files() %>%
+  GenomicDataCommons::filter(
+    cases.project.project_id=='TCGA-SKCM' & data_format=='MAF' & data_type=='Masked Somatic Mutation' & analysis.workflow_type=='MuTect2 Variant Aggregation and Masking') %>%
+  ids() %>%
+  gdcdata()
+```
+
+```{r cache=TRUE}
+library(maftools)
+melanoma = read.maf(maf = fnames[1])
+```
+
+```{r}
+maftools::oncoplot(melanoma)
+```
