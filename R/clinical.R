@@ -69,7 +69,12 @@ gdc_clinical = function(case_ids, include_list_cols = FALSE) {
     demographic = resp$results$demographic
     demographic$case_id = rownames(demographic)
 
-    diagnoses = bind_rows(resp$results$diagnoses, .id = "case_id")
+    diagnoses <- suppressMessages({
+        bind_rows(
+            lapply(resp$results$diagnoses, readr::type_convert),
+            .id = "case_id"
+        )
+    })
 
     exposures = bind_rows(resp$results$exposures, .id = "case_id")
 
