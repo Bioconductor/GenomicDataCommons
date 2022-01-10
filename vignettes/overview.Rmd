@@ -225,7 +225,6 @@ downloading actual data files.  Here is an overview of functionality[^1].
     - `available_fields()`
     - `default_fields()`
     - `grep_fields()`
-    - `field_picker()`
     - `available_values()`
     - `available_expand()`
 - Executing an API call to retrieve query results
@@ -413,8 +412,8 @@ head(qcases$fields)
 ```
 
 Finding fields of interest is such a common operation that the
-GenomicDataCommons includes the `grep_fields()` function and the
-`field_picker()` widget. See the appropriate help pages for details.
+GenomicDataCommons includes the `grep_fields()` function.
+See the appropriate help pages for details.
 
 ### Facets and aggregation
 

@@ -134,7 +134,6 @@ In addition, there are exhiliary functions for asking the GDC API for informatio
     - `available_fields()`
     - `default_fields()`
     - `grep_fields()`
-    - `field_picker()`
     - `available_values()`
     - `available_expand()`
 - Executing an API call to retrieve query results
