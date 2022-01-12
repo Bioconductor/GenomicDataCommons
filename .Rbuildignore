@@ -12,3 +12,4 @@ _pkgdown.yml
 ^\.httr-oauth$
 ^doc$
 ^Meta$
+^\.github$

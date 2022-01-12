@@ -1,3 +1,7 @@
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/Bioconductor/GenomicDataCommons/workflows/R-CMD-check/badge.svg)](https://github.com/Bioconductor/GenomicDataCommons/actions)
+<!-- badges: end -->
+
 # What is the GDC?
 
 From the [Genomic Data Commons (GDC) website](https://gdc.nci.nih.gov/about-gdc):
