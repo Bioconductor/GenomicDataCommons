@@ -86,7 +86,6 @@ slicing <- function(uuid, regions, symbols, destination=file.path(tempdir(), pas
               !(missing(regions) && missing(symbols)))
     stopifnot(is.character(destination), length(destination) == 1L,
               (overwrite && file.exists(destination)) || !file.exists(destination))
-    stopifnot(missing(token))
 
     if (!missing(symbols))
         body <- list(gencode=I(symbols))
