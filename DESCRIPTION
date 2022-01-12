@@ -17,7 +17,7 @@ Imports: stats, httr, xml2, jsonlite, utils, rlang, readr,
 Suggests: BiocStyle, knitr, rmarkdown, DT, testthat, listviewer,
         ggplot2, GenomicAlignments, Rsamtools, BiocParallel,
         TxDb.Hsapiens.UCSC.hg38.knownGene,
-        VariantAnnotation
+        VariantAnnotation, maftools
 biocViews: DataImport, Sequencing
 URL: https://bioconductor.org/packages/GenomicDataCommons, http://github.com/Bioconductor/GenomicDataCommons
 BugReports:
