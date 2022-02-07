@@ -75,8 +75,6 @@ expand <- function(x,expand) {
     UseMethod('expand',x)
 }
 
-
-
 #' @describeIn expand set expand fields on a GDCQuery object
 #' @export
 expand.GDCQuery <- function(x,expand) {
@@ -84,5 +82,3 @@ expand.GDCQuery <- function(x,expand) {
     x$expand = expand
     return(x)
 }
-
-

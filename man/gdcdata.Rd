@@ -10,7 +10,8 @@ gdcdata(
   progress = interactive(),
   token = NULL,
   access_method = "api",
-  transfer_args = character()
+  transfer_args = character(),
+  ...
 )
 }
 \arguments{

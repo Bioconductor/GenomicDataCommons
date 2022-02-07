@@ -78,7 +78,6 @@ projects = function(...) {return(query('projects',...))}
 #' @export
 annotations = function(...) {return(query('annotations',...))}
 
-
 #' @describeIn query convenience contructor for a GDCQuery for ssms
 #' @export
 ssms = function(...) {return(query("ssms", ...))}
