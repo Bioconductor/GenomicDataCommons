@@ -57,7 +57,7 @@ transfer <-
         destination_dir <- gdc_cache()
 
         manifest = files() %>%
-            GenomicDataCommons::filter( file_id %in% uuids ) %>%
+            GenomicDataCommons::filter( ~ file_id %in% uuids ) %>%
             GenomicDataCommons::manifest()
         manifest_file = write_manifest(manifest)
         
