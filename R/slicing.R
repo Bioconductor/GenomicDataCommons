@@ -26,10 +26,13 @@
 #' @param token character(1) security token allowing access to
 #'     restricted data. Almost all BAM data is restricted, so a token is
 #'     usually required. See
-#'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
+#'     \url{https://docs.gdc.cancer.gov/Data/Data_Security/Data_Security/#authentication-tokens}.
+
 #'
 #' @param legacy logical(1) whether or not to use the "legacy"
-#'     archive, containing older, non-harmonized data. 
+#'     archive, containing older, non-harmonized data. Slicing of unharmonized
+#'     legacy BAM files is not supported. See
+#'     \url{https://docs.gdc.cancer.gov/API/Users_Guide/BAM_Slicing/}.
 #'     
 #'     
 #' @details This function uses the Genomic Data Commons "slicing" API
