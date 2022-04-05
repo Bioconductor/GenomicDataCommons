@@ -2,10 +2,13 @@
 % Please edit documentation in R/bulk_transfer.R
 \name{transfer}
 \alias{transfer}
+\alias{gdc_client_version_validate}
 \alias{transfer_help}
 \title{Bulk data download}
 \usage{
 transfer(uuids, args = character(), token = NULL, overwrite = FALSE)
+
+gdc_client_version_validate(valid_version = .GDC_COMPATIBLE_VERSION)
 
 transfer_help()
 }
@@ -28,6 +31,11 @@ file (with appropriate permissions set).}
 
 \item{overwrite}{logical(1) default FALSE indicating whether
 existing files with identical name should be over-written.}
+
+\item{gdc_client}{character(1) name or path to \code{gdc-client}
+executable.  The executable that is used is found through the
+\code{\link{gdc_client}}. See \code{\link{gdc_client}}
+for details on how to set the executable path.}
 }
 \value{
 character(1) directory path to which the files were
@@ -38,13 +46,15 @@ The GDC maintains a special tool,
 \href{the GDC Data Transfer Tool}{https://docs.gdc.cancer.gov/Data_Transfer_Tool/Users_Guide/Getting_Started/},
 that enables high-performance, potentially parallel, and
 resumable downloads. The Data Transfer Tool is an external
-program that requires separate download. #' @param gdc_client character(1) name or path to \code{gdc-client}
-    executable.  The executable that is used is found through the
-    \code{\link{gdc_client}}. See \code{\link{gdc_client}}
-    for details on how to set the executable path.
+program that requires separate download. Due to recent changes in the
+GDC API, the transfer function now validates the version of the `gdc-client`
+to ensure reliable downloads.
 }
 \section{Functions}{
 \itemize{
+\item \code{gdc_client_version_validate}: If you are using the 'client' option, your `gdc-client` should be
+up-to-date (>= 1.3.0).
+
 \item \code{transfer_help}: 
 }}
 
