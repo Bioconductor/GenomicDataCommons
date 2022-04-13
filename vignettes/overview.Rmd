@@ -124,13 +124,12 @@ download of raw data. Here, filtering finds gene expression files
 quantified as raw counts using `HTSeq` from ovarian cancer patients.
 
 ```{r manifest}
-ge_manifest = files() %>%
+ge_manifest <- files() %>%
     filter( cases.project.project_id == 'TCGA-OV') %>% 
     filter( type == 'gene_expression' ) %>%
-    filter( analysis.workflow_type == 'HTSeq - Counts')  %>%
+    filter( analysis.workflow_type == 'STAR - Counts')  %>%
     manifest()
 head(ge_manifest)
-fnames = lapply(ge_manifest$id[1:20],gdcdata)
 ```
 
 ## Download data
@@ -144,8 +143,8 @@ for details of setting and interacting with the cache). Resulting
 downloaded files will be stored in the cache directory. Future access to 
 the same files will be directly from the cache, alleviating multiple downloads.
 
-```{r downloadQS}
-fnames = lapply(ge_manifest$id[1:20],gdcdata)
+```{r downloadQS, eval=FALSE}
+fnames <- lapply(ge_manifest$id[1:20], gdcdata)
 ```
 
 If the download had included controlled-access data, the download above would
