@@ -12,8 +12,7 @@ Authors@R: c( person("Martin", "Morgan",
 License: Artistic-2.0
 Depends: R (>= 3.4.0), magrittr
 Imports: stats, httr, xml2, jsonlite, utils, rlang, readr,
-        GenomicRanges, IRanges, dplyr, rappdirs, 
-        SummarizedExperiment, S4Vectors, tibble
+        GenomicRanges, IRanges, dplyr, rappdirs, tibble
 Suggests: BiocStyle, knitr, rmarkdown, DT, testthat, listviewer,
         ggplot2, GenomicAlignments, Rsamtools, BiocParallel,
         TxDb.Hsapiens.UCSC.hg38.knownGene,
