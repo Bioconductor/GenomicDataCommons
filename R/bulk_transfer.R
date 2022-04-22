@@ -136,6 +136,10 @@ gdc_client_version <- function() {
 #' If you are using the 'client' option, your `gdc-client` should be
 #' up-to-date (>= 1.3.0).
 #'
+#' @param valid_version character(1) The last known version that works for the
+#'     current data release for which to validate against, not typically changed
+#'     by the end-user.
+#'
 #' @export
 gdc_client_version_validate <-
     function(valid_version = .GDC_COMPATIBLE_VERSION)
