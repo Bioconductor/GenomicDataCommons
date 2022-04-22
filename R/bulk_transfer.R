@@ -8,11 +8,6 @@
 #' GDC API, the transfer function now validates the version of the `gdc-client`
 #' to ensure reliable downloads.
 #'
-#' @param gdc_client character(1) name or path to \code{gdc-client}
-#'     executable.  The executable that is used is found through the
-#'     \code{\link{gdc_client}}. See \code{\link{gdc_client}}
-#'     for details on how to set the executable path.
-#'
 #' @param uuids character() vector of GDC file UUIDs
 #'
 #' @param args character() vector specifying command-line arguments to
