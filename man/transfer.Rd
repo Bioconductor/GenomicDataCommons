@@ -35,11 +35,6 @@ existing files with identical name should be over-written.}
 \item{valid_version}{character(1) The last known version that works for the
 current data release for which to validate against, not typically changed
 by the end-user.}
-
-\item{gdc_client}{character(1) name or path to \code{gdc-client}
-executable.  The executable that is used is found through the
-\code{\link{gdc_client}}. See \code{\link{gdc_client}}
-for details on how to set the executable path.}
 }
 \value{
 character(1) directory path to which the files were
