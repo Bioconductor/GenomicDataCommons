@@ -4,11 +4,14 @@
 #' \href{the GDC Data Transfer Tool}{https://docs.gdc.cancer.gov/Data_Transfer_Tool/Users_Guide/Getting_Started/},
 #' that enables high-performance, potentially parallel, and
 #' resumable downloads. The Data Transfer Tool is an external
-#' program that requires separate download. #' @param gdc_client character(1) name or path to \code{gdc-client}
+#' program that requires separate download. Due to recent changes in the
+#' GDC API, the transfer function now validates the version of the `gdc-client`
+#' to ensure reliable downloads.
+#'
+#' @param gdc_client character(1) name or path to \code{gdc-client}
 #'     executable.  The executable that is used is found through the
 #'     \code{\link{gdc_client}}. See \code{\link{gdc_client}}
 #'     for details on how to set the executable path.
-
 #'
 #' @param uuids character() vector of GDC file UUIDs
 #'
@@ -26,10 +29,8 @@
 #'     transfer. Therefore, this token will be written to a temporary
 #'     file (with appropriate permissions set).
 #'
-#'
 #' @param overwrite logical(1) default FALSE indicating whether
 #'     existing files with identical name should be over-written.
-#'
 #'
 #' @return character(1) directory path to which the files were
 #'     downloaded.
@@ -71,6 +72,7 @@ transfer <-
             Sys.chmod(token_file,mode="600")
             token <- sprintf("--token-file %s", token_file)
         }
+        gdc_client_version_validate()
         args <- paste(c("download", dir_arg, manifest_arg, args, token), collapse=" ")
         system2(gdc_client(), args)
 
@@ -125,6 +127,28 @@ gdc_client = function() {
     stop('gdc_client not found. Be sure to install the command \nline GDC client available from the GDC website.')
 }
 
+gdc_client_version <- function() {
+    gc_loc <- gdc_client()
+    vers <- system2(gc_loc, "--version", stdout = TRUE, stderr = TRUE)
+    vers <- gsub("^v", "", vers)
+    package_version(vers)
+}
+
+.GDC_COMPATIBLE_VERSION <- "1.3.0"
+
+#' @describeIn transfer
+#'
+#' If you are using the 'client' option, your `gdc-client` should be
+#' up-to-date (>= 1.3.0).
+#'
+#' @export
+gdc_client_version_validate <-
+    function(valid_version = .GDC_COMPATIBLE_VERSION)
+{
+    client_ver <- gdc_client_version()
+    if (client_ver < package_version(valid_version))
+        stop("Update the 'gdc_client' to a version >= ", valid_version)
+}
 
 #' \code{transfer_help()} queries the the command line GDC Data
 #' Transfer Tool, \code{gdc-client}, for available options to be used
