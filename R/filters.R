@@ -16,6 +16,26 @@
   }
 }
 
+.missing_op <- function(sep) {
+  force(sep)
+  function(e1) {
+      force(e1)
+      list(op=unbox(sep), content = list(field = e1, value = "MISSING"))
+  }
+}
+
+.negate_op <- function(sep) {
+    force(sep)
+    function(op) {
+      force(op)
+      list(op = unbox(sep),
+        content = list(
+          field = op$content$field,
+          value = op$content$value)
+      )
+    }
+}
+
 #' @importFrom jsonlite unbox
 .combine_op <- function(sep) {
   force(sep)
@@ -38,6 +58,8 @@
 .f_env$'>=' = .binary_op('>=')
 .f_env$'%in%' = .binary_op('in')
 .f_env$'%exclude%' = .binary_op('exclude')
+.f_env$`missing` = .missing_op("is")
+.f_env$'!' = .negate_op("NOT")
 
 
 #' Create NCI GDC filters for limiting GDC query results

@@ -8,7 +8,9 @@ Date: 2022-01-12
 Authors@R: c( person("Martin", "Morgan",
         email="martin.morgan@roswellpark.org", role=c("aut")),
         person("Sean", "Davis", email="seandavi@gmail.com",
-        role=c("aut", "cre")))
+        role=c("aut", "cre")),
+        person("Marcel", "Ramos",
+        email = "marcel.ramos@roswellpark.org", role = "ctb"))
 License: Artistic-2.0
 Depends: R (>= 3.4.0), magrittr
 Imports: stats, httr, xml2, jsonlite, utils, rlang, readr,

@@ -673,6 +673,47 @@ str(res[1],list.len=6)
 head(ids(resp))
 ```
 
+### Get all TCGA case ids that are female
+
+```{r casesFemaleTCGA}
+cases() %>%
+  GenomicDataCommons::filter(~ project.program.name == 'TCGA' &
+    "cases.demographic.gender" %in% "female") %>%
+      GenomicDataCommons::results(size = 4) %>%
+        ids()
+```
+
+### Get all TCGA-COAD case ids that are NOT female
+
+```{r notFemaleTCGACOAD}
+cases() %>%
+  GenomicDataCommons::filter(~ project.project_id == 'TCGA-COAD' &
+    "cases.demographic.gender" %exclude% "female") %>%
+      GenomicDataCommons::results(size = 4) %>%
+        ids()
+```
+
+### Get all TCGA cases that are missing gender
+
+```{r missingGenderTCGA}
+cases() %>%
+  GenomicDataCommons::filter(~ project.program.name == 'TCGA' &
+    missing("cases.demographic.gender")) %>%
+      GenomicDataCommons::results(size = 4) %>%
+        ids()
+```
+
+### Get all TCGA cases that are NOT missing gender
+
+```{r notMissingGenderTCGA}
+cases() %>%
+  GenomicDataCommons::filter(~ project.program.name == 'TCGA' &
+    !missing("cases.demographic.gender")) %>%
+      GenomicDataCommons::results(size = 4) %>%
+        ids()
+```
+
+
 ## Files
 
 ### How many of each type of file are available?
