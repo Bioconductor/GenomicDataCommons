@@ -156,34 +156,18 @@ exposuresDF <- bindrowname(clinResults$exposures)
 ```
 
 ```{r}
-library(DT)
-datatable(demoDF, extensions = 'Scroller', options = list(
-  deferRender = TRUE,
-  scrollY = 200,
-  scrollX = TRUE,
-  scroller = TRUE
-))
+demoDF[, 1:4]
 ```
 
 ```{r}
-datatable(exposuresDF, extensions = 'Scroller', options = list(
-  deferRender = TRUE,
-  scrollY = 200,
-  scrollX = TRUE,
-  scroller = TRUE
-))
+exposuresDF[, 1:4]
 ```
 
 Note that the diagnoses data has multiple lines per patient:
 
 ```{r}
 diagDF <- bindrowname(clinResults$diagnoses)
-datatable(diagDF, extensions = 'Scroller', options = list(
-  deferRender = TRUE,
-  scrollY = 200,
-  scrollX = TRUE,
-  scroller = TRUE
-))
+diagDF[, 1:4]
 ```
 
 # Basic design

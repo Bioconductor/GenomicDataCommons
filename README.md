@@ -152,41 +152,97 @@ exposuresDF <- bindrowname(clinResults$exposures)
 ```
 
 ``` r
-library(DT)
-datatable(demoDF, extensions = 'Scroller', options = list(
-  deferRender = TRUE,
-  scrollY = 200,
-  scrollX = TRUE,
-  scroller = TRUE
-))
+demoDF[, 1:4]
+#>                                      cause_of_death  race gender
+#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e Cancer Related white female
+#> d420e653-3fb2-432b-9e81-81232a80264d Cancer Related white female
+#> bfe15f44-e1dd-46ed-b429-908822d0a781           <NA> white   male
+#> 8b3b1f24-419e-4043-82be-2bd41268bb0e           <NA> white female
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8 Cancer Related white   male
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1           <NA> white   male
+#>                                                   ethnicity
+#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                Unknown
+#> d420e653-3fb2-432b-9e81-81232a80264d not hispanic or latino
+#> bfe15f44-e1dd-46ed-b429-908822d0a781 not hispanic or latino
+#> 8b3b1f24-419e-4043-82be-2bd41268bb0e not hispanic or latino
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                Unknown
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1 not hispanic or latino
 ```
-
-<img src="/home/mr148/bioc/GenomicDataCommons/README_files/figure-gfm/unnamed-chunk-9-1.png" width="100%" />
 
 ``` r
-datatable(exposuresDF, extensions = 'Scroller', options = list(
-  deferRender = TRUE,
-  scrollY = 200,
-  scrollX = TRUE,
-  scroller = TRUE
-))
+exposuresDF[, 1:4]
+#>                                      alcohol_days_per_week
+#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                    NA
+#> d420e653-3fb2-432b-9e81-81232a80264d                    NA
+#> bfe15f44-e1dd-46ed-b429-908822d0a781                    NA
+#> 8b3b1f24-419e-4043-82be-2bd41268bb0e                    NA
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                     0
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1                    NA
+#>                                                alcohol_drinks_per_day
+#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e 2020-07-31T09:25:24.402855-05:00
+#> d420e653-3fb2-432b-9e81-81232a80264d 2020-02-27T13:00:21.361098-06:00
+#> bfe15f44-e1dd-46ed-b429-908822d0a781 2020-02-27T12:37:46.290948-06:00
+#> 8b3b1f24-419e-4043-82be-2bd41268bb0e 2019-05-15T13:02:25.351730-05:00
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8 2020-06-15T12:57:49.021995-05:00
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1 2020-09-17T16:10:31.527022-05:00
+#>                                      smokeless_tobacco_quit_age
+#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                       <NA>
+#> d420e653-3fb2-432b-9e81-81232a80264d                       <NA>
+#> bfe15f44-e1dd-46ed-b429-908822d0a781                       <NA>
+#> 8b3b1f24-419e-4043-82be-2bd41268bb0e                       <NA>
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                         No
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1                       <NA>
+#>                                      created_datetime
+#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                4
+#> d420e653-3fb2-432b-9e81-81232a80264d                1
+#> bfe15f44-e1dd-46ed-b429-908822d0a781                1
+#> 8b3b1f24-419e-4043-82be-2bd41268bb0e                1
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                7
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1                2
 ```
-
-<img src="/home/mr148/bioc/GenomicDataCommons/README_files/figure-gfm/unnamed-chunk-10-1.png" width="100%" />
 
 Note that the diagnoses data has multiple lines per patient:
 
 ``` r
 diagDF <- bindrowname(clinResults$diagnoses)
-datatable(diagDF, extensions = 'Scroller', options = list(
-  deferRender = TRUE,
-  scrollY = 200,
-  scrollX = TRUE,
-  scroller = TRUE
-))
+diagDF[, 1:4]
+#>                                        gleason_patterns_percent
+#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                       <NA>
+#> d420e653-3fb2-432b-9e81-81232a80264d                       <NA>
+#> bfe15f44-e1dd-46ed-b429-908822d0a781                    Stage I
+#> 8b3b1f24-419e-4043-82be-2bd41268bb0e                    Stage I
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                   Stage IV
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1                     <NA>
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1                  Stage IIB
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1.1                     <NA>
+#>                                                   ajcc_pathologic_stage
+#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e   2020-07-31T09:25:24.402855-05:00
+#> d420e653-3fb2-432b-9e81-81232a80264d   2020-02-27T13:00:21.361098-06:00
+#> bfe15f44-e1dd-46ed-b429-908822d0a781   2020-02-27T12:37:46.290948-06:00
+#> 8b3b1f24-419e-4043-82be-2bd41268bb0e   2019-05-15T13:02:25.351730-05:00
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8   2020-06-15T12:57:49.021995-05:00
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1 2020-06-15T12:57:49.021995-05:00
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1   2020-09-17T16:10:31.527022-05:00
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1.1 2020-09-17T16:10:31.527022-05:00
+#>                                        ann_arbor_clinical_stage
+#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                Rectum, NOS
+#> d420e653-3fb2-432b-9e81-81232a80264d                 Brain, NOS
+#> bfe15f44-e1dd-46ed-b429-908822d0a781                 Colon, NOS
+#> 8b3b1f24-419e-4043-82be-2bd41268bb0e                Rectum, NOS
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                  Bone, NOS
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1                Bone, NOS
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1                  Skin, NOS
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1.1                Skin, NOS
+#>                                        created_datetime
+#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e              17316
+#> d420e653-3fb2-432b-9e81-81232a80264d              19586
+#> bfe15f44-e1dd-46ed-b429-908822d0a781              27431
+#> 8b3b1f24-419e-4043-82be-2bd41268bb0e              25784
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8               3585
+#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1             4038
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1              22537
+#> 47322ea3-6bbe-442b-a656-c48469cc99c1.1            22597
 ```
-
-<img src="/home/mr148/bioc/GenomicDataCommons/README_files/figure-gfm/unnamed-chunk-11-1.png" width="100%" />
 
 # Basic design
 
