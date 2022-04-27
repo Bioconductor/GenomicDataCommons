@@ -70,7 +70,10 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
                                   body=body,
                                   token=NULL,
                                   legacy = legacy, ...))
-    tmp = readr::read_tsv(tmp, col_types = "cccdc")
+    tmp = readr::read_tsv(I(tmp), col_types = "cccdc")
+    if(ncol(tmp)<5) {
+        tmp=data.frame()
+    }
     structure(
         tmp,
         class = c('GDCManifest',class(tmp))
