@@ -611,7 +611,9 @@ approach only when transferring BAM files or larger VCF files, for
 example. Otherwise, consider using the approach shown above, perhaps
 in parallel.
 
-```{r bulkDL}
+```{r bulkDL, eval=FALSE}
+# Requires gcd_client command-line utility to be isntalled
+# separately. 
 fnames = gdcdata(manifest_df$id[3:10], access_method = 'client')
 ```
 
