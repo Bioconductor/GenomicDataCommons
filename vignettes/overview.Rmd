@@ -530,11 +530,11 @@ suspiciously named files that might include "FPKM", "FPKM-UQ", or "counts".
 Another round of `grep` and `available_fields`, looking for "type" turned up
 that the field "analysis.workflow_type" has the appropriate filter criteria.
 
-```{r filterForHTSeqCounts}
-qfiles = files() %>% 
-    GenomicDataCommons::filter( cases.project.project_id == 'TCGA-OV' &
-                                type == 'gene_expression' &
-                                analysis.workflow_type == 'STAR - Counts')
+
+```{r filterForSTARCounts}
+qfiles = files() %>% filter( ~ cases.project.project_id == 'TCGA-OV' &
+                            type == 'gene_expression' &
+                            analysis.workflow_type == 'STAR - Counts')
 manifest_df = qfiles %>% manifest()
 nrow(manifest_df)
 ```

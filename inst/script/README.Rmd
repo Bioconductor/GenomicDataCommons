@@ -1,0 +1,221 @@
+---
+output: github_document
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "../../") })
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  cache = TRUE,
+  out.width = "100%"
+)
+```
+
+# GenomicDataCommons
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/Bioconductor/GenomicDataCommons/workflows/R-CMD-check/badge.svg)](https://github.com/Bioconductor/GenomicDataCommons/actions)
+<!-- badges: end -->
+
+# What is the GDC?
+
+From the [Genomic Data Commons (GDC) website](https://gdc.nci.nih.gov/about-gdc):
+
+The National Cancer Institute's (NCI's) Genomic Data Commons (GDC) is
+a data sharing platform that promotes precision medicine in
+oncology. It is not just a database or a tool; it is an expandable
+knowledge network supporting the import and standardization of genomic
+and clinical data from cancer research programs.
+
+The GDC contains NCI-generated data from some of the largest and most
+comprehensive cancer genomic datasets, including The Cancer Genome
+Atlas (TCGA) and Therapeutically Applicable Research to Generate
+Effective Therapies (TARGET). For the first time, these datasets have
+been harmonized using a common set of bioinformatics pipelines, so
+that the data can be directly compared.
+
+As a growing knowledge system for cancer, the GDC also enables
+researchers to submit data, and harmonizes these data for import into
+the GDC. As more researchers add clinical and genomic data to the GDC,
+it will become an even more powerful tool for making discoveries about
+the molecular basis of cancer that may lead to better care for
+patients.
+
+The
+[data model for the GDC is complex](https://gdc.cancer.gov/developers/gdc-data-model/gdc-data-model-components),
+but it worth a quick overview. The data model is encoded as a
+so-called property graph. Nodes represent entities such as Projects,
+Cases, Diagnoses, Files (various kinds), and Annotations. The
+relationships between these entities are maintained as edges.  Both
+nodes and edges may have Properties that supply instance details.  The
+GDC API exposes these nodes and edges in a somewhat simplified set
+of
+[RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer)
+endpoints.
+
+# Quickstart
+
+This software is available at Bioconductor.org and can be downloaded via
+`BiocManager::install`.
+
+To report bugs or problems, either
+[submit a new issue](https://github.com/Bioconductor/GenomicDataCommons/issues)
+or submit a `bug.report(package='GenomicDataCommons')` from within R (which
+will redirect you to the new issue on GitHub).
+
+## Installation
+
+Installation can be achieved via Bioconductor's `BiocManager` package.
+
+```{r,eval=FALSE}
+if (!require("BiocManager"))
+    install.packages("BiocManager")
+
+BiocManager::install('GenomicDataCommons')
+```
+
+```{r,include=TRUE,results="hide",message=FALSE,warning=FALSE}
+library(GenomicDataCommons)
+```
+
+## Check basic functionality
+
+```{r}
+status()
+```
+
+## Find data
+
+The following code builds a `manifest` that can be used to guide the
+download of raw data. Here, filtering finds gene expression files
+quantified as raw counts using `STAR` from ovarian cancer patients.
+
+```{r}
+ge_manifest <- files() |>
+    filter( cases.project.project_id == 'TCGA-OV') |>
+    filter( type == 'gene_expression' ) |>
+    filter( analysis.workflow_type == 'STAR - Counts') |>
+    manifest()
+ge_manifest
+```
+
+## Download data
+
+This code block downloads the `r nrow(ge_manifest)` gene expression files
+specified in the query above. Using multiple processes to do the download very
+significantly speeds up the transfer in many cases.  The following completes in
+about 15 seconds.
+
+```{r,eval=FALSE}
+library(BiocParallel)
+register(MulticoreParam())
+destdir <- tempdir()
+fnames <- lapply(ge_manifest$id,gdcdata)
+```
+
+If the download had included controlled-access data, the download above would
+have needed to include a `token`.  Details are available in
+[the authentication section below](#authentication).
+
+## Metadata queries
+
+Here we use a couple of ad-hoc helper functions to handle the output of the
+query. See the `inst/script/README.Rmd` folder for the source.
+
+```{r,echo=FALSE}
+filterAllNA <- function(df) {
+    df[] <- Filter(function(x) !all(is.na(x)), as.list(df))
+    df
+}
+
+bindrowname <- function(resultList) {
+    if (is.data.frame(resultList))
+        stop("Only run this on the list type of outputs")
+    datadf <- dplyr::bind_rows(resultList)
+    dataDF <- S4Vectors::DataFrame(datadf)
+    rownames(dataDF) <- rep(
+        names(resultList), vapply(resultList, nrow, integer(1L))
+    )
+    as.data.frame(filterAllNA(dataDF))
+}
+```
+
+First, create a `data.frame` from the clinical data:
+
+```{r}
+expands <- c("diagnoses","annotations",
+             "demographic","exposures")
+clinResults <- cases() |>
+    GenomicDataCommons::select(NULL) |>
+    GenomicDataCommons::expand(expands) |>
+    results(size=6)
+demoDF <- filterAllNA(clinResults$demographic)
+exposuresDF <- bindrowname(clinResults$exposures)
+```
+
+```{r}
+demoDF[, 1:4]
+```
+
+```{r}
+exposuresDF[, 1:4]
+```
+
+Note that the diagnoses data has multiple lines per patient:
+
+```{r}
+diagDF <- bindrowname(clinResults$diagnoses)
+diagDF[, 1:4]
+```
+
+# Basic design
+
+This package design is meant to have some similarities to the "tidyverse"
+approach of dplyr. Roughly, the functionality for finding and accessing files
+and metadata can be divided into:
+
+1. Simple query constructors based on GDC API endpoints.
+2. A set of verbs that when applied, adjust filtering, field selection, and
+faceting (fields for aggregation) and result in a new query object (an
+endomorphism)
+3. A set of verbs that take a query and return results from the GDC
+
+In addition, there are auxiliary functions for asking the GDC API for
+information about available and default fields, slicing BAM files, and
+downloading actual data files.  Here is an overview of functionality[^1].
+
+
+- Creating a query
+    - `projects()`
+    - `cases()`
+    - `files()`
+    - `annotations()`
+- Manipulating a query
+    - `filter()`
+    - `facet()`
+    - `select()`
+- Introspection on the GDC API fields
+    - `mapping()`
+    - `available_fields()`
+    - `default_fields()`
+    - `grep_fields()`
+    - `available_values()`
+    - `available_expand()`
+- Executing an API call to retrieve query results
+    - `results()`
+    - `count()`
+    - `response()`
+- Raw data file downloads
+    - `gdcdata()`
+    - `transfer()`
+    - `gdc_client()`
+- Summarizing and aggregating field values (faceting)
+    - `aggregations()`
+- Authentication
+    - `gdc_token()`
+- BAM file slicing
+    - `slicing()`
+
+[^1]: See individual function and methods documentation for specific details.
