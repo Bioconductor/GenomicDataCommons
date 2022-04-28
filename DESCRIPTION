@@ -20,7 +20,9 @@ Suggests: BiocStyle, knitr, rmarkdown, DT, testthat, listviewer,
         TxDb.Hsapiens.UCSC.hg38.knownGene,
         VariantAnnotation, maftools, R.utils, data.table
 biocViews: DataImport, Sequencing
-URL: https://bioconductor.org/packages/GenomicDataCommons, http://github.com/Bioconductor/GenomicDataCommons
+URL: https://bioconductor.org/packages/GenomicDataCommons,
+    http://github.com/Bioconductor/GenomicDataCommons,
+    http://bioconductor.github.io/GenomicDataCommons/
 BugReports:
         https://github.com/Bioconductor/GenomicDataCommons/issues/new
 Encoding: UTF-8
