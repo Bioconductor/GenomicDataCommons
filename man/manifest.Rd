@@ -43,13 +43,13 @@ that contain file information ("cases" and "files" queries).
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{gdc_files}: 
+\item \code{manifest(gdc_files)}: 
 
-\item \code{GDCfilesResponse}: 
+\item \code{manifest(GDCfilesResponse)}: 
 
-\item \code{GDCcasesResponse}: 
+\item \code{manifest(GDCcasesResponse)}: 
+
 }}
-
 \examples{
 gFiles = files()
 shortManifest = gFiles \%>\% manifest(size=10)

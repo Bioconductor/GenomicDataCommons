@@ -23,9 +23,9 @@ S3 generic to set GDCQuery expand parameter
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{GDCQuery}: set expand fields on a GDCQuery object
-}}
+\item \code{expand(GDCQuery)}: set expand fields on a GDCQuery object
 
+}}
 \examples{
 gProj = projects()
 gProj$fields

@@ -23,9 +23,9 @@ S3 generic to set GDCQuery legacy parameter
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{GDCQuery}: set legacy field on a GDCQuery object
-}}
+\item \code{legacy(GDCQuery)}: set legacy field on a GDCQuery object
 
+}}
 \examples{
 qcases <- query("cases")
 

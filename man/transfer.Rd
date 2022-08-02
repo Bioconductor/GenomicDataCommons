@@ -51,12 +51,12 @@ to ensure reliable downloads.
 }
 \section{Functions}{
 \itemize{
-\item \code{gdc_client_version_validate}: If you are using the 'client' option, your `gdc-client` should be
+\item \code{gdc_client_version_validate()}: If you are using the 'client' option, your `gdc-client` should be
 up-to-date (>= 1.3.0).
 
-\item \code{transfer_help}: 
-}}
+\item \code{transfer_help()}: 
 
+}}
 \examples{
 \dontrun{
 uuids = files() \%>\% 

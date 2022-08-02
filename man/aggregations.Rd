@@ -25,11 +25,11 @@ aggregations
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{GDCQuery}: 
+\item \code{aggregations(GDCQuery)}: 
 
-\item \code{GDCResponse}: 
+\item \code{aggregations(GDCResponse)}: 
+
 }}
-
 \examples{
 library(magrittr)
 # Number of each file type

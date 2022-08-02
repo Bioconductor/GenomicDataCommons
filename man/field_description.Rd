@@ -28,11 +28,11 @@ S3 Generic that returns the field description text, if available
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{GDCQuery}: GDCQuery method
+\item \code{field_description(GDCQuery)}: GDCQuery method
 
-\item \code{character}: character method
+\item \code{field_description(character)}: character method
+
 }}
-
 \examples{
 field_description('cases', 'annotations.category')
 casesQuery = query('cases')

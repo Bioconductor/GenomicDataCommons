@@ -25,11 +25,11 @@ results
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{GDCQuery}: 
+\item \code{results(GDCQuery)}: 
 
-\item \code{GDCResponse}: 
+\item \code{results(GDCResponse)}: 
+
 }}
-
 \examples{
 qcases = cases() \%>\% results()
 length(qcases)

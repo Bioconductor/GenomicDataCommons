@@ -24,11 +24,11 @@ S3 Generic to return all GDC fields
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{GDCQuery}: GDCQuery method
+\item \code{available_fields(GDCQuery)}: GDCQuery method
 
-\item \code{character}: character method
+\item \code{available_fields(character)}: character method
+
 }}
-
 \examples{
 available_fields('projects')
 projQuery = query('projects')

@@ -51,10 +51,10 @@ The cache structure is currently just a directory with each file
 }
 \section{Functions}{
 \itemize{
-\item \code{gdc_set_cache}: (Re)set the GenomicDataCommons cache
+\item \code{gdc_set_cache()}: (Re)set the GenomicDataCommons cache
 directory
-}}
 
+}}
 \examples{
 gdc_cache()
 \dontrun{

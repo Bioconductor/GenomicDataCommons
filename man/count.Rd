@@ -26,11 +26,11 @@ provide count of records in a \code{\link{GDCQuery}}
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{GDCQuery}: 
+\item \code{count(GDCQuery)}: 
 
-\item \code{GDCResponse}: 
+\item \code{count(GDCResponse)}: 
+
 }}
-
 \examples{
 # total number of projects
 projects() \%>\% count()

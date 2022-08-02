@@ -23,9 +23,9 @@ S3 generic to set GDCQuery fields
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{GDCQuery}: set fields on a GDCQuery object
-}}
+\item \code{select(GDCQuery)}: set fields on a GDCQuery object
 
+}}
 \examples{
 gProj = projects()
 gProj$fields

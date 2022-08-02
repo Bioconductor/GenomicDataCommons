@@ -24,11 +24,11 @@ S3 Generic to return default GDC fields
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{character}: character method
+\item \code{default_fields(character)}: character method
 
-\item \code{GDCQuery}: GDCQuery method
+\item \code{default_fields(GDCQuery)}: GDCQuery method
+
 }}
-
 \examples{
 default_fields('projects')
 projQuery = query('projects')

@@ -23,11 +23,11 @@ results_all
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{GDCQuery}: 
+\item \code{results_all(GDCQuery)}: 
 
-\item \code{GDCResponse}: 
+\item \code{results_all(GDCResponse)}: 
+
 }}
-
 \examples{
 # details of all available projects
 projResults = projects() \%>\% results_all()

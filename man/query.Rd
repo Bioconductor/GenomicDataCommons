@@ -84,25 +84,25 @@ is required for accessing certain datasets.
 }
 \section{Functions}{
 \itemize{
-\item \code{cases}: convenience contructor for a GDCQuery for cases
+\item \code{cases()}: convenience contructor for a GDCQuery for cases
 
-\item \code{files}: convenience contructor for a GDCQuery for files
+\item \code{files()}: convenience contructor for a GDCQuery for files
 
-\item \code{projects}: convenience contructor for a GDCQuery for projects
+\item \code{projects()}: convenience contructor for a GDCQuery for projects
 
-\item \code{annotations}: convenience contructor for a GDCQuery for annotations
+\item \code{annotations()}: convenience contructor for a GDCQuery for annotations
 
-\item \code{ssms}: convenience contructor for a GDCQuery for ssms
+\item \code{ssms()}: convenience contructor for a GDCQuery for ssms
 
-\item \code{ssm_occurrences}: convenience contructor for a GDCQuery for ssm_occurrences
+\item \code{ssm_occurrences()}: convenience contructor for a GDCQuery for ssm_occurrences
 
-\item \code{cnvs}: convenience contructor for a GDCQuery for cnvs
+\item \code{cnvs()}: convenience contructor for a GDCQuery for cnvs
 
-\item \code{cnv_occurrences}: convenience contructor for a GDCQuery for cnv_occurrences
+\item \code{cnv_occurrences()}: convenience contructor for a GDCQuery for cnv_occurrences
 
-\item \code{genes}: convenience contructor for a GDCQuery for genes
+\item \code{genes()}: convenience contructor for a GDCQuery for genes
+
 }}
-
 \examples{
 qcases = query('cases')
 # equivalent to:

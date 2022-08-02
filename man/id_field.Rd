@@ -28,11 +28,11 @@ This generic simply returns that name from a given object.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{GDCQuery}: GDCQuery method
+\item \code{id_field(GDCQuery)}: GDCQuery method
 
-\item \code{GDCResults}: GDCResults method
+\item \code{id_field(GDCResults)}: GDCResults method
+
 }}
-
 \examples{
 id_field(cases())
 
