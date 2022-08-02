@@ -9,8 +9,8 @@
         RESTful service.">
 <title>NIH / NCI Genomic Data Commons Access • GenomicDataCommons</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="NIH / NCI Genomic Data Commons Access">
 <meta property="og:description" content="Programmatically access the NIH / NCI Genomic Data Commons
@@ -28,7 +28,7 @@
     
     <a class="navbar-brand me-2" href="index.html">GenomicDataCommons</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,68 +94,68 @@
 </h2>
 <p>Installation can be achieved via Bioconductor’s <code>BiocManager</code> package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
-
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">'GenomicDataCommons'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">'GenomicDataCommons'</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/GenomicDataCommons" class="external-link">GenomicDataCommons</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/GenomicDataCommons" class="external-link">GenomicDataCommons</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="check-basic-functionality">Check basic functionality<a class="anchor" aria-label="anchor" href="#check-basic-functionality"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/status.html">status</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; $commit</span>
-<span class="co">#&gt; [1] "d05a8530c733492e038fc2c3fda7c47a000652df"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $data_release</span>
-<span class="co">#&gt; [1] "Data Release 32.0 - March 29, 2022"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $status</span>
-<span class="co">#&gt; [1] "OK"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $tag</span>
-<span class="co">#&gt; [1] "3.0.0"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $version</span>
-<span class="co">#&gt; [1] 1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/status.html">status</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $commit</span></span>
+<span><span class="co">#&gt; [1] "d05a8530c733492e038fc2c3fda7c47a000652df"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $data_release</span></span>
+<span><span class="co">#&gt; [1] "Data Release 32.0 - March 29, 2022"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $status</span></span>
+<span><span class="co">#&gt; [1] "OK"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $tag</span></span>
+<span><span class="co">#&gt; [1] "3.0.0"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $version</span></span>
+<span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="find-data">Find data<a class="anchor" aria-label="anchor" href="#find-data"></a>
 </h2>
 <p>The following code builds a <code>manifest</code> that can be used to guide the download of raw data. Here, filtering finds gene expression files quantified as raw counts using <code>STAR</code> from ovarian cancer patients.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ge_manifest</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/query.html">files</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/filtering.html">filter</a></span><span class="op">(</span> <span class="va">cases.project.project_id</span> <span class="op">==</span> <span class="st">'TCGA-OV'</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/filtering.html">filter</a></span><span class="op">(</span> <span class="va">type</span> <span class="op">==</span> <span class="st">'gene_expression'</span> <span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/filtering.html">filter</a></span><span class="op">(</span> <span class="va">analysis.workflow_type</span> <span class="op">==</span> <span class="st">'STAR - Counts'</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/manifest.html">manifest</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">ge_manifest</span>
-<span class="co">#&gt; # A tibble: 762 × 5</span>
-<span class="co">#&gt;    id                                   filename              md5     size state</span>
-<span class="co">#&gt;  * &lt;chr&gt;                                &lt;chr&gt;                 &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;</span>
-<span class="co">#&gt;  1 7c69529f-2273-4dc4-b213-e84924d78bea d6472bd0-b4e2-4ed1-a… 19d5… 4.25e6 rele…</span>
-<span class="co">#&gt;  2 0eff4634-f8c4-4db9-8a7c-331b21689bae 42165baf-b32c-4fc4-8… d89d… 4.26e6 rele…</span>
-<span class="co">#&gt;  3 7d74b4c5-6391-4b3e-95a3-020ea0869e86 accf08d4-a784-4908-8… fb83… 3.11e6 rele…</span>
-<span class="co">#&gt;  4 dc2aeea4-3cd0-4623-92f4-bbbc962851cc 8ab508b9-2993-4e66-b… 2623… 4.61e6 rele…</span>
-<span class="co">#&gt;  5 0cf852be-d2e3-4fde-bba8-c93efae2961a 93831282-1dd1-49a3-a… 0507… 4.27e6 rele…</span>
-<span class="co">#&gt;  6 d33ad23e-2413-419c-8b0b-93ed00583033 bffe7439-0f9b-422f-b… 1bba… 4.47e6 rele…</span>
-<span class="co">#&gt;  7 d4cc00b7-5a9a-4efa-8334-708dbefe76fa fb8ee269-a38b-47ef-b… 2044… 4.25e6 rele…</span>
-<span class="co">#&gt;  8 1b45742e-4c91-4b8f-8a2b-f144479557a4 cd96deaf-e1fa-40b4-8… 92d5… 3.80e6 rele…</span>
-<span class="co">#&gt;  9 a1ea0a4b-cd16-4436-9e9f-dd7e718ee858 fb8ee269-a38b-47ef-b… 5980… 3.46e6 rele…</span>
-<span class="co">#&gt; 10 fbeb5543-22e0-49e0-a77c-f050e748315c 09afd98b-1da0-4de9-b… 1438… 4.23e6 rele…</span>
-<span class="co">#&gt; # … with 752 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ge_manifest</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/query.html">files</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/filtering.html">filter</a></span><span class="op">(</span> <span class="va">cases.project.project_id</span> <span class="op">==</span> <span class="st">'TCGA-OV'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/filtering.html">filter</a></span><span class="op">(</span> <span class="va">type</span> <span class="op">==</span> <span class="st">'gene_expression'</span> <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/filtering.html">filter</a></span><span class="op">(</span> <span class="va">analysis.workflow_type</span> <span class="op">==</span> <span class="st">'STAR - Counts'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/manifest.html">manifest</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">ge_manifest</span></span>
+<span><span class="co">#&gt; # A tibble: 762 × 5</span></span>
+<span><span class="co">#&gt;    id                                   filename              md5     size state</span></span>
+<span><span class="co">#&gt;  * &lt;chr&gt;                                &lt;chr&gt;                 &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt;  1 7c69529f-2273-4dc4-b213-e84924d78bea d6472bd0-b4e2-4ed1-a… 19d5… 4.25e6 rele…</span></span>
+<span><span class="co">#&gt;  2 0eff4634-f8c4-4db9-8a7c-331b21689bae 42165baf-b32c-4fc4-8… d89d… 4.26e6 rele…</span></span>
+<span><span class="co">#&gt;  3 7d74b4c5-6391-4b3e-95a3-020ea0869e86 accf08d4-a784-4908-8… fb83… 3.11e6 rele…</span></span>
+<span><span class="co">#&gt;  4 dc2aeea4-3cd0-4623-92f4-bbbc962851cc 8ab508b9-2993-4e66-b… 2623… 4.61e6 rele…</span></span>
+<span><span class="co">#&gt;  5 0cf852be-d2e3-4fde-bba8-c93efae2961a 93831282-1dd1-49a3-a… 0507… 4.27e6 rele…</span></span>
+<span><span class="co">#&gt;  6 d33ad23e-2413-419c-8b0b-93ed00583033 bffe7439-0f9b-422f-b… 1bba… 4.47e6 rele…</span></span>
+<span><span class="co">#&gt;  7 d4cc00b7-5a9a-4efa-8334-708dbefe76fa fb8ee269-a38b-47ef-b… 2044… 4.25e6 rele…</span></span>
+<span><span class="co">#&gt;  8 1b45742e-4c91-4b8f-8a2b-f144479557a4 cd96deaf-e1fa-40b4-8… 92d5… 3.80e6 rele…</span></span>
+<span><span class="co">#&gt;  9 a1ea0a4b-cd16-4436-9e9f-dd7e718ee858 fb8ee269-a38b-47ef-b… 5980… 3.46e6 rele…</span></span>
+<span><span class="co">#&gt; 10 fbeb5543-22e0-49e0-a77c-f050e748315c 09afd98b-1da0-4de9-b… 1438… 4.23e6 rele…</span></span>
+<span><span class="co">#&gt; # … with 752 more rows</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="download-data">Download data<a class="anchor" aria-label="anchor" href="#download-data"></a>
 </h2>
 <p>This code block downloads the 762 gene expression files specified in the query above. Using multiple processes to do the download very significantly speeds up the transfer in many cases. The following completes in about 15 seconds.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Bioconductor/BiocParallel" class="external-link">BiocParallel</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">register</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/MulticoreParam-class.html" class="external-link">MulticoreParam</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="va">destdir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">fnames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">ge_manifest</span><span class="op">$</span><span class="va">id</span>,<span class="va">gdcdata</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Bioconductor/BiocParallel" class="external-link">BiocParallel</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">register</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/MulticoreParam-class.html" class="external-link">MulticoreParam</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">destdir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">fnames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">ge_manifest</span><span class="op">$</span><span class="va">id</span>,<span class="va">gdcdata</span><span class="op">)</span></span></code></pre></div>
 <p>If the download had included controlled-access data, the download above would have needed to include a <code>token</code>. Details are available in <a href="#authentication">the authentication section below</a>.</p>
 </div>
 <div class="section level2">
@@ -164,100 +164,100 @@
 <p>Here we use a couple of ad-hoc helper functions to handle the output of the query. See the <code>inst/script/README.Rmd</code> folder for the source.</p>
 <p>First, create a <code>data.frame</code> from the clinical data:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">expands</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diagnoses"</span>,<span class="st">"annotations"</span>,
-             <span class="st">"demographic"</span>,<span class="st">"exposures"</span><span class="op">)</span>
-<span class="va">clinResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/query.html">cases</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-    <span class="fu">GenomicDataCommons</span><span class="fu">::</span><span class="fu"><a href="reference/select.html">select</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span> |&gt;
-    <span class="fu">GenomicDataCommons</span><span class="fu">::</span><span class="fu"><a href="reference/expand.html">expand</a></span><span class="op">(</span><span class="va">expands</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/results.html">results</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">6</span><span class="op">)</span>
-<span class="va">demoDF</span> <span class="op">&lt;-</span> <span class="fu">filterAllNA</span><span class="op">(</span><span class="va">clinResults</span><span class="op">$</span><span class="va">demographic</span><span class="op">)</span>
-<span class="va">exposuresDF</span> <span class="op">&lt;-</span> <span class="fu">bindrowname</span><span class="op">(</span><span class="va">clinResults</span><span class="op">$</span><span class="va">exposures</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">expands</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diagnoses"</span>,<span class="st">"annotations"</span>,</span>
+<span>             <span class="st">"demographic"</span>,<span class="st">"exposures"</span><span class="op">)</span></span>
+<span><span class="va">clinResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/query.html">cases</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">GenomicDataCommons</span><span class="fu">::</span><span class="fu"><a href="reference/select.html">select</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">GenomicDataCommons</span><span class="fu">::</span><span class="fu"><a href="reference/expand.html">expand</a></span><span class="op">(</span><span class="va">expands</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/results.html">results</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span>
+<span><span class="va">demoDF</span> <span class="op">&lt;-</span> <span class="fu">filterAllNA</span><span class="op">(</span><span class="va">clinResults</span><span class="op">$</span><span class="va">demographic</span><span class="op">)</span></span>
+<span><span class="va">exposuresDF</span> <span class="op">&lt;-</span> <span class="fu">bindrowname</span><span class="op">(</span><span class="va">clinResults</span><span class="op">$</span><span class="va">exposures</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">demoDF</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
-<span class="co">#&gt;                                      cause_of_death  race gender</span>
-<span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e Cancer Related white female</span>
-<span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d Cancer Related white female</span>
-<span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781           &lt;NA&gt; white   male</span>
-<span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e           &lt;NA&gt; white female</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8 Cancer Related white   male</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1           &lt;NA&gt; white   male</span>
-<span class="co">#&gt;                                                   ethnicity</span>
-<span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                Unknown</span>
-<span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d not hispanic or latino</span>
-<span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781 not hispanic or latino</span>
-<span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e not hispanic or latino</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                Unknown</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1 not hispanic or latino</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">demoDF</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
+<span><span class="co">#&gt;                                      cause_of_death  race gender</span></span>
+<span><span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e Cancer Related white female</span></span>
+<span><span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d Cancer Related white female</span></span>
+<span><span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781           &lt;NA&gt; white   male</span></span>
+<span><span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e           &lt;NA&gt; white female</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8 Cancer Related white   male</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1           &lt;NA&gt; white   male</span></span>
+<span><span class="co">#&gt;                                                   ethnicity</span></span>
+<span><span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                Unknown</span></span>
+<span><span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d not hispanic or latino</span></span>
+<span><span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781 not hispanic or latino</span></span>
+<span><span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e not hispanic or latino</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                Unknown</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1 not hispanic or latino</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">exposuresDF</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
-<span class="co">#&gt;                                      alcohol_days_per_week</span>
-<span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                    NA</span>
-<span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d                    NA</span>
-<span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781                    NA</span>
-<span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e                    NA</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                     0</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1                    NA</span>
-<span class="co">#&gt;                                                alcohol_drinks_per_day</span>
-<span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e 2020-07-31T09:25:24.402855-05:00</span>
-<span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d 2020-02-27T13:00:21.361098-06:00</span>
-<span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781 2020-02-27T12:37:46.290948-06:00</span>
-<span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e 2019-05-15T13:02:25.351730-05:00</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8 2020-06-15T12:57:49.021995-05:00</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1 2020-09-17T16:10:31.527022-05:00</span>
-<span class="co">#&gt;                                      smokeless_tobacco_quit_age</span>
-<span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                       &lt;NA&gt;</span>
-<span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d                       &lt;NA&gt;</span>
-<span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781                       &lt;NA&gt;</span>
-<span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e                       &lt;NA&gt;</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                         No</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1                       &lt;NA&gt;</span>
-<span class="co">#&gt;                                      created_datetime</span>
-<span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                4</span>
-<span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d                1</span>
-<span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781                1</span>
-<span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e                1</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                7</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1                2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">exposuresDF</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
+<span><span class="co">#&gt;                                      alcohol_days_per_week</span></span>
+<span><span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                    NA</span></span>
+<span><span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d                    NA</span></span>
+<span><span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781                    NA</span></span>
+<span><span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e                    NA</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                     0</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1                    NA</span></span>
+<span><span class="co">#&gt;                                                alcohol_drinks_per_day</span></span>
+<span><span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e 2020-07-31T09:25:24.402855-05:00</span></span>
+<span><span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d 2020-02-27T13:00:21.361098-06:00</span></span>
+<span><span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781 2020-02-27T12:37:46.290948-06:00</span></span>
+<span><span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e 2019-05-15T13:02:25.351730-05:00</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8 2020-06-15T12:57:49.021995-05:00</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1 2020-09-17T16:10:31.527022-05:00</span></span>
+<span><span class="co">#&gt;                                      smokeless_tobacco_quit_age</span></span>
+<span><span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d                       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781                       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e                       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                         No</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1                       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;                                      created_datetime</span></span>
+<span><span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                4</span></span>
+<span><span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d                1</span></span>
+<span><span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781                1</span></span>
+<span><span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e                1</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                7</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1                2</span></span></code></pre></div>
 <p>Note that the diagnoses data has multiple lines per patient:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">diagDF</span> <span class="op">&lt;-</span> <span class="fu">bindrowname</span><span class="op">(</span><span class="va">clinResults</span><span class="op">$</span><span class="va">diagnoses</span><span class="op">)</span>
-<span class="va">diagDF</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
-<span class="co">#&gt;                                        gleason_patterns_percent</span>
-<span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                       &lt;NA&gt;</span>
-<span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d                       &lt;NA&gt;</span>
-<span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781                    Stage I</span>
-<span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e                    Stage I</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                   Stage IV</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1                     &lt;NA&gt;</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1                  Stage IIB</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1.1                     &lt;NA&gt;</span>
-<span class="co">#&gt;                                                   ajcc_pathologic_stage</span>
-<span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e   2020-07-31T09:25:24.402855-05:00</span>
-<span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d   2020-02-27T13:00:21.361098-06:00</span>
-<span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781   2020-02-27T12:37:46.290948-06:00</span>
-<span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e   2019-05-15T13:02:25.351730-05:00</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8   2020-06-15T12:57:49.021995-05:00</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1 2020-06-15T12:57:49.021995-05:00</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1   2020-09-17T16:10:31.527022-05:00</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1.1 2020-09-17T16:10:31.527022-05:00</span>
-<span class="co">#&gt;                                        ann_arbor_clinical_stage</span>
-<span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                Rectum, NOS</span>
-<span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d                 Brain, NOS</span>
-<span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781                 Colon, NOS</span>
-<span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e                Rectum, NOS</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                  Bone, NOS</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1                Bone, NOS</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1                  Skin, NOS</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1.1                Skin, NOS</span>
-<span class="co">#&gt;                                        created_datetime</span>
-<span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e              17316</span>
-<span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d              19586</span>
-<span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781              27431</span>
-<span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e              25784</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8               3585</span>
-<span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1             4038</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1              22537</span>
-<span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1.1            22597</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">diagDF</span> <span class="op">&lt;-</span> <span class="fu">bindrowname</span><span class="op">(</span><span class="va">clinResults</span><span class="op">$</span><span class="va">diagnoses</span><span class="op">)</span></span>
+<span><span class="va">diagDF</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
+<span><span class="co">#&gt;                                        gleason_patterns_percent</span></span>
+<span><span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d                       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781                    Stage I</span></span>
+<span><span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e                    Stage I</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                   Stage IV</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1                     &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1                  Stage IIB</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1.1                     &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;                                                   ajcc_pathologic_stage</span></span>
+<span><span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e   2020-07-31T09:25:24.402855-05:00</span></span>
+<span><span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d   2020-02-27T13:00:21.361098-06:00</span></span>
+<span><span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781   2020-02-27T12:37:46.290948-06:00</span></span>
+<span><span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e   2019-05-15T13:02:25.351730-05:00</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8   2020-06-15T12:57:49.021995-05:00</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1 2020-06-15T12:57:49.021995-05:00</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1   2020-09-17T16:10:31.527022-05:00</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1.1 2020-09-17T16:10:31.527022-05:00</span></span>
+<span><span class="co">#&gt;                                        ann_arbor_clinical_stage</span></span>
+<span><span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                Rectum, NOS</span></span>
+<span><span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d                 Brain, NOS</span></span>
+<span><span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781                 Colon, NOS</span></span>
+<span><span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e                Rectum, NOS</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                  Bone, NOS</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1                Bone, NOS</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1                  Skin, NOS</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1.1                Skin, NOS</span></span>
+<span><span class="co">#&gt;                                        created_datetime</span></span>
+<span><span class="co">#&gt; 4829dd8c-5445-41b3-ae37-bbcc333e8c9e              17316</span></span>
+<span><span class="co">#&gt; d420e653-3fb2-432b-9e81-81232a80264d              19586</span></span>
+<span><span class="co">#&gt; bfe15f44-e1dd-46ed-b429-908822d0a781              27431</span></span>
+<span><span class="co">#&gt; 8b3b1f24-419e-4043-82be-2bd41268bb0e              25784</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8               3585</span></span>
+<span><span class="co">#&gt; fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1             4038</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1              22537</span></span>
+<span><span class="co">#&gt; 47322ea3-6bbe-442b-a656-c48469cc99c1.1            22597</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level1">
@@ -366,7 +366,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>

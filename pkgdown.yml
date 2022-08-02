@@ -1,11 +1,11 @@
 pandoc: 2.7.3
-pkgdown: 2.0.3
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   overview: overview.html
   questions-and-answers: questions-and-answers.html
   somatic_mutations: somatic_mutations.html
-last_built: 2022-04-28T01:10Z
+last_built: 2022-08-02T20:03Z
 urls:
   reference: http://bioconductor.github.io/GenomicDataCommons/reference
   article: http://bioconductor.github.io/GenomicDataCommons/articles

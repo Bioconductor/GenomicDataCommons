@@ -3,7 +3,7 @@
 starts with constructing a query in R. The GDCQuery
 object contains the filters, facets, and other
 parameters that define the returned results. A token
-is required for accessing certain datasets."><title>Start a query of GDC metadata — query • GenomicDataCommons</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Start a query of GDC metadata — query"><meta property="og:description" content="The basis for all functionality in this package
+is required for accessing certain datasets."><title>Start a query of GDC metadata — query • GenomicDataCommons</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Start a query of GDC metadata — query"><meta property="og:description" content="The basis for all functionality in this package
 starts with constructing a query in R. The GDCQuery
 object contains the filters, facets, and other
 parameters that define the returned results. A token
@@ -18,7 +18,7 @@ is required for accessing certain datasets."><!-- mathjax --><script src="https:
     
     <a class="navbar-brand me-2" href="../index.html">GenomicDataCommons</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,61 +71,76 @@ is required for accessing certain datasets.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">query</span><span class="op">(</span>
-  <span class="va">entity</span>,
-  filters <span class="op">=</span> <span class="cn">NULL</span>,
-  facets <span class="op">=</span> <span class="cn">NULL</span>,
-  legacy <span class="op">=</span> <span class="cn">FALSE</span>,
-  expand <span class="op">=</span> <span class="cn">NULL</span>,
-  fields <span class="op">=</span> <span class="fu"><a href="default_fields.html">default_fields</a></span><span class="op">(</span><span class="va">entity</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu">cases</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="fu">files</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="fu">projects</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="fu">annotations</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="fu">ssms</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="fu">ssm_occurrences</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="fu">cnvs</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="fu">cnv_occurrences</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="fu">genes</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">query</span><span class="op">(</span></span>
+<span>  <span class="va">entity</span>,</span>
+<span>  filters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  facets <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  legacy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fields <span class="op">=</span> <span class="fu"><a href="default_fields.html">default_fields</a></span><span class="op">(</span><span class="va">entity</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">cases</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">files</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">projects</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">annotations</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ssms</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ssm_occurrences</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">cnvs</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">cnv_occurrences</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">genes</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>entity</dt>
 <dd><p>character vector, including one of the entities in .gdc_entities</p></dd>
+
+
 <dt>filters</dt>
 <dd><p>a filter list, typically created using <code><a href="make_filter.html">make_filter</a></code>, or added
 to an existing <code>GDCQuery</code> object using <code><a href="filtering.html">filter</a></code>.</p></dd>
+
+
 <dt>facets</dt>
 <dd><p>a character vector of facets for counting common values. 
 See <code><a href="available_fields.html">available_fields</a></code>. In general, one will not specify this parameter
 but will use <code><a href="faceting.html">facet</a></code> instead.</p></dd>
+
+
 <dt>legacy</dt>
 <dd><p>logical(1) whether to use the "legacy" archive or not. 
 See <a href="https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/" class="external-link">https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/</a> 
 and <a href="https://gdc-portal.nci.nih.gov/legacy-archive/search/f" class="external-link">https://gdc-portal.nci.nih.gov/legacy-archive/search/f</a> for details.</p></dd>
+
+
 <dt>expand</dt>
 <dd><p>a character vector of "expands" to include in returned data. See 
 <code><a href="available_expand.html">available_expand</a></code></p></dd>
+
+
 <dt>fields</dt>
 <dd><p>a character vector of fields to return. See <code><a href="available_fields.html">available_fields</a></code>.
 In general, one will not specify fields directly, but instead use <code><a href="select.html">select</a></code></p></dd>
+
+
 <dt>...</dt>
 <dd><p>passed through to <code>query</code></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An S3 object, the GDCQuery object. This is a list
+    
+
+<p>An S3 object, the GDCQuery object. This is a list
 with the following members.</p><ul><li><p>filters</p></li>
 <li><p>facets</p></li>
 <li><p>fields</p></li>
@@ -136,23 +151,23 @@ with the following members.</p><ul><li><p>filters</p></li>
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
     
-<ul><li><p><code>cases</code>: convenience contructor for a GDCQuery for cases</p></li>
-<li><p><code>files</code>: convenience contructor for a GDCQuery for files</p></li>
-<li><p><code>projects</code>: convenience contructor for a GDCQuery for projects</p></li>
-<li><p><code>annotations</code>: convenience contructor for a GDCQuery for annotations</p></li>
-<li><p><code>ssms</code>: convenience contructor for a GDCQuery for ssms</p></li>
-<li><p><code>ssm_occurrences</code>: convenience contructor for a GDCQuery for ssm_occurrences</p></li>
-<li><p><code>cnvs</code>: convenience contructor for a GDCQuery for cnvs</p></li>
-<li><p><code>cnv_occurrences</code>: convenience contructor for a GDCQuery for cnv_occurrences</p></li>
-<li><p><code>genes</code>: convenience contructor for a GDCQuery for genes</p></li>
+<ul><li><p><code>cases()</code>: convenience contructor for a GDCQuery for cases</p></li>
+<li><p><code>files()</code>: convenience contructor for a GDCQuery for files</p></li>
+<li><p><code>projects()</code>: convenience contructor for a GDCQuery for projects</p></li>
+<li><p><code>annotations()</code>: convenience contructor for a GDCQuery for annotations</p></li>
+<li><p><code>ssms()</code>: convenience contructor for a GDCQuery for ssms</p></li>
+<li><p><code>ssm_occurrences()</code>: convenience contructor for a GDCQuery for ssm_occurrences</p></li>
+<li><p><code>cnvs()</code>: convenience contructor for a GDCQuery for cnvs</p></li>
+<li><p><code>cnv_occurrences()</code>: convenience contructor for a GDCQuery for cnv_occurrences</p></li>
+<li><p><code>genes()</code>: convenience contructor for a GDCQuery for genes</p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">qcases</span> <span class="op">=</span> <span class="fu">query</span><span class="op">(</span><span class="st">'cases'</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># equivalent to:</span></span>
-<span class="r-in"><span class="va">qcases</span> <span class="op">=</span> <span class="fu">cases</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">qcases</span> <span class="op">=</span> <span class="fu">query</span><span class="op">(</span><span class="st">'cases'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># equivalent to:</span></span></span>
+<span class="r-in"><span><span class="va">qcases</span> <span class="op">=</span> <span class="fu">cases</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -164,7 +179,7 @@ with the following members.</p><ul><li><p>filters</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer></div>
