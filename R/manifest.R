@@ -74,8 +74,9 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
     if(ncol(tmp)<5) {
         tmp=data.frame()
     }
+    ## nasty hack to force size
     structure(
-        tmp,
+        tmp[seq_len(size),],
         class = c('GDCManifest',class(tmp))
     )
 }
