@@ -2,13 +2,11 @@
 .Rhistory
 .RData
 .Ruserdata
-/vignettes/overview.html
+*.html
 *#
-docs/articles/*cache
-vignettes/*cache
 scratch
 inst/doc/*
-docs/articles/*cache
+*_cache/
 docs
 .httr-oauth
 doc
