@@ -23,10 +23,11 @@
           "genes"),
         class = "gdc_entities")
 
-.gdc_manifest_colnames = 
+.gdc_manifest_colnames =
     structure(
-        c("id", "filename", "md5", "size", "state"),
-        class = 'gdc_manifest_colnames')
+        c("id", "file_name", "md5sum", "file_size", "state"),
+        class = 'gdc_manifest_colnames'
+    )
 
 
 #' Endpoints and Parameters

@@ -77,7 +77,11 @@
     if('fields' %in% names(body)) 
         body[['fields']] = paste0(body[['fields']],collapse=',')
     response <- POST(
-        uri, add_headers(`X-Auth-Token`=token),
+        uri, add_headers(
+            `X-Auth-Token` = token,
+            Accept = "json",
+            `Content-Type` = "application/json"
+        ),
         ...,
         #config = httr::config(ssl_verifypeer = FALSE),
         body=body, encode="json")

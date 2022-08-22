@@ -64,21 +64,20 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
     body[['fields']]=paste0(default_fields(x),collapse=",")
     body[['from']]=from
     body[['size']]=size
-    body[['return_type']]='manifest'
+    # remove return_type for now
+    # body[['return_type']]='manifest'
     legacy = x$legacy
-    tmp = httr::content(.gdc_post(entity_name(x),
-                                  body=body,
-                                  token=NULL,
-                                  legacy = legacy, ...))
-    tmp = readr::read_tsv(I(tmp), col_types = "cccdc")
+    tmp <- httr::content(
+        .gdc_post(entity_name(x), body=body, token=NULL, legacy = legacy, ...),
+        as = "text", encoding = "UTF-8"
+    )
+    tmp <- fromJSON(tmp)[["data"]][["hits"]]
+    tmp[["acl"]] <- unlist(tmp[["acl"]])
     if(ncol(tmp)<5) {
         tmp=data.frame()
     }
-    ## nasty hack to force size
-    structure(
-        tmp[seq_len(size),],
-        class = c('GDCManifest',class(tmp))
-    )
+    class(tmp) <- c('GDCManifest',class(tmp))
+    return(tmp)
 }
 
 #' write a manifest data.frame to disk
@@ -106,8 +105,10 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
 #' 
 #' @export
 write_manifest <- function(manifest,destfile=tempfile()) {
-    stopifnot(colnames(manifest) %in% .gdc_manifest_colnames,
-              ncol(manifest) == 5)
+    stopifnot(
+        all(.gdc_manifest_colnames %in% colnames(manifest)),
+        ncol(manifest) > 5
+    )
     write.table(manifest,file=destfile,sep="\t",
                 col.names=TRUE,row.names=FALSE,quote=FALSE)
     destfile
