@@ -71,10 +71,10 @@ library(GenomicDataCommons)
 ``` r
 status()
 #> $commit
-#> [1] "d05a8530c733492e038fc2c3fda7c47a000652df"
+#> [1] "4dd3680528a19ed33cfc83c7d049426c97bb903b"
 #> 
 #> $data_release
-#> [1] "Data Release 32.0 - March 29, 2022"
+#> [1] "Data Release 34.0 - July 27, 2022"
 #> 
 #> $status
 #> [1] "OK"
@@ -97,27 +97,31 @@ ge_manifest <- files() |>
     filter( cases.project.project_id == 'TCGA-OV') |>
     filter( type == 'gene_expression' ) |>
     filter( analysis.workflow_type == 'STAR - Counts') |>
-    manifest()
+    manifest(size = 5)
 ge_manifest
-#> # A tibble: 762 × 5
-#>    id                                   filename              md5     size state
-#>  * <chr>                                <chr>                 <chr>  <dbl> <chr>
-#>  1 7c69529f-2273-4dc4-b213-e84924d78bea d6472bd0-b4e2-4ed1-a… 19d5… 4.25e6 rele…
-#>  2 0eff4634-f8c4-4db9-8a7c-331b21689bae 42165baf-b32c-4fc4-8… d89d… 4.26e6 rele…
-#>  3 7d74b4c5-6391-4b3e-95a3-020ea0869e86 accf08d4-a784-4908-8… fb83… 3.11e6 rele…
-#>  4 dc2aeea4-3cd0-4623-92f4-bbbc962851cc 8ab508b9-2993-4e66-b… 2623… 4.61e6 rele…
-#>  5 0cf852be-d2e3-4fde-bba8-c93efae2961a 93831282-1dd1-49a3-a… 0507… 4.27e6 rele…
-#>  6 d33ad23e-2413-419c-8b0b-93ed00583033 bffe7439-0f9b-422f-b… 1bba… 4.47e6 rele…
-#>  7 d4cc00b7-5a9a-4efa-8334-708dbefe76fa fb8ee269-a38b-47ef-b… 2044… 4.25e6 rele…
-#>  8 1b45742e-4c91-4b8f-8a2b-f144479557a4 cd96deaf-e1fa-40b4-8… 92d5… 3.80e6 rele…
-#>  9 a1ea0a4b-cd16-4436-9e9f-dd7e718ee858 fb8ee269-a38b-47ef-b… 5980… 3.46e6 rele…
-#> 10 fbeb5543-22e0-49e0-a77c-f050e748315c 09afd98b-1da0-4de9-b… 1438… 4.23e6 rele…
-#> # … with 752 more rows
+#>                                     id data_format     access                                                                   file_name
+#> 1 7c69529f-2273-4dc4-b213-e84924d78bea         TSV       open d6472bd0-b4e2-4ed1-a892-e1702c195dc7.rna_seq.augmented_star_gene_counts.tsv
+#> 2 0eff4634-f8c4-4db9-8a7c-331b21689bae         TSV       open 42165baf-b32c-4fc4-8b04-29c5b4e76de0.rna_seq.augmented_star_gene_counts.tsv
+#> 3 7d74b4c5-6391-4b3e-95a3-020ea0869e86         TSV controlled   accf08d4-a784-4908-831a-7a08d4c5f0f5.rna_seq.star_splice_junctions.tsv.gz
+#> 4 dc2aeea4-3cd0-4623-92f4-bbbc962851cc         TSV controlled   8ab508b9-2993-4e66-b8f9-81e32e936d4a.rna_seq.star_splice_junctions.tsv.gz
+#> 5 0cf852be-d2e3-4fde-bba8-c93efae2961a         TSV       open 93831282-1dd1-49a3-acd7-dae2a49ca62e.rna_seq.augmented_star_gene_counts.tsv
+#>                           submitter_id           data_category       acl            type file_size                 created_datetime                           md5sum
+#> 1 7085a70b-2f63-4402-9e53-70f091f26fcb Transcriptome Profiling      open gene_expression   4254435 2021-12-13T20:53:42.329364-06:00 19d5596bba8949f4c138793608497d56
+#> 2 f0d44930-b1ad-447a-86b9-27d0285954b9 Transcriptome Profiling      open gene_expression   4257461 2021-12-13T20:47:24.326497-06:00 d89d71b7c028c1643d7a3ee7857d8e01
+#> 3 e6473134-6d65-414c-9f52-2c25057fac7d Transcriptome Profiling phs000178 gene_expression   3109435 2021-12-13T21:03:56.008440-06:00 fb8332d6413c44a9de02a1cbe6b018aa
+#> 4 f99b93a9-70cb-44f8-bd1f-4edeee4425a4 Transcriptome Profiling phs000178 gene_expression   4607701 2021-12-13T21:02:23.944851-06:00 26231bed1ef67c093d3ce2b39def81cd
+#> 5 fb4d7abe-b61a-4f35-9700-605f1bc1512f Transcriptome Profiling      open gene_expression   4265694 2021-12-13T20:50:55.234254-06:00 050763aabd36509f954137fbdc4eeb00
+#>                   updated_datetime                              file_id                      data_type    state experimental_strategy
+#> 1 2022-01-19T14:47:28.965154-06:00 7c69529f-2273-4dc4-b213-e84924d78bea Gene Expression Quantification released               RNA-Seq
+#> 2 2022-01-19T14:47:07.478144-06:00 0eff4634-f8c4-4db9-8a7c-331b21689bae Gene Expression Quantification released               RNA-Seq
+#> 3 2022-01-19T14:01:15.621847-06:00 7d74b4c5-6391-4b3e-95a3-020ea0869e86 Splice Junction Quantification released               RNA-Seq
+#> 4 2022-01-19T14:01:15.621847-06:00 dc2aeea4-3cd0-4623-92f4-bbbc962851cc Splice Junction Quantification released               RNA-Seq
+#> 5 2022-01-19T14:47:07.036781-06:00 0cf852be-d2e3-4fde-bba8-c93efae2961a Gene Expression Quantification released               RNA-Seq
 ```
 
 ## Download data
 
-This code block downloads the 762 gene expression files specified in the
+This code block downloads the 5 gene expression files specified in the
 query above. Using multiple processes to do the download very
 significantly speeds up the transfer in many cases. The following
 completes in about 15 seconds.
@@ -153,52 +157,24 @@ exposuresDF <- bindrowname(clinResults$exposures)
 
 ``` r
 demoDF[, 1:4]
-#>                                      cause_of_death  race gender
-#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e Cancer Related white female
-#> d420e653-3fb2-432b-9e81-81232a80264d Cancer Related white female
-#> bfe15f44-e1dd-46ed-b429-908822d0a781           <NA> white   male
-#> 8b3b1f24-419e-4043-82be-2bd41268bb0e           <NA> white female
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8 Cancer Related white   male
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1           <NA> white   male
-#>                                                   ethnicity
-#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                Unknown
-#> d420e653-3fb2-432b-9e81-81232a80264d not hispanic or latino
-#> bfe15f44-e1dd-46ed-b429-908822d0a781 not hispanic or latino
-#> 8b3b1f24-419e-4043-82be-2bd41268bb0e not hispanic or latino
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                Unknown
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1 not hispanic or latino
+#>                                      cause_of_death         race gender              ethnicity
+#> 2525bfef-6962-4b7f-8e80-6186400ce624           <NA> not reported female           not reported
+#> 126507c3-c0d7-41fb-9093-7deed5baf431 Cancer Related not reported female           not reported
+#> c43ac461-9f03-44bc-be7d-3d867eb708a0           <NA> not reported female           not reported
+#> a59a90d9-f1b0-49dd-9c97-bcaa6ba55d44 Cancer Related not reported   male           not reported
+#> 59122a43-606a-4669-806b-6747e0ac9985           <NA>        white   male not hispanic or latino
+#> 4447a969-e5c8-4291-b83c-53a0f7e77cbc Cancer Related        white female not hispanic or latino
 ```
 
 ``` r
 exposuresDF[, 1:4]
-#>                                      alcohol_days_per_week
-#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                    NA
-#> d420e653-3fb2-432b-9e81-81232a80264d                    NA
-#> bfe15f44-e1dd-46ed-b429-908822d0a781                    NA
-#> 8b3b1f24-419e-4043-82be-2bd41268bb0e                    NA
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                     0
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1                    NA
-#>                                                alcohol_drinks_per_day
-#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e 2020-07-31T09:25:24.402855-05:00
-#> d420e653-3fb2-432b-9e81-81232a80264d 2020-02-27T13:00:21.361098-06:00
-#> bfe15f44-e1dd-46ed-b429-908822d0a781 2020-02-27T12:37:46.290948-06:00
-#> 8b3b1f24-419e-4043-82be-2bd41268bb0e 2019-05-15T13:02:25.351730-05:00
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8 2020-06-15T12:57:49.021995-05:00
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1 2020-09-17T16:10:31.527022-05:00
-#>                                      smokeless_tobacco_quit_age
-#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                       <NA>
-#> d420e653-3fb2-432b-9e81-81232a80264d                       <NA>
-#> bfe15f44-e1dd-46ed-b429-908822d0a781                       <NA>
-#> 8b3b1f24-419e-4043-82be-2bd41268bb0e                       <NA>
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                         No
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1                       <NA>
-#>                                      created_datetime
-#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                4
-#> d420e653-3fb2-432b-9e81-81232a80264d                1
-#> bfe15f44-e1dd-46ed-b429-908822d0a781                1
-#> 8b3b1f24-419e-4043-82be-2bd41268bb0e                1
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                7
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1                2
+#>                                       submitter_id                 created_datetime    alcohol_intensity pack_years_smoked
+#> 2525bfef-6962-4b7f-8e80-6186400ce624 C3N-03839-EXP 2019-12-30T10:23:07.190853-06:00 Lifelong Non-Drinker                NA
+#> 126507c3-c0d7-41fb-9093-7deed5baf431 C3N-01518-EXP 2018-06-21T14:27:48.817254-05:00 Lifelong Non-Drinker                NA
+#> c43ac461-9f03-44bc-be7d-3d867eb708a0 C3N-03933-EXP 2019-03-14T08:23:14.054975-05:00 Lifelong Non-Drinker                NA
+#> a59a90d9-f1b0-49dd-9c97-bcaa6ba55d44 C3N-02695-EXP 2019-03-14T08:23:14.054975-05:00   Occasional Drinker              16.8
+#> 59122a43-606a-4669-806b-6747e0ac9985 C3L-03642-EXP 2019-06-24T07:53:15.534197-05:00 Lifelong Non-Drinker              39.0
+#> 4447a969-e5c8-4291-b83c-53a0f7e77cbc C3L-03728-EXP 2019-06-24T07:53:15.534197-05:00 Lifelong Non-Drinker                NA
 ```
 
 Note that the diagnoses data has multiple lines per patient:
@@ -206,42 +182,13 @@ Note that the diagnoses data has multiple lines per patient:
 ``` r
 diagDF <- bindrowname(clinResults$diagnoses)
 diagDF[, 1:4]
-#>                                        gleason_patterns_percent
-#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                       <NA>
-#> d420e653-3fb2-432b-9e81-81232a80264d                       <NA>
-#> bfe15f44-e1dd-46ed-b429-908822d0a781                    Stage I
-#> 8b3b1f24-419e-4043-82be-2bd41268bb0e                    Stage I
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                   Stage IV
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1                     <NA>
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1                  Stage IIB
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1.1                     <NA>
-#>                                                   ajcc_pathologic_stage
-#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e   2020-07-31T09:25:24.402855-05:00
-#> d420e653-3fb2-432b-9e81-81232a80264d   2020-02-27T13:00:21.361098-06:00
-#> bfe15f44-e1dd-46ed-b429-908822d0a781   2020-02-27T12:37:46.290948-06:00
-#> 8b3b1f24-419e-4043-82be-2bd41268bb0e   2019-05-15T13:02:25.351730-05:00
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8   2020-06-15T12:57:49.021995-05:00
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1 2020-06-15T12:57:49.021995-05:00
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1   2020-09-17T16:10:31.527022-05:00
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1.1 2020-09-17T16:10:31.527022-05:00
-#>                                        ann_arbor_clinical_stage
-#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e                Rectum, NOS
-#> d420e653-3fb2-432b-9e81-81232a80264d                 Brain, NOS
-#> bfe15f44-e1dd-46ed-b429-908822d0a781                 Colon, NOS
-#> 8b3b1f24-419e-4043-82be-2bd41268bb0e                Rectum, NOS
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8                  Bone, NOS
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1                Bone, NOS
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1                  Skin, NOS
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1.1                Skin, NOS
-#>                                        created_datetime
-#> 4829dd8c-5445-41b3-ae37-bbcc333e8c9e              17316
-#> d420e653-3fb2-432b-9e81-81232a80264d              19586
-#> bfe15f44-e1dd-46ed-b429-908822d0a781              27431
-#> 8b3b1f24-419e-4043-82be-2bd41268bb0e              25784
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8               3585
-#> fa30fc7f-90b6-4ca0-93b6-1351eae9dfc8.1             4038
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1              22537
-#> 47322ea3-6bbe-442b-a656-c48469cc99c1.1            22597
+#>                                      ajcc_pathologic_stage                 created_datetime tissue_or_organ_of_origin age_at_diagnosis
+#> 2525bfef-6962-4b7f-8e80-6186400ce624             Stage IIB 2019-07-22T06:40:02.183501-05:00          Head of pancreas            19956
+#> 126507c3-c0d7-41fb-9093-7deed5baf431          Not Reported 2018-12-03T12:05:16.846188-06:00             Temporal lobe            26312
+#> c43ac461-9f03-44bc-be7d-3d867eb708a0             Stage III 2019-03-14T10:37:34.405260-05:00       Floor of mouth, NOS            25635
+#> a59a90d9-f1b0-49dd-9c97-bcaa6ba55d44          Not Reported 2019-03-14T10:37:34.405260-05:00       Floor of mouth, NOS            16652
+#> 59122a43-606a-4669-806b-6747e0ac9985          Not Reported 2019-07-22T06:40:02.183501-05:00          Upper lobe, lung            23384
+#> 4447a969-e5c8-4291-b83c-53a0f7e77cbc          Not Reported 2019-05-07T07:41:33.411909-05:00              Frontal lobe            29326
 ```
 
 # Basic design

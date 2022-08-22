@@ -13,6 +13,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r,echo=FALSE,include=FALSE,eval=FALSE}
+rmarkdown::render("inst/script/README.Rmd", output_dir = ".")
+```
+
+
 # GenomicDataCommons
 
 <!-- badges: start -->
@@ -97,7 +102,7 @@ ge_manifest <- files() |>
     filter( cases.project.project_id == 'TCGA-OV') |>
     filter( type == 'gene_expression' ) |>
     filter( analysis.workflow_type == 'STAR - Counts') |>
-    manifest()
+    manifest(size = 5)
 ge_manifest
 ```
 
@@ -126,19 +131,16 @@ query. See the `inst/script/README.Rmd` folder for the source.
 
 ```{r,echo=FALSE}
 filterAllNA <- function(df) {
-    df[] <- Filter(function(x) !all(is.na(x)), as.list(df))
-    df
+    notallna <- vapply(df, function(x) !all(is.na(x)), logical(1L))
+    df[, notallna]
 }
 
 bindrowname <- function(resultList) {
     if (is.data.frame(resultList))
         stop("Only run this on the list type of outputs")
     datadf <- dplyr::bind_rows(resultList)
-    dataDF <- S4Vectors::DataFrame(datadf)
-    rownames(dataDF) <- rep(
-        names(resultList), vapply(resultList, nrow, integer(1L))
-    )
-    as.data.frame(filterAllNA(dataDF))
+    rownames(datadf) <- names(resultList)
+    filterAllNA(datadf)
 }
 ```
 
