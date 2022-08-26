@@ -77,16 +77,16 @@ gdcdata <-
             GenomicDataCommons::manifest()
     # files from previous downloads should have the following
     # path and filenames
-    fs = file.path(gdc_cache(), manifest[[1]], manifest[[2]])
+    fs = file.path(gdc_cache(), manifest[["id"]], manifest[["file_name"]])
 
     # Restrict new manifest to those that we need to download,
     to_do_manifest = manifest[!file.exists(fs),]
 
     # These are the uuids of the cache misses
-    missing_uuids = to_do_manifest[[1]]
+    missing_uuids = to_do_manifest[["id"]]
 
     # And these are the cache hits
-    names(fs) = manifest[[1]]
+    names(fs) = manifest[["id"]]
 
     # Using API download to fetch missing uuids
     endpoint <- "data"
