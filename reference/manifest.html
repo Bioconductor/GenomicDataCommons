@@ -16,7 +16,7 @@ that contain file information ("cases" and "files" queries).'><!-- mathjax --><s
     
     <a class="navbar-brand me-2" href="../index.html">GenomicDataCommons</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,12 +122,50 @@ will return the usually desirable full set of records.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">gFiles</span> <span class="op">=</span> <span class="fu"><a href="query.html">files</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">shortManifest</span> <span class="op">=</span> <span class="va">gFiles</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">manifest</span><span class="op">(</span>size<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">shortManifest</span>,n<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id                                   filename               md5     size state</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 1294fc89-fae1-4d71-b970-dee321eeb6c1 9160d8a8-006d-4fd5-8c… 0138… 2.90<span style="color: #949494;">e</span>4 rele…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> e1e7a77e-9d63-4247-b8f3-e2330215e85c e32336ff-87c2-4d5d-93… 6a94… 4.79<span style="color: #949494;">e</span>4 rele…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 6c59c1f9-8f35-41db-958b-a06047b24d01 MMRF_COMMPASS.124d492… 3fff… 2.18<span style="color: #949494;">e</span>6 rele…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                     id data_format     access</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1294fc89-fae1-4d71-b970-dee321eeb6c1         VCF controlled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 e1e7a77e-9d63-4247-b8f3-e2330215e85c         VCF controlled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 6c59c1f9-8f35-41db-958b-a06047b24d01         VCF controlled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                        file_name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                      9160d8a8-006d-4fd5-8c9e-09ec6179369a.wxs.muse.raw_somatic_mutation.vcf.gz</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                    e32336ff-87c2-4d5d-9366-ac835157d08d.wxs.pindel.raw_somatic_mutation.vcf.gz</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 MMRF_COMMPASS.124d4920-7fe1-491d-93da-ad76f9eb8f75.wxs.SomaticSniper.somatic_annotation.vcf.gz</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           submitter_id               data_category       acl</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 8c7fcd35-5fda-4eff-b368-f373fefc8327 Simple Nucleotide Variation phs000748</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 40ac1eea-f152-403e-9a58-66dd15384d14 Simple Nucleotide Variation phs000748</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 43f6c8d5-835d-47ec-a7c8-22ac6a88c73b Simple Nucleotide Variation phs000748</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         type file_size state_comment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    simple_somatic_mutation     29042            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    simple_somatic_mutation     47937            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 annotated_somatic_mutation   2175870            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   created_datetime                           md5sum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2019-01-28T10:21:43.275213-06:00 0138a8506fdbca4cf5b6c9e71c61f0b7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2019-07-15T10:23:04.984044-05:00 6a94c60d2483df6264f876bee28aa611</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2022-01-26T21:35:47.361393-06:00 3fff8d28dfde7fb7140b1c25e84b8f6e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   updated_datetime                              file_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2019-06-24T08:07:19.797044-05:00 1294fc89-fae1-4d71-b970-dee321eeb6c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2019-08-21T12:47:37.999949-05:00 e1e7a77e-9d63-4247-b8f3-e2330215e85c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2022-01-30T17:20:50.104776-06:00 6c59c1f9-8f35-41db-958b-a06047b24d01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   error_type                   data_type    state experimental_strategy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         NA Raw Simple Somatic Mutation released                   WXS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         NA Raw Simple Somatic Mutation released                   WXS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         NA  Annotated Somatic Mutation released                   WXS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   proportion_reads_mapped proportion_base_mismatch contamination_error platform</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                      NA                       NA                  NA     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                      NA                       NA                  NA     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                      NA                       NA                  NA     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   pairs_on_diff_chr total_reads mean_coverage proportion_reads_duplicated</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA          NA            NA                          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                NA          NA            NA                          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                NA          NA            NA                          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   contamination average_base_quality average_insert_size average_read_length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1            NA                   NA                  NA                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2            NA                   NA                  NA                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3            NA                   NA                  NA                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   proportion_targets_no_coverage</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                             NA</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

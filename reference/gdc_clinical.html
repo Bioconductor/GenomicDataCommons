@@ -18,7 +18,7 @@ with case_ids from the GDC."><!-- mathjax --><script src="https://cdnjs.cloudfla
     
     <a class="navbar-brand me-2" href="../index.html">GenomicDataCommons</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -143,7 +143,6 @@ approach is for any given dataset.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: state &lt;chr&gt;, and abbreviated variable names</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​lost_to_followup, ²​disease_type, ³​days_to_lost_to_followup, ⁴​submitter_id,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁵​created_datetime, ⁶​primary_site, ⁷​updated_datetime, ⁸​index_date</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">clinical_data</span><span class="op">$</span><span class="va">demographic</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 18</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   cause_o…¹ race  gender ethni…² vital…³ age_a…⁴ submi…⁵ days_…⁶ creat…⁷ year_…⁸</span>
@@ -160,7 +159,6 @@ approach is for any given dataset.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   year_of_death &lt;int&gt;, case_id &lt;chr&gt;, and abbreviated variable names</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​cause_of_death, ²​ethnicity, ³​vital_status, ⁴​age_at_index, ⁵​submitter_id,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁶​days_to_birth, ⁷​created_datetime, ⁸​year_of_birth</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">clinical_data</span><span class="op">$</span><span class="va">diagnoses</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 82</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   case_id    irs_s…¹ iss_s…² ajcc_…³ ann_a…⁴ created_datetime    ennek…⁵ inrg_…⁶</span>
@@ -178,7 +176,6 @@ approach is for any given dataset.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   state &lt;chr&gt;, prior_treatment &lt;lgl&gt;, cog_rhabdomyosarcoma_risk_group &lt;lgl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   days_to_last_known_disease_status &lt;dbl&gt;, primary_gleason_grade &lt;lgl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   inpc_grade &lt;lgl&gt;, ajcc_pathologic_t &lt;chr&gt;, morphology &lt;chr&gt;, …</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">clinical_data</span><span class="op">$</span><span class="va">exposures</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 25</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   case_id        alcoh…¹ type_…² smoki…³ submi…⁴ type_…⁵ alcoh…⁶ envir…⁷ radon…⁸</span>
@@ -196,7 +193,6 @@ approach is for any given dataset.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   tobacco_smoking_onset_year &lt;int&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   respirable_crystalline_silica_exposure &lt;lgl&gt;, years_smoked &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   state &lt;chr&gt;, time_between_waking_and_first_smoke &lt;lgl&gt;, …</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

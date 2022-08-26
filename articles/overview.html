@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">GenomicDataCommons</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +75,7 @@
       <img src="" class="logo" alt=""><h1>The GenomicDataCommons Package</h1>
                         <h4 data-toc-skip class="author">Sean Davis &amp; Martin Morgan</h4>
             
-            <h4 data-toc-skip class="date">Tuesday, August 02, 2022</h4>
+            <h4 data-toc-skip class="date">Friday, August 26, 2022</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Bioconductor/GenomicDataCommons/blob/HEAD/vignettes/overview.Rmd" class="external-link"><code>vignettes/overview.Rmd</code></a></small>
       <div class="d-none name"><code>overview.Rmd</code></div>
@@ -152,15 +152,55 @@
 <span>    <span class="fu"><a href="../reference/filtering.html">filter</a></span><span class="op">(</span> <span class="va">analysis.workflow_type</span> <span class="op">==</span> <span class="st">'STAR - Counts'</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="../reference/manifest.html">manifest</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ge_manifest</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
-<span><span class="co">##   id                                   filename               md5     size state</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 7c69529f-2273-4dc4-b213-e84924d78bea d6472bd0-b4e2-4ed1-a8… 19d5… 4.25<span style="color: #949494;">e</span>6 rele…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> 0eff4634-f8c4-4db9-8a7c-331b21689bae 42165baf-b32c-4fc4-8b… d89d… 4.26<span style="color: #949494;">e</span>6 rele…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> 7d74b4c5-6391-4b3e-95a3-020ea0869e86 accf08d4-a784-4908-83… fb83… 3.11<span style="color: #949494;">e</span>6 rele…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> dc2aeea4-3cd0-4623-92f4-bbbc962851cc 8ab508b9-2993-4e66-b8… 2623… 4.61<span style="color: #949494;">e</span>6 rele…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> 0cf852be-d2e3-4fde-bba8-c93efae2961a 93831282-1dd1-49a3-ac… 0507… 4.27<span style="color: #949494;">e</span>6 rele…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> d33ad23e-2413-419c-8b0b-93ed00583033 bffe7439-0f9b-422f-b0… 1bba… 4.47<span style="color: #949494;">e</span>6 rele…</span></span></code></pre>
+<pre><code><span><span class="co">##                                     id data_format     access</span></span>
+<span><span class="co">## 1 7c69529f-2273-4dc4-b213-e84924d78bea         TSV       open</span></span>
+<span><span class="co">## 2 0eff4634-f8c4-4db9-8a7c-331b21689bae         TSV       open</span></span>
+<span><span class="co">## 3 7d74b4c5-6391-4b3e-95a3-020ea0869e86         TSV controlled</span></span>
+<span><span class="co">## 4 dc2aeea4-3cd0-4623-92f4-bbbc962851cc         TSV controlled</span></span>
+<span><span class="co">## 5 0cf852be-d2e3-4fde-bba8-c93efae2961a         TSV       open</span></span>
+<span><span class="co">## 6 d33ad23e-2413-419c-8b0b-93ed00583033         TSV controlled</span></span>
+<span><span class="co">##                                                                     file_name</span></span>
+<span><span class="co">## 1 d6472bd0-b4e2-4ed1-a892-e1702c195dc7.rna_seq.augmented_star_gene_counts.tsv</span></span>
+<span><span class="co">## 2 42165baf-b32c-4fc4-8b04-29c5b4e76de0.rna_seq.augmented_star_gene_counts.tsv</span></span>
+<span><span class="co">## 3   accf08d4-a784-4908-831a-7a08d4c5f0f5.rna_seq.star_splice_junctions.tsv.gz</span></span>
+<span><span class="co">## 4   8ab508b9-2993-4e66-b8f9-81e32e936d4a.rna_seq.star_splice_junctions.tsv.gz</span></span>
+<span><span class="co">## 5 93831282-1dd1-49a3-acd7-dae2a49ca62e.rna_seq.augmented_star_gene_counts.tsv</span></span>
+<span><span class="co">## 6   bffe7439-0f9b-422f-b073-06050afd8b18.rna_seq.star_splice_junctions.tsv.gz</span></span>
+<span><span class="co">##                           submitter_id           data_category       acl</span></span>
+<span><span class="co">## 1 7085a70b-2f63-4402-9e53-70f091f26fcb Transcriptome Profiling      open</span></span>
+<span><span class="co">## 2 f0d44930-b1ad-447a-86b9-27d0285954b9 Transcriptome Profiling      open</span></span>
+<span><span class="co">## 3 e6473134-6d65-414c-9f52-2c25057fac7d Transcriptome Profiling phs000178</span></span>
+<span><span class="co">## 4 f99b93a9-70cb-44f8-bd1f-4edeee4425a4 Transcriptome Profiling phs000178</span></span>
+<span><span class="co">## 5 fb4d7abe-b61a-4f35-9700-605f1bc1512f Transcriptome Profiling      open</span></span>
+<span><span class="co">## 6 75ea7810-b69f-4c84-92df-b94aaa92be21 Transcriptome Profiling phs000178</span></span>
+<span><span class="co">##              type file_size                 created_datetime</span></span>
+<span><span class="co">## 1 gene_expression   4254435 2021-12-13T20:53:42.329364-06:00</span></span>
+<span><span class="co">## 2 gene_expression   4257461 2021-12-13T20:47:24.326497-06:00</span></span>
+<span><span class="co">## 3 gene_expression   3109435 2021-12-13T21:03:56.008440-06:00</span></span>
+<span><span class="co">## 4 gene_expression   4607701 2021-12-13T21:02:23.944851-06:00</span></span>
+<span><span class="co">## 5 gene_expression   4265694 2021-12-13T20:50:55.234254-06:00</span></span>
+<span><span class="co">## 6 gene_expression   4471838 2021-12-13T21:04:55.299559-06:00</span></span>
+<span><span class="co">##                             md5sum                 updated_datetime</span></span>
+<span><span class="co">## 1 19d5596bba8949f4c138793608497d56 2022-01-19T14:47:28.965154-06:00</span></span>
+<span><span class="co">## 2 d89d71b7c028c1643d7a3ee7857d8e01 2022-01-19T14:47:07.478144-06:00</span></span>
+<span><span class="co">## 3 fb8332d6413c44a9de02a1cbe6b018aa 2022-01-19T14:01:15.621847-06:00</span></span>
+<span><span class="co">## 4 26231bed1ef67c093d3ce2b39def81cd 2022-01-19T14:01:15.621847-06:00</span></span>
+<span><span class="co">## 5 050763aabd36509f954137fbdc4eeb00 2022-01-19T14:47:07.036781-06:00</span></span>
+<span><span class="co">## 6 1bbabe2d7647ae82733ceccf198e2f61 2022-01-19T14:01:15.621847-06:00</span></span>
+<span><span class="co">##                                file_id                      data_type    state</span></span>
+<span><span class="co">## 1 7c69529f-2273-4dc4-b213-e84924d78bea Gene Expression Quantification released</span></span>
+<span><span class="co">## 2 0eff4634-f8c4-4db9-8a7c-331b21689bae Gene Expression Quantification released</span></span>
+<span><span class="co">## 3 7d74b4c5-6391-4b3e-95a3-020ea0869e86 Splice Junction Quantification released</span></span>
+<span><span class="co">## 4 dc2aeea4-3cd0-4623-92f4-bbbc962851cc Splice Junction Quantification released</span></span>
+<span><span class="co">## 5 0cf852be-d2e3-4fde-bba8-c93efae2961a Gene Expression Quantification released</span></span>
+<span><span class="co">## 6 d33ad23e-2413-419c-8b0b-93ed00583033 Splice Junction Quantification released</span></span>
+<span><span class="co">##   experimental_strategy</span></span>
+<span><span class="co">## 1               RNA-Seq</span></span>
+<span><span class="co">## 2               RNA-Seq</span></span>
+<span><span class="co">## 3               RNA-Seq</span></span>
+<span><span class="co">## 4               RNA-Seq</span></span>
+<span><span class="co">## 5               RNA-Seq</span></span>
+<span><span class="co">## 6               RNA-Seq</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="download-data">Download data<a class="anchor" aria-label="anchor" href="#download-data"></a>
@@ -201,8 +241,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;">6</span> 4447a… <span style="color: #BB0000;">NA</span>      Gliomas <span style="color: #BB0000;">NA</span>      C3L-03… 2019-0… Brain   2020-0… 4447a9… Diagno…</span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 1 more variable: state &lt;chr&gt;, and abbreviated variable names</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   ¹​lost_to_followup, ²​disease_type, ³​days_to_lost_to_followup, ⁴​submitter_id,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   ⁵​created_datetime, ⁶​primary_site, ⁷​updated_datetime, ⁸​index_date</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;">#   ⁵​created_datetime, ⁶​primary_site, ⁷​updated_datetime, ⁸​index_date</span></span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">clindat</span><span class="op">[[</span><span class="st">"diagnoses"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 82</span></span></span>
@@ -220,8 +259,7 @@
 <span><span class="co">## <span style="color: #949494;">#   child_pugh_classification &lt;lgl&gt;, metastasis_at_diagnosis_site &lt;lgl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   state &lt;chr&gt;, prior_treatment &lt;lgl&gt;, cog_rhabdomyosarcoma_risk_group &lt;lgl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   days_to_last_known_disease_status &lt;dbl&gt;, primary_gleason_grade &lt;lgl&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   inpc_grade &lt;lgl&gt;, ajcc_pathologic_t &lt;chr&gt;, morphology &lt;chr&gt;, …</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;">#   inpc_grade &lt;lgl&gt;, ajcc_pathologic_t &lt;chr&gt;, morphology &lt;chr&gt;, …</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="general-metadata-queries">General metadata queries<a class="anchor" aria-label="anchor" href="#general-metadata-queries"></a>
@@ -669,15 +707,55 @@
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">manifest_df</span> <span class="op">=</span> <span class="va">qfiles</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/manifest.html">manifest</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">manifest_df</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
-<span><span class="co">##   id                                   filename               md5     size state</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 7c69529f-2273-4dc4-b213-e84924d78bea d6472bd0-b4e2-4ed1-a8… 19d5… 4.25<span style="color: #949494;">e</span>6 rele…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> 0eff4634-f8c4-4db9-8a7c-331b21689bae 42165baf-b32c-4fc4-8b… d89d… 4.26<span style="color: #949494;">e</span>6 rele…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> 7d74b4c5-6391-4b3e-95a3-020ea0869e86 accf08d4-a784-4908-83… fb83… 3.11<span style="color: #949494;">e</span>6 rele…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> dc2aeea4-3cd0-4623-92f4-bbbc962851cc 8ab508b9-2993-4e66-b8… 2623… 4.61<span style="color: #949494;">e</span>6 rele…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> 0cf852be-d2e3-4fde-bba8-c93efae2961a 93831282-1dd1-49a3-ac… 0507… 4.27<span style="color: #949494;">e</span>6 rele…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> d33ad23e-2413-419c-8b0b-93ed00583033 bffe7439-0f9b-422f-b0… 1bba… 4.47<span style="color: #949494;">e</span>6 rele…</span></span></code></pre>
+<pre><code><span><span class="co">##                                     id data_format     access</span></span>
+<span><span class="co">## 1 7c69529f-2273-4dc4-b213-e84924d78bea         TSV       open</span></span>
+<span><span class="co">## 2 0eff4634-f8c4-4db9-8a7c-331b21689bae         TSV       open</span></span>
+<span><span class="co">## 3 7d74b4c5-6391-4b3e-95a3-020ea0869e86         TSV controlled</span></span>
+<span><span class="co">## 4 dc2aeea4-3cd0-4623-92f4-bbbc962851cc         TSV controlled</span></span>
+<span><span class="co">## 5 0cf852be-d2e3-4fde-bba8-c93efae2961a         TSV       open</span></span>
+<span><span class="co">## 6 d33ad23e-2413-419c-8b0b-93ed00583033         TSV controlled</span></span>
+<span><span class="co">##                                                                     file_name</span></span>
+<span><span class="co">## 1 d6472bd0-b4e2-4ed1-a892-e1702c195dc7.rna_seq.augmented_star_gene_counts.tsv</span></span>
+<span><span class="co">## 2 42165baf-b32c-4fc4-8b04-29c5b4e76de0.rna_seq.augmented_star_gene_counts.tsv</span></span>
+<span><span class="co">## 3   accf08d4-a784-4908-831a-7a08d4c5f0f5.rna_seq.star_splice_junctions.tsv.gz</span></span>
+<span><span class="co">## 4   8ab508b9-2993-4e66-b8f9-81e32e936d4a.rna_seq.star_splice_junctions.tsv.gz</span></span>
+<span><span class="co">## 5 93831282-1dd1-49a3-acd7-dae2a49ca62e.rna_seq.augmented_star_gene_counts.tsv</span></span>
+<span><span class="co">## 6   bffe7439-0f9b-422f-b073-06050afd8b18.rna_seq.star_splice_junctions.tsv.gz</span></span>
+<span><span class="co">##                           submitter_id           data_category       acl</span></span>
+<span><span class="co">## 1 7085a70b-2f63-4402-9e53-70f091f26fcb Transcriptome Profiling      open</span></span>
+<span><span class="co">## 2 f0d44930-b1ad-447a-86b9-27d0285954b9 Transcriptome Profiling      open</span></span>
+<span><span class="co">## 3 e6473134-6d65-414c-9f52-2c25057fac7d Transcriptome Profiling phs000178</span></span>
+<span><span class="co">## 4 f99b93a9-70cb-44f8-bd1f-4edeee4425a4 Transcriptome Profiling phs000178</span></span>
+<span><span class="co">## 5 fb4d7abe-b61a-4f35-9700-605f1bc1512f Transcriptome Profiling      open</span></span>
+<span><span class="co">## 6 75ea7810-b69f-4c84-92df-b94aaa92be21 Transcriptome Profiling phs000178</span></span>
+<span><span class="co">##              type file_size                 created_datetime</span></span>
+<span><span class="co">## 1 gene_expression   4254435 2021-12-13T20:53:42.329364-06:00</span></span>
+<span><span class="co">## 2 gene_expression   4257461 2021-12-13T20:47:24.326497-06:00</span></span>
+<span><span class="co">## 3 gene_expression   3109435 2021-12-13T21:03:56.008440-06:00</span></span>
+<span><span class="co">## 4 gene_expression   4607701 2021-12-13T21:02:23.944851-06:00</span></span>
+<span><span class="co">## 5 gene_expression   4265694 2021-12-13T20:50:55.234254-06:00</span></span>
+<span><span class="co">## 6 gene_expression   4471838 2021-12-13T21:04:55.299559-06:00</span></span>
+<span><span class="co">##                             md5sum                 updated_datetime</span></span>
+<span><span class="co">## 1 19d5596bba8949f4c138793608497d56 2022-01-19T14:47:28.965154-06:00</span></span>
+<span><span class="co">## 2 d89d71b7c028c1643d7a3ee7857d8e01 2022-01-19T14:47:07.478144-06:00</span></span>
+<span><span class="co">## 3 fb8332d6413c44a9de02a1cbe6b018aa 2022-01-19T14:01:15.621847-06:00</span></span>
+<span><span class="co">## 4 26231bed1ef67c093d3ce2b39def81cd 2022-01-19T14:01:15.621847-06:00</span></span>
+<span><span class="co">## 5 050763aabd36509f954137fbdc4eeb00 2022-01-19T14:47:07.036781-06:00</span></span>
+<span><span class="co">## 6 1bbabe2d7647ae82733ceccf198e2f61 2022-01-19T14:01:15.621847-06:00</span></span>
+<span><span class="co">##                                file_id                      data_type    state</span></span>
+<span><span class="co">## 1 7c69529f-2273-4dc4-b213-e84924d78bea Gene Expression Quantification released</span></span>
+<span><span class="co">## 2 0eff4634-f8c4-4db9-8a7c-331b21689bae Gene Expression Quantification released</span></span>
+<span><span class="co">## 3 7d74b4c5-6391-4b3e-95a3-020ea0869e86 Splice Junction Quantification released</span></span>
+<span><span class="co">## 4 dc2aeea4-3cd0-4623-92f4-bbbc962851cc Splice Junction Quantification released</span></span>
+<span><span class="co">## 5 0cf852be-d2e3-4fde-bba8-c93efae2961a Gene Expression Quantification released</span></span>
+<span><span class="co">## 6 d33ad23e-2413-419c-8b0b-93ed00583033 Splice Junction Quantification released</span></span>
+<span><span class="co">##   experimental_strategy</span></span>
+<span><span class="co">## 1               RNA-Seq</span></span>
+<span><span class="co">## 2               RNA-Seq</span></span>
+<span><span class="co">## 3               RNA-Seq</span></span>
+<span><span class="co">## 4               RNA-Seq</span></span>
+<span><span class="co">## 5               RNA-Seq</span></span>
+<span><span class="co">## 6               RNA-Seq</span></span></code></pre>
 <p>Note that we might still not be quite there. Looking at filenames, there are suspiciously named files that might include “FPKM”, “FPKM-UQ”, or “counts”. Another round of <code>grep</code> and <code>available_fields</code>, looking for “type” turned up that the field “analysis.workflow_type” has the appropriate filter criteria.</p>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">qfiles</span> <span class="op">=</span> <span class="fu"><a href="../reference/query.html">files</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/filtering.html">filter</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">cases.project.project_id</span> <span class="op">==</span> <span class="st">'TCGA-OV'</span> <span class="op">&amp;</span></span>
@@ -1067,37 +1145,35 @@ SSL connect error</code></pre>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] ggplot2_3.3.6             GenomicDataCommons_1.21.2</span></span>
-<span><span class="co">## [3] magrittr_2.0.3            knitr_1.39               </span></span>
+<span><span class="co">## [1] ggplot2_3.3.6             GenomicDataCommons_1.21.4</span></span>
+<span><span class="co">## [3] magrittr_2.0.3            knitr_1.40               </span></span>
 <span><span class="co">## [5] BiocStyle_2.24.0         </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] assertthat_0.2.1       rprojroot_2.0.3        digest_0.6.29         </span></span>
-<span><span class="co">##  [4] utf8_1.2.2             R6_2.5.1               GenomeInfoDb_1.32.2   </span></span>
-<span><span class="co">##  [7] stats4_4.2.1           evaluate_0.15          highr_0.9             </span></span>
-<span><span class="co">## [10] httr_1.4.3             pillar_1.8.0           zlibbioc_1.42.0       </span></span>
+<span><span class="co">##  [4] utf8_1.2.2             R6_2.5.1               GenomeInfoDb_1.32.3   </span></span>
+<span><span class="co">##  [7] stats4_4.2.1           evaluate_0.16          highr_0.9             </span></span>
+<span><span class="co">## [10] httr_1.4.4             pillar_1.8.1           zlibbioc_1.42.0       </span></span>
 <span><span class="co">## [13] rlang_1.0.4            curl_4.3.2             jquerylib_0.1.4       </span></span>
-<span><span class="co">## [16] S4Vectors_0.34.0       rmarkdown_2.14         pkgdown_2.0.6         </span></span>
+<span><span class="co">## [16] S4Vectors_0.34.0       rmarkdown_2.16         pkgdown_2.0.6         </span></span>
 <span><span class="co">## [19] labeling_0.4.2         textshaping_0.3.6      desc_1.4.1            </span></span>
-<span><span class="co">## [22] readr_2.1.2            stringr_1.4.0          munsell_0.5.0         </span></span>
-<span><span class="co">## [25] RCurl_1.98-1.8         bit_4.0.4              compiler_4.2.1        </span></span>
-<span><span class="co">## [28] xfun_0.31              pkgconfig_2.0.3        systemfonts_1.0.4     </span></span>
-<span><span class="co">## [31] BiocGenerics_0.42.0    htmltools_0.5.3        tidyselect_1.1.2      </span></span>
-<span><span class="co">## [34] tibble_3.1.8           GenomeInfoDbData_1.2.8 bookdown_0.27         </span></span>
-<span><span class="co">## [37] IRanges_2.30.0         fansi_1.0.3            crayon_1.5.1          </span></span>
-<span><span class="co">## [40] dplyr_1.0.9            tzdb_0.3.0             withr_2.5.0           </span></span>
-<span><span class="co">## [43] bitops_1.0-7           rappdirs_0.3.3         grid_4.2.1            </span></span>
-<span><span class="co">## [46] gtable_0.3.0           jsonlite_1.8.0         lifecycle_1.0.1       </span></span>
-<span><span class="co">## [49] DBI_1.1.3              scales_1.2.0           cli_3.3.0             </span></span>
-<span><span class="co">## [52] stringi_1.7.8          vroom_1.5.7            cachem_1.0.6          </span></span>
-<span><span class="co">## [55] farver_2.1.1           XVector_0.36.0         fs_1.5.2              </span></span>
-<span><span class="co">## [58] xml2_1.3.3             bslib_0.4.0            ellipsis_0.3.2        </span></span>
-<span><span class="co">## [61] ragg_1.2.2             generics_0.1.3         vctrs_0.4.1           </span></span>
-<span><span class="co">## [64] tools_4.2.1            bit64_4.0.5            glue_1.6.2            </span></span>
-<span><span class="co">## [67] purrr_0.3.4            hms_1.1.1              parallel_4.2.1        </span></span>
-<span><span class="co">## [70] fastmap_1.1.0          yaml_2.3.5             colorspace_2.0-3      </span></span>
-<span><span class="co">## [73] BiocManager_1.30.18    GenomicRanges_1.48.0   memoise_2.0.1         </span></span>
-<span><span class="co">## [76] sass_0.4.2</span></span></code></pre>
+<span><span class="co">## [22] readr_2.1.2            stringr_1.4.1          RCurl_1.98-1.8        </span></span>
+<span><span class="co">## [25] munsell_0.5.0          compiler_4.2.1         xfun_0.32             </span></span>
+<span><span class="co">## [28] pkgconfig_2.0.3        systemfonts_1.0.4      BiocGenerics_0.42.0   </span></span>
+<span><span class="co">## [31] htmltools_0.5.3        tidyselect_1.1.2       tibble_3.1.8          </span></span>
+<span><span class="co">## [34] GenomeInfoDbData_1.2.8 bookdown_0.28          IRanges_2.30.1        </span></span>
+<span><span class="co">## [37] fansi_1.0.3            withr_2.5.0            crayon_1.5.1          </span></span>
+<span><span class="co">## [40] dplyr_1.0.9            tzdb_0.3.0             bitops_1.0-7          </span></span>
+<span><span class="co">## [43] rappdirs_0.3.3         grid_4.2.1             jsonlite_1.8.0        </span></span>
+<span><span class="co">## [46] gtable_0.3.0           lifecycle_1.0.1        DBI_1.1.3             </span></span>
+<span><span class="co">## [49] scales_1.2.1           cli_3.3.0              stringi_1.7.8         </span></span>
+<span><span class="co">## [52] cachem_1.0.6           farver_2.1.1           XVector_0.36.0        </span></span>
+<span><span class="co">## [55] fs_1.5.2               xml2_1.3.3             bslib_0.4.0           </span></span>
+<span><span class="co">## [58] ellipsis_0.3.2         ragg_1.2.2             generics_0.1.3        </span></span>
+<span><span class="co">## [61] vctrs_0.4.1            tools_4.2.1            glue_1.6.2            </span></span>
+<span><span class="co">## [64] purrr_0.3.4            hms_1.1.2              fastmap_1.1.0         </span></span>
+<span><span class="co">## [67] yaml_2.3.5             colorspace_2.0-3       BiocManager_1.30.18   </span></span>
+<span><span class="co">## [70] GenomicRanges_1.48.0   memoise_2.0.1          sass_0.4.2</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="developer-notes">Developer notes<a class="anchor" aria-label="anchor" href="#developer-notes"></a>
