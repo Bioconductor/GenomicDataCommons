@@ -534,6 +534,7 @@ that the field "analysis.workflow_type" has the appropriate filter criteria.
 ```{r filterForSTARCounts}
 qfiles = files() %>% filter( ~ cases.project.project_id == 'TCGA-OV' &
                             type == 'gene_expression' &
+                            access == "open" &
                             analysis.workflow_type == 'STAR - Counts')
 manifest_df = qfiles %>% manifest()
 nrow(manifest_df)
