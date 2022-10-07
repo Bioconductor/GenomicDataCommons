@@ -14,7 +14,7 @@ unique ids.  All"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax
     
     <a class="navbar-brand me-2" href="../index.html">GenomicDataCommons</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,81 +97,81 @@ unique ids.  All</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># use with a GDC query, in this case for "cases"</span></span></span>
 <span class="r-in"><span><span class="fu">ids</span><span class="op">(</span><span class="fu"><a href="query.html">cases</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="filtering.html">filter</a></span><span class="op">(</span><span class="op">~</span> <span class="va">project.project_id</span> <span class="op">==</span> <span class="st">"TCGA-CHOL"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "6e534dd3-81ac-4575-ab1e-02c21e10916d"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "5fb3affa-3661-48e8-a1cc-b533c862e8c5"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "47a9ef9b-04f0-4e8d-bfdb-0846ba30d08b"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "5166d82f-7b22-4101-bea9-6056e5a74c48"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "20ec1cd9-7bdb-4eb9-9d20-65795580f1f5"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "d64d8a1b-b31f-4cbb-a586-5ec7f058f0de"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "f47dbd99-920b-4b39-a1b0-6c152ad24884"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "b10c64c2-7fd2-4210-b975-034affb14b57"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "ae8d1ed6-2ddf-47b0-8099-bbc9230b499e"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "1932bc1e-2a15-4f74-978e-d49c366604a4"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "b4f7f9e4-5fc5-4461-8e0b-0b6c384863c6"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "15850852-5979-419d-ae38-76ffd0e9d7e8"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "41b97b11-acaa-4fbc-b3b0-0abc1bcac13b"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "7047dc12-e2ed-40b7-86fd-c5c53a2766fd"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "0775583e-c0a0-4f18-9ca2-8f89cedce3d6"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "e76cf9a0-061e-4a7d-ba28-5a40b8da54b8"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "32e9558c-946b-4288-91e1-504e47c308ac"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [18] "4290b3b3-94f6-43e4-8309-430dd973ae2d"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "180a2b9c-9cac-4d96-86e8-cd6b3b9386b5"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "1947a152-6339-4f66-b9a4-0229580f0287"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "1d136284-bdf5-498e-9506-4893801a337c"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "20bf79af-3b0f-477d-b619-5597d42f5d5e"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "22bf93b3-c8dc-4669-862f-3e4ae478849b"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [24] "2d6e20b2-82c7-4c12-92d0-93282b0a9031"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "37d60df9-2fa5-433b-9e54-dccb5ed5a638"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [26] "3824cd6d-c85c-4b21-819a-932d1afef976"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "3c8ca064-a4a7-416f-a069-4324d4a72038"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "3f7e0cbf-e48c-410a-9138-be9b373fef73"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "48d17b17-348c-405a-ae92-f190372a3aac"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [30] "57500d4c-4bb3-4f32-ae3a-a0b78f18c526"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "5cf3911a-f3ea-4c0e-851d-5bb57ca7190f"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [32] "779ce92d-1abd-44fc-9021-eda4d7f08fff"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "7f08f522-08ff-4b30-aa5b-e69cf15041c9"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "859ed2d9-668d-440c-86ab-dcd0d9742973"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [35] "8944fe2a-e32f-4898-a2c5-fb6751f602a4"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [36] "91544f6b-90b6-45df-a501-3097fe0c74be"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "95b69517-4971-450e-9ed0-43bc8b2c0534"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [38] "9d9109f5-5917-4126-8e34-8a7e4632e913"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [39] "aaacf22c-2362-4613-b024-88fb7dd1cca1"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [40] "adc9a685-5b4a-4c29-881a-da1895c47520"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [41] "b16e9c3f-c7df-46c2-bee3-ecaebbab025f"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "b10c64c2-7fd2-4210-b975-034affb14b57"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "32e9558c-946b-4288-91e1-504e47c308ac"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "cb40327b-f3ac-4f0a-bb17-7db2a281e354"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "ccb028ae-777c-4af6-b92e-40848f1cf774"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "0775583e-c0a0-4f18-9ca2-8f89cedce3d6"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "180a2b9c-9cac-4d96-86e8-cd6b3b9386b5"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "47a9ef9b-04f0-4e8d-bfdb-0846ba30d08b"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "bec2cf62-44a2-42e5-8e10-440aad69ed77"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "1932bc1e-2a15-4f74-978e-d49c366604a4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "5cf3911a-f3ea-4c0e-851d-5bb57ca7190f"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "b16e9c3f-c7df-46c2-bee3-ecaebbab025f"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "1d136284-bdf5-498e-9506-4893801a337c"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "dcc87c59-fd8c-4511-9983-96d5b9784cb0"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "5fb3affa-3661-48e8-a1cc-b533c862e8c5"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "22bf93b3-c8dc-4669-862f-3e4ae478849b"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "adc9a685-5b4a-4c29-881a-da1895c47520"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "b4f7f9e4-5fc5-4461-8e0b-0b6c384863c6"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18] "f47dbd99-920b-4b39-a1b0-6c152ad24884"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "fe57b639-db7a-460f-adfe-552f1e034e46"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "aaacf22c-2362-4613-b024-88fb7dd1cca1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "4290b3b3-94f6-43e4-8309-430dd973ae2d"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "2d6e20b2-82c7-4c12-92d0-93282b0a9031"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "3c8ca064-a4a7-416f-a069-4324d4a72038"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [24] "779ce92d-1abd-44fc-9021-eda4d7f08fff"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "3824cd6d-c85c-4b21-819a-932d1afef976"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [26] "9d9109f5-5917-4126-8e34-8a7e4632e913"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "3f7e0cbf-e48c-410a-9138-be9b373fef73"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "c60eb7be-c85c-4338-a20b-51948d43bf2a"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "7047dc12-e2ed-40b7-86fd-c5c53a2766fd"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [30] "6e534dd3-81ac-4575-ab1e-02c21e10916d"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "95b69517-4971-450e-9ed0-43bc8b2c0534"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [32] "57500d4c-4bb3-4f32-ae3a-a0b78f18c526"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "48d17b17-348c-405a-ae92-f190372a3aac"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "8944fe2a-e32f-4898-a2c5-fb6751f602a4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [35] "20ec1cd9-7bdb-4eb9-9d20-65795580f1f5"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [36] "20bf79af-3b0f-477d-b619-5597d42f5d5e"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "41b97b11-acaa-4fbc-b3b0-0abc1bcac13b"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [38] "1947a152-6339-4f66-b9a4-0229580f0287"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [39] "859ed2d9-668d-440c-86ab-dcd0d9742973"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [40] "37d60df9-2fa5-433b-9e54-dccb5ed5a638"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [41] "e76cf9a0-061e-4a7d-ba28-5a40b8da54b8"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [42] "bc15cec4-1f82-47fe-ae69-3853194fab7e"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "bec2cf62-44a2-42e5-8e10-440aad69ed77"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [44] "c60eb7be-c85c-4338-a20b-51948d43bf2a"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [45] "c8e57f03-ac69-49bb-954b-4c40fe371f75"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [46] "cb40327b-f3ac-4f0a-bb17-7db2a281e354"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [47] "ccb028ae-777c-4af6-b92e-40848f1cf774"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [48] "dcc87c59-fd8c-4511-9983-96d5b9784cb0"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "f2d42e03-ca8d-4b57-ae39-0cc8f37b1b67"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [50] "fe57b639-db7a-460f-adfe-552f1e034e46"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [51] "ff4131c9-537c-46cc-b495-9af60d431f5e"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "f2d42e03-ca8d-4b57-ae39-0cc8f37b1b67"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [44] "5166d82f-7b22-4101-bea9-6056e5a74c48"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [45] "ff4131c9-537c-46cc-b495-9af60d431f5e"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [46] "c8e57f03-ac69-49bb-954b-4c40fe371f75"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [47] "15850852-5979-419d-ae38-76ffd0e9d7e8"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [48] "d64d8a1b-b31f-4cbb-a586-5ec7f058f0de"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "7f08f522-08ff-4b30-aa5b-e69cf15041c9"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [50] "ae8d1ed6-2ddf-47b0-8099-bbc9230b499e"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [51] "91544f6b-90b6-45df-a501-3097fe0c74be"</span>
 <span class="r-in"><span><span class="co"># also works for responses</span></span></span>
 <span class="r-in"><span><span class="fu">ids</span><span class="op">(</span><span class="fu"><a href="response.html">response</a></span><span class="op">(</span><span class="fu"><a href="query.html">files</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "1294fc89-fae1-4d71-b970-dee321eeb6c1"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "e1e7a77e-9d63-4247-b8f3-e2330215e85c"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "6c59c1f9-8f35-41db-958b-a06047b24d01"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "97a3bd2c-bdf7-4c5f-b457-62268c4d9e2e"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "9b760988-2687-4886-8a8a-38405cf6ad0d"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "b3bce983-3ae7-40ee-acaf-42f1b841c7c7"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "65d3ee18-3519-47d6-9ccb-aa39be9b9440"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "bdefc6fa-5589-4543-a88c-f6a1820a2af5"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "57f15ef2-db88-462e-85f4-b4ad0e2e6315"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "c319747d-f3eb-40d6-b307-1717e2c83271"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "c786e2e9-04ea-48cf-b8a5-3daa96c1837b"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "4f27d16f-0029-43f5-8627-7f477b4cce6d"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "c7546d88-1748-4760-b06f-0b510484345a"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "9295ad2f-0615-4994-83d4-1144755c42aa"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "6ca95cc0-02c1-4ca0-ab51-ee9026840d70"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "5113209b-ac0d-492f-9294-87cef3d12693"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "2a9bf098-8683-4c20-9fee-5e52965ff403"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "149c005a-6ce8-461b-949f-365094b42ab9"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "30a39813-5eae-4f50-ad3d-f7bf907ff6ee"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "7224aa68-9b6c-45a4-bff5-350fd89bd470"</span>
 <span class="r-in"><span><span class="co"># and results</span></span></span>
 <span class="r-in"><span><span class="fu">ids</span><span class="op">(</span><span class="fu"><a href="results.html">results</a></span><span class="op">(</span><span class="fu"><a href="query.html">cases</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "2525bfef-6962-4b7f-8e80-6186400ce624"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "126507c3-c0d7-41fb-9093-7deed5baf431"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "c43ac461-9f03-44bc-be7d-3d867eb708a0"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "a59a90d9-f1b0-49dd-9c97-bcaa6ba55d44"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "59122a43-606a-4669-806b-6747e0ac9985"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "4447a969-e5c8-4291-b83c-53a0f7e77cbc"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "f1aadf48-b132-48fd-9106-4a01670114e0"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "54af5967-283d-4dd0-90e0-d2c351694c4c"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "77817c88-77e1-4ff0-a24e-21ca2942ba3a"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "947a6de8-a1fe-41f3-9568-2311f9fa341b"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "b9a32a1c-9c93-5a92-8b30-e09a91dc3cfc"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "c2829ab9-d5b2-5a82-a134-de9c591363de"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "f5548317-3be4-5227-a655-dfb97e6418b9"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "cf3bd8c5-4cd6-57c6-b07a-f20d414d0819"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "eaffceb7-3b14-5b19-a7f0-a43bd8c45909"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "c07901d8-2829-5e98-9e8a-e12faafa1626"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "2fc73759-0c14-5ec9-9130-825206a1211d"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "2c326b96-e948-5dbb-844a-a83882701ae8"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "7f50289e-a837-5e5f-bbd3-5e31e63d6713"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "9af6ade7-8255-5a2e-808e-655f855ae733"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -16,7 +16,7 @@ that contain file information ("cases" and "files" queries).'><!-- mathjax --><s
     
     <a class="navbar-brand me-2" href="../index.html">GenomicDataCommons</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,49 +123,45 @@ will return the usually desirable full set of records.</p></dd>
 <span class="r-in"><span><span class="va">shortManifest</span> <span class="op">=</span> <span class="va">gFiles</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">manifest</span><span class="op">(</span>size<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">shortManifest</span>,n<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                     id data_format     access</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1294fc89-fae1-4d71-b970-dee321eeb6c1         VCF controlled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 e1e7a77e-9d63-4247-b8f3-e2330215e85c         VCF controlled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 6c59c1f9-8f35-41db-958b-a06047b24d01         VCF controlled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                        file_name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                      9160d8a8-006d-4fd5-8c9e-09ec6179369a.wxs.muse.raw_somatic_mutation.vcf.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                    e32336ff-87c2-4d5d-9366-ac835157d08d.wxs.pindel.raw_somatic_mutation.vcf.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 MMRF_COMMPASS.124d4920-7fe1-491d-93da-ad76f9eb8f75.wxs.SomaticSniper.somatic_annotation.vcf.gz</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 c786e2e9-04ea-48cf-b8a5-3daa96c1837b         BAM controlled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 4f27d16f-0029-43f5-8627-7f477b4cce6d         TSV controlled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 c7546d88-1748-4760-b06f-0b510484345a         VCF controlled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                      file_name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     c7522bbe-48b8-4338-b36e-564021353f00.rna_seq.transcriptome.gdc_realn.bam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    c7522bbe-48b8-4338-b36e-564021353f00.rna_seq.star_splice_junctions.tsv.gz</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 bce47c3d-a414-49c9-bd27-9e941144860c.wgs.CaVEMan.raw_somatic_mutation.vcf.gz</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                           submitter_id               data_category       acl</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 8c7fcd35-5fda-4eff-b368-f373fefc8327 Simple Nucleotide Variation phs000748</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 40ac1eea-f152-403e-9a58-66dd15384d14 Simple Nucleotide Variation phs000748</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 43f6c8d5-835d-47ec-a7c8-22ac6a88c73b Simple Nucleotide Variation phs000748</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         type file_size state_comment</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    simple_somatic_mutation     29042            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    simple_somatic_mutation     47937            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 annotated_somatic_mutation   2175870            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   created_datetime                           md5sum</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2019-01-28T10:21:43.275213-06:00 0138a8506fdbca4cf5b6c9e71c61f0b7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2019-07-15T10:23:04.984044-05:00 6a94c60d2483df6264f876bee28aa611</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2022-01-26T21:35:47.361393-06:00 3fff8d28dfde7fb7140b1c25e84b8f6e</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   updated_datetime                              file_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2019-06-24T08:07:19.797044-05:00 1294fc89-fae1-4d71-b970-dee321eeb6c1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2019-08-21T12:47:37.999949-05:00 e1e7a77e-9d63-4247-b8f3-e2330215e85c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2022-01-30T17:20:50.104776-06:00 6c59c1f9-8f35-41db-958b-a06047b24d01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   error_type                   data_type    state experimental_strategy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         NA Raw Simple Somatic Mutation released                   WXS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         NA Raw Simple Somatic Mutation released                   WXS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3         NA  Annotated Somatic Mutation released                   WXS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   proportion_reads_mapped proportion_base_mismatch contamination_error platform</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                      NA                       NA                  NA     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                      NA                       NA                  NA     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                      NA                       NA                  NA     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   pairs_on_diff_chr total_reads mean_coverage proportion_reads_duplicated</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA          NA            NA                          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                NA          NA            NA                          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                NA          NA            NA                          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   contamination average_base_quality average_insert_size average_read_length</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1            NA                   NA                  NA                  NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2            NA                   NA                  NA                  NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3            NA                   NA                  NA                  NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   proportion_targets_no_coverage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                             NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                             NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 83385997-2e30-4a0e-ba08-8a359cf9e758            Sequencing Reads phs001486</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 b1a12732-5668-4c9a-90b2-ed8817ffa063     Transcriptome Profiling phs001486</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 4d86c0a2-deb6-4060-9a64-1ad96ef94a51 Simple Nucleotide Variation phs001486</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      type platform   file_size                 created_datetime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           aligned_reads Illumina 16264880178 2022-01-05T13:58:13.190285-06:00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         gene_expression     &lt;NA&gt;     2744657 2022-01-05T16:06:14.065970-06:00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 simple_somatic_mutation     &lt;NA&gt;     3126634 2020-07-10T11:39:51.205109-05:00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             md5sum                 updated_datetime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 c1eba4660cf44f9018fe9323bb4c88ec 2022-01-19T23:25:37.395824-06:00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 7d52913e765f757485357bb7c7bedd19 2022-01-19T23:22:31.836567-06:00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 23fa4cbce43707f7da9100815d699262 2020-10-26T12:35:23.058290-05:00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                file_id                      data_type    state</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 c786e2e9-04ea-48cf-b8a5-3daa96c1837b                  Aligned Reads released</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 4f27d16f-0029-43f5-8627-7f477b4cce6d Splice Junction Quantification released</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 c7546d88-1748-4760-b06f-0b510484345a    Raw Simple Somatic Mutation released</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   experimental_strategy state_comment error_type proportion_reads_mapped</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               RNA-Seq            NA         NA                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2               RNA-Seq            NA         NA                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                   WGS            NA         NA                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   proportion_base_mismatch contamination_error pairs_on_diff_chr total_reads</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                       NA                  NA                NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                       NA                  NA                NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                       NA                  NA                NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   mean_coverage proportion_reads_duplicated contamination average_base_quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1            NA                          NA            NA                   NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2            NA                          NA            NA                   NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3            NA                          NA            NA                   NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   average_insert_size average_read_length proportion_targets_no_coverage</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                  NA                  NA                             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                  NA                  NA                             NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                  NA                  NA                             NA</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

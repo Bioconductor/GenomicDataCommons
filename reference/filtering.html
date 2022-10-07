@@ -18,7 +18,7 @@ the filter element in GDCQuery objects."><!-- mathjax --><script src="https://cd
     
     <a class="navbar-brand me-2" href="../index.html">GenomicDataCommons</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -211,13 +211,13 @@ field replaced by specified filter expression</p>
 <span class="r-in"><span><span class="fu"><a href="query.html">files</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">filter</span><span class="op">(</span><span class="op">~</span> <span class="va">data_format</span> <span class="op">==</span> <span class="st">'VCF'</span></span></span>
 <span class="r-in"><span>                   <span class="op">&amp;</span> <span class="va">experimental_strategy</span><span class="op">==</span><span class="st">'WXS'</span></span></span>
 <span class="r-in"><span>                   <span class="op">&amp;</span> <span class="va">type</span> <span class="op">==</span> <span class="st">'simple_somatic_mutation'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="count.html">count</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 78928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 63175</span>
 <span class="r-in"><span>                   </span></span>
 <span class="r-in"><span>                   </span></span>
 <span class="r-in"><span><span class="fu"><a href="query.html">files</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">filter</span><span class="op">(</span> <span class="va">data_format</span> <span class="op">==</span> <span class="st">'VCF'</span></span></span>
 <span class="r-in"><span>                   <span class="op">&amp;</span> <span class="va">experimental_strategy</span><span class="op">==</span><span class="st">'WXS'</span></span></span>
 <span class="r-in"><span>                   <span class="op">&amp;</span> <span class="va">type</span> <span class="op">==</span> <span class="st">'simple_somatic_mutation'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="count.html">count</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 78928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 63175</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Filters may be chained for the </span></span></span>
 <span class="r-in"><span><span class="co"># equivalent query</span></span></span>
@@ -229,7 +229,7 @@ field replaced by specified filter expression</p>
 <span class="r-in"><span>  <span class="fu">filter</span><span class="op">(</span><span class="op">~</span> <span class="va">experimental_strategy</span> <span class="op">==</span> <span class="st">'WXS'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">filter</span><span class="op">(</span><span class="op">~</span> <span class="va">type</span> <span class="op">==</span> <span class="st">'simple_somatic_mutation'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="count.html">count</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 78928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 63175</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># OR</span></span></span>
 <span class="r-in"><span></span></span>
@@ -238,7 +238,7 @@ field replaced by specified filter expression</p>
 <span class="r-in"><span>  <span class="fu">filter</span><span class="op">(</span> <span class="va">experimental_strategy</span> <span class="op">==</span> <span class="st">'WXS'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">filter</span><span class="op">(</span> <span class="va">type</span> <span class="op">==</span> <span class="st">'simple_somatic_mutation'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="count.html">count</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 78928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 63175</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use str() to get a cleaner picture</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu">get_filter</span><span class="op">(</span><span class="va">fQuery</span><span class="op">)</span><span class="op">)</span></span></span>
