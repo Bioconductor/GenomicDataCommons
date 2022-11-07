@@ -5,7 +5,7 @@ articles:
   overview: overview.html
   questions-and-answers: questions-and-answers.html
   somatic_mutations: somatic_mutations.html
-last_built: 2022-10-07T16:41Z
+last_built: 2022-11-07T21:39Z
 urls:
   reference: http://bioconductor.github.io/GenomicDataCommons/reference
   article: http://bioconductor.github.io/GenomicDataCommons/articles
