@@ -29,7 +29,7 @@
 #' 
 #' @return character(1) (invisibly, to protect against inadvertently printing) the GDC token.
 #' 
-#' @references \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Authentication/#gdc-authentication-tokens}
+#' @references \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Cart/#gdc-authentication-tokens}
 #'
 #' @examples 
 #' # This will not run before a GDC token
