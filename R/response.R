@@ -47,10 +47,10 @@ response = function(x,...) {
 #' 
 #' @examples
 #' # total number of projects
-#' projects() %>% count()
+#' projects() |> count()
 #'
 #' # total number of cases
-#' cases() %>% count()
+#' cases() |> count()
 #' 
 #' @export
 count = function(x,...) {
@@ -61,7 +61,7 @@ count = function(x,...) {
 #'
 #' @export
 count.GDCQuery = function(x,...) {
-    resp = x %>% response(size=1)
+    resp = x |> response(size=1)
     return(resp$pages$total)
 }    
 
@@ -90,7 +90,6 @@ count.GDCResponse = function(x,...) {
 
 #' @rdname response
 #' 
-#' @importFrom magrittr "%>%"
 #' @importFrom jsonlite fromJSON
 #' 
 #' @export
@@ -137,12 +136,10 @@ response_all = function(x,...) {
 #' each have two columns, key and doc_count.
 #' 
 #' @examples
-#' library(magrittr)
 #' # Number of each file type
-#' res = files() %>% facet(c('type','data_type')) %>% aggregations()
+#' res = files() |> facet(c('type','data_type')) |> aggregations()
 #' res$type
 #'
-#' @importFrom magrittr "%>%"
 #' @export
 aggregations = function(x) {
     UseMethod('aggregations',x)
@@ -155,7 +152,7 @@ aggregations = function(x) {
 #' @export
 aggregations.GDCQuery = function(x) {
     if(is.null(x$facets))
-        x = x %>% facet()
+        x = x |> facet()
     return(response(x)$aggregations)
 }
 
@@ -176,7 +173,7 @@ aggregations.GDCResponse = function(x) {
 #' @return A (typically nested) \code{list} of GDC records
 #' 
 #' @examples
-#' qcases = cases() %>% results()
+#' qcases = cases() |> results()
 #' length(qcases)
 #'
 #' @export
@@ -192,7 +189,7 @@ results = function(x,...) {
 #' 
 #' @examples
 #' # details of all available projects
-#' projResults = projects() %>% results_all()
+#' projResults = projects() |> results_all()
 #' length(projResults)
 #' count(projects())
 #'

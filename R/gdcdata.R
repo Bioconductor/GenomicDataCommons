@@ -46,20 +46,20 @@
 #' 
 #' @examples
 #' # get some example file uuids
-#' uuids <- files() %>%
-#'     filter(~ access == 'open' & file_size < 100000) %>%
-#'     results(size = 3) %>%
+#' uuids <- files() |>
+#'     filter(~ access == 'open' & file_size < 100000) |>
+#'     results(size = 3) |>
 #'     ids()
 #'
 #' # and get the data, placing it into the gdc_cache() directory
 #' gdcdata(uuids, use_cached=TRUE)
 #'
 #' # legacy data
-#' exon <- files(legacy = TRUE) %>%
+#' exon <- files(legacy = TRUE) |>
 #'     filter( ~ cases.project.project_id == "TCGA-COAD" &
 #'         data_category == "Gene expression" &
-#'         data_type == "Exon quantification") %>%
-#'     results(size = 1) %>% ids()
+#'         data_type == "Exon quantification") |>
+#'     results(size = 1) |> ids()
 #'
 #' gdcdata(exon, legacy = TRUE)
 #'
@@ -72,8 +72,8 @@ gdcdata <-
     stopifnot(is.character(uuids))
 
     uuids = trimws(uuids)
-    manifest = files(...) %>%
-            GenomicDataCommons::filter( ~ file_id %in% uuids ) %>%
+    manifest = files(...) |>
+            GenomicDataCommons::filter( ~ file_id %in% uuids ) |>
             GenomicDataCommons::manifest()
     # files from previous downloads should have the following
     # path and filenames

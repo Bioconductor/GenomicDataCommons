@@ -33,9 +33,9 @@ provide count of records in a \code{\link{GDCQuery}}
 }}
 \examples{
 # total number of projects
-projects() \%>\% count()
+projects() |> count()
 
 # total number of cases
-cases() \%>\% count()
+cases() |> count()
 
 }

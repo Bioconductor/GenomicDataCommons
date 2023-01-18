@@ -31,7 +31,7 @@ results
 
 }}
 \examples{
-qcases = cases() \%>\% results()
+qcases = cases() |> results()
 length(qcases)
 
 }
