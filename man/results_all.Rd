@@ -30,7 +30,7 @@ results_all
 }}
 \examples{
 # details of all available projects
-projResults = projects() \%>\% results_all()
+projResults = projects() |> results_all()
 length(projResults)
 count(projects())
 

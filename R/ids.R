@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' # use with a GDC query, in this case for "cases"
-#' ids(cases() %>% filter(~ project.project_id == "TCGA-CHOL"))
+#' ids(cases() |> filter(~ project.project_id == "TCGA-CHOL"))
 #' # also works for responses
 #' ids(response(files()))
 #' # and results
@@ -33,7 +33,7 @@ ids.GDCManifest = function(x) {
 #' @export
 ids.GDCQuery = function(x) {
     fieldname = .id_field(x)
-    res = x %>% GenomicDataCommons::select(fieldname) %>%
+    res = x |> GenomicDataCommons::select(fieldname) |>
         results_all()
     return(.ifNullCharacterZero(res[[fieldname]]))
 }

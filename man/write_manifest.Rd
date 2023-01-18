@@ -25,7 +25,7 @@ the path to which the file is written, so it can
 be used "in-line" in a call to \code{\link{transfer}}.
 }
 \examples{
-mf = files() \%>\% manifest(size=10)
+mf = files() |> manifest(size=10)
 write_manifest(mf)
 
 }

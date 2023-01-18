@@ -52,7 +52,7 @@ that contain file information ("cases" and "files" queries).
 }}
 \examples{
 gFiles = files()
-shortManifest = gFiles \%>\% manifest(size=10)
+shortManifest = gFiles |> manifest(size=10)
 head(shortManifest,n=3)
 
 

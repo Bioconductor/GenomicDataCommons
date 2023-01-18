@@ -12,7 +12,7 @@ Authors@R: c( person("Martin", "Morgan",
         person("Marcel", "Ramos",
         email = "marcel.ramos@roswellpark.org", role = "ctb"))
 License: Artistic-2.0
-Depends: R (>= 3.4.0), magrittr
+Depends: R (>= 3.4.0)
 Imports: stats, httr, xml2, jsonlite, utils, rlang, readr,
         GenomicRanges, IRanges, dplyr, rappdirs, tibble
 Suggests: BiocStyle, knitr, rmarkdown, DT, testthat, listviewer,
@@ -27,4 +27,4 @@ BugReports:
         https://github.com/Bioconductor/GenomicDataCommons/issues/new
 Encoding: UTF-8
 VignetteBuilder: knitr
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3

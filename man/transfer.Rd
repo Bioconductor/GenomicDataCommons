@@ -59,9 +59,9 @@ up-to-date (>= 1.3.0).
 }}
 \examples{
 \dontrun{
-uuids = files() \%>\% 
-  filter(access == "open") \%>\% 
-  results() \%>\%
+uuids = files() |> 
+  filter(access == "open") |> 
+  results() |>
   ids()
 file_paths <- transfer(uuids)
 file_paths
