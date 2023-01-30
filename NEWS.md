@@ -1,3 +1,10 @@
+## Changes in version 1.22.0
+
+### Bug fixes and minor improvements
+
+* `gdc_clinical` handles `NULL` responses when diagnoses are not available for
+all IDs queried (#109, @zx8754).
+
 ## Changes in version 1.20.0
 
 ### New features
