@@ -69,6 +69,10 @@ gdc_clinical = function(case_ids, include_list_cols = FALSE) {
     demographic = resp$results$demographic
     demographic$case_id = rownames(demographic)
 
+    nodx <- vapply(resp$results$diagnoses, is.null, logical(1L))
+    if (any(nodx))
+        resp$results$diagnoses[nodx] <- list(data.frame())
+    
     diagnoses <- suppressMessages({
         bind_rows(
             lapply(resp$results$diagnoses, readr::type_convert),
