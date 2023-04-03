@@ -112,14 +112,14 @@ fnames <- files() %>%
       analysis.workflow_type ==
         'Aliquot Ensemble Somatic Variant Merging and Masking'
   ) %>%
-  results(size = 6) %>%
-    ids() %>% 
+  results(size = 1) %>%
+    ids() %>%
       gdcdata()
 ```
 
 ```{r cache=TRUE}
 library(maftools)
-melanoma = read.maf(maf = fnames[2])
+melanoma = read.maf(maf = fnames)
 ```
 
 ```{r}
