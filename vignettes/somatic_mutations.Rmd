@@ -38,9 +38,9 @@ head(available_values('genes','symbol'))
 
 
 ```{r}
-tp53 = genes() %>% 
-  GenomicDataCommons::filter(symbol=='TP53') %>% 
-  results(size=10000) %>% 
+tp53 = genes() |> 
+  GenomicDataCommons::filter(symbol=='TP53') |> 
+  results(size=10000) |> 
   as_tibble()
 ```
 
@@ -48,18 +48,18 @@ tp53 = genes() %>%
 ## ssms
 
 ```{r}
-ssms() %>% 
+ssms() |> 
     GenomicDataCommons::filter(
       chromosome==paste0('chr',tp53$gene_chromosome[1]) &
         start_position > tp53$gene_start[1] & 
-        end_position < tp53$gene_end[1]) %>% 
+        end_position < tp53$gene_end[1]) |> 
     GenomicDataCommons::count()
 ```
 
 ```{r}
-ssms() %>% 
+ssms() |> 
     GenomicDataCommons::filter(
-      consequence.transcript.gene.symbol %in% c('TP53')) %>% 
+      consequence.transcript.gene.symbol %in% c('TP53')) |> 
     GenomicDataCommons::count()
 ```
 
@@ -67,10 +67,10 @@ ssms() %>%
 
 ```{r warning=FALSE,message=FALSE}
 library(VariantAnnotation)
-vars = ssms() %>% 
+vars = ssms() |> 
     GenomicDataCommons::filter(
-      consequence.transcript.gene.symbol %in% c('TP53')) %>% 
-    GenomicDataCommons::results_all() %>%
+      consequence.transcript.gene.symbol %in% c('TP53')) |> 
+    GenomicDataCommons::results_all() |>
     as_tibble()
 ```
 
@@ -82,18 +82,18 @@ vr = VRanges(seqnames = vars$chromosome,
 ```
 
 ```{r}
-ssm_occurrences() %>% 
+ssm_occurrences() |> 
     GenomicDataCommons::filter(
-      ssm.consequence.transcript.gene.symbol %in% c('TP53')) %>% 
+      ssm.consequence.transcript.gene.symbol %in% c('TP53')) |>
     GenomicDataCommons::count()
 ```
 
 ```{r}
-var_samples = ssm_occurrences() %>% 
+var_samples = ssm_occurrences() |> 
     GenomicDataCommons::filter(
-      ssm.consequence.transcript.gene.symbol %in% c('TP53')) %>% 
-    GenomicDataCommons::expand(c('case', 'ssm', 'case.project')) %>%
-    GenomicDataCommons::results_all() %>% 
+      ssm.consequence.transcript.gene.symbol %in% c('TP53')) |> 
+    GenomicDataCommons::expand(c('case', 'ssm', 'case.project')) |>
+    GenomicDataCommons::results_all() |> 
     as_tibble()
 ```
 
