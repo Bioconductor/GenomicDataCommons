@@ -13,15 +13,14 @@ test_that("clinical data is structured properly", {
         )
     )
     
-    lapply(clinical_data, function(dataset) {
-        expect_true(
-            nrow(dataset) <= sizen
+    expect_true(
+        all(
+            vapply(clinical_data, nrow, integer(1L)) >= sizen
         )
-    })
-    
-    lapply(clinical_data, function(dataset) {
-        expect_true(
-            is.data.frame(dataset)
+    )
+    expect_true(
+        all(
+            vapply(clinical_data, is.data.frame, logical(1L))
         )
-    })
+    )
 })
