@@ -4,6 +4,7 @@
 
 * `gdc_clinical` handles `NULL` responses when diagnoses are not available for
 all IDs queried (#109, @zx8754).
+* Minor updates to somatic mutations vignette and unit tests.
 
 ## Changes in version 1.20.0
 
