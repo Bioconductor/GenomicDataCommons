@@ -76,7 +76,7 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
         .gdc_post(entity_name(x), body=body, token=NULL, ...),
         as = "text", encoding = "UTF-8"
     )
-    tmp <- fromJSON(tmp)[["data"]][["hits"]]
+    tmp <- jsonlite::fromJSON(tmp)[["data"]][["hits"]]
     tmp[["acl"]] <- unlist(tmp[["acl"]])
     if(ncol(tmp)<5) {
         tmp=data.frame()
