@@ -40,7 +40,7 @@ restricted data. Almost all BAM data is restricted, so a token is
 usually required. See
 \url{https://docs.gdc.cancer.gov/Data/Data_Security/Data_Security/#authentication-tokens}.}
 
-\item{legacy}{logical(1) whether or not to use the "legacy"
+\item{legacy}{logical(1) DEPRECATED; whether or not to use the "legacy"
 archive, containing older, non-harmonized data. Slicing of unharmonized
 legacy BAM files is not supported. See
 \url{https://docs.gdc.cancer.gov/API/Users_Guide/BAM_Slicing/}.}

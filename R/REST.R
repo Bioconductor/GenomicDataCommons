@@ -48,7 +48,10 @@
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
     uri <- sprintf("%s/%s", base, endpoint)
     if(legacy)
-        uri <- sprintf("%s/legacy/%s", base, endpoint)
+        .Deprecated(
+            msg = paste0("The 'legacy' argument is deprecated.\n",
+            "See help(\"GDC-deprecated\")")
+        )
     uri <- sprintf("%s%s", uri, .parameter_string(parameters))
     if(getOption('gdc.verbose',FALSE)) {
       message("GET request uri:\n",uri)
@@ -69,7 +72,10 @@
     
     uri <- sprintf("%s/%s", base, endpoint)
     if(legacy)
-        uri <- sprintf("%s/legacy/%s", base, endpoint)
+        .Deprecated(
+            msg = paste0("The 'legacy' argument is deprecated.\n",
+            "See help(\"GDC-deprecated\")")
+        )
     if(getOption('gdc.verbose',FALSE)) {
       message("POST request uri:\n",uri)
       message("POST body: ",jsonlite::toJSON(body))

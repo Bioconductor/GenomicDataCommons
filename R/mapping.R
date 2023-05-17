@@ -11,7 +11,8 @@
     stopifnot(is.character(endpoint), length(endpoint) == 1L,
               endpoint %in% valid)
     response <- .gdc_get(
-        sprintf("%s/%s", endpoint, "_mapping"), legacy=FALSE)
+        sprintf("%s/%s", endpoint, "_mapping")
+    )
     content(response, type="application/json")
 }
 

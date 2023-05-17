@@ -51,9 +51,8 @@ to an existing \code{GDCQuery} object using \code{\link{filter}}.}
 See \code{\link{available_fields}}. In general, one will not specify this parameter
 but will use \code{\link{facet}} instead.}
 
-\item{legacy}{logical(1) whether to use the "legacy" archive or not. 
-See \url{https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Legacy_Archive/} 
-and \url{https://gdc-portal.nci.nih.gov/legacy-archive/search/f} for details.}
+\item{legacy}{logical(1) DEPRECATED; whether to use the "legacy" archive or
+not.}
 
 \item{expand}{a character vector of "expands" to include in returned data. See 
 \code{\link{available_expand}}}
@@ -84,7 +83,7 @@ is required for accessing certain datasets.
 }
 \section{Functions}{
 \itemize{
-\item \code{cases()}: convenience contructor for a GDCQuery for cases
+\item \code{cases()}: convenience constructor for a GDCQuery for cases
 
 \item \code{files()}: convenience contructor for a GDCQuery for files
 

@@ -11,7 +11,7 @@ available_values(entity, field, legacy = FALSE)
 
 \item{field}{character(1), a field that is present in the entity record}
 
-\item{legacy}{logical(1), use the legacy endpoint or not.}
+\item{legacy}{logical(1), DEPRECATED; use the legacy endpoint or not.}
 }
 \value{
 character vector of the top 100 (or fewer) most frequent

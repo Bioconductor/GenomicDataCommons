@@ -136,7 +136,7 @@ grep_fields <- function(entity,pattern,...,value=TRUE) {
 #' 
 #' @param entity character(1), a GDC entity ("cases", "files", "annotations", "projects")
 #' @param field character(1), a field that is present in the entity record
-#' @param legacy logical(1), use the legacy endpoint or not.
+#' @param legacy logical(1), DEPRECATED; use the legacy endpoint or not.
 #' 
 #' @return character vector of the top 100 (or fewer) most frequent
 #'     values for a the given field
@@ -147,7 +147,12 @@ grep_fields <- function(entity,pattern,...,value=TRUE) {
 #' @export
 available_values <- function(entity,field,legacy=FALSE) {
     stopifnot(entity %in% .gdc_entities)
-    agg = query(entity,legacy=legacy) %>% facet(field) %>% aggregations()
+    if (legacy)
+        .Deprecated(
+            msg = paste0("The 'legacy' argument is deprecated.\n",
+            "See help(\"GDC-deprecated\")")
+        )
+    agg = query(entity) %>% facet(field) %>% aggregations()
     agg[[field]]$key
 }
 

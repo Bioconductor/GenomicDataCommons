@@ -27,9 +27,9 @@
 #'     restricted data. Almost all BAM data is restricted, so a token is
 #'     usually required. See
 #'     \url{https://docs.gdc.cancer.gov/Data/Data_Security/Data_Security/#authentication-tokens}.
-
 #'
-#' @param legacy logical(1) whether or not to use the "legacy"
+#'
+#' @param legacy logical(1) DEPRECATED; whether or not to use the "legacy"
 #'     archive, containing older, non-harmonized data. Slicing of unharmonized
 #'     legacy BAM files is not supported. See
 #'     \url{https://docs.gdc.cancer.gov/API/Users_Guide/BAM_Slicing/}.
@@ -96,12 +96,17 @@ slicing <- function(uuid, regions, symbols, destination=file.path(tempdir(), pas
         ## FIXME: validate regions
         body <- list(regions=regions)
 
+    if (legacy)
+        .Deprecated(
+            msg = paste0("The 'legacy' endpoint is deprecated.\n",
+            "See help(\"GDC-deprecated\")")
+        )
     response <- .gdc_post(
-        endpoint=sprintf("legacy/slicing/view/%s", uuid),
+        endpoint=sprintf("slicing/view/%s", uuid),
         add_headers('Content-type'='application/json'),
         write_disk(destination, overwrite),
         if (progress) progress() else NULL,
-        body=toJSON(body), token=token, legacy = legacy)
+        body=toJSON(body), token=token)
     if (progress)
         cat("\n")
 
