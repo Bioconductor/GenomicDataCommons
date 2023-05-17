@@ -1,5 +1,9 @@
 ## Changes in version 1.24.0
 
+### New features
+
+* The GDC API has deprecated the legacy endpoint (#110, @LiNk-NY) 
+
 ### Bug fixes and minor improvements
 
 * `gdc_clinical` handles `NULL` responses when diagnoses are not available for
