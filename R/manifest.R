@@ -67,8 +67,13 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
     # remove return_type for now
     # body[['return_type']]='manifest'
     legacy = x$legacy
+    if (legacy)
+        .Deprecated(
+            msg = paste0("The 'legacy' argument is deprecated.\n",
+            "See help(\"GDC-deprecated\")")
+        )
     tmp <- httr::content(
-        .gdc_post(entity_name(x), body=body, token=NULL, legacy = legacy, ...),
+        .gdc_post(entity_name(x), body=body, token=NULL, ...),
         as = "text", encoding = "UTF-8"
     )
     tmp <- fromJSON(tmp)[["data"]][["hits"]]
