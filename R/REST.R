@@ -85,7 +85,7 @@
     response <- POST(
         uri, add_headers(
             `X-Auth-Token` = token,
-            Accept = "json",
+            Accept = "application/json",
             `Content-Type` = "application/json"
         ),
         ...,
