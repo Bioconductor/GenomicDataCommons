@@ -69,9 +69,8 @@
     function(endpoint, body, legacy=FALSE, token=NULL, ..., base=.gdc_base)
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
-    
     uri <- sprintf("%s/%s", base, endpoint)
-    if(legacy)
+    if (legacy)
         .Deprecated(
             msg = paste0("The 'legacy' argument is deprecated.\n",
             "See help(\"GDC-deprecated\")")

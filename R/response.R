@@ -104,8 +104,8 @@ response.GDCQuery = function(x, from = 0, size = 10, ...,
     body[['size']]=size
     body[['format']]='JSON'
     body[['pretty']]='FALSE'
-    tmp = response_handler(httr::content(.gdc_post(entity_name(x),body=body,
-                                                    token=NULL,...),
+    tmp = response_handler(httr::content(
+      .gdc_post(entity_name(x),body=body, token=NULL,...),
                                          as="text", encoding = "UTF-8"))
     res = tmp$data$hits
     idfield = paste0(sub('s$','',entity_name(x)),'_id')
