@@ -106,7 +106,7 @@ slicing <- function(uuid, regions, symbols, destination=file.path(tempdir(), pas
         add_headers('Content-type'='application/json'),
         write_disk(destination, overwrite),
         if (progress) progress() else NULL,
-        body=toJSON(body), token=token)
+        body=toJSON(body), token=token, legacy = FALSE)
     if (progress)
         cat("\n")
 
