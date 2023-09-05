@@ -77,7 +77,8 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
         as = "text", encoding = "UTF-8"
     )
     tmp <- jsonlite::fromJSON(tmp)[["data"]][["hits"]]
-    tmp[["acl"]] <- unlist(tmp[["acl"]])
+    if ("acl" %in% names(tmp))
+        tmp <- tidyr::unnest_wider(data = tmp, col = "acl", names_sep = "_")
     if(ncol(tmp)<5) {
         tmp=data.frame()
     }
