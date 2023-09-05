@@ -4,10 +4,10 @@
 #' using the GDC Data Transfer Tool. There are methods for
 #' creating manifest data frames from \code{\link{GDCQuery}} objects
 #' that contain file information ("cases" and "files" queries).
-#' 
+#'
 #' @param x An \code{\link{GDCQuery}} object of subclass "gdc_files" or "gdc_cases".
 #'
-#' @param size The total number of records to return.  Default 
+#' @param size The total number of records to return.  Default
 #' will return the usually desirable full set of records.
 #'
 #' @param from Record number from which to start when returning the manifest.
@@ -22,13 +22,13 @@
 #' \item{size}
 #' \item{state}
 #'}
-#' 
+#'
 #' @examples
 #' gFiles = files()
 #' shortManifest = gFiles %>% manifest(size=10)
 #' head(shortManifest,n=3)
 #'
-#' 
+#'
 #' @export
 manifest <- function(x,from=0,size=count(x),...) {
     UseMethod('manifest',x)
@@ -57,7 +57,7 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
 
 
 
-#' @importFrom readr read_tsv 
+#' @importFrom readr read_tsv
 .manifestCall <- function(x,from=0,size=count(x),...) {
     body = Filter(function(z) !is.null(z),x)
     body[['facets']]=NULL
@@ -76,8 +76,9 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
         .gdc_post(entity_name(x), body=body, token=NULL, ...),
         as = "text", encoding = "UTF-8"
     )
-    tmp <- fromJSON(tmp)[["data"]][["hits"]]
-    tmp[["acl"]] <- unlist(tmp[["acl"]])
+    tmp <- jsonlite::fromJSON(tmp)[["data"]][["hits"]]
+    if ("acl" %in% names(tmp))
+        tmp <- tidyr::unnest_wider(data = tmp, col = "acl", names_sep = "_")
     if(ncol(tmp)<5) {
         tmp=data.frame()
     }
@@ -86,7 +87,7 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
 }
 
 #' write a manifest data.frame to disk
-#' 
+#'
 #' The \code{\link{manifest}} method creates a data.frame
 #' that represents the data for a manifest file needed
 #' by the GDC Data Transfer Tool. While the file format
@@ -94,20 +95,20 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
 #' to write a manifest data.frame to disk. It returns
 #' the path to which the file is written, so it can
 #' be used "in-line" in a call to \code{\link{transfer}}.
-#' 
+#'
 #' @param manifest A data.frame with five columns, typically
 #'     created by a call to \code{\link{manifest}}
-#' 
+#'
 #' @param destfile The filename for saving the manifest.
-#'          
+#'
 #' @return character(1) the destination file name.
 #'
 #' @importFrom utils write.table
-#' 
+#'
 #' @examples
 #' mf = files() %>% manifest(size=10)
 #' write_manifest(mf)
-#' 
+#'
 #' @export
 write_manifest <- function(manifest,destfile=tempfile()) {
     stopifnot(
