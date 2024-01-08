@@ -28,8 +28,7 @@
 #'     to restricted data. See
 #'     \url{https://gdc-docs.nci.nih.gov/API/Users_Guide/Authentication_and_Authorization/}.
 #'
-#' @param ... further arguments passed to files, particularly useful when
-#'     requesting \code{legacy=TRUE}
+#' @param ... further arguments passed to files
 #'
 #' @seealso \code{\link{manifest}} for downloading large data.
 #'

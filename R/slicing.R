@@ -29,8 +29,7 @@
 #'     \url{https://docs.gdc.cancer.gov/Data/Data_Security/Data_Security/#authentication-tokens}.
 #'
 #'
-#' @param legacy logical(1) DEPRECATED; whether or not to use the "legacy"
-#'     archive, containing older, non-harmonized data. Slicing of unharmonized
+#' @param legacy logical(1) DEFUNCT; no longer in use. Slicing of unharmonized
 #'     legacy BAM files is not supported. See
 #'     \url{https://docs.gdc.cancer.gov/API/Users_Guide/BAM_Slicing/}.
 #'     
@@ -82,7 +81,7 @@
 #' }
 #' @export
 slicing <- function(uuid, regions, symbols, destination=file.path(tempdir(), paste0(uuid, '.bam')),
-                    overwrite=FALSE, progress=interactive(), token=gdc_token(), legacy = FALSE)
+                    overwrite=FALSE, progress=interactive(), token=gdc_token(), legacy)
 {
     stopifnot(is.character(uuid), length(uuid) == 1L)
     stopifnot(missing(regions) || missing(symbols),
@@ -96,17 +95,17 @@ slicing <- function(uuid, regions, symbols, destination=file.path(tempdir(), pas
         ## FIXME: validate regions
         body <- list(regions=regions)
 
-    if (legacy)
-        .Deprecated(
-            msg = paste0("The 'legacy' endpoint is deprecated.\n",
-            "See help(\"GDC-deprecated\")")
+    if (!missing(legacy))
+        .Defunct(
+            msg = paste0("The 'legacy' endpoint is defunct.\n",
+            "See help(\"GDC-defunct\")")
         )
     response <- .gdc_post(
         endpoint=sprintf("slicing/view/%s", uuid),
         add_headers('Content-type'='application/json'),
         write_disk(destination, overwrite),
         if (progress) progress() else NULL,
-        body=toJSON(body), token=token, legacy = FALSE)
+        body=toJSON(body), token=token)
     if (progress)
         cat("\n")
 

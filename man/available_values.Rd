@@ -4,14 +4,14 @@
 \alias{available_values}
 \title{Find common values for a GDC field}
 \usage{
-available_values(entity, field, legacy = FALSE)
+available_values(entity, field, legacy)
 }
 \arguments{
 \item{entity}{character(1), a GDC entity ("cases", "files", "annotations", "projects")}
 
 \item{field}{character(1), a field that is present in the entity record}
 
-\item{legacy}{logical(1), DEPRECATED; use the legacy endpoint or not.}
+\item{legacy}{logical(1), DEFUNCT; no longer in use.}
 }
 \value{
 character vector of the top 100 (or fewer) most frequent

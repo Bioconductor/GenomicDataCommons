@@ -18,9 +18,10 @@ query(
   entity,
   filters = NULL,
   facets = NULL,
-  legacy = FALSE,
   expand = NULL,
-  fields = default_fields(entity)
+  fields = default_fields(entity),
+  ...,
+  legacy
 )
 
 cases(...)
@@ -51,9 +52,6 @@ to an existing \code{GDCQuery} object using \code{\link{filter}}.}
 See \code{\link{available_fields}}. In general, one will not specify this parameter
 but will use \code{\link{facet}} instead.}
 
-\item{legacy}{logical(1) DEPRECATED; whether to use the "legacy" archive or
-not.}
-
 \item{expand}{a character vector of "expands" to include in returned data. See 
 \code{\link{available_expand}}}
 
@@ -61,6 +59,8 @@ not.}
 In general, one will not specify fields directly, but instead use \code{\link{select}}}
 
 \item{...}{passed through to \code{\link{query}}}
+
+\item{legacy}{logical(1) DEFUNCT; no longer in use.}
 }
 \value{
 An S3 object, the GDCQuery object. This is a list

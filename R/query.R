@@ -14,8 +14,7 @@
 #' @param facets a character vector of facets for counting common values. 
 #'     See \code{\link{available_fields}}. In general, one will not specify this parameter
 #'     but will use \code{\link{facet}} instead.
-#' @param legacy logical(1) DEPRECATED; whether to use the "legacy" archive or
-#'   not.
+#' @param legacy logical(1) DEFUNCT; no longer in use.
 #' @param fields a character vector of fields to return. See \code{\link{available_fields}}.
 #'     In general, one will not specify fields directly, but instead use \code{\link{select}}
 #' @param expand a character vector of "expands" to include in returned data. See 
@@ -41,21 +40,22 @@
 query = function(entity,
                  filters=NULL,
                  facets=NULL,
-                 legacy = FALSE,
                  expand = NULL,
-                 fields=default_fields(entity)) {
+                 fields=default_fields(entity),
+                 ...,
+                 legacy)
+{
     stopifnot(entity %in% .gdc_entities)
-    if (legacy) 
-        .Deprecated(
-            msg = paste0("The 'legacy' argument is deprecated.\n",
-            "See help(\"GDC-deprecated\")")
+    if (!missing(legacy))
+        .Defunct(
+            msg = paste0("The 'legacy' argument is defunct.\n",
+            "See help(\"GDC-defunct\")")
         )
     ret = structure(
         list(
             fields    = fields,
             filters   = filters,
             facets    = facets,
-            legacy    = legacy,
             expand    = expand),
         class = c(paste0('gdc_',entity),'GDCQuery','list')
     )
