@@ -35,8 +35,7 @@ to restricted data. See
 the gdc-client command line. See \code{\link{gdc_client}} and
 \code{\link{transfer_help}} for details.}
 
-\item{...}{further arguments passed to files, particularly useful when
-requesting \code{legacy=TRUE}}
+\item{...}{further arguments passed to files}
 }
 \value{
 a named vector with file uuids as the names and paths as

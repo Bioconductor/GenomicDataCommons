@@ -43,14 +43,14 @@
 #" (internal) GET endpoint / uri
 #' @importFrom httr GET add_headers stop_for_status
 .gdc_get <-
-    function(endpoint, parameters=list(), legacy=FALSE, token=NULL, ..., base=.gdc_base)
+    function(endpoint, parameters=list(), token=NULL, ..., base=.gdc_base, legacy)
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
     uri <- sprintf("%s/%s", base, endpoint)
-    if(legacy)
-        .Deprecated(
-            msg = paste0("The 'legacy' argument is deprecated.\n",
-            "See help(\"GDC-deprecated\")")
+    if (!missing(legacy))
+        .Defunct(
+            msg = paste0("The 'legacy' argument is defunct.\n",
+            "See help(\"GDC-defunct\")")
         )
     uri <- sprintf("%s%s", uri, .parameter_string(parameters))
     if(getOption('gdc.verbose',FALSE)) {
@@ -66,14 +66,14 @@
 #" (internal) POST endpoint / uri
 #' @importFrom httr POST add_headers write_disk stop_for_status
 .gdc_post <-
-    function(endpoint, body, legacy=FALSE, token=NULL, ..., base=.gdc_base)
+    function(endpoint, body, token=NULL, ..., base=.gdc_base, legacy)
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
     uri <- sprintf("%s/%s", base, endpoint)
-    if (legacy)
-        .Deprecated(
-            msg = paste0("The 'legacy' argument is deprecated.\n",
-            "See help(\"GDC-deprecated\")")
+    if (!missing(legacy))
+        .Defunct(
+            msg = paste0("The 'legacy' argument is defunct.\n",
+            "See help(\"GDC-defunct\")")
         )
     if(getOption('gdc.verbose',FALSE)) {
       message("POST request uri:\n",uri)
