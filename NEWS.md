@@ -1,8 +1,14 @@
-## Changes in version 1.24.0
+## Changes in version 1.28.0
+
+* Defunct legacy function, methods, endpoints, and arguments (@LiNk-NY)
+
+## Changes in version 1.26.0
 
 ### New features
 
 * The GDC API has deprecated the legacy endpoint (#110, @LiNk-NY) 
+
+## Changes in version 1.24.0
 
 ### Bug fixes and minor improvements
 
