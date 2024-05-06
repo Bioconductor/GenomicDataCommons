@@ -25,7 +25,7 @@
 #' 
 #' @examples
 #' gFiles = files()
-#' shortManifest = gFiles %>% manifest(size=10)
+#' shortManifest = gFiles |> manifest(size=10)
 #' head(shortManifest,n=3)
 #'
 #' 
@@ -100,7 +100,7 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
 #' @importFrom utils write.table
 #' 
 #' @examples
-#' mf = files() %>% manifest(size=10)
+#' mf = files() |> manifest(size=10)
 #' write_manifest(mf)
 #' 
 #' @export

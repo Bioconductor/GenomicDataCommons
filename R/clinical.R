@@ -41,7 +41,7 @@
 #'
 #'
 #' @examples
-#' case_ids = cases() %>% results(size=10) %>% ids()
+#' case_ids = cases() |> results(size=10) |> ids()
 #' clinical_data = gdc_clinical(case_ids)
 #'
 #' # overview of clinical results
@@ -60,11 +60,11 @@
 gdc_clinical = function(case_ids, include_list_cols = FALSE) {
     stopifnot(is.character(case_ids))
     stopifnot(is.logical(include_list_cols) & length(include_list_cols)==1)
-    resp = cases() %>%
-        filter( ~ case_id %in% case_ids) %>%
+    resp = cases() |>
+        filter( ~ case_id %in% case_ids) |>
         expand(c("diagnoses",
                  "demographic",
-                 "exposures")) %>%
+                 "exposures")) |>
         response_all(response_handler = function(x) jsonlite::fromJSON(x, simplifyDataFrame = TRUE))
     demographic = resp$results$demographic
     demographic$case_id = rownames(demographic)

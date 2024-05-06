@@ -60,9 +60,9 @@ When access_method is "api", the GDC "data" endpoint is the
 }
 \examples{
 # get some example file uuids
-uuids <- files() \%>\%
-    filter(~ access == 'open' & file_size < 100000) \%>\%
-    results(size = 3) \%>\%
+uuids <- files() |>
+    filter(~ access == 'open' & file_size < 100000) |>
+    results(size = 3) |>
     ids()
 
 # and get the data, placing it into the gdc_cache() directory

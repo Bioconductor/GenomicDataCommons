@@ -59,9 +59,9 @@ This function uses the Genomic Data Commons "slicing" API
         token=gdc_token())
 
 # Get 10 BAM files.
-bamfiles = files() \%>\% 
-           filter(data_format=='BAM') \%>\%
-           results(size=10) \%>\% ids()
+bamfiles = files() |> 
+           filter(data_format=='BAM') |>
+           results(size=10) |> ids()
 
 # Current alignments at the GDC are to GRCh38
 library('TxDb.Hsapiens.UCSC.hg38.knownGene')

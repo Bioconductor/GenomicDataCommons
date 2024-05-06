@@ -137,32 +137,32 @@ make_filter = function(expr,available_fields) {
 #'                 & experimental_strategy == 'WXS'
 #'                 & type == 'simple_somatic_mutation')
 #'
-#' files() %>% filter(~ data_format == 'VCF'
+#' files() |> filter(~ data_format == 'VCF'
 #'                    & experimental_strategy=='WXS'
-#'                    & type == 'simple_somatic_mutation') %>% count()
+#'                    & type == 'simple_somatic_mutation') |> count()
 #'                    
 #'                    
-#' files() %>% filter( data_format == 'VCF'
+#' files() |> filter( data_format == 'VCF'
 #'                    & experimental_strategy=='WXS'
-#'                    & type == 'simple_somatic_mutation') %>% count()
+#'                    & type == 'simple_somatic_mutation') |> count()
 #'
 #' # Filters may be chained for the 
 #' # equivalent query
 #' # 
 #' # When chained, filters are combined with logical AND
 #' 
-#' files() %>%
-#'   filter(~ data_format == 'VCF') %>%
-#'   filter(~ experimental_strategy == 'WXS') %>%
-#'   filter(~ type == 'simple_somatic_mutation') %>%
+#' files() |>
+#'   filter(~ data_format == 'VCF') |>
+#'   filter(~ experimental_strategy == 'WXS') |>
+#'   filter(~ type == 'simple_somatic_mutation') |>
 #'   count()
 #' 
 #' # OR
 #' 
-#' files() %>%
-#'   filter( data_format == 'VCF') %>%
-#'   filter( experimental_strategy == 'WXS') %>%
-#'   filter( type == 'simple_somatic_mutation') %>%
+#' files() |>
+#'   filter( data_format == 'VCF') |>
+#'   filter( experimental_strategy == 'WXS') |>
+#'   filter( type == 'simple_somatic_mutation') |>
 #'   count()
 #' 
 #' # Use str() to get a cleaner picture

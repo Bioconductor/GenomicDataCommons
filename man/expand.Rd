@@ -32,9 +32,9 @@ gProj$fields
 head(available_fields(gProj))
 default_fields(gProj)
 
-gProj \%>\%
-  select(default_fields(gProj)[1:2]) \%>\%
-  response() \%>\%
+gProj |>
+  select(default_fields(gProj)[1:2]) |>
+  response() |>
   str(max_level=2)
 
 }

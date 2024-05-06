@@ -32,9 +32,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' uuids = files() %>% 
-#'   filter(access == "open") %>% 
-#'   results() %>%
+#' uuids = files() |> 
+#'   filter(access == "open") |> 
+#'   results() |>
 #'   ids()
 #' file_paths <- transfer(uuids)
 #' file_paths
@@ -52,8 +52,8 @@ transfer <-
         stopifnot(is.character(uuids))
         destination_dir <- gdc_cache()
 
-        manifest = files() %>%
-            GenomicDataCommons::filter( ~ file_id %in% uuids ) %>%
+        manifest = files() |>
+            GenomicDataCommons::filter( ~ file_id %in% uuids ) |>
             GenomicDataCommons::manifest()
         manifest_file = write_manifest(manifest)
         

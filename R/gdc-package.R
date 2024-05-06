@@ -16,8 +16,6 @@
 #' @section downloading data:
 #' data
 #'
-#' @importFrom magrittr "%>%"
-#'
 #' @docType package
 #' @name GenomicDataCommons
 "_PACKAGE"
