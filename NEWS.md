@@ -1,4 +1,12 @@
+## Changes in version 1.30.0
+
+### Bug fixes and minor improvements
+
+* Removed legacy function, methods, endpoints, and arguments (@LiNk-NY)
+
 ## Changes in version 1.28.0
+
+### Bug fixes and minor improvements
 
 * Defunct legacy function, methods, endpoints, and arguments (@LiNk-NY)
 
