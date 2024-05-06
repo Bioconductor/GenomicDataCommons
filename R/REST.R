@@ -43,15 +43,10 @@
 #" (internal) GET endpoint / uri
 #' @importFrom httr GET add_headers stop_for_status
 .gdc_get <-
-    function(endpoint, parameters=list(), token=NULL, ..., base=.gdc_base, legacy)
+    function(endpoint, parameters=list(), token=NULL, ..., base=.gdc_base)
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
     uri <- sprintf("%s/%s", base, endpoint)
-    if (!missing(legacy))
-        .Defunct(
-            msg = paste0("The 'legacy' argument is defunct.\n",
-            "See help(\"GDC-defunct\")")
-        )
     uri <- sprintf("%s%s", uri, .parameter_string(parameters))
     if(getOption('gdc.verbose',FALSE)) {
       message("GET request uri:\n",uri)
@@ -66,15 +61,10 @@
 #" (internal) POST endpoint / uri
 #' @importFrom httr POST add_headers write_disk stop_for_status
 .gdc_post <-
-    function(endpoint, body, token=NULL, ..., base=.gdc_base, legacy)
+    function(endpoint, body, token=NULL, ..., base=.gdc_base)
 {
     stopifnot(is.character(endpoint), length(endpoint) == 1L)
     uri <- sprintf("%s/%s", base, endpoint)
-    if (!missing(legacy))
-        .Defunct(
-            msg = paste0("The 'legacy' argument is defunct.\n",
-            "See help(\"GDC-defunct\")")
-        )
     if(getOption('gdc.verbose',FALSE)) {
       message("POST request uri:\n",uri)
       message("POST body: ",jsonlite::toJSON(body))

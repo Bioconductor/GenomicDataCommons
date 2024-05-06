@@ -66,12 +66,6 @@ manifest.GDCcasesResponse <- function(x,from=0,size=count(x),...) {
     body[['size']]=size
     # remove return_type for now
     # body[['return_type']]='manifest'
-    legacy = x$legacy
-    if (is.logical(legacy))
-        .Defunct(
-            msg = paste0("The 'legacy' argument is defunct.\n",
-            "See help(\"GDC-defunct\")")
-        )
     tmp <- httr::content(
         .gdc_post(entity_name(x), body=body, token=NULL, ...),
         as = "text", encoding = "UTF-8"

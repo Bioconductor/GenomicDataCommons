@@ -302,7 +302,6 @@ example, the `projects()` function, the default fields from the GDC are used
 [retrieval](#retrieving-results).
 - facets: A character vector of field names that will be used for
 [aggregating data](#facets-and-aggregation) in a call to `aggregations()`.
-- archive: One of either "default" or ["legacy"](https://gdc-portal.nci.nih.gov/legacy-archive/).
 - token: A character(1) token from the GDC. See
 [the authentication section](#authentication) for details, but note that, in
 general, the token is not necessary for metadata query and retrieval, only for

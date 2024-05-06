@@ -28,12 +28,6 @@
 #'     usually required. See
 #'     \url{https://docs.gdc.cancer.gov/Data/Data_Security/Data_Security/#authentication-tokens}.
 #'
-#'
-#' @param legacy logical(1) DEFUNCT; no longer in use. Slicing of unharmonized
-#'     legacy BAM files is not supported. See
-#'     \url{https://docs.gdc.cancer.gov/API/Users_Guide/BAM_Slicing/}.
-#'     
-#'     
 #' @details This function uses the Genomic Data Commons "slicing" API
 #'     to get portions of a BAM file specified either using "regions"
 #'     or using HGNC gene symbols. 
@@ -81,7 +75,7 @@
 #' }
 #' @export
 slicing <- function(uuid, regions, symbols, destination=file.path(tempdir(), paste0(uuid, '.bam')),
-                    overwrite=FALSE, progress=interactive(), token=gdc_token(), legacy)
+                    overwrite=FALSE, progress=interactive(), token=gdc_token())
 {
     stopifnot(is.character(uuid), length(uuid) == 1L)
     stopifnot(missing(regions) || missing(symbols),
@@ -95,11 +89,6 @@ slicing <- function(uuid, regions, symbols, destination=file.path(tempdir(), pas
         ## FIXME: validate regions
         body <- list(regions=regions)
 
-    if (!missing(legacy))
-        .Defunct(
-            msg = paste0("The 'legacy' endpoint is defunct.\n",
-            "See help(\"GDC-defunct\")")
-        )
     response <- .gdc_post(
         endpoint=sprintf("slicing/view/%s", uuid),
         add_headers('Content-type'='application/json'),

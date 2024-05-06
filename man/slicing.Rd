@@ -11,8 +11,7 @@ slicing(
   destination = file.path(tempdir(), paste0(uuid, ".bam")),
   overwrite = FALSE,
   progress = interactive(),
-  token = gdc_token(),
-  legacy
+  token = gdc_token()
 )
 }
 \arguments{
@@ -39,10 +38,6 @@ progress bar be used?}
 restricted data. Almost all BAM data is restricted, so a token is
 usually required. See
 \url{https://docs.gdc.cancer.gov/Data/Data_Security/Data_Security/#authentication-tokens}.}
-
-\item{legacy}{logical(1) DEFUNCT; no longer in use. Slicing of unharmonized
-legacy BAM files is not supported. See
-\url{https://docs.gdc.cancer.gov/API/Users_Guide/BAM_Slicing/}.}
 }
 \value{
 character(1) destination to the downloaded BAM file

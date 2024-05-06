@@ -20,8 +20,7 @@ query(
   facets = NULL,
   expand = NULL,
   fields = default_fields(entity),
-  ...,
-  legacy
+  ...
 )
 
 cases(...)
@@ -59,8 +58,6 @@ but will use \code{\link{facet}} instead.}
 In general, one will not specify fields directly, but instead use \code{\link{select}}}
 
 \item{...}{passed through to \code{\link{query}}}
-
-\item{legacy}{logical(1) DEFUNCT; no longer in use.}
 }
 \value{
 An S3 object, the GDCQuery object. This is a list
