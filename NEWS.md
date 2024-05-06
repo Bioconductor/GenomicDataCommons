@@ -3,6 +3,7 @@
 ### Bug fixes and minor improvements
 
 * Removed legacy function, methods, endpoints, and arguments (@LiNk-NY)
+* Use native pipe `|>` instead of `magrittr::%>%` (@LiNk-NY)
 
 ## Changes in version 1.28.0
 
