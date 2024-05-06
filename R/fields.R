@@ -73,9 +73,9 @@ default_fields.GDCQuery = function(x) {
 #' head(available_fields(gProj))
 #' default_fields(gProj)
 #'
-#' gProj %>%
-#'   select(default_fields(gProj)[1:2]) %>%
-#'   response() %>%
+#' gProj |>
+#'   select(default_fields(gProj)[1:2]) |>
+#'   response() |>
 #'   str(max_level=2)
 #' 
 #' @export
@@ -146,7 +146,7 @@ grep_fields <- function(entity,pattern,...,value=TRUE) {
 #' @export
 available_values <- function(entity,field) {
     stopifnot(entity %in% .gdc_entities)
-    agg = query(entity) %>% facet(field) %>% aggregations()
+    agg = query(entity) |> facet(field) |> aggregations()
     agg[[field]]$key
 }
 

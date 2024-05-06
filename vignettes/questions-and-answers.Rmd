@@ -29,7 +29,7 @@ changes to lazy evaluation best practices. There is now no need to
 include the `~` in the filter expression. So:
 
 ```{r}
-q = files() %>%
+q = files() |>
   GenomicDataCommons::filter(
     cases.project.project_id == 'TCGA-COAD' &
       data_type == 'Aligned Reads' &
@@ -72,7 +72,7 @@ available_values('files',"cases.demographic.race")
 We can complete our filter expression now to limit to `white` race only.
 
 ```{r}
-q_white_only = q %>%
+q_white_only = q |>
   GenomicDataCommons::filter(cases.demographic.race=='white')
 count(q_white_only)
 manifest(q_white_only)
@@ -89,12 +89,12 @@ library(tibble)
 library(dplyr)
 library(GenomicDataCommons)
 
-cases() %>% 
+cases() |> 
   GenomicDataCommons::filter(~ project.program.name=='TCGA' & 
-                               files.experimental_strategy=='RNA-Seq') %>% 
-  facet(c("files.created_datetime")) %>% 
-  aggregations() %>% 
-  .[[1]] %>% 
-  as_tibble() %>%
+                               files.experimental_strategy=='RNA-Seq') |> 
+  facet(c("files.created_datetime")) |> 
+  aggregations() |> 
+  .[[1]] |> 
+  as_tibble() |>
   dplyr::arrange(dplyr::desc(key))
 ```

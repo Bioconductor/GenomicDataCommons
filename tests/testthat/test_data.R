@@ -1,5 +1,4 @@
 library(GenomicDataCommons)
-library(magrittr)
 context('data handling')
 
 case_ids <- cases() |> results(size=10) |> ids()
@@ -11,7 +10,7 @@ test_that("manifest files", {
 })
 
 test_that("write_manifest", {
-    m = files() %>% manifest(size=10)
+    m = files() |> manifest(size=10)
     tf = tempfile()
     write_manifest(m, tf)
     expect_true(file.exists(tf))
@@ -24,10 +23,10 @@ test_that("gdcdata", {
         dir.create(d)
     gdc_set_cache(d)
     
-    few_file_ids = files() %>%
+    few_file_ids = files() |>
         filter( ~ cases.project.project_id == 'TCGA-SARC' &
             data_type == 'Copy Number Segment' &
-            analysis.workflow_type == 'DNAcopy') %>% results(size=2) %>% ids()
+            analysis.workflow_type == 'DNAcopy') |> results(size=2) |> ids()
 
     res = gdcdata(few_file_ids)
     expect_length(res, 2)

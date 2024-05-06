@@ -104,16 +104,16 @@ table(var_samples$case$disease_type)
 ## OncoPrint
 
 ```{r}
-fnames <- files() %>%
+fnames <- files() |>
   GenomicDataCommons::filter(
     cases.project.project_id=='TCGA-SKCM' &
       data_format=='maf' &
       data_type=='Masked Somatic Mutation' &
       analysis.workflow_type ==
         'Aliquot Ensemble Somatic Variant Merging and Masking'
-  ) %>%
-  results(size = 1) %>%
-    ids() %>%
+  ) |>
+  results(size = 1) |>
+    ids() |>
       gdcdata()
 ```
 
