@@ -2,6 +2,7 @@
 % Please edit documentation in R/gdc-package.R
 \docType{package}
 \name{GenomicDataCommons}
+\alias{GenomicDataCommons-package}
 \alias{GenomicDataCommons}
 \title{ncigdc: A package for computating the notorious bar statistic.}
 \description{
@@ -25,3 +26,27 @@ Cool package for interfacing with NCI GDC
 data
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://bioconductor.org/packages/GenomicDataCommons}
+  \item \url{http://github.com/Bioconductor/GenomicDataCommons}
+  \item \url{http://bioconductor.github.io/GenomicDataCommons/}
+  \item Report bugs at \url{https://github.com/Bioconductor/GenomicDataCommons/issues/new}
+}
+
+}
+\author{
+\strong{Maintainer}: Sean Davis \email{seandavi@gmail.com}
+
+Authors:
+\itemize{
+  \item Martin Morgan \email{martin.morgan@roswellpark.org}
+}
+
+Other contributors:
+\itemize{
+  \item Marcel Ramos \email{marcel.ramos@roswellpark.org} [contributor]
+}
+
+}

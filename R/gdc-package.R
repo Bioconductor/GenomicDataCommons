@@ -20,4 +20,4 @@
 #'
 #' @docType package
 #' @name GenomicDataCommons
-NULL
+"_PACKAGE"
