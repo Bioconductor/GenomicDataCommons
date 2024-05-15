@@ -90,11 +90,13 @@ library(dplyr)
 library(GenomicDataCommons)
 
 cases() |> 
-  GenomicDataCommons::filter(~ project.program.name=='TCGA' & 
-                               files.experimental_strategy=='RNA-Seq') |> 
+  GenomicDataCommons::filter(
+    ~ project.program.name=='TCGA' & files.experimental_strategy=='RNA-Seq'
+  ) |> 
   facet(c("files.created_datetime")) |> 
   aggregations() |> 
-  .[[1]] |> 
+  unname() |>
+  unlist(recursive = FALSE) |> 
   as_tibble() |>
   dplyr::arrange(dplyr::desc(key))
 ```
