@@ -10,7 +10,7 @@ Authors@R: c( person("Martin", "Morgan",
         person("Sean", "Davis", email="seandavi@gmail.com",
         role=c("aut", "cre")),
         person("Marcel", "Ramos",
-        email = "marcel.ramos@roswellpark.org", role = "ctb"))
+        email = "marcel.ramos@sph.cuny.edu", role = "ctb"))
 License: Artistic-2.0
 Depends: R (>= 4.1.0)
 Imports: stats, httr, xml2, jsonlite, utils, rlang, readr,
