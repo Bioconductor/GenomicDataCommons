@@ -46,7 +46,7 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item Marcel Ramos \email{marcel.ramos@roswellpark.org} [contributor]
+  \item Marcel Ramos \email{marcel.ramos@sph.cuny.edu} [contributor]
 }
 
 }

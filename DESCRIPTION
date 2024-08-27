@@ -27,4 +27,4 @@ BugReports:
         https://github.com/Bioconductor/GenomicDataCommons/issues/new
 Encoding: UTF-8
 VignetteBuilder: knitr
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
