@@ -8,14 +8,17 @@ test_that("clinical data is structured properly", {
     )
     expect_true(
         all(
-            c("demographic", "diagnoses", "exposures", "main") %in%
-                names(clinical_data)
+            c("demographic", "diagnoses", "exposures", "follow_ups", "main")
+            %in%
+            names(clinical_data)
         )
     )
     
-    expect_true(
-        all(
-            vapply(clinical_data, nrow, integer(1L)) >= sizen
+    expect_identical(
+        vapply(clinical_data, nrow, integer(1L)),
+        c(
+            demographic = 3L, diagnoses = 2L, exposures = 0L,
+            follow_ups = 0L, main = 3L
         )
     )
     expect_true(
