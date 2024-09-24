@@ -64,7 +64,8 @@ gdc_clinical = function(case_ids, include_list_cols = FALSE) {
         filter( ~ case_id %in% case_ids) |>
         expand(c("diagnoses",
                  "demographic",
-                 "exposures")) |>
+                 "exposures",
+                 "follow_ups.other_clinical_attributes")) |>
         response_all(response_handler = function(x) jsonlite::fromJSON(x, simplifyDataFrame = TRUE))
     demographic = resp$results$demographic
     demographic$case_id = rownames(demographic)
@@ -81,9 +82,10 @@ gdc_clinical = function(case_ids, include_list_cols = FALSE) {
     })
 
     exposures = bind_rows(resp$results$exposures, .id = "case_id")
+    follow_ups = bind_rows(resp$results$follow_ups, .id = "case_id")
 
     # set up main table by removing data.frame columns
-    cnames = setdiff(colnames(resp$results), c('exposures', 'diagnoses', 'demographic'))
+    cnames = setdiff(colnames(resp$results), c('exposures', 'follow_ups', 'diagnoses', 'demographic'))
     main = resp$results[, cnames]
 
     if(!include_list_cols) {
@@ -94,6 +96,7 @@ gdc_clinical = function(case_ids, include_list_cols = FALSE) {
     y = list(demographic = as_tibble(demographic),
              diagnoses = as_tibble(diagnoses),
              exposures = as_tibble(exposures),
+             follow_ups = as_tibble(follow_ups),
              main = as_tibble(main))
     class(y) = c('GDCClinicalList', class(y))
     return(y)
