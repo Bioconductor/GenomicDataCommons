@@ -43,7 +43,7 @@ relationships. It is up to the user to determine what the best
 approach is for any given dataset.
 }
 \examples{
-case_ids = cases() \%>\% results(size=10) \%>\% ids()
+case_ids = cases() |> results(size=10) |> ids()
 clinical_data = gdc_clinical(case_ids)
 
 # overview of clinical results
