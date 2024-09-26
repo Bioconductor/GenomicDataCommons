@@ -1,4 +1,11 @@
-## Changes in version 1.28.0
+## Changes in version 1.28.1
+
+### New features
+
+* `gdc_clinical` includes clinical data from the
+`cases.follow_ups.other_clinical_attributes` entity (@LiNk-NY).
+
+### Bug fixes and minor improvements
 
 * Defunct legacy function, methods, endpoints, and arguments (@LiNk-NY)
 
