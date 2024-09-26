@@ -1,6 +1,4 @@
-#' ncigdc: A package for computating the notorious bar statistic.
-#'
-#' Cool package for interfacing with NCI GDC
+#' GenomicDataCommons: A package for interfacing with the NCI GDC
 #' 
 #' @section finding data:
 #' 
@@ -18,6 +16,4 @@
 #'
 #' @importFrom magrittr "%>%"
 #'
-#' @docType package
-#' @name GenomicDataCommons
-NULL
+"_PACKAGE"
