@@ -2,9 +2,13 @@ library(GenomicDataCommons)
 context('API')
 
 test_that("status returns correctly", {
-    res = status()
-    expect_equal(length(res), 5)
-    expect_equal(res$status,"OK")
+    res <- status()
+    metadata_nms <- c(
+        "commit", "data_release", "data_release_version",
+        "status", "tag", "version"
+    )
+    expect_identical(names(res), metadata_nms)
+    expect_identical(res$status, "OK")
 })
 
 test_that('query', {
