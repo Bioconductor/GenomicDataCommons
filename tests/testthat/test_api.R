@@ -1,5 +1,3 @@
-library(GenomicDataCommons)
-library(magrittr)
 context('API')
 
 test_that("status returns correctly", {
@@ -34,8 +32,8 @@ test_that('query', {
 test_that("cases", {
     idfield = "case_id"
     q = cases()
-    resp = q %>% response()
-    expect_gte(q %>% count(),1000)
+    resp = q |> response()
+    expect_gte(q |> count(),1000)
     expect_equal(select(q,idfield)$fields,idfield)
     expect_equal(facet(q,idfield)$facets,idfield)
 })
@@ -43,8 +41,8 @@ test_that("cases", {
 test_that("files", {
     q = files()
     idfield = "file_id"
-    resp = q %>% response()
-    expect_gte(q %>% count(),1000)
+    resp = q |> response()
+    expect_gte(q |> count(),1000)
     expect_equal(select(q,idfield)$fields,idfield)
     expect_equal(facet(q,idfield)$facets,idfield)
 })
@@ -52,8 +50,8 @@ test_that("files", {
 test_that("annotations", {
     q = annotations()
     idfield = "annotation_id"
-    resp = q %>% response()
-    expect_gte(q %>% count(),1000)
+    resp = q |> response()
+    expect_gte(q |> count(),1000)
     expect_equal(select(q,idfield)$fields,idfield)
     expect_equal(facet(q,idfield)$facets,idfield)
 })
@@ -68,8 +66,9 @@ test_that("mapping", {
 test_that("projects", {
     q = projects()
     idfield = "project_id"
-    resp = q %>% response()
-    expect_gte(q %>% count(),35)
+    resp = q |> response()
+    expect_gte(q |> count(),35)
     expect_equal(select(q,idfield)$fields,idfield)
     expect_equal(facet(q,idfield)$facets,idfield)
 })
+
