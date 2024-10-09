@@ -1,4 +1,3 @@
-library(GenomicDataCommons)
 context('API')
 
 test_that("status returns correctly", {
@@ -72,3 +71,4 @@ test_that("projects", {
     expect_equal(select(q,idfield)$fields,idfield)
     expect_equal(facet(q,idfield)$facets,idfield)
 })
+
