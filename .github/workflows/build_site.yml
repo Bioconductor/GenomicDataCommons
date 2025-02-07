@@ -1,0 +1,88 @@
+name: Release R CMD check and build site
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - RELEASE_3_20
+    paths:
+      - 'DESCRIPTION'
+      - '**.yml'
+
+env:
+  R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+  GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+  CRAN: https://packagemanager.posit.co/cran/__linux__/jammy/latest
+  BIOC_VERSION: RELEASE_3_20
+
+jobs:
+  checkRelease:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        bioc_version: [RELEASE_3_20] # Define versions as matrix variables
+    container: bioconductor/bioconductor_docker:${{ matrix.bioc_version }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BIOC_VERSION }}
+
+      - name: Query dependencies
+        run: |
+          BiocManager::install("remotes")
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+        shell: Rscript {0}
+
+      - name: Cache R packages
+        if: runner.os != 'Windows'
+        uses: actions/cache@v4
+        with:
+          path: /usr/local/lib/R/site-library
+          key: ${{ runner.os }}-r-${{ env.BIOC_VERSION }}-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-r-${{ env.BIOC_VERSION }}-
+
+      - name: Install Dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE, repos = BiocManager::repositories())
+          BiocManager::install(c("rcmdcheck", "pkgdown", "covr"), ask = FALSE, update = TRUE)
+        shell: Rscript {0}
+
+      - name: Check Package
+        id: rcmdcheck
+        env:
+          _R_CHECK_CRAN_INCOMING_REMOTE_: false
+        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error", check_dir = "check")
+        shell: Rscript {0}
+
+      - name: Test coverage
+        run: |
+          covr::codecov(
+            quiet = FALSE,
+            clean = FALSE,
+            install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
+          )
+        shell: Rscript {0}
+
+      - name: Build pkgdown
+        run: |
+           PATH=$PATH:$HOME/bin/ Rscript -e 'pkgdown::build_site()'
+
+      - name: Upload pkgdown artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    needs: checkRelease
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
