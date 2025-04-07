@@ -1,3 +1,9 @@
+## Changes in version 1.32.0
+
+### Bug fixes and minor improvements
+
+* Minor updates to unit tests and GitHub Actions
+
 ## Changes in version 1.30.0
 
 ### New features
