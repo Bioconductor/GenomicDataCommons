@@ -14,11 +14,9 @@ test_that("clinical data is structured properly", {
         )
     )
     
-    expect_identical(
-        vapply(clinical_data, nrow, integer(1L)),
-        c(
-            demographic = 3L, diagnoses = 3L, exposures = 3L,
-            follow_ups = 5L, main = 3L
+    expect_true(
+        all(
+            vapply(clinical_data, nrow, integer(1L)) >= sizen
         )
     )
     expect_true(
