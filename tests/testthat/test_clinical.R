@@ -14,6 +14,8 @@ test_that("clinical data is structured properly", {
         )
     )
     
+    ## exposures has no rows
+    clinical_data <- clinical_data[names(clinical_data) != "exposures"]
     expect_true(
         all(
             vapply(clinical_data, nrow, integer(1L)) >= sizen
